@@ -45,7 +45,7 @@ public class DialogUtil {
 			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			progressDialog.setIndeterminate(false);
 			progressDialog.setCancelable(false);
-			progressDialog.setMessage("��������:\n");
+			progressDialog.setMessage("正在搜索...");
 			progressDialog.show();
 		}
 	}

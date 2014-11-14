@@ -73,6 +73,9 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		this.context = context;
 		this.keySearch = key;
 		dialog = new DialogUtil(context);
+		aMap.setOnMarkerClickListener(this);// 添加点击marker监听事件
+		aMap.setInfoWindowAdapter(this);// 添加显示infowindow监听事件
+		doSearchQuery(); // 开始搜索
 	}
 
 	/**
@@ -92,8 +95,6 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 
 	@Override
 	public void onPoiItemDetailSearched(PoiItemDetail arg0, int arg1) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**

@@ -1,11 +1,10 @@
 package ustc.sse.water.activity;
 
 import ustc.sse.water.tools.zjx.MyLocationSet;
+import ustc.sse.water.tools.zjx.PoiSearchMethod;
 import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -15,22 +14,16 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.AMap.InfoWindowAdapter;
-import com.amap.api.maps2d.AMap.OnMarkerClickListener;
 import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.Marker;
-import com.amap.api.services.poisearch.PoiItemDetail;
-import com.amap.api.services.poisearch.PoiResult;
-import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
 
 /**
  * 
- * 首届面类 <br>
+ * 首界面类 <br>
  * 该类用来显示高德地图，并完成基本操作如：定位、导航、搜索、路线规划等
  * <p>
  * Copyright: Copyright (c) 2014-11-13 下午10:35:02
@@ -42,8 +35,7 @@ import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
  * @version 1.0.0
  */
 public class DriverMainScreen extends Activity implements LocationSource,
-		AMapLocationListener, OnMarkerClickListener, InfoWindowAdapter,
-		TextWatcher, OnPoiSearchListener, OnClickListener {
+		AMapLocationListener, OnClickListener {
 	/* 高德地图AMap */
 	private AMap aMap;
 	/* 用来显示地图的MapView */
@@ -57,6 +49,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private ImageButton myLocation;
 	/* 我的位置坐标 */
 	private LatLng myLatlng;
+	/**/
+	boolean flag = false;
 
 	/**
 	 * 必须重写onCreate
@@ -80,10 +74,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			uiSettings = aMap.getUiSettings();
 			// 设置高德地图的logo在底部中间
 			uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
-			uiSettings.setMyLocationButtonEnabled(false); // 不现实高德自带的定位按钮
+			uiSettings.setMyLocationButtonEnabled(false); // 不显示高德自带的定位按钮
 			aMap.setLocationSource(this);// 监听定位
 			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 			new MyLocationSet(aMap).setMapLocation(); // 开始定位
+			new PoiSearchMethod(aMap, this, "停车场"); // 显示我的位置附件的停车场
 		}
 	}
 
@@ -141,6 +136,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
 			myLatlng = new LatLng(aLocation.getAltitude(),
 					aLocation.getLongitude());// 获取我的位置
+
 		}
 	}
 
@@ -153,7 +149,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		if (mAMapLocationManager == null) {
 			mAMapLocationManager = LocationManagerProxy.getInstance(this);
 			mAMapLocationManager.requestLocationUpdates(
-					LocationProviderProxy.AMapNetwork, 2000, 10, this);
+					LocationProviderProxy.AMapNetwork, -1, 10, this);
 		}
 	}
 
@@ -195,52 +191,4 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// aMap.setMyLocationEnabled(true);
 	}
 
-	@Override
-	public void onPoiItemDetailSearched(PoiItemDetail arg0, int arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onPoiSearched(PoiResult arg0, int arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void afterTextChanged(Editable s) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public View getInfoContents(Marker arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public View getInfoWindow(Marker arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean onMarkerClick(Marker arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
