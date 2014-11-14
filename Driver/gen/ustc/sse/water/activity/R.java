@@ -36,7 +36,11 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int error_key=0x7f040007;
+        public static final int error_network=0x7f040006;
+        public static final int error_other=0x7f040008;
         public static final int key_search=0x7f040001;
+        public static final int no_result=0x7f040005;
         public static final int path_planning=0x7f040002;
         public static final int round_search=0x7f040004;
         public static final int start_navigation=0x7f040003;

@@ -9,21 +9,21 @@ import com.amap.api.maps2d.model.LatLng;
 
 /**
  * 
- * ¶¨Î»°´Å¥ÊÂ¼ş´¦ÀíÀà <br>
- * ´¦Àí¶¨Î»°´Å¥µÄÊÂ¼ş
+ * å®šä½äº‹ä»¶å¤„ç†ç±» <br>
+ * è‡ªå®šä¹‰æŒ‰é’®å®ç°å®šä½äº‹ä»¶å¤„ç†
  * <p>
- * Copyright: Copyright (c) 2014-11-12 ÏÂÎç8:54:05
+ * Copyright: Copyright (c) 2014-11-14 ä¸Šåˆ8:50:46
  * <p>
- * Company: ÖĞ¹ú¿ÆÑ§¼¼Êõ´óÑ§Èí¼şÑ§Ôº
+ * Company: ä¸­å›½ç§‘å­¦æŠ€æœ¯å¤§å­¦è½¯ä»¶å­¦é™¢
  * <p>
  * 
- * @author ÖÜ¾§öÎ sa614412@mail.ustc.edu.cn
+ * @author å‘¨æ™¶é‘« sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class MyLocationListener implements OnClickListener {
-	/* ´¦ÀíÊÂ¼şµÄµØÍ¼ */
+	/* æ¥æ”¶ä¼ é€’çš„AMap */
 	private AMap aMap;
-	/* ÎÒµÄÎ»ÖÃµÄµØÀí×ø±ê */
+	/* æ¥æ”¶æˆ‘çš„ä½ç½® */
 	private LatLng myLatlng;
 
 	public MyLocationListener(AMap map, LatLng latlng) {
@@ -32,7 +32,7 @@ public class MyLocationListener implements OnClickListener {
 	}
 
 	/**
-	 * µ±µã»÷¶¨Î»°´Å¥Ê±£¬µØÍ¼Ìø×ªµ½¡°ÎÒµÄÎ»ÖÃ¡±
+	 * åœ°å›¾è·³è½¬åˆ°æˆ‘çš„ä½ç½®
 	 */
 	@Override
 	public void onClick(View v) {

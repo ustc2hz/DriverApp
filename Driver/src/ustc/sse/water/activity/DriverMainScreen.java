@@ -1,9 +1,11 @@
 package ustc.sse.water.activity;
 
-import ustc.sse.water.utils.zjx.MyLocationSet;
+import ustc.sse.water.tools.zjx.MyLocationSet;
 import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -13,73 +15,80 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.AMap.InfoWindowAdapter;
+import com.amap.api.maps2d.AMap.OnMarkerClickListener;
 import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.services.poisearch.PoiItemDetail;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
 
 /**
  * 
- * DriverÓ¦ÓÃµÄµØÍ¼ÏÔÊ¾½çÃæ <br>
- * ´ËÀàÎªÏÔÊ¾¸ßµÂµØÍ¼µÄActivity£» ·ÖÎª£º¶¥²¿µ¼º½À¸£¬ÖĞ²¿µØÍ¼£¬µ×²¿µ¼º½À¸Èı²¿·Ö ÔÚµØÍ¼½çÃæÖĞÄ¬ÈÏ¶¨Î»µ½¡°ÎÒµÄÎ»ÖÃ¡±£¬²¢Ä¬ÈÏÏÔÊ¾ÖÜÎ§µÄÍ£³µ³¡
+ * é¦–å±Šé¢ç±» <br>
+ * è¯¥ç±»ç”¨æ¥æ˜¾ç¤ºé«˜å¾·åœ°å›¾ï¼Œå¹¶å®ŒæˆåŸºæœ¬æ“ä½œå¦‚ï¼šå®šä½ã€å¯¼èˆªã€æœç´¢ã€è·¯çº¿è§„åˆ’ç­‰
  * <p>
- * Copyright: Copyright (c) 2014-11-12 ÏÂÎç2:40:50
+ * Copyright: Copyright (c) 2014-11-13 ä¸‹åˆ10:35:02
  * <p>
- * Company: ÖĞ¹ú¿ÆÑ§¼¼Êõ´óÑ§Èí¼şÑ§Ôº
+ * Company: ä¸­å›½ç§‘å­¦æŠ€æœ¯å¤§å­¦è½¯ä»¶å­¦é™¢
  * <p>
  * 
- * @author ÖÜ¾§öÎ sa614412@mail.ustc.edu.cn
+ * @author å‘¨æ™¶é‘« sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class DriverMainScreen extends Activity implements LocationSource,
-		AMapLocationListener, OnClickListener {
-	/* ¶¨ÒåAMap */
+		AMapLocationListener, OnMarkerClickListener, InfoWindowAdapter,
+		TextWatcher, OnPoiSearchListener, OnClickListener {
+	/* é«˜å¾·åœ°å›¾AMap */
 	private AMap aMap;
-	/* ¶¨ÒåÓÃÀ´ÏÔÊ¾µÄMapView */
+	/* ç”¨æ¥æ˜¾ç¤ºåœ°å›¾çš„MapView */
 	private MapView mapView;
-	/* ¶¨ÒåÉèÖÃµØÍ¼ */
+	/* åœ°å›¾çš„åŸºæœ¬è®¾ç½® */
 	private UiSettings uiSettings;
-	/* ÓÃÀ´´¦Àí¶¨Î» */
+	/* å®šä½ç›‘å¬ */
 	private OnLocationChangedListener mListener;
 	private LocationManagerProxy mAMapLocationManager;
-	/* ¶¨Î»°´Å¥ */
+	/* è‡ªå®šä¹‰å®šä½æŒ‰é’® */
 	private ImageButton myLocation;
-	/* ÎÒµÄÎ»ÖÃ */
+	/* æˆ‘çš„ä½ç½®åæ ‡ */
 	private LatLng myLatlng;
 
 	/**
-	 * ±ØĞëÖØĞ´onCreate·½·¨
+	 * å¿…é¡»é‡å†™onCreate
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.driver_main);
 		mapView = (MapView) findViewById(R.id.map);
-		mapView.onCreate(savedInstanceState);// ´Ë·½·¨±ØĞëÖØĞ´
+		mapView.onCreate(savedInstanceState);// å¿…é¡»é‡å†™
 		initMap();
 		initViews();
 	}
 
 	/**
-	 * ³õÊ¼»¯µØÍ¼µÄÏÔÊ¾ĞÅÏ¢
+	 * åˆå§‹åŒ–åœ°å›¾ä¿¡æ¯
 	 */
 	private void initMap() {
 		if (aMap == null) {
 			aMap = mapView.getMap();
 			uiSettings = aMap.getUiSettings();
-			// ½«¸ßµÂµØÍ¼µÄLogoÉèÖÃÎªµ×²¿¾ÓÖĞ
+			// è®¾ç½®é«˜å¾·åœ°å›¾çš„logoåœ¨åº•éƒ¨ä¸­é—´
 			uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
-			uiSettings.setMyLocationButtonEnabled(false); // ²»ÏÖÊµÏµÍ³×Ô´øµÄ¶¨Î»°´Å¥
-			aMap.setLocationSource(this);// ÉèÖÃ¶¨Î»¼àÌı
-			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// ÖØ¶¨ÒåËõ·Å¼¶±ğ
-			new MyLocationSet(aMap).setMapLocation(); // µ÷ÓÃ·½·¨£¬ÉèÖÃ¶¨Î»ÊôĞÔ
+			uiSettings.setMyLocationButtonEnabled(false); // ä¸ç°å®é«˜å¾·è‡ªå¸¦çš„å®šä½æŒ‰é’®
+			aMap.setLocationSource(this);// ç›‘å¬å®šä½
+			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// æ›´æ”¹ç¼©æ”¾ç¨‹åº¦
+			new MyLocationSet(aMap).setMapLocation(); // å¼€å§‹å®šä½
 		}
 	}
 
 	/**
-	 * ³õÊ¼»¯Ui¿Ø¼ş
+	 * åˆå§‹åŒ–Uiæ§ä»¶
 	 */
 	private void initViews() {
 		myLocation = (ImageButton) findViewById(R.id.button_my_location);
@@ -87,7 +96,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * ±ØĞëÖØĞ´onResume
+	 * å¿…é¡»é‡å†™onResume
 	 */
 	@Override
 	protected void onResume() {
@@ -96,7 +105,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * ±ØĞëÖØĞ´onPause
+	 * å¿…é¡»é‡å†™onPause
 	 */
 	@Override
 	protected void onPause() {
@@ -106,7 +115,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * ±ØĞëÖØĞ´onSaveInstanceState
+	 * å¿…é¡»é‡å†™onSaveInstanceState
 	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -115,7 +124,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * ±ØĞëÖØĞÂonDestroy
+	 * å¿…é¡»é‡å†™onDestroy
 	 */
 	@Override
 	protected void onDestroy() {
@@ -124,19 +133,19 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * ¶¨Î»³É¹¦ºó»Øµ÷¸Ãº¯Êı
+	 * å®šä½å®Œæˆåå›è°ƒè¯¥æ–¹æ³•
 	 */
 	@Override
 	public void onLocationChanged(AMapLocation aLocation) {
 		if (mListener != null && aLocation != null) {
-			mListener.onLocationChanged(aLocation);// ÏÔÊ¾ÏµÍ³Ğ¡À¶µã
+			mListener.onLocationChanged(aLocation);// æ˜¾ç¤ºç³»ç»Ÿå°è“ç‚¹
 			myLatlng = new LatLng(aLocation.getAltitude(),
-					aLocation.getLongitude());// ÎÒµÄÎ»ÖÃ
+					aLocation.getLongitude());// è·å–æˆ‘çš„ä½ç½®
 		}
 	}
 
 	/**
-	 * ¼¤»î¶¨Î»
+	 * æ¿€æ´»å®šä½
 	 */
 	@Override
 	public void activate(OnLocationChangedListener listener) {
@@ -149,7 +158,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * Í£Ö¹¶¨Î»
+	 * åœæ­¢å®šä½
 	 */
 	@Override
 	public void deactivate() {
@@ -177,9 +186,61 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	public void onProviderDisabled(String provider) {
 	}
 
+	/**
+	 * Uiæ§ä»¶çš„äº‹ä»¶æ“ä½œ
+	 */
 	@Override
 	public void onClick(View v) {
 		aMap.animateCamera(new CameraUpdateFactory().changeLatLng(myLatlng));
 		// aMap.setMyLocationEnabled(true);
+	}
+
+	@Override
+	public void onPoiItemDetailSearched(PoiItemDetail arg0, int arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onPoiSearched(PoiResult arg0, int arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void afterTextChanged(Editable s) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public View getInfoContents(Marker arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public View getInfoWindow(Marker arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker arg0) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
