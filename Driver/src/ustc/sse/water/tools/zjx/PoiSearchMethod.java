@@ -133,7 +133,7 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		} else if (rCode == 32) {
 			ToastUtil.show(context, R.string.error_key);
 		} else {
-			ToastUtil.show(context, R.string.error_other + rCode);
+			ToastUtil.show(context, R.string.error_other + rCode + "");
 		}
 
 	}

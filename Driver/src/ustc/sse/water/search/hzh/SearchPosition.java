@@ -1,5 +1,6 @@
 package ustc.sse.water.search.hzh;
 
+import ustc.sse.water.activity.R;
 import android.app.ProgressDialog;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
@@ -85,7 +86,7 @@ public class SearchPosition extends FragmentActivity implements
 		if (aMap == null) {
 			aMap = ((SupportMapFragment) getSupportFragmentManager()
 					.findFragmentById(R.id.map)).getMap();
-			setUpMap();
+			// setUpMap();
 		}
 	}
 

@@ -1,7 +1,7 @@
 package ustc.sse.water.activity;
 
 import ustc.sse.water.tools.zjx.MyLocationSet;
-import ustc.sse.water.tools.zjx.PoiSearchMethod;
+import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.services.core.LatLonPoint;
 
 /**
  * 
@@ -78,7 +79,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			aMap.setLocationSource(this);// 监听定位
 			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 			new MyLocationSet(aMap).setMapLocation(); // 开始定位
-			new PoiSearchMethod(aMap, this, "停车场"); // 显示我的位置附件的停车场
+			// new PoiSearchMethod(aMap, this, "停车场"); // 显示我的位置附件的停车场
 		}
 	}
 
@@ -136,7 +137,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
 			myLatlng = new LatLng(aLocation.getAltitude(),
 					aLocation.getLongitude());// 获取我的位置
-
+			LatLonPoint lp = new LatLonPoint(aLocation.getAltitude(),
+					aLocation.getLongitude());
+			new PoiAroundSearchMethod(aMap, this, "", lp);
 		}
 	}
 
