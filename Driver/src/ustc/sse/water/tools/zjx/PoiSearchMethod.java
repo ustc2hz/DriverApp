@@ -1,5 +1,6 @@
 package ustc.sse.water.tools.zjx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ustc.sse.water.activity.R;
@@ -9,14 +10,20 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.AMap.InfoWindowAdapter;
 import com.amap.api.maps2d.AMap.OnMarkerClickListener;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.overlay.PoiOverlay;
+import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
+import com.amap.api.services.help.Inputtips;
+import com.amap.api.services.help.Inputtips.InputtipsListener;
+import com.amap.api.services.help.Tip;
 import com.amap.api.services.poisearch.PoiItemDetail;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -33,7 +40,7 @@ import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
  * <p>
  * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
- * @version 1.0.0
+ * @version 2.0.0
  */
 public class PoiSearchMethod implements OnMarkerClickListener,
 		InfoWindowAdapter, TextWatcher, OnPoiSearchListener {
@@ -53,6 +60,8 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 	private PoiResult poiResult;
 	/* 对话框类 */
 	DialogUtil dialog;
+	/* 接收传递的自动输入框 */
+	private AutoCompleteTextView keyEdit;
 
 	public PoiSearchMethod() {
 		// 保留无参构造函数
@@ -65,17 +74,17 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 	 *            操作的地图
 	 * @param context
 	 *            上下文
-	 * @param key
-	 *            搜索关键字
+	 * @param edit
+	 *            自动填充文本框
 	 */
-	public PoiSearchMethod(AMap map, Context context, String key) {
+	public PoiSearchMethod(AMap map, Context context, AutoCompleteTextView edit) {
 		this.aMap = map;
 		this.context = context;
-		this.keySearch = key;
-		dialog = new DialogUtil(context);
+		this.keyEdit = edit;
+		dialog = new DialogUtil(context); // 生成对话框
+		keyEdit.addTextChangedListener(this);// 自动填充文本框监听事件
 		aMap.setOnMarkerClickListener(this);// 添加点击marker监听事件
 		aMap.setInfoWindowAdapter(this);// 添加显示infowindow监听事件
-		doSearchQuery(); // 开始搜索
 	}
 
 	/**
@@ -85,7 +94,7 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		dialog.showProgressDialog();// 显示对话框
 		currentPage = 0;
 		query = new PoiSearch.Query(keySearch, "", "苏州");// 开始在苏州按关键字搜索
-		query.setPageSize(5);// 设置每页最多返回多少条poiitem
+		query.setPageSize(10);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 
 		poiSearch = new PoiSearch(context, query);
@@ -141,20 +150,44 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
 			int after) {
-		// TODO Auto-generated method stub
-
 	}
 
+	/**
+	 * 自动填充文本，正在输入
+	 */
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		// TODO Auto-generated method stub
+		String newText = s.toString().trim();
+		Inputtips inputTips = new Inputtips(context, new InputtipsListener() {
 
+			@Override
+			public void onGetInputtips(List<Tip> tipList, int rCode) {
+				if (rCode == 0) {// 正确返回
+					List<String> listString = new ArrayList<String>();
+					for (int i = 0; i < tipList.size(); i++) {
+						listString.add(tipList.get(i).getName());
+					}
+					ArrayAdapter<String> aAdapter = new ArrayAdapter<String>(
+							context, R.layout.route_inputs, listString);
+					keyEdit.setAdapter(aAdapter);
+					aAdapter.notifyDataSetChanged();
+				}
+			}
+		});
+		try {
+			inputTips.requestInputtips(newText, "苏州");// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
+		} catch (AMapException e) {
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * 输入信息改变之后
+	 */
 	@Override
 	public void afterTextChanged(Editable s) {
-		// TODO Auto-generated method stub
-
+		keySearch = s.toString();
+		doSearchQuery(); // 开始搜索
 	}
 
 	@Override

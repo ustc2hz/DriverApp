@@ -31,9 +31,11 @@ public final class R {
         public static final int button_start_navigation=0x7f060006;
         public static final int button_voice_search=0x7f060002;
         public static final int map=0x7f060003;
+        public static final int online_user_list_item_textview=0x7f060008;
     }
     public static final class layout {
         public static final int driver_main=0x7f030000;
+        public static final int route_inputs=0x7f030001;
     }
     public static final class string {
         public static final int app_name=0x7f040000;

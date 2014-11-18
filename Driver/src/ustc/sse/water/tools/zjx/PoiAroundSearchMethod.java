@@ -6,6 +6,7 @@ import ustc.sse.water.activity.R;
 import ustc.sse.water.utils.zjx.DialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import com.amap.api.maps2d.AMap;
@@ -111,14 +112,15 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 		dialog.showProgressDialog();// 显示对话框
 		aMap.setOnMapClickListener(null);// 进行poi搜索时清除掉地图点击事件
 		currentPage = 0;
-		query = new PoiSearch.Query("停车场", deepType, "苏州市");// Poi搜索
+		query = new PoiSearch.Query("", "停车场", "苏州");// Poi搜索
 		query.setPageSize(10);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 		if (lp != null) {
+			Log.v("lp", "---<><><>");
 			// 设置搜索区域为以lp点为圆心，其周围2000米范围
 			poiSearch = new PoiSearch(context, query); // 构造PoiSearch对象
 			poiSearch.setOnPoiSearchListener(this); // 设置查询监听接口
-			poiSearch.setBound(new SearchBound(lp, 10000, true)); // 设置查询矩形
+			poiSearch.setBound(new SearchBound(lp, 3000, true)); // 设置查询矩形
 			poiSearch.searchPOIAsyn();// 异步搜索
 		}
 	}
@@ -247,7 +249,7 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 					List<SuggestionCity> suggestionCities = poiResult
 							.getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
 					if (poiItems != null && poiItems.size() > 0) {
-						aMap.clear();// 清理之前的图标
+						// aMap.clear();// 清理之前的图标
 						poiOverlay = new PoiOverlay(aMap, poiItems);
 						poiOverlay.removeFromMap();
 						poiOverlay.addToMap();

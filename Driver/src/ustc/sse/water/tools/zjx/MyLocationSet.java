@@ -40,6 +40,7 @@ public class MyLocationSet {
 		myLocationStyle.radiusFillColor(Color.argb(50, 0, 0, 180));// 范围圈的颜色
 		myLocationStyle.strokeWidth(1.0f);// 圆形的边框宽带
 		aMap.setMyLocationStyle(myLocationStyle);
+		aMap.getUiSettings().setMyLocationButtonEnabled(false);
 		aMap.setMyLocationEnabled(true);// 显示定位层，触发定位
 	}
 
