@@ -1,17 +1,12 @@
 package ustc.sse.water.activity;
 
-import java.util.ArrayList;
-
 import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
-import ustc.sse.water.utils.zjx.ToastUtil;
+import ustc.sse.water.tools.zjx.VoiceSearch;
 import android.app.Activity;
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
@@ -42,7 +37,7 @@ import com.amap.api.services.core.LatLonPoint;
  * <p>
  * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
- * @version 2.2.0
+ * @version 2.3.0
  */
 public class DriverMainScreen extends Activity implements LocationSource,
 		AMapLocationListener, OnClickListener {
@@ -63,8 +58,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private AutoCompleteTextView keyEdit;
 	/* 语音输入 */
 	private ImageView voiceInput;
-	/* 语音输入的确认码 */
-	private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
 	/**
 	 * 必须重写onCreate
@@ -92,7 +85,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			aMap.setLocationSource(this);// 监听定位
 			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 			new MyLocationSet(aMap).setMapLocation(); // 开始定位
-
 		}
 	}
 
@@ -103,7 +95,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		myLocation = (ImageButton) findViewById(R.id.button_my_location);
 		myLocation.setOnClickListener(this);
 		keyEdit = (AutoCompleteTextView) findViewById(R.id.actv_key_search);
-		new PoiSearchMethod(aMap, this, keyEdit); // 显示我的位置附件的停车场
+		new PoiSearchMethod(aMap, this, keyEdit); // 调用显示目的地的类（类似于监听效果）
 		voiceInput = (ImageButton) findViewById(R.id.button_voice_search);
 		voiceInput.setOnClickListener(this);
 	}
@@ -124,7 +116,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	protected void onPause() {
 		super.onPause();
 		mapView.onPause();
-		deactivate();
+		deactivate(); // 关闭定位
 	}
 
 	/**
@@ -150,19 +142,13 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 */
 	@Override
 	public void onLocationChanged(AMapLocation aLocation) {
-
 		if (mListener != null && aLocation != null) {
-
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
-
-			Log.i("go_into", ">>>>>>>changed");
-			Log.i("x", "" + aLocation.getLatitude());
-			Log.i("y", "" + aLocation.getLongitude());
-			myLatlng = new LatLng(aLocation.getAltitude(),
+			myLatlng = new LatLng(aLocation.getLatitude(),
 					aLocation.getLongitude());// 获取我的位置
 			LatLonPoint lp = new LatLonPoint(aLocation.getLatitude(),
 					aLocation.getLongitude());
-			new PoiAroundSearchMethod(aMap, this, "", lp);
+			new PoiAroundSearchMethod(aMap, this, "", lp); // 显示我的位置附件的停车场
 		}
 	}
 
@@ -176,7 +162,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			mAMapLocationManager = LocationManagerProxy.getInstance(this);
 			mAMapLocationManager.requestLocationData(
 					LocationProviderProxy.AMapNetwork, -1, 10, this);
-			Log.i("go_into", ">>>>>>>start");
 		}
 	}
 
@@ -191,7 +176,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			mAMapLocationManager.destory();
 		}
 		mAMapLocationManager = null;
-		Log.i("go_into", ">>>>>>>stop");
 	}
 
 	@Override
@@ -216,60 +200,20 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		// 点击的是自定义定位按钮
 		case R.id.button_my_location:
-			// aMap.setMyLocationEnabled(true);
 			deactivate();
 			// aMap.animateCamera(CameraUpdateFactory.changeLatLng(myLatlng));
 			// aMap.clear();
 			new MyLocationSet(aMap).setMapLocation(); // 开始定位
-			Log.i("click_button", "----------->>>");
 			break;
+		// 点击的是语音输入按钮
 		case R.id.button_voice_search:
-			startVoiceInput(); // 开启Google语音服务
+			// 开启语音
+			new VoiceSearch(aMap, this).voicePoiSearch();
 			break;
 		}
 
-	}
-
-	/**
-	 * 打开Google语音输入
-	 */
-	private void startVoiceInput() {
-		try {
-			// 通过Intent传递语音识别，开启语音
-			Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-			// 语言模式和自由模式的语音识别
-			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-					RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-			// 提示语音开始
-			intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "开始语音");
-			// 开始语音识别
-			startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
-		} catch (Exception e) {
-			// 无语音设备异常处理
-			e.printStackTrace();
-			ToastUtil.show(this, "找不到语音设备!");
-		}
-	}
-
-	/**
-	 * 语音输入完成后回调方法
-	 */
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// 获取语音解析后的结果
-		if (requestCode == VOICE_RECOGNITION_REQUEST_CODE
-				&& resultCode == RESULT_OK) {
-			// 取得语音的字符
-			ArrayList<String> result = data
-					.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < result.size(); i++) {
-				sb.append(result.get(i));
-			}
-			ToastUtil.show(this, sb.toString());
-		}
-		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 }

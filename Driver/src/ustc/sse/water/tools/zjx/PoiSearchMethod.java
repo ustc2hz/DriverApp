@@ -81,8 +81,33 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		this.aMap = map;
 		this.context = context;
 		this.keyEdit = edit;
-		dialog = new DialogUtil(context); // 生成对话框
 		keyEdit.addTextChangedListener(this);// 自动填充文本框监听事件
+		initSearch();
+	}
+
+	/**
+	 * 有参构造函数
+	 * 
+	 * @param map
+	 *            高德地图
+	 * @param con
+	 *            上下文
+	 * @param keyword
+	 *            Poi关键字
+	 */
+	public PoiSearchMethod(AMap map, Context con, String keyword) {
+		this.aMap = map;
+		this.context = con;
+		this.keySearch = keyword;
+		initSearch();
+		doSearchQuery();
+	}
+
+	/**
+	 * 初始化一些必要的组件和监听器
+	 */
+	private void initSearch() {
+		dialog = new DialogUtil(context); // 生成对话框
 		aMap.setOnMarkerClickListener(this);// 添加点击marker监听事件
 		aMap.setInfoWindowAdapter(this);// 添加显示infowindow监听事件
 	}
@@ -94,7 +119,7 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		dialog.showProgressDialog();// 显示对话框
 		currentPage = 0;
 		query = new PoiSearch.Query(keySearch, "", "苏州");// 开始在苏州按关键字搜索
-		query.setPageSize(10);// 设置每页最多返回多少条poiitem
+		query.setPageSize(6);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 
 		poiSearch = new PoiSearch(context, query);
