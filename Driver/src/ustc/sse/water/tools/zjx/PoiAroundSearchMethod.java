@@ -112,7 +112,7 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 		aMap.setOnMapClickListener(null);// 进行poi搜索时清除掉地图点击事件
 		currentPage = 0;
 		query = new PoiSearch.Query("", "停车场", "苏州");// Poi搜索
-		query.setPageSize(10);// 设置每页最多返回多少条poiitem
+		query.setPageSize(6);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 		if (lp != null) {
 			// 设置搜索区域为以lp点为圆心，其周围2000米范围
@@ -250,7 +250,8 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 						// aMap.clear();// 清理之前的图标
 						poiOverlay = new PoiOverlay(aMap, poiItems);
 						poiOverlay.removeFromMap();
-						poiOverlay.addToMap();
+						// poiOverlay.addToMap();
+						addMarkerToMap();
 						poiOverlay.zoomToSpan();
 
 					} else if (suggestionCities != null
@@ -268,6 +269,27 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 			ToastUtil.show(context, R.string.error_key);
 		} else {
 			ToastUtil.show(context, R.string.error_other + rCode + "");
+		}
+	}
+
+	/**
+	 * 在地图上使用自定义的Marker
+	 */
+	private void addMarkerToMap() {
+		if (poiItems != null && poiItems.size() > 0) {
+			MarkerOptions markerOption = new MarkerOptions();
+			markerOption.icon(BitmapDescriptorFactory
+					.fromResource(R.drawable.yellow_marker));
+			markerOption.draggable(false);
+			for (int i = 0; i < poiItems.size(); i++) {
+				PoiItem poiItem = poiItems.get(i);
+				LatLng latLng = new LatLng(poiItem.getLatLonPoint()
+						.getLatitude(), poiItem.getLatLonPoint().getLongitude());
+				markerOption.position(latLng);
+				markerOption.title(poiItem.getTitle());
+				markerOption.snippet(poiItem.getSnippet());
+				aMap.addMarker(markerOption);
+			}
 		}
 	}
 

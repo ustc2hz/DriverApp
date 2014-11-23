@@ -119,7 +119,7 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		dialog.showProgressDialog();// 显示对话框
 		currentPage = 0;
 		query = new PoiSearch.Query(keySearch, "", "苏州");// 开始在苏州按关键字搜索
-		query.setPageSize(6);// 设置每页最多返回多少条poiitem
+		query.setPageSize(1);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 
 		poiSearch = new PoiSearch(context, query);
