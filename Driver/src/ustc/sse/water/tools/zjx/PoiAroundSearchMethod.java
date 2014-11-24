@@ -13,6 +13,7 @@ import com.amap.api.maps2d.AMap.InfoWindowAdapter;
 import com.amap.api.maps2d.AMap.OnInfoWindowClickListener;
 import com.amap.api.maps2d.AMap.OnMapClickListener;
 import com.amap.api.maps2d.AMap.OnMarkerClickListener;
+import com.amap.api.maps2d.model.BitmapDescriptor;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
@@ -21,7 +22,6 @@ import com.amap.api.maps2d.overlay.PoiOverlay;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
-import com.amap.api.services.poisearch.Cinema;
 import com.amap.api.services.poisearch.Dining;
 import com.amap.api.services.poisearch.Hotel;
 import com.amap.api.services.poisearch.PoiItemDetail;
@@ -29,7 +29,6 @@ import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
 import com.amap.api.services.poisearch.PoiSearch.SearchBound;
-import com.amap.api.services.poisearch.Scenic;
 
 /**
  * 
@@ -42,7 +41,7 @@ import com.amap.api.services.poisearch.Scenic;
  * <p>
  * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
- * @version 1.0.0
+ * @version 2.0.0
  */
 public class PoiAroundSearchMethod implements OnMarkerClickListener,
 		InfoWindowAdapter, OnPoiSearchListener, OnMapClickListener,
@@ -149,7 +148,6 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 				.icon(BitmapDescriptorFactory.fromResource(R.drawable.point))
 				.position(latng).title("点击选择为中心点"));
 		locationMarker.showInfoWindow();
-
 	}
 
 	/**
@@ -170,7 +168,6 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 						ToastUtil.show(context, "此Poi点没有深度信息");
 					}
 				}
-
 			} else {
 				ToastUtil.show(context, R.string.no_result);
 			}
@@ -209,24 +206,6 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 						+ hotel.getDeepsrc());
 			}
 			break;
-		// 景区深度信息
-		case SCENIC:
-			if (result.getScenic() != null) {
-				Scenic scenic = result.getScenic();
-				sbuBuffer
-						.append("\n价钱：" + scenic.getPrice() + "\n推荐："
-								+ scenic.getRecommend() + "\n来源："
-								+ scenic.getDeepsrc());
-			}
-			break;
-		// 影院深度信息
-		case CINEMA:
-			if (result.getCinema() != null) {
-				Cinema cinema = result.getCinema();
-				sbuBuffer.append("\n停车：" + cinema.getParking() + "\n简介："
-						+ cinema.getIntro() + "\n来源：" + cinema.getDeepsrc());
-			}
-			break;
 		default:
 			break;
 		}
@@ -248,10 +227,19 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 							.getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
 					if (poiItems != null && poiItems.size() > 0) {
 						// aMap.clear();// 清理之前的图标
-						poiOverlay = new PoiOverlay(aMap, poiItems);
+						// 自定义PoiOverlay图层
+						poiOverlay = new PoiOverlay(aMap, poiItems) {
+							@Override
+							protected BitmapDescriptor getBitmapDescriptor(
+									int arg0) {
+								// 返回自定义的Marker图片
+								BitmapDescriptor bd = BitmapDescriptorFactory
+										.fromResource(R.drawable.yellow_marker);
+								return bd;
+							}
+						};
 						poiOverlay.removeFromMap();
-						// poiOverlay.addToMap();
-						addMarkerToMap();
+						poiOverlay.addToMap();
 						poiOverlay.zoomToSpan();
 
 					} else if (suggestionCities != null
@@ -269,27 +257,6 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 			ToastUtil.show(context, R.string.error_key);
 		} else {
 			ToastUtil.show(context, R.string.error_other + rCode + "");
-		}
-	}
-
-	/**
-	 * 在地图上使用自定义的Marker
-	 */
-	private void addMarkerToMap() {
-		if (poiItems != null && poiItems.size() > 0) {
-			MarkerOptions markerOption = new MarkerOptions();
-			markerOption.icon(BitmapDescriptorFactory
-					.fromResource(R.drawable.yellow_marker));
-			markerOption.draggable(false);
-			for (int i = 0; i < poiItems.size(); i++) {
-				PoiItem poiItem = poiItems.get(i);
-				LatLng latLng = new LatLng(poiItem.getLatLonPoint()
-						.getLatitude(), poiItem.getLatLonPoint().getLongitude());
-				markerOption.position(latLng);
-				markerOption.title(poiItem.getTitle());
-				markerOption.snippet(poiItem.getSnippet());
-				aMap.addMarker(markerOption);
-			}
 		}
 	}
 
@@ -312,7 +279,7 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 	}
 
 	@Override
-	public View getInfoWindow(Marker arg0) {
+	public View getInfoWindow(Marker marker) {
 		return null;
 	}
 
