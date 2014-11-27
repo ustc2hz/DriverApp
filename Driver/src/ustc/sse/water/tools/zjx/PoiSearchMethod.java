@@ -58,6 +58,8 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 	private PoiSearch poiSearch;
 	/* poi搜索结果 */
 	private PoiResult poiResult;
+	PoiOverlay poiOverlay;
+	List<PoiItem> poiItems;
 	/* 对话框类 */
 	DialogUtil dialog;
 	/* 接收传递的自动输入框 */
@@ -121,7 +123,6 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		query = new PoiSearch.Query(keySearch, "", "苏州");// 开始在苏州按关键字搜索
 		query.setPageSize(1);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
-
 		poiSearch = new PoiSearch(context, query);
 		poiSearch.setOnPoiSearchListener(this);
 		poiSearch.searchPOIAsyn();
@@ -142,13 +143,13 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 				if (result.getQuery().equals(query)) {// 是否同一条
 					poiResult = result;
 					// 取得搜索到的poiitems有多少页
-					List<PoiItem> poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从0开始
+					poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从0开始
 					List<SuggestionCity> suggestionCities = poiResult
 							.getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含搜索关键字的城市信息
 
 					if (poiItems != null && poiItems.size() > 0) {
 						aMap.clear();// 清理之前的图标
-						PoiOverlay poiOverlay = new PoiOverlay(aMap, poiItems);
+						poiOverlay = new PoiOverlay(aMap, poiItems);
 						poiOverlay.removeFromMap();
 						poiOverlay.addToMap();
 						poiOverlay.zoomToSpan();
@@ -228,9 +229,26 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 	}
 
 	@Override
-	public boolean onMarkerClick(Marker arg0) {
-		// TODO Auto-generated method stub
+	public boolean onMarkerClick(Marker marker) {
+		// if (poiOverlay != null && poiItems != null && poiItems.size() > 0) {
+		// // detailMarker = marker;
+		// doSearchPoiDetail(poiItems.get(poiOverlay.getPoiIndex(marker))
+		// .getPoiId());
+		// }
+		marker.showInfoWindow();
 		return false;
+	}
+
+	/**
+	 * 查单个poi详情
+	 * 
+	 * @param poiId
+	 *            poi的id
+	 */
+	public void doSearchPoiDetail(String poiId) {
+		if (poiSearch != null && poiId != null) {
+			poiSearch.searchPOIDetailAsyn(poiId);
+		}
 	}
 
 }

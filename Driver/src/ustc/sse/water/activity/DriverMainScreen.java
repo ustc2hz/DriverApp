@@ -5,11 +5,13 @@ import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
 import ustc.sse.water.tools.zjx.VoiceSearch;
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -49,6 +51,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private UiSettings uiSettings;
 	/* 我的位置坐标 */
 	private LatLng myLatlng;
+	LatLonPoint lp;
 	/* 定位监听 */
 	private OnLocationChangedListener mListener;
 	private LocationManagerProxy mAMapLocationManager;
@@ -58,6 +61,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private AutoCompleteTextView keyEdit;
 	/* 语音输入 */
 	private ImageView voiceInput;
+	/* 汽车生活按钮 */
+	private Button btnDriverLife;
 
 	/**
 	 * 必须重写onCreate
@@ -98,6 +103,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		new PoiSearchMethod(aMap, this, keyEdit); // 调用显示目的地的类（类似于监听效果）
 		voiceInput = (ImageButton) findViewById(R.id.button_voice_search);
 		voiceInput.setOnClickListener(this);
+		btnDriverLife = (Button) findViewById(R.id.button_round_search);
+		btnDriverLife.setOnClickListener(this);
 	}
 
 	/**
@@ -146,9 +153,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
 			myLatlng = new LatLng(aLocation.getLatitude(),
 					aLocation.getLongitude());// 获取我的位置
-			LatLonPoint lp = new LatLonPoint(aLocation.getLatitude(),
+			lp = new LatLonPoint(aLocation.getLatitude(),
 					aLocation.getLongitude());
-			new PoiAroundSearchMethod(aMap, this, "", lp); // 显示我的位置附件的停车场
+			new PoiAroundSearchMethod(aMap, this, "停车场", lp); // 显示我的位置附件的停车场
 		}
 	}
 
@@ -203,8 +210,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// 点击的是自定义定位按钮
 		case R.id.button_my_location:
 			deactivate();
-			// aMap.animateCamera(CameraUpdateFactory.changeLatLng(myLatlng));
-			// aMap.clear();
 			new MyLocationSet(aMap).setMapLocation(); // 开始定位
 			break;
 		// 点击的是语音输入按钮
@@ -212,8 +217,24 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			// 开启语音
 			new VoiceSearch(aMap, this).voicePoiSearch();
 			break;
+		// 点击的是汽车生活按钮
+		case R.id.button_round_search:
+			Intent intent = new Intent(this, DriverLife.class);
+			startActivityForResult(intent, 1);// 带返回值的start
+			break;
 		}
 
 	}
 
+	/**
+	 * 接收返回参数
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 1 && resultCode == 1) { // 从DriverLife传递过来的
+			String poiType = data.getStringExtra("result_type");
+			aMap.clear();
+			new PoiAroundSearchMethod(aMap, this, poiType, lp);
+		}
+	}
 }

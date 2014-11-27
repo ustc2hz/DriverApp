@@ -11,39 +11,52 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int custom_info_bubble=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int location_marker=0x7f020002;
-        public static final int my_location_fb=0x7f020003;
-        public static final int point=0x7f020004;
-        public static final int text_search=0x7f020005;
-        public static final int text_search_default=0x7f020006;
-        public static final int text_search_pressed=0x7f020007;
-        public static final int text_search_selected=0x7f020008;
-        public static final int users_fb=0x7f020009;
-        public static final int voice_search_fb=0x7f02000a;
-        public static final int yellow_marker=0x7f02000b;
+        public static final int car_rent3_fb=0x7f020000;
+        public static final int car_repair_fb=0x7f020001;
+        public static final int car_wash_fb=0x7f020002;
+        public static final int custom_info_bubble=0x7f020003;
+        public static final int gas_station_fb=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int location_marker=0x7f020006;
+        public static final int my_location_fb=0x7f020007;
+        public static final int point=0x7f020008;
+        public static final int text_search=0x7f020009;
+        public static final int text_search_default=0x7f02000a;
+        public static final int text_search_pressed=0x7f02000b;
+        public static final int text_search_selected=0x7f02000c;
+        public static final int users_fb=0x7f02000d;
+        public static final int voice_search_fb=0x7f02000e;
+        public static final int yellow_marker=0x7f02000f;
     }
     public static final class id {
-        public static final int actv_key_search=0x7f060001;
-        public static final int button_chose_user=0x7f060000;
-        public static final int button_my_location=0x7f060004;
-        public static final int button_round_search=0x7f060007;
-        public static final int button_route_planning=0x7f060005;
-        public static final int button_start_navigation=0x7f060006;
-        public static final int button_voice_search=0x7f060002;
-        public static final int map=0x7f060003;
-        public static final int online_user_list_item_textview=0x7f060008;
+        public static final int actv_key_search=0x7f060004;
+        public static final int button_chose_user=0x7f060003;
+        public static final int button_my_location=0x7f060007;
+        public static final int button_round_search=0x7f06000a;
+        public static final int button_route_planning=0x7f060008;
+        public static final int button_start_navigation=0x7f060009;
+        public static final int button_voice_search=0x7f060005;
+        public static final int gridview_driver_life=0x7f060000;
+        public static final int image_driver_life_cell=0x7f060001;
+        public static final int map=0x7f060006;
+        public static final int online_user_list_item_textview=0x7f06000b;
+        public static final int text_driver_life_cell=0x7f060002;
     }
     public static final class layout {
-        public static final int driver_main=0x7f030000;
-        public static final int route_inputs=0x7f030001;
+        public static final int driver_life=0x7f030000;
+        public static final int driver_life_cell=0x7f030001;
+        public static final int driver_main=0x7f030002;
+        public static final int route_inputs=0x7f030003;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int car_rent=0x7f04000a;
+        public static final int car_repair=0x7f04000b;
+        public static final int car_wash=0x7f04000c;
         public static final int error_key=0x7f040007;
         public static final int error_network=0x7f040006;
         public static final int error_other=0x7f040008;
+        public static final int gas_station=0x7f040009;
         public static final int key_search=0x7f040001;
         public static final int no_result=0x7f040005;
         public static final int path_planning=0x7f040002;
