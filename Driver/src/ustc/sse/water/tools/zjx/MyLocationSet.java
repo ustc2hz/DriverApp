@@ -32,6 +32,8 @@ public class MyLocationSet {
 	 * 初始化定位信息
 	 */
 	public void setMapLocation() {
+		// 将屏幕上的Marker清空——黄志恒
+		aMap.clear();
 		// 设置定位样式
 		MyLocationStyle myLocationStyle = new MyLocationStyle();
 		myLocationStyle.myLocationIcon(BitmapDescriptorFactory

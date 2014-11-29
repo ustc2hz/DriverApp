@@ -1,5 +1,6 @@
 package ustc.sse.water.activity;
 
+import ustc.sse.water.tools.hzh.NaviRouteMethod;
 import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
@@ -45,36 +46,55 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		AMapLocationListener, OnClickListener {
 	/* 高德地图AMap */
 	private AMap aMap;
-	/* 用来显示地图的MapView */
-	private MapView mapView;
-	/* 地图的基本设置 */
-	private UiSettings uiSettings;
-	/* 我的位置坐标 */
-	private LatLng myLatlng;
-	LatLonPoint lp;
-	/* 定位监听 */
-	private OnLocationChangedListener mListener;
-	private LocationManagerProxy mAMapLocationManager;
-	/* 自定义定位按钮 */
-	private ImageButton myLocation;
-	/* 输入框 */
-	private AutoCompleteTextView keyEdit;
-	/* 语音输入 */
-	private ImageView voiceInput;
 	/* 汽车生活按钮 */
 	private Button btnDriverLife;
+	/* 路径规划按钮 */
+	private Button btnRoutePlan;
+	/* 输入框 */
+	private AutoCompleteTextView keyEdit;
+	LatLonPoint lp;
+	private LocationManagerProxy mAMapLocationManager;
+	/* 用来显示地图的MapView */
+	private MapView mapView;
+	/* 定位监听 */
+	private OnLocationChangedListener mListener;
+	/* 我的位置坐标 */
+	private LatLng myLatlng;
+	/* 自定义定位按钮 */
+	private ImageButton myLocation;
+	/* 进行路径规划的处理对象——黄志恒注 */
+	private NaviRouteMethod nRoute;
+	/* 周边搜索的类 ——黄志恒注 */
+	PoiAroundSearchMethod pas;
+	/* 地图的基本设置 */
+	private UiSettings uiSettings;
+	/* 语音输入 */
+	private ImageView voiceInput;
 
 	/**
-	 * 必须重写onCreate
+	 * 激活定位
 	 */
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.driver_main);
-		mapView = (MapView) findViewById(R.id.map);
-		mapView.onCreate(savedInstanceState);// 必须重写
-		initMap();
-		initViews();
+	public void activate(OnLocationChangedListener listener) {
+		mListener = listener;
+		if (mAMapLocationManager == null) {
+			mAMapLocationManager = LocationManagerProxy.getInstance(this);
+			mAMapLocationManager.requestLocationData(
+					LocationProviderProxy.AMapNetwork, -1, 10, this);
+		}
+	}
+
+	/**
+	 * 停止定位
+	 */
+	@Override
+	public void deactivate() {
+		mListener = null;
+		if (mAMapLocationManager != null) {
+			mAMapLocationManager.removeUpdates(this);
+			mAMapLocationManager.destory();
+		}
+		mAMapLocationManager = null;
 	}
 
 	/**
@@ -103,102 +123,22 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		new PoiSearchMethod(aMap, this, keyEdit); // 调用显示目的地的类（类似于监听效果）
 		voiceInput = (ImageButton) findViewById(R.id.button_voice_search);
 		voiceInput.setOnClickListener(this);
+		btnRoutePlan = (Button) findViewById(R.id.button_route_planning);
+		btnRoutePlan.setOnClickListener(this);
 		btnDriverLife = (Button) findViewById(R.id.button_round_search);
 		btnDriverLife.setOnClickListener(this);
 	}
 
 	/**
-	 * 必须重写onResume
+	 * 接收返回参数
 	 */
 	@Override
-	protected void onResume() {
-		super.onResume();
-		mapView.onResume();
-	}
-
-	/**
-	 * 必须重写onPause
-	 */
-	@Override
-	protected void onPause() {
-		super.onPause();
-		mapView.onPause();
-		deactivate(); // 关闭定位
-	}
-
-	/**
-	 * 必须重写onSaveInstanceState
-	 */
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		mapView.onSaveInstanceState(outState);
-	}
-
-	/**
-	 * 必须重写onDestroy
-	 */
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		mapView.onDestroy();
-	}
-
-	/**
-	 * 定位完成后回调该方法
-	 */
-	@Override
-	public void onLocationChanged(AMapLocation aLocation) {
-		if (mListener != null && aLocation != null) {
-			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
-			myLatlng = new LatLng(aLocation.getLatitude(),
-					aLocation.getLongitude());// 获取我的位置
-			lp = new LatLonPoint(aLocation.getLatitude(),
-					aLocation.getLongitude());
-			new PoiAroundSearchMethod(aMap, this, "停车场", lp); // 显示我的位置附件的停车场
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 1 && resultCode == 1) { // 从DriverLife传递过来的
+			String poiType = data.getStringExtra("result_type");
+			aMap.clear();
+			pas = new PoiAroundSearchMethod(aMap, this, poiType, lp);
 		}
-	}
-
-	/**
-	 * 激活定位
-	 */
-	@Override
-	public void activate(OnLocationChangedListener listener) {
-		mListener = listener;
-		if (mAMapLocationManager == null) {
-			mAMapLocationManager = LocationManagerProxy.getInstance(this);
-			mAMapLocationManager.requestLocationData(
-					LocationProviderProxy.AMapNetwork, -1, 10, this);
-		}
-	}
-
-	/**
-	 * 停止定位
-	 */
-	@Override
-	public void deactivate() {
-		mListener = null;
-		if (mAMapLocationManager != null) {
-			mAMapLocationManager.removeUpdates(this);
-			mAMapLocationManager.destory();
-		}
-		mAMapLocationManager = null;
-	}
-
-	@Override
-	public void onLocationChanged(Location location) {
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
 	}
 
 	/**
@@ -222,19 +162,93 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			Intent intent = new Intent(this, DriverLife.class);
 			startActivityForResult(intent, 1);// 带返回值的start
 			break;
+		// 点击的是路径规划按钮——黄志恒注
+		case R.id.button_route_planning:
+			new NaviRouteMethod(aMap, lp, this, pas.getTargetPoint());
 		}
 
 	}
 
 	/**
-	 * 接收返回参数
+	 * 必须重写onCreate
 	 */
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 1 && resultCode == 1) { // 从DriverLife传递过来的
-			String poiType = data.getStringExtra("result_type");
-			aMap.clear();
-			new PoiAroundSearchMethod(aMap, this, poiType, lp);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.driver_main);
+		mapView = (MapView) findViewById(R.id.map);
+		mapView.onCreate(savedInstanceState);// 必须重写
+		initMap();
+		initViews();
+	}
+
+	/**
+	 * 必须重写onDestroy
+	 */
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mapView.onDestroy();
+	}
+
+	/**
+	 * 定位完成后回调该方法
+	 */
+	@Override
+	public void onLocationChanged(AMapLocation aLocation) {
+		if (mListener != null && aLocation != null) {
+			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
+			myLatlng = new LatLng(aLocation.getLatitude(),
+					aLocation.getLongitude());// 获取我的位置
+			lp = new LatLonPoint(aLocation.getLatitude(),
+					aLocation.getLongitude());
+			// new PoiAroundSearchMethod(aMap, this, "停车场", lp);
+			// 显示我的位置附件的停车场，并产生附近搜索对象——黄志恒注
+			pas = new PoiAroundSearchMethod(aMap, this, "停车场", lp);
 		}
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+	}
+
+	/**
+	 * 必须重写onPause
+	 */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mapView.onPause();
+		deactivate(); // 关闭定位
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+	}
+
+	/**
+	 * 必须重写onResume
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mapView.onResume();
+	}
+
+	/**
+	 * 必须重写onSaveInstanceState
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		mapView.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
 	}
 }

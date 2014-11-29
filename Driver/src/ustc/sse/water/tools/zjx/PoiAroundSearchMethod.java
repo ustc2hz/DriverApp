@@ -48,30 +48,32 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 		OnInfoWindowClickListener {
 	/* 显示搜索结果的地图 */
 	private AMap aMap;
-	/* Poi搜索类型 */
-	private String deepType = "";
-	/* Poi返回的结果 */
-	private PoiResult poiResult;
-	/* 当前页面，从0开始计数 */
-	private int currentPage = 0;
-	/* Poi查询条件类 */
-	private PoiSearch.Query query;
-	/* 搜索中心 */
-	private LatLonPoint lp;
-	/* 选择的点 */
-	private Marker locationMarker;
-	/* Poi搜索 */
-	private PoiSearch poiSearch;
-	/* poi图层 */
-	private PoiOverlay poiOverlay;
-	/* poi数据 */
-	private List<PoiItem> poiItems;
-	/* 显示Marker的详情 */
-	private Marker detailMarker;
 	/* 上下文 */
 	private Context context;
+	/* 当前页面，从0开始计数 */
+	private int currentPage = 0;
+	/* Poi搜索类型 */
+	private String deepType = "";
+	/* 显示Marker的详情 */
+	private Marker detailMarker;
 	/* 对话框类 */
 	DialogUtil dialog;
+	/* 选择的点 */
+	private Marker locationMarker;
+	/* 搜索中心 */
+	private LatLonPoint lp;
+	/* poi数据 */
+	private List<PoiItem> poiItems;
+	/* poi图层 */
+	private PoiOverlay poiOverlay;
+	/* Poi返回的结果 */
+	private PoiResult poiResult;
+	/* Poi搜索 */
+	private PoiSearch poiSearch;
+	/* Poi查询条件类 */
+	private PoiSearch.Query query;
+	/* 路径规划的目的地的点 ——黄志恒注 */
+	private LatLonPoint targetPoint;
 
 	public PoiAroundSearchMethod() {
 		// 无参构造函数
@@ -104,6 +106,18 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 	}
 
 	/**
+	 * 查单个poi详情
+	 * 
+	 * @param poiId
+	 *            poi的id
+	 */
+	public void doSearchPoiDetail(String poiId) {
+		if (poiSearch != null && poiId != null) {
+			poiSearch.searchPOIDetailAsyn(poiId);
+		}
+	}
+
+	/**
 	 * 开始Poi搜索
 	 */
 	public void doSearchQuery() {
@@ -120,65 +134,6 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 			poiSearch.setBound(new SearchBound(lp, 3000, true)); // 设置查询矩形
 			poiSearch.searchPOIAsyn();// 异步搜索
 		}
-	}
-
-	/**
-	 * 查单个poi详情
-	 * 
-	 * @param poiId
-	 *            poi的id
-	 */
-	public void doSearchPoiDetail(String poiId) {
-		if (poiSearch != null && poiId != null) {
-			poiSearch.searchPOIDetailAsyn(poiId);
-		}
-	}
-
-	@Override
-	public void onInfoWindowClick(Marker marker) {
-		locationMarker.hideInfoWindow();
-		lp = new LatLonPoint(locationMarker.getPosition().latitude,
-				locationMarker.getPosition().longitude);
-		locationMarker.destroy();
-	}
-
-	@Override
-	public void onMapClick(LatLng latng) {
-		locationMarker = aMap.addMarker(new MarkerOptions().anchor(0.5f, 1)
-				.icon(BitmapDescriptorFactory.fromResource(R.drawable.point))
-				.position(latng).title("点击选择为中心点"));
-		locationMarker.showInfoWindow();
-	}
-
-	/**
-	 * POI详情回调
-	 */
-	@Override
-	public void onPoiItemDetailSearched(PoiItemDetail result, int rCode) {
-		dialog.dissmissProgressDialog();// 去除对话框
-		if (rCode == 0) {
-			if (result != null) {// 搜索poi的结果
-				if (detailMarker != null) {
-					StringBuffer sb = new StringBuffer(result.getSnippet());
-					// 判断poi搜索是否有深度信息
-					if (result.getDeepType() != null) {
-						sb = getDeepInfo(result, sb);
-						detailMarker.setSnippet(sb.toString());
-					} else {
-						ToastUtil.show(context, "此Poi点没有深度信息");
-					}
-				}
-			} else {
-				ToastUtil.show(context, R.string.no_result);
-			}
-		} else if (rCode == 27) {
-			ToastUtil.show(context, R.string.error_network);
-		} else if (rCode == 32) {
-			ToastUtil.show(context, R.string.error_key);
-		} else {
-			ToastUtil.show(context, R.string.error_other + rCode + "");
-		}
-
 	}
 
 	/**
@@ -210,6 +165,84 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 			break;
 		}
 		return sbuBuffer;
+	}
+
+	@Override
+	public View getInfoContents(Marker arg0) {
+		return null;
+	}
+
+	@Override
+	public View getInfoWindow(Marker marker) {
+		return null;
+	}
+
+	/**
+	 * 获取路径规划目的地的点，为外部暴露,使外部对象可以调用目的地的点——黄志恒注
+	 */
+	public LatLonPoint getTargetPoint() {
+		return this.targetPoint;
+	}
+
+	@Override
+	public void onInfoWindowClick(Marker marker) {
+		locationMarker.hideInfoWindow();
+		lp = new LatLonPoint(locationMarker.getPosition().latitude,
+				locationMarker.getPosition().longitude);
+		locationMarker.destroy();
+	}
+
+	@Override
+	public void onMapClick(LatLng latng) {
+		locationMarker = aMap.addMarker(new MarkerOptions().anchor(0.5f, 1)
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.point))
+				.position(latng).title("点击选择为中心点"));
+		locationMarker.showInfoWindow();
+	}
+
+	/**
+	 * Marker点击事件，查看Marker详情
+	 */
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+		if (poiOverlay != null && poiItems != null && poiItems.size() > 0) {
+			detailMarker = marker;
+			doSearchPoiDetail(poiItems.get(poiOverlay.getPoiIndex(marker))
+					.getPoiId());
+			setTargetPoint(marker);
+		}
+		return false;
+	}
+
+	/**
+	 * POI详情回调
+	 */
+	@Override
+	public void onPoiItemDetailSearched(PoiItemDetail result, int rCode) {
+		dialog.dissmissProgressDialog();// 去除对话框
+		if (rCode == 0) {
+			if (result != null) {// 搜索poi的结果
+				if (detailMarker != null) {
+					StringBuffer sb = new StringBuffer(result.getSnippet());
+					// 判断poi搜索是否有深度信息
+					if (result.getDeepType() != null) {
+						sb = getDeepInfo(result, sb);
+						detailMarker.setSnippet(sb.toString());
+					} else {
+						ToastUtil.show(context, "此Poi点没有深度信息");
+					}
+				}
+			} else {
+				ToastUtil.show(context, R.string.no_result);
+			}
+		} else if (rCode == 27) {
+			ToastUtil.show(context, R.string.error_network);
+		} else if (rCode == 32) {
+			ToastUtil.show(context, R.string.error_key);
+		} else {
+			ToastUtil.show(context, R.string.error_other + rCode + "");
+		}
+
 	}
 
 	/**
@@ -261,26 +294,11 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 	}
 
 	/**
-	 * Marker点击事件，查看Marker详情
+	 * 获取marker的坐标，并将坐标设置为路径规划目的地的点——黄志恒注
 	 */
-	@Override
-	public boolean onMarkerClick(Marker marker) {
-		if (poiOverlay != null && poiItems != null && poiItems.size() > 0) {
-			detailMarker = marker;
-			doSearchPoiDetail(poiItems.get(poiOverlay.getPoiIndex(marker))
-					.getPoiId());
-		}
-		return false;
-	}
-
-	@Override
-	public View getInfoContents(Marker arg0) {
-		return null;
-	}
-
-	@Override
-	public View getInfoWindow(Marker marker) {
-		return null;
+	private void setTargetPoint(Marker marker) {
+		targetPoint = new LatLonPoint(marker.getPosition().latitude,
+				marker.getPosition().longitude);
 	}
 
 }
