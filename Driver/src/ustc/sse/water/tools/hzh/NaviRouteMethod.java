@@ -5,8 +5,8 @@ import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.overlay.DrivingRouteOverlay;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.overlay.DrivingRouteOverlay;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.BusRouteResult;
 import com.amap.api.services.route.DrivePath;

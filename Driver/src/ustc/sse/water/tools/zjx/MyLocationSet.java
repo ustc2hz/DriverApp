@@ -3,9 +3,9 @@ package ustc.sse.water.tools.zjx;
 import ustc.sse.water.activity.R;
 import android.graphics.Color;
 
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
-import com.amap.api.maps2d.model.MyLocationStyle;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.MyLocationStyle;
 
 /**
  * 
