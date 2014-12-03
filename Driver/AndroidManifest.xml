@@ -44,7 +44,9 @@
             </intent-filter>
         </activity>
         <!-- 车生活界面 -->
-        <activity android:name="ustc.sse.water.activity.DriverLife">
+        <activity android:name="ustc.sse.water.activity.DriverLife"
+            android:theme="@android:style/Theme.Dialog"
+            android:label="@string/happy_driver_life" >
             
         </activity>
     </application>

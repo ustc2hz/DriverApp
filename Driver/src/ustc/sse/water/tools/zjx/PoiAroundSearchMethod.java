@@ -267,7 +267,7 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 									int arg0) {
 								// 返回自定义的Marker图片
 								BitmapDescriptor bd = BitmapDescriptorFactory
-										.fromResource(R.drawable.yellow_marker);
+										.fromResource(R.drawable.google_maps_fb);
 								return bd;
 							}
 						};
