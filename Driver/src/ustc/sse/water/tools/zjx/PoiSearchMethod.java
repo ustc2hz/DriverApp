@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.AMap.InfoWindowAdapter;
-import com.amap.api.maps2d.AMap.OnMarkerClickListener;
-import com.amap.api.maps2d.model.Marker;
-import com.amap.api.maps2d.overlay.PoiOverlay;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMap.InfoWindowAdapter;
+import com.amap.api.maps.AMap.OnMarkerClickListener;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.overlay.PoiOverlay;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
@@ -46,24 +46,24 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		InfoWindowAdapter, TextWatcher, OnPoiSearchListener {
 	/* 接收传递的AMap */
 	private AMap aMap;
-	/* Poi搜索的关键字 */
-	private String keySearch = "";
-	/* 当前搜索页 */
-	private int currentPage = 0;
 	/* 上下文 */
 	private Context context;
-	/* Poi查询条件类 */
-	private PoiSearch.Query query;
-	/* POI搜索 */
-	private PoiSearch poiSearch;
-	/* poi搜索结果 */
-	private PoiResult poiResult;
-	PoiOverlay poiOverlay;
-	List<PoiItem> poiItems;
+	/* 当前搜索页 */
+	private int currentPage = 0;
 	/* 对话框类 */
 	DialogUtil dialog;
 	/* 接收传递的自动输入框 */
 	private AutoCompleteTextView keyEdit;
+	/* Poi搜索的关键字 */
+	private String keySearch = "";
+	List<PoiItem> poiItems;
+	PoiOverlay poiOverlay;
+	/* poi搜索结果 */
+	private PoiResult poiResult;
+	/* POI搜索 */
+	private PoiSearch poiSearch;
+	/* Poi查询条件类 */
+	private PoiSearch.Query query;
 
 	public PoiSearchMethod() {
 		// 保留无参构造函数
@@ -106,12 +106,29 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 	}
 
 	/**
-	 * 初始化一些必要的组件和监听器
+	 * 输入信息改变之后
 	 */
-	private void initSearch() {
-		dialog = new DialogUtil(context); // 生成对话框
-		aMap.setOnMarkerClickListener(this);// 添加点击marker监听事件
-		aMap.setInfoWindowAdapter(this);// 添加显示infowindow监听事件
+	@Override
+	public void afterTextChanged(Editable s) {
+		keySearch = s.toString();
+		doSearchQuery(); // 开始搜索
+	}
+
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+	}
+
+	/**
+	 * 查单个poi详情
+	 * 
+	 * @param poiId
+	 *            poi的id
+	 */
+	public void doSearchPoiDetail(String poiId) {
+		if (poiSearch != null && poiId != null) {
+			poiSearch.searchPOIDetailAsyn(poiId);
+		}
 	}
 
 	/**
@@ -126,6 +143,38 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 		poiSearch = new PoiSearch(context, query);
 		poiSearch.setOnPoiSearchListener(this);
 		poiSearch.searchPOIAsyn();
+	}
+
+	@Override
+	public View getInfoContents(Marker arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public View getInfoWindow(Marker arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * 初始化一些必要的组件和监听器
+	 */
+	private void initSearch() {
+		dialog = new DialogUtil(context); // 生成对话框
+		aMap.setOnMarkerClickListener(this);// 添加点击marker监听事件
+		aMap.setInfoWindowAdapter(this);// 添加显示infowindow监听事件
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+		// if (poiOverlay != null && poiItems != null && poiItems.size() > 0) {
+		// // detailMarker = marker;
+		// doSearchPoiDetail(poiItems.get(poiOverlay.getPoiIndex(marker))
+		// .getPoiId());
+		// }
+		marker.showInfoWindow();
+		return false;
 	}
 
 	@Override
@@ -173,11 +222,6 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 
 	}
 
-	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
-	}
-
 	/**
 	 * 自动填充文本，正在输入
 	 */
@@ -204,50 +248,6 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 			inputTips.requestInputtips(newText, "苏州");// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
 		} catch (AMapException e) {
 			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 输入信息改变之后
-	 */
-	@Override
-	public void afterTextChanged(Editable s) {
-		keySearch = s.toString();
-		doSearchQuery(); // 开始搜索
-	}
-
-	@Override
-	public View getInfoContents(Marker arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public View getInfoWindow(Marker arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean onMarkerClick(Marker marker) {
-		// if (poiOverlay != null && poiItems != null && poiItems.size() > 0) {
-		// // detailMarker = marker;
-		// doSearchPoiDetail(poiItems.get(poiOverlay.getPoiIndex(marker))
-		// .getPoiId());
-		// }
-		marker.showInfoWindow();
-		return false;
-	}
-
-	/**
-	 * 查单个poi详情
-	 * 
-	 * @param poiId
-	 *            poi的id
-	 */
-	public void doSearchPoiDetail(String poiId) {
-		if (poiSearch != null && poiId != null) {
-			poiSearch.searchPOIDetailAsyn(poiId);
 		}
 	}
 

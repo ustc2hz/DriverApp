@@ -14,5 +14,8 @@
     <string name="car_rent">租车</string>
     <string name="car_repair">维修</string>
     <string name="car_wash">洗车</string>
+    <string name="title_activity_driver_navi">DriverNaviActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

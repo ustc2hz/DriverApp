@@ -5,6 +5,7 @@ import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
 import ustc.sse.water.tools.zjx.VoiceSearch;
+import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
@@ -20,13 +21,13 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.AMapOptions;
-import com.amap.api.maps2d.CameraUpdateFactory;
-import com.amap.api.maps2d.LocationSource;
-import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.UiSettings;
-import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapOptions;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.LocationSource;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
 
 /**
@@ -48,8 +49,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private AMap aMap;
 	/* 汽车生活按钮 */
 	private Button btnDriverLife;
-	/* 路径规划按钮 */
+	/* 路径规划按钮——黄志恒注 */
+	private Button btnNavi;
+	/* 路径规划按钮 ——黄志恒注 */
 	private Button btnRoutePlan;
+	private boolean hasRouted = false;
 	/* 输入框 */
 	private AutoCompleteTextView keyEdit;
 	LatLonPoint lp;
@@ -125,6 +129,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		voiceInput.setOnClickListener(this);
 		btnRoutePlan = (Button) findViewById(R.id.button_route_planning);
 		btnRoutePlan.setOnClickListener(this);
+		btnNavi = (Button) findViewById(R.id.button_start_navigation);
+		btnNavi.setOnClickListener(this);
 		btnDriverLife = (Button) findViewById(R.id.button_round_search);
 		btnDriverLife.setOnClickListener(this);
 	}
@@ -164,7 +170,34 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			break;
 		// 点击的是路径规划按钮——黄志恒注
 		case R.id.button_route_planning:
-			new NaviRouteMethod(aMap, lp, this, pas.getTargetPoint());
+			if (pas.getTargetPoint() != null) {
+				if (!hasRouted && nRoute == null) {
+					nRoute = new NaviRouteMethod(aMap, lp, this,
+							pas.getTargetPoint());
+				} else {
+					nRoute.mRouteOverLay.removeFromMap();
+					nRoute = new NaviRouteMethod(aMap, lp, this,
+							pas.getTargetPoint());
+				}
+			} else {
+				ToastUtil.show(this, "请选择目的地");
+				break;
+			}
+
+		case R.id.button_start_navigation: {
+			Bundle bundle = new Bundle();
+			bundle.putDouble("start_latitude", lp.getLatitude());
+			bundle.putDouble("start_longitude", lp.getLongitude());
+			bundle.putDouble("end_latitude", pas.getTargetPoint().getLatitude());
+			bundle.putDouble("end_longitude", pas.getTargetPoint()
+					.getLongitude());
+			Intent naviIntent = new Intent();
+			naviIntent.putExtras(bundle);
+			naviIntent
+					.setClass(DriverMainScreen.this, DriverNaviActivity.class);
+			// startActivity(naviIntent);
+		}
+
 		}
 
 	}

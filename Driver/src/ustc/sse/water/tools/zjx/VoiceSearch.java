@@ -4,7 +4,7 @@ import ustc.sse.water.json.zjx.VoiceJsonParser;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.content.Context;
 
-import com.amap.api.maps2d.AMap;
+import com.amap.api.maps.AMap;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -32,6 +32,49 @@ public class VoiceSearch {
 	private AMap aMap;
 	/* 上下文 */
 	private Context context;
+	/**
+	 * 初始化监听器。
+	 */
+	private InitListener mInitListener = new InitListener() {
+
+		@Override
+		public void onInit(int code) {
+			if (code != ErrorCode.SUCCESS) {
+				ToastUtil.show(context, "初始化失败,错误码：" + code);
+			}
+		}
+	};
+
+	/**
+	 * 语音识别对话框监听器
+	 */
+	RecognizerDialogListener rdlistener = new RecognizerDialogListener() {
+
+		/**
+		 * 错误回调
+		 */
+		@Override
+		public void onError(SpeechError error) {
+			ToastUtil.show(context, error.getPlainDescription(true));
+		}
+
+		/**
+		 * 语音识别结果回调方法 注意：result为json字符串，需要进行解析
+		 */
+		@Override
+		public void onResult(RecognizerResult result, boolean arg1) {
+			// 取出语音识别结果，先将其转化为汉字字符串
+			voiceResult = VoiceJsonParser.parseIatResult(result
+					.getResultString());
+			ToastUtil.show(context, "语音识别：" + voiceResult);
+			if (!"".equals(voiceResult)) {
+				new PoiSearchMethod(aMap, context, voiceResult);
+			} else {
+				ToastUtil.show(context, "无法识别，请重说！");
+			}
+		}
+	};
+
 	/* 语音识别结果 */
 	private String voiceResult = "";
 
@@ -61,48 +104,5 @@ public class VoiceSearch {
 		isrDialog.setListener(rdlistener);
 		isrDialog.show();
 	}
-
-	/**
-	 * 初始化监听器。
-	 */
-	private InitListener mInitListener = new InitListener() {
-
-		@Override
-		public void onInit(int code) {
-			if (code != ErrorCode.SUCCESS) {
-				ToastUtil.show(context, "初始化失败,错误码：" + code);
-			}
-		}
-	};
-
-	/**
-	 * 语音识别对话框监听器
-	 */
-	RecognizerDialogListener rdlistener = new RecognizerDialogListener() {
-
-		/**
-		 * 语音识别结果回调方法 注意：result为json字符串，需要进行解析
-		 */
-		@Override
-		public void onResult(RecognizerResult result, boolean arg1) {
-			// 取出语音识别结果，先将其转化为汉字字符串
-			voiceResult = VoiceJsonParser.parseIatResult(result
-					.getResultString());
-			ToastUtil.show(context, "语音识别：" + voiceResult);
-			if (!"".equals(voiceResult)) {
-				new PoiSearchMethod(aMap, context, voiceResult);
-			} else {
-				ToastUtil.show(context, "无法识别，请重说！");
-			}
-		}
-
-		/**
-		 * 错误回调
-		 */
-		@Override
-		public void onError(SpeechError error) {
-			ToastUtil.show(context, error.getPlainDescription(true));
-		}
-	};
 
 }
