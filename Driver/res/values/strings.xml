@@ -10,6 +10,7 @@
     <string name="error_network">搜索失败,请检查网络连接！</string>
     <string name="error_key">key验证无效！</string>
     <string name="error_other">未知错误，请稍后重试!错误码为</string>
+    <string name="happy_driver_life">乐享车生活</string>
     <string name="gas_station">加油站</string>
     <string name="car_rent">租车</string>
     <string name="car_repair">维修</string>

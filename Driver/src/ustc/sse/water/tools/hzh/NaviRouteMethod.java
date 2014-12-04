@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.amap.api.maps.AMap;
+<<<<<<< HEAD
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.model.AMapNaviInfo;
@@ -15,6 +16,9 @@ import com.amap.api.navi.model.AMapNaviLocation;
 import com.amap.api.navi.model.AMapNaviPath;
 import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
+=======
+import com.amap.api.maps.overlay.DrivingRouteOverlay;
+>>>>>>> origin/master
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.RouteSearch;
