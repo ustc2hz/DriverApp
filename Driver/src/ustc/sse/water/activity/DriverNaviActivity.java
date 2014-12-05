@@ -1,21 +1,15 @@
 package ustc.sse.water.activity;
 
-import java.util.ArrayList;
-
-import ustc.sse.water.utils.zjx.ToastUtil;
+import ustc.sse.water.tools.hzh.TTSController;
+import ustc.sse.water.utils.zjx.NaviUtils;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.amap.api.navi.AMapNavi;
-import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.AMapNaviViewListener;
-import com.amap.api.navi.model.AMapNaviInfo;
-import com.amap.api.navi.model.AMapNaviLocation;
-import com.amap.api.navi.model.NaviLatLng;
 
 /**
  * 导航类 <br>
@@ -29,20 +23,20 @@ import com.amap.api.navi.model.NaviLatLng;
  * @author 黄志恒 sa14226399@mail.ustc.edu.cn
  * @version 1.0.0
  */
-public class DriverNaviActivity extends Activity implements AMapNaviListener,
-		AMapNaviViewListener {
 
+/**
+ * 
+ * 导航界面
+ * 
+ * */
+public class DriverNaviActivity extends Activity implements
+		AMapNaviViewListener {
 	// 导航View
 	private AMapNaviView mAmapAMapNaviView;
-	private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
+	// 记录有哪个页面跳转而来，处理返回键
+	private int mCode = -1;
 	// 是否为模拟导航
-	private boolean mIsEmulatorNavi = false;
-	private NaviLatLng mNaviEnd;
-	// 起点终点
-	private NaviLatLng mNaviStart;
-	private ProgressDialog mRouteCalculatorProgressDialog;// 路径规划过程显示状态
-	// 起点终点列表
-	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
+	private boolean mIsEmulatorNavi = true;
 
 	/**
 	 * 初始化
@@ -50,42 +44,10 @@ public class DriverNaviActivity extends Activity implements AMapNaviListener,
 	 * @param savedInstanceState
 	 */
 	private void init(Bundle savedInstanceState) {
-		mAmapAMapNaviView = (AMapNaviView) findViewById(R.id.simplenavimap);
-		// mAmapAMapNaviView.onCreate(savedInstanceState);
+		mAmapAMapNaviView = (AMapNaviView) findViewById(R.id.simple_navimap);
+		mAmapAMapNaviView.onCreate(savedInstanceState);
 		mAmapAMapNaviView.setAMapNaviViewListener(this);
-		// TTSController.getInstance(this).startSpeaking();
-		/*
-		 * if (mIsEmulatorNavi) { // 设置模拟速度
-		 * AMapNavi.getInstance(this).setEmulatorNaviSpeed(100); // 开启模拟导航
-		 * AMapNavi.getInstance(this).startNavi(AMapNavi.EmulatorNaviMode);
-		 * 
-		 * } else { // 开启实时导航
-		 * AMapNavi.getInstance(this).startNavi(AMapNavi.GPSNaviMode); }
-		 */
-	}
-
-	@Override
-	public void onArriveDestination() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onArrivedWayPoint(int arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onCalculateRouteFailure(int arg0) {
-		// TODO Auto-generated method stub
-		mRouteCalculatorProgressDialog.dismiss();
-	}
-
-	@Override
-	public void onCalculateRouteSuccess() {
-		// TODO Auto-generated method stub
-
+		TTSController.getInstance(this).startSpeaking();
 		if (mIsEmulatorNavi) {
 			// 设置模拟速度
 			AMapNavi.getInstance(this).setEmulatorNaviSpeed(100);
@@ -96,46 +58,15 @@ public class DriverNaviActivity extends Activity implements AMapNaviListener,
 			// 开启实时导航
 			AMapNavi.getInstance(this).startNavi(AMapNavi.GPSNaviMode);
 		}
-
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.navi_map);
-		mAmapAMapNaviView = (AMapNaviView) findViewById(R.id.simplenavimap);
-		mAmapAMapNaviView.setAMapNaviViewListener(this);
-		// mRouteCalculatorProgressDialog = new ProgressDialog(this);
-		// mRouteCalculatorProgressDialog.setCancelable(true);
-
+		setContentView(R.layout.activity_driver_navi);
 		Bundle bundle = getIntent().getExtras();
-
-		if (bundle.containsKey("start_latitude")
-				&& bundle.containsKey("start_longitude")) {
-			mNaviStart = new NaviLatLng(bundle.getDouble("start_latitude"),
-					bundle.getDouble("start_longitude"));
-		}
-		if (bundle.containsKey("end_latitude")
-				&& bundle.containsKey("end_longitude")) {
-			mNaviEnd = new NaviLatLng(bundle.getDouble("end_latitude"),
-					bundle.getDouble("end_longitude"));
-		}
-		if (mNaviStart != null && mNaviEnd != null) {
-			mStartPoints.add(mNaviStart);
-			mEndPoints.add(mNaviEnd);
-		}
-		if (mStartPoints != null && mEndPoints != null) {
-			AMapNavi.getInstance(this).calculateDriveRoute(mStartPoints,
-					mEndPoints, null, AMapNavi.DrivingDefault);
-
-			// mRouteCalculatorProgressDialog.show();
-			AMapNavi.getInstance(this).setAMapNaviListener(this);
-
-		} else {
-			ToastUtil.show(this, "请选择正确的起始点");
-			finish();
-		}
-		// init(savedInstanceState);
+		processBundle(bundle);
+		init(savedInstanceState);
 
 	}
 
@@ -144,37 +75,7 @@ public class DriverNaviActivity extends Activity implements AMapNaviListener,
 		super.onDestroy();
 		mAmapAMapNaviView.onDestroy();
 
-		// TTSController.getInstance(this).stopSpeaking();
-
-	}
-
-	@Override
-	public void onEndEmulatorNavi() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onGetNavigationText(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onGpsOpenStatus(boolean arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onInitNaviFailure() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onInitNaviSuccess() {
-		// TODO Auto-generated method stub
+		TTSController.getInstance(this).stopSpeaking();
 
 	}
 
@@ -186,20 +87,24 @@ public class DriverNaviActivity extends Activity implements AMapNaviListener,
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (mCode == NaviUtils.SIMPLEROUTENAVI) {
+				Intent intent = new Intent(DriverNaviActivity.this,
+						DriverMainScreen.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent);
+				finish();
 
-			Intent intent = new Intent(DriverNaviActivity.this,
-					DriverMainScreen.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			startActivity(intent);
-			finish();
+			} else if (mCode == NaviUtils.SIMPLEGPSNAVI) {
+				Intent intent = new Intent(DriverNaviActivity.this,
+						DriverMainScreen.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent);
+				finish();
+			} else {
+				finish();
+			}
 		}
 		return super.onKeyDown(keyCode, event);
-	}
-
-	@Override
-	public void onLocationChange(AMapNaviLocation arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	// -----------------------------导航界面回调事件------------------------
@@ -213,12 +118,6 @@ public class DriverNaviActivity extends Activity implements AMapNaviListener,
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		startActivity(intent);
 		finish();
-	}
-
-	@Override
-	public void onNaviInfoUpdated(AMapNaviInfo arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -252,18 +151,6 @@ public class DriverNaviActivity extends Activity implements AMapNaviListener,
 	}
 
 	@Override
-	public void onReCalculateRouteForTrafficJam() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onReCalculateRouteForYaw() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void onResume() {
 		super.onResume();
 		mAmapAMapNaviView.onResume();
@@ -283,16 +170,11 @@ public class DriverNaviActivity extends Activity implements AMapNaviListener,
 
 	}
 
-	@Override
-	public void onStartNavi(int arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onTrafficStatusUpdate() {
-		// TODO Auto-generated method stub
-
+	private void processBundle(Bundle bundle) {
+		if (bundle != null) {
+			mIsEmulatorNavi = bundle.getBoolean(NaviUtils.ISEMULATOR, true);
+			mCode = bundle.getInt(NaviUtils.ACTIVITYINDEX);
+		}
 	}
 
 }

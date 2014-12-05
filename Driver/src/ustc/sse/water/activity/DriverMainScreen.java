@@ -4,7 +4,6 @@ import ustc.sse.water.tools.hzh.NaviRouteMethod;
 import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
-import ustc.sse.water.tools.zjx.VoiceSearch;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.Activity;
 import android.content.Intent;
@@ -161,7 +160,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// 点击的是语音输入按钮
 		case R.id.button_voice_search:
 			// 开启语音
-			new VoiceSearch(aMap, this).voicePoiSearch();
+			// new VoiceSearch(aMap, this).voicePoiSearch();
 			break;
 		// 点击的是汽车生活按钮
 		case R.id.button_round_search:
@@ -170,20 +169,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			break;
 		// 点击的是路径规划按钮——黄志恒注
 		case R.id.button_route_planning:
-			if (pas.getTargetPoint() != null) {
-				if (!hasRouted && nRoute == null) {
-					nRoute = new NaviRouteMethod(aMap, lp, this,
-							pas.getTargetPoint());
-				} else {
-					nRoute.mRouteOverLay.removeFromMap();
-					nRoute = new NaviRouteMethod(aMap, lp, this,
-							pas.getTargetPoint());
-				}
-			} else {
-				ToastUtil.show(this, "请选择目的地");
-				break;
-			}
-
+			planRoute();
+			break;
 		case R.id.button_start_navigation: {
 			Bundle bundle = new Bundle();
 			bundle.putDouble("start_latitude", lp.getLatitude());
@@ -193,9 +180,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 					.getLongitude());
 			Intent naviIntent = new Intent();
 			naviIntent.putExtras(bundle);
-			naviIntent
-					.setClass(DriverMainScreen.this, DriverNaviActivity.class);
-			// startActivity(naviIntent);
+			naviIntent.setClass(DriverMainScreen.this, NaviStartActivity.class);
+			startActivity(naviIntent);
 		}
 
 		}
@@ -283,5 +269,24 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
+	}
+
+	/**
+	 * 点击“路径规划按钮，调用此方法”
+	 */
+	private void planRoute() {
+
+		if (pas.getTargetPoint() != null) {
+			if (!hasRouted && nRoute == null) {
+				nRoute = new NaviRouteMethod(aMap, lp, this,
+						pas.getTargetPoint());
+			} else {
+				nRoute.mRouteOverLay.removeFromMap();
+				nRoute = new NaviRouteMethod(aMap, lp, this,
+						pas.getTargetPoint());
+			}
+		} else {
+			ToastUtil.show(this, "请选择目的地");
+		}
 	}
 }

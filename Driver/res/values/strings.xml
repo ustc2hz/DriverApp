@@ -18,5 +18,11 @@
     <string name="title_activity_driver_navi">DriverNaviActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="app_id">有车位</string>
+    <string name="preference_default_tts_role">xiaoyan</string>
+    <string name="preference_key_tts_speed">tts_speed</string>
+    <string name="preference_key_tts_volume">tts_volume</string>
+    <string name="preference_key_tts_pitch">tts_pitch</string>
+    <string name="title_activity_navi_start">NaviStartActivity</string>
 
 </resources>

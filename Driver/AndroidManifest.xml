@@ -46,10 +46,17 @@
         </activity>
         <!-- 车生活界面 -->
 
-        <activity android:name="ustc.sse.water.activity.DriverLife"
-            android:theme="@android:style/Theme.Dialog"
-            android:label="@string/happy_driver_life" >
-
+        <activity
+            android:name=".DriverLife"
+            android:label="@string/happy_driver_life"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".NaviStartActivity"
+            android:label="@string/title_activity_navi_start" >
+        </activity>
+        <activity
+            android:name=".DriverNaviActivity">
         </activity>
     </application>
 

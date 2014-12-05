@@ -81,10 +81,10 @@ public class NaviRouteMethod implements AMapNaviListener {
 		this.aMap = aMap;
 		this.startPoint = lp;
 		this.endPoint = tp;
-		// du = new DialogUtil();
+		du = new DialogUtil(this.context);
 		if (initValue()) {
-			routeSearch = new RouteSearch(con);
-			// du.showProgressDialog();
+			// routeSearch = new RouteSearch(con);
+			du.showProgressDialog();
 			calculateDriveRoute();
 		} else {
 			ToastUtil.show(con, "路径规划失败");
@@ -100,15 +100,6 @@ public class NaviRouteMethod implements AMapNaviListener {
 			ToastUtil.show(this.context, "路线计算失败,检查参数情况");
 		}
 
-	}
-
-	/**
-	 * 隐藏进度框
-	 */
-	private void dissmissProgressDialog() {
-		if (progDialog != null) {
-			progDialog.dismiss();
-		}
 	}
 
 	public boolean initValue() {
@@ -160,6 +151,7 @@ public class NaviRouteMethod implements AMapNaviListener {
 	@Override
 	public void onCalculateRouteSuccess() {
 		// TODO Auto-generated method stub
+		du.dissmissProgressDialog();
 		AMapNaviPath naviPath = mAMapNavi.getNaviPath();
 		if (naviPath == null) {
 			return;

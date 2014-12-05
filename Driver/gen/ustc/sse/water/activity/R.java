@@ -46,35 +46,39 @@ public final class R {
         public static final int yellow_marker=0x7f020015;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000e;
-        public static final int actv_key_search=0x7f080004;
-        public static final int button_chose_user=0x7f080003;
-        public static final int button_my_location=0x7f080007;
-        public static final int button_round_search=0x7f08000a;
-        public static final int button_route_planning=0x7f080008;
-        public static final int button_start_navigation=0x7f080009;
-        public static final int button_voice_search=0x7f080005;
-        public static final int gridview_driver_life=0x7f080000;
-        public static final int image_driver_life_cell=0x7f080001;
-        public static final int map=0x7f080006;
-        public static final int map_container=0x7f08000b;
-        public static final int online_user_list_item_textview=0x7f08000d;
-        public static final int simplenavimap=0x7f08000c;
-        public static final int text_driver_life_cell=0x7f080002;
+        public static final int action_settings=0x7f08000f;
+        public static final int actv_key_search=0x7f080006;
+        public static final int button_chose_user=0x7f080005;
+        public static final int button_my_location=0x7f080009;
+        public static final int button_round_search=0x7f08000c;
+        public static final int button_route_planning=0x7f08000a;
+        public static final int button_start_navigation=0x7f08000b;
+        public static final int button_voice_search=0x7f080007;
+        public static final int gridview_driver_life=0x7f080002;
+        public static final int image_driver_life_cell=0x7f080003;
+        public static final int map=0x7f080008;
+        public static final int map_container=0x7f080000;
+        public static final int online_user_list_item_textview=0x7f08000e;
+        public static final int simple_navimap=0x7f080001;
+        public static final int simplenavimap=0x7f08000d;
+        public static final int text_driver_life_cell=0x7f080004;
     }
     public static final class layout {
         public static final int activity_driver_navi=0x7f030000;
-        public static final int driver_life=0x7f030001;
-        public static final int driver_life_cell=0x7f030002;
-        public static final int driver_main=0x7f030003;
-        public static final int navi_map=0x7f030004;
-        public static final int route_inputs=0x7f030005;
+        public static final int activity_navi_start=0x7f030001;
+        public static final int driver_life=0x7f030002;
+        public static final int driver_life_cell=0x7f030003;
+        public static final int driver_main=0x7f030004;
+        public static final int navi_map=0x7f030005;
+        public static final int route_inputs=0x7f030006;
     }
     public static final class menu {
         public static final int driver_navi=0x7f070000;
+        public static final int navi_start=0x7f070001;
     }
     public static final class string {
         public static final int action_settings=0x7f050010;
+        public static final int app_id=0x7f050011;
         public static final int app_name=0x7f050000;
         public static final int car_rent=0x7f05000b;
         public static final int car_repair=0x7f05000c;
@@ -88,9 +92,14 @@ public final class R {
         public static final int key_search=0x7f050001;
         public static final int no_result=0x7f050005;
         public static final int path_planning=0x7f050002;
+        public static final int preference_default_tts_role=0x7f050012;
+        public static final int preference_key_tts_pitch=0x7f050015;
+        public static final int preference_key_tts_speed=0x7f050013;
+        public static final int preference_key_tts_volume=0x7f050014;
         public static final int round_search=0x7f050004;
         public static final int start_navigation=0x7f050003;
         public static final int title_activity_driver_navi=0x7f05000e;
+        public static final int title_activity_navi_start=0x7f050016;
     }
     public static final class style {
         /** 
