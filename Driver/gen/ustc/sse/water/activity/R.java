@@ -95,11 +95,12 @@ public final class R {
         public static final int preference_default_tts_role=0x7f050012;
         public static final int preference_key_tts_pitch=0x7f050015;
         public static final int preference_key_tts_speed=0x7f050013;
+        public static final int preference_key_tts_stream=0x7f050016;
         public static final int preference_key_tts_volume=0x7f050014;
         public static final int round_search=0x7f050004;
         public static final int start_navigation=0x7f050003;
         public static final int title_activity_driver_navi=0x7f05000e;
-        public static final int title_activity_navi_start=0x7f050016;
+        public static final int title_activity_navi_start=0x7f050017;
     }
     public static final class style {
         /** 

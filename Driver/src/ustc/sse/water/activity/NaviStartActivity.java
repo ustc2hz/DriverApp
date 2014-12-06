@@ -2,7 +2,7 @@ package ustc.sse.water.activity;
 
 import java.util.ArrayList;
 
-import ustc.sse.water.tools.hzh.TTSController;
+//import ustc.sse.water.tools.hzh.TTSController;
 import ustc.sse.water.utils.zjx.DialogUtil;
 import ustc.sse.water.utils.zjx.NaviUtils;
 import ustc.sse.water.utils.zjx.ToastUtil;
@@ -121,7 +121,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navi_start);
 		// 语音播报开始
-		TTSController.getInstance(this).startSpeaking();
+		// NaviVoice.getInstance(this).startSpeaking();
 		initNaviLatLng();
 		// initView();
 		planRoute();

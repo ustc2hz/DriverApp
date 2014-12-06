@@ -1,6 +1,6 @@
 package ustc.sse.water.activity;
 
-import ustc.sse.water.tools.hzh.TTSController;
+//import ustc.sse.water.tools.hzh.TTSController;
 import ustc.sse.water.utils.zjx.NaviUtils;
 import android.app.Activity;
 import android.content.Intent;
@@ -47,7 +47,7 @@ public class DriverNaviActivity extends Activity implements
 		mAmapAMapNaviView = (AMapNaviView) findViewById(R.id.simple_navimap);
 		mAmapAMapNaviView.onCreate(savedInstanceState);
 		mAmapAMapNaviView.setAMapNaviViewListener(this);
-		TTSController.getInstance(this).startSpeaking();
+		// NaviVoice.getInstance(this).startSpeaking();
 		if (mIsEmulatorNavi) {
 			// 设置模拟速度
 			AMapNavi.getInstance(this).setEmulatorNaviSpeed(100);
@@ -75,7 +75,7 @@ public class DriverNaviActivity extends Activity implements
 		super.onDestroy();
 		mAmapAMapNaviView.onDestroy();
 
-		TTSController.getInstance(this).stopSpeaking();
+		// NaviVoice.getInstance(this).stopSpeaking();
 
 	}
 

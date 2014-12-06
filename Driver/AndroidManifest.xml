@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -51,10 +52,12 @@
             android:label="@string/happy_driver_life"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
+        <!-- 处理导航功能的中间层，空界面 -->
         <activity
             android:name=".NaviStartActivity"
             android:label="@string/title_activity_navi_start" >
         </activity>
+        <!-- 导航界面 -->
         <activity
             android:name=".DriverNaviActivity">
         </activity>

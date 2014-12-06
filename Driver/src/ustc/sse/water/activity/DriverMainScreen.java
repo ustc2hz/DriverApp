@@ -172,16 +172,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			planRoute();
 			break;
 		case R.id.button_start_navigation: {
-			Bundle bundle = new Bundle();
-			bundle.putDouble("start_latitude", lp.getLatitude());
-			bundle.putDouble("start_longitude", lp.getLongitude());
-			bundle.putDouble("end_latitude", pas.getTargetPoint().getLatitude());
-			bundle.putDouble("end_longitude", pas.getTargetPoint()
-					.getLongitude());
-			Intent naviIntent = new Intent();
-			naviIntent.putExtras(bundle);
-			naviIntent.setClass(DriverMainScreen.this, NaviStartActivity.class);
-			startActivity(naviIntent);
+			planNavi();
+			break;
 		}
 
 		}
@@ -195,6 +187,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.driver_main);
+		// SpeechUtility.createUtility(this, SpeechConstant.APPID +
+		// "=54818227");
 		mapView = (MapView) findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 必须重写
 		initMap();
@@ -269,6 +263,23 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
+	}
+
+	private void planNavi() {
+		if (pas.getTargetPoint() != null) {
+			Bundle bundle = new Bundle();
+			bundle.putDouble("start_latitude", lp.getLatitude());
+			bundle.putDouble("start_longitude", lp.getLongitude());
+			bundle.putDouble("end_latitude", pas.getTargetPoint().getLatitude());
+			bundle.putDouble("end_longitude", pas.getTargetPoint()
+					.getLongitude());
+			Intent naviIntent = new Intent();
+			naviIntent.putExtras(bundle);
+			naviIntent.setClass(DriverMainScreen.this, NaviStartActivity.class);
+			startActivity(naviIntent);
+		} else {
+			ToastUtil.show(this, "请选择目的地");
+		}
 	}
 
 	/**

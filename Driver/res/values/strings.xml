@@ -23,6 +23,7 @@
     <string name="preference_key_tts_speed">tts_speed</string>
     <string name="preference_key_tts_volume">tts_volume</string>
     <string name="preference_key_tts_pitch">tts_pitch</string>
+    <string name="preference_key_tts_stream">3</string>
     <string name="title_activity_navi_start">NaviStartActivity</string>
 
 </resources>
