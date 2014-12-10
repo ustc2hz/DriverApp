@@ -60,6 +60,9 @@ public class DriverNaviActivity extends Activity implements
 		}
 	}
 
+	/**
+	 * Activity生命周期起始函数
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,11 +73,13 @@ public class DriverNaviActivity extends Activity implements
 
 	}
 
+	/**
+	 * Activity生命周期结束函数
+	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		mAmapAMapNaviView.onDestroy();
-
 		// NaviVoice.getInstance(this).stopSpeaking();
 
 	}

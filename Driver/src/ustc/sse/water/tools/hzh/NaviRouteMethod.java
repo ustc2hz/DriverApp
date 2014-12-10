@@ -231,35 +231,4 @@ public class NaviRouteMethod implements AMapNaviListener {
 
 	}
 
-	/**
-	 * 开始搜索路径规划方案
-	 * 
-	 * @param startPoint
-	 *            路径的起始点
-	 * @param endPoing
-	 *            路径的终结点
-	 */
-	/*
-	 * public void searchRouteResult(LatLonPoint startPoint, LatLonPoint
-	 * endPoint) { showProgressDialog();// 显示对话框 final RouteSearch.FromAndTo
-	 * fromAndTo = new RouteSearch.FromAndTo( startPoint, endPoint);
-	 * DriveRouteQuery query = new DriveRouteQuery(fromAndTo, drivingMode, null,
-	 * null, "");//
-	 * 第一个参数表示路径规划的起点和终点，第二个参数表示驾车模式，第三个参数表示途经点，第四个参数表示避让区域，第五个参数表示避让道路
-	 * routeSearch.calculateDriveRouteAsyn(query);// 异步路径规划驾车模式查询
-	 * 
-	 * }
-	 */
-
-	/**
-	 * 显示进度框
-	 */
-	/*
-	 * private void showProgressDialog() { if (progDialog == null) { progDialog
-	 * = new ProgressDialog(context); }
-	 * progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-	 * progDialog.setIndeterminate(false); progDialog.setCancelable(true);
-	 * progDialog.setMessage("正在搜索"); progDialog.show();// 将进度框显示 }
-	 */
-
 }

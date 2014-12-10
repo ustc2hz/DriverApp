@@ -23,19 +23,35 @@ import com.amap.api.navi.model.NaviLatLng;
 
 /**
  * 
- * 实时导航界面
- * */
+ * 导航中间层类 <br>
+ * 该类用来对导航类的初始化，提供导航类的上下文
+ * <p>
+ * Copyright: Copyright (c) 2014-12-08 下午17:12:02
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * 
+ * @author 黄志恒 sa614399@mail.ustc.edu.cn
+ * @version 2.0.0
+ */
 public class NaviStartActivity extends Activity implements OnClickListener,
 		AMapNaviListener, AMapNaviViewListener {
+	/* 对话框类对象 */
 	private DialogUtil dialog = new DialogUtil(this);
+	/* 终点列表 */
 	private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
+	/* 终点 */
 	private NaviLatLng mNaviEnd;
-	// 起点终点
+	/* 起点 */
 	private NaviLatLng mNaviStart;
-	private ProgressDialog mRouteCalculatorProgressDialog;// 路径规划过程显示状态
-	// 起点终点列表
+	/* 路径规划过程显示状态 */
+	private ProgressDialog mRouteCalculatorProgressDialog;
+	/* 起点列表 */
 	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
 
+	/**
+	 * 初始化起点终点列表
+	 */
 	private void initNaviLatLng() {
 		Bundle bundle = getIntent().getExtras();
 
@@ -60,16 +76,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		}
 	}
 
-	private void initView() {
-		mStartPoints.add(mNaviStart);
-		mEndPoints.add(mNaviEnd);
-
-		mRouteCalculatorProgressDialog = new ProgressDialog(this);
-		mRouteCalculatorProgressDialog.setCancelable(true);
-
-		AMapNavi.getInstance(this).setAMapNaviListener(this);
-	}
-
 	// ---------------------导航回调--------------------
 	@Override
 	public void onArriveDestination() {
@@ -89,6 +95,9 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	}
 
+	/**
+	 * 路径规划成功后的回调函数
+	 */
 	@Override
 	public void onCalculateRouteSuccess() {
 		dialog.dissmissProgressDialog();
@@ -107,32 +116,27 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	// --------------------------------点击事件------------------
 	@Override
 	public void onClick(View v) {
-		/*
-		 * switch (v.getId()) { case R.id.gps_start_navi_button:
-		 * AMapNavi.getInstance(this).calculateDriveRoute(mStartPoints,
-		 * mEndPoints, null, AMapNavi.DrivingDefault);
-		 * mRouteCalculatorProgressDialog.show(); break; }
-		 */
-
 	}
 
+	/**
+	 * Activity的入口函数
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navi_start);
-		// 语音播报开始
-		// NaviVoice.getInstance(this).startSpeaking();
 		initNaviLatLng();
-		// initView();
 		planRoute();
 
 	}
 
+	/**
+	 * Activity生命周期结束后的方法
+	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		// 删除导航监听
-
 		AMapNavi.getInstance(this).removeAMapNaviListener(this);
 	}
 
@@ -166,7 +170,14 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	}
 
-	// 返回键处理事件
+	/**
+	 * 返回键处理事件
+	 * 
+	 * @param keyCode
+	 *            传递的事件代码
+	 * @param event
+	 *            传递的事件
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -254,6 +265,9 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	}
 
+	/**
+	 * 开始规划路径的方法
+	 */
 	private void planRoute() {
 		AMapNavi.getInstance(this).calculateDriveRoute(mStartPoints,
 				mEndPoints, null, AMapNavi.DrivingDefault);
