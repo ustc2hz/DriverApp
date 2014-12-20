@@ -1,5 +1,6 @@
 package ustc.sse.water.activity;
 
+import ustc.sse.water.tools.hzh.MyCloudSearch;
 import ustc.sse.water.tools.hzh.NaviRouteMethod;
 import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
@@ -52,7 +53,6 @@ import com.iflytek.cloud.SpeechUtility;
  */
 public class DriverMainScreen extends Activity implements LocationSource,
 		AMapLocationListener, OnClickListener {
-	
 
 	/* 高德地图AMap */
 	private AMap aMap;
@@ -64,6 +64,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private Button btnRoutePlan;
 	/* 登录 ——张芳注 */
 	private ImageButton chooseUsers;
+	// 获取编辑器
+	Editor editor;
 	private boolean hasRouted = false;
 	/* 输入框 */
 	private AutoCompleteTextView keyEdit;
@@ -81,14 +83,14 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private NaviRouteMethod nRoute;
 	/* 周边搜索的类 ——黄志恒注 */
 	PoiAroundSearchMethod pas;
+	/* 定义sharedpreference获取用户登录注册信息 */
+	SharedPreferences sharedPreferences;
 	/* 地图的基本设置 */
 	private UiSettings uiSettings;
 	/* 语音输入 */
 	private ImageView voiceInput;
-	/* 定义sharedpreference获取用户登录注册信息 */
-	SharedPreferences sharedPreferences;
-	// 获取编辑器
-	Editor editor;
+	/* 搜索云图时的点——黄志恒注 */
+	private LatLng yunLatlng;
 
 	/**
 	 * 激活定位
@@ -163,7 +165,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		if (requestCode == 1 && resultCode == 1) { // 从DriverLife传递过来的
 			String poiType = data.getStringExtra("result_type");
 			aMap.clear();
+			// 重新在地图上显示停车场
 			pas = new PoiAroundSearchMethod(aMap, this, poiType, lp);
+			// 重新在地图上显示云图数据
+			new MyCloudSearch(this, lp.getLatitude(), lp.getLongitude(), aMap);
 		}
 	}
 
@@ -230,9 +235,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		mapView.onCreate(savedInstanceState);// 必须重写
 		initMap();
 		initViews();
-		 sharedPreferences = getSharedPreferences("zf",
-					Context.MODE_PRIVATE);
-		 editor = sharedPreferences.edit();
+		sharedPreferences = getSharedPreferences("zf", Context.MODE_PRIVATE);
+		editor = sharedPreferences.edit();
 	}
 
 	/**
@@ -251,14 +255,17 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	@Override
 	public void onLocationChanged(AMapLocation aLocation) {
 		if (mListener != null && aLocation != null) {
-			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
+
 			myLatlng = new LatLng(aLocation.getLatitude(),
 					aLocation.getLongitude());// 获取我的位置
 			lp = new LatLonPoint(aLocation.getLatitude(),
 					aLocation.getLongitude());
-			// new PoiAroundSearchMethod(aMap, this, "停车场", lp);
 			// 显示我的位置附件的停车场，并产生附近搜索对象——黄志恒注
 			pas = new PoiAroundSearchMethod(aMap, this, "停车场", lp);
+			// 显示云图数据
+			new MyCloudSearch(this, aLocation.getLatitude(),
+					aLocation.getLongitude(), aMap);
+			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
 		}
 	}
 
@@ -306,6 +313,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 	}
 
+	/**
+	 * 点击“开始导航，调用此方法”
+	 */
 	private void planNavi() {
 		if (pas.getTargetPoint() != null) {
 			Bundle bundle = new Bundle();
