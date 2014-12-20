@@ -184,6 +184,7 @@ public class PoiSearchMethod implements OnMarkerClickListener,
 	/**
 	 * Poi信息查询回调方法
 	 */
+
 	@Override
 	public void onPoiSearched(PoiResult result, int rCode) {
 		dialog.dissmissProgressDialog();// 去除对话框

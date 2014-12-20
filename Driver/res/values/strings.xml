@@ -25,5 +25,7 @@
     <string name="preference_key_tts_pitch">tts_pitch</string>
     <string name="preference_key_tts_stream">3</string>
     <string name="title_activity_navi_start">NaviStartActivity</string>
+    <string name="title_activity_manager_main">Manager_main</string>
+    <string name="welcome">欢迎</string>
 
 </resources>

@@ -1,8 +1,8 @@
 package ustc.sse.water.activity;
 
+//import ustc.sse.water.tools.hzh.TTSController;
 import java.util.ArrayList;
 
-//import ustc.sse.water.tools.hzh.TTSController;
 import ustc.sse.water.utils.zjx.DialogUtil;
 import ustc.sse.water.utils.zjx.NaviUtils;
 import ustc.sse.water.utils.zjx.ToastUtil;
@@ -20,6 +20,10 @@ import com.amap.api.navi.AMapNaviViewListener;
 import com.amap.api.navi.model.AMapNaviInfo;
 import com.amap.api.navi.model.AMapNaviLocation;
 import com.amap.api.navi.model.NaviLatLng;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 
 /**
  * 
@@ -48,11 +52,67 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	private ProgressDialog mRouteCalculatorProgressDialog;
 	/* 起点列表 */
 	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
+	/**
+	 * 导航语音监听
+	 */
+	private SynthesizerListener mSynListener = new SynthesizerListener() {
+
+		@Override
+		public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onCompleted(SpeechError arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onSpeakBegin() {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onSpeakPaused() {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onSpeakProgress(int arg0, int arg1, int arg2) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onSpeakResumed() {
+			// TODO Auto-generated method stub
+
+		}
+	};
+	/* 创建 SpeechSynthesizer 对象, 第二个参数：本地合成时传 InitListener */
+	SpeechSynthesizer mTts;
 
 	/**
 	 * 初始化起点终点列表
 	 */
 	private void initNaviLatLng() {
+
+		mTts = SpeechSynthesizer.createSynthesizer(this, null);
+		mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");// 设置发音人
+		mTts.setParameter(SpeechConstant.SPEED, "50");// 设置语速
+		mTts.setParameter(SpeechConstant.VOLUME, "80");// 设置音量，范围 0~100
+		mTts.startSpeaking("", mSynListener);
+
 		Bundle bundle = getIntent().getExtras();
 
 		if (bundle.containsKey("start_latitude")
@@ -77,10 +137,11 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	}
 
 	// ---------------------导航回调--------------------
+
 	@Override
 	public void onArriveDestination() {
 		// TODO Auto-generated method stub
-
+		mTts.startSpeaking("到达目的地", mSynListener);
 	}
 
 	@Override
@@ -91,6 +152,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onCalculateRouteFailure(int arg0) {
+		mTts.startSpeaking("路径计算失败，请检查网络或输入参数", mSynListener);
 		mRouteCalculatorProgressDialog.dismiss();
 
 	}
@@ -98,8 +160,10 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	/**
 	 * 路径规划成功后的回调函数
 	 */
+
 	@Override
 	public void onCalculateRouteSuccess() {
+		// mTts.startSpeaking("路径计算就绪", mSynListener);
 		dialog.dissmissProgressDialog();
 		Intent intent = new Intent(NaviStartActivity.this,
 				DriverNaviActivity.class);
@@ -127,7 +191,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		setContentView(R.layout.activity_navi_start);
 		initNaviLatLng();
 		planRoute();
-
 	}
 
 	/**
@@ -143,12 +206,14 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	@Override
 	public void onEndEmulatorNavi() {
 		// TODO Auto-generated method stub
+		mTts.startSpeaking("导航结束", mSynListener);
 
 	}
 
 	@Override
 	public void onGetNavigationText(int arg0, String arg1) {
 		// TODO Auto-generated method stub
+		mTts.startSpeaking(arg1, mSynListener);
 
 	}
 
@@ -180,13 +245,11 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Intent intent = new Intent(NaviStartActivity.this,
 					DriverMainScreen.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent);
-
 			finish();
 		}
 		return super.onKeyDown(keyCode, event);
@@ -200,6 +263,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	}
 
 	// ---------------------导航View事件回调-----------------------------
+
 	@Override
 	public void onNaviCancel() {
 
@@ -238,12 +302,14 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	@Override
 	public void onReCalculateRouteForTrafficJam() {
 		// TODO Auto-generated method stub
+		mTts.startSpeaking("前方道路拥挤，路线重新规划", mSynListener);
 
 	}
 
 	@Override
 	public void onReCalculateRouteForYaw() {
 		// TODO Auto-generated method stub
+		mTts.startSpeaking("您已偏离规划路线", mSynListener);
 
 	}
 

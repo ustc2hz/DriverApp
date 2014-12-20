@@ -4,9 +4,15 @@ import ustc.sse.water.tools.hzh.NaviRouteMethod;
 import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
+import ustc.sse.water.tools.zjx.VoiceSearch;
 import ustc.sse.water.utils.zjx.ToastUtil;
+import ustc.sse.water.zf.ManagerMain;
+import ustc.sse.water.zf.Manager_Driver_model;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +34,8 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 
 /**
  * 
@@ -44,6 +52,8 @@ import com.amap.api.services.core.LatLonPoint;
  */
 public class DriverMainScreen extends Activity implements LocationSource,
 		AMapLocationListener, OnClickListener {
+	
+
 	/* 高德地图AMap */
 	private AMap aMap;
 	/* 汽车生活按钮 */
@@ -52,6 +62,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private Button btnNavi;
 	/* 路径规划按钮 ——黄志恒注 */
 	private Button btnRoutePlan;
+	/* 登录 ——张芳注 */
+	private ImageButton chooseUsers;
 	private boolean hasRouted = false;
 	/* 输入框 */
 	private AutoCompleteTextView keyEdit;
@@ -73,10 +85,15 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private UiSettings uiSettings;
 	/* 语音输入 */
 	private ImageView voiceInput;
+	/* 定义sharedpreference获取用户登录注册信息 */
+	SharedPreferences sharedPreferences;
+	// 获取编辑器
+	Editor editor;
 
 	/**
 	 * 激活定位
 	 */
+
 	@Override
 	public void activate(OnLocationChangedListener listener) {
 		mListener = listener;
@@ -90,6 +107,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	/**
 	 * 停止定位
 	 */
+
 	@Override
 	public void deactivate() {
 		mListener = null;
@@ -132,6 +150,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		btnNavi.setOnClickListener(this);
 		btnDriverLife = (Button) findViewById(R.id.button_round_search);
 		btnDriverLife.setOnClickListener(this);
+		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54818227");
+		chooseUsers = (ImageButton) findViewById(R.id.button_chose_user);
+		chooseUsers.setOnClickListener(this);
 	}
 
 	/**
@@ -160,7 +181,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// 点击的是语音输入按钮
 		case R.id.button_voice_search:
 			// 开启语音
-			// new VoiceSearch(aMap, this).voicePoiSearch();
+			new VoiceSearch(aMap, this).voicePoiSearch();
 			break;
 		// 点击的是汽车生活按钮
 		case R.id.button_round_search:
@@ -175,9 +196,27 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			planNavi();
 			break;
 		}
+		// By Zhangfang
+		// 点击登录
+		case R.id.button_chose_user:
+			SharedPreferences shared = getSharedPreferences("loginState",
+					Context.MODE_PRIVATE);
+			int loginState = shared.getInt("loginState", 2); // 取不到，则默认为0
+			if (loginState == 2) {
+				Intent it2 = new Intent(DriverMainScreen.this,
+						Manager_Driver_model.class);
+				it2.putExtra("choose_model", 0);
+				startActivity(it2);
 
+			} else if (loginState == 1) {
+				Intent it2 = new Intent(DriverMainScreen.this,
+						ManagerMain.class);
+				it2.putExtra("choose_model", 1);
+				startActivity(it2);
+				finish();
+			}
+			break;
 		}
-
 	}
 
 	/**
@@ -187,12 +226,13 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.driver_main);
-		// SpeechUtility.createUtility(this, SpeechConstant.APPID +
-		// "=54818227");
 		mapView = (MapView) findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 必须重写
 		initMap();
 		initViews();
+		 sharedPreferences = getSharedPreferences("zf",
+					Context.MODE_PRIVATE);
+		 editor = sharedPreferences.edit();
 	}
 
 	/**
@@ -207,6 +247,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	/**
 	 * 定位完成后回调该方法
 	 */
+
 	@Override
 	public void onLocationChanged(AMapLocation aLocation) {
 		if (mListener != null && aLocation != null) {
@@ -300,4 +341,5 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			ToastUtil.show(this, "请选择目的地");
 		}
 	}
+
 }

@@ -37,6 +37,15 @@ public class DialogUtil {
 	}
 
 	/**
+	 * 取消进度对话框
+	 */
+	public void dissmissProgressDialog() {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+	}
+
+	/**
 	 * 显示进度对话框
 	 */
 	public void showProgressDialog() {
@@ -47,15 +56,6 @@ public class DialogUtil {
 			progressDialog.setCancelable(false);
 			progressDialog.setMessage("正在搜索...");
 			progressDialog.show();
-		}
-	}
-
-	/**
-	 * 取消进度对话框
-	 */
-	public void dissmissProgressDialog() {
-		if (progressDialog != null) {
-			progressDialog.dismiss();
 		}
 	}
 

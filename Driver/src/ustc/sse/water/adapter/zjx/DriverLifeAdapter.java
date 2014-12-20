@@ -28,8 +28,15 @@ import android.widget.TextView;
  * @version 1.0.0
  */
 public class DriverLifeAdapter extends BaseAdapter {
+	/* 缓存类 */
+	final class ViewHolder {
+		public ImageView image; // 图片
+		public TextView text; // 文字
+	}
+
 	/* 上下文 */
 	private Context context;
+
 	/* 布局填充器 */
 	private LayoutInflater inflater;
 
@@ -42,6 +49,12 @@ public class DriverLifeAdapter extends BaseAdapter {
 	public DriverLifeAdapter(Context con) {
 		this.context = con;
 		this.inflater = LayoutInflater.from(con);
+	}
+
+	@Override
+	public int getCount() {
+		// GridView的元素个数
+		return getDate().size();
 	}
 
 	/**
@@ -65,12 +78,6 @@ public class DriverLifeAdapter extends BaseAdapter {
 			list.add(map);
 		}
 		return list;
-	}
-
-	@Override
-	public int getCount() {
-		// GridView的元素个数
-		return getDate().size();
 	}
 
 	@Override
@@ -105,12 +112,6 @@ public class DriverLifeAdapter extends BaseAdapter {
 				.get("image"));
 		vh.text.setText((Integer) getDate().get(position).get("text"));
 		return convertView;
-	}
-
-	/* 缓存类 */
-	final class ViewHolder {
-		public ImageView image; // 图片
-		public TextView text; // 文字
 	}
 
 }

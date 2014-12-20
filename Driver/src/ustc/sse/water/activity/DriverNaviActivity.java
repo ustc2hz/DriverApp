@@ -44,10 +44,10 @@ public class DriverNaviActivity extends Activity implements
 	 * @param savedInstanceState
 	 */
 	private void init(Bundle savedInstanceState) {
+
 		mAmapAMapNaviView = (AMapNaviView) findViewById(R.id.simple_navimap);
 		mAmapAMapNaviView.onCreate(savedInstanceState);
 		mAmapAMapNaviView.setAMapNaviViewListener(this);
-		// NaviVoice.getInstance(this).startSpeaking();
 		if (mIsEmulatorNavi) {
 			// 设置模拟速度
 			AMapNavi.getInstance(this).setEmulatorNaviSpeed(100);
@@ -80,7 +80,6 @@ public class DriverNaviActivity extends Activity implements
 	public void onDestroy() {
 		super.onDestroy();
 		mAmapAMapNaviView.onDestroy();
-		// NaviVoice.getInstance(this).stopSpeaking();
 
 	}
 

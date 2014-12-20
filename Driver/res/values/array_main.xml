@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="functions">
+        <item>发布消息</item>
+        <item>个人设置</item>
+        <item>订单管理</item>
+    </string-array>
+    
+    <string-array name="helper_function">
+        <item>用户使用协议</item>
+        <item>关于系统</item>
+        <item>电话人工帮助</item>
+        <item>短信帮助</item>
+        <item>邮件帮助</item>
+    </string-array>
+</resources>

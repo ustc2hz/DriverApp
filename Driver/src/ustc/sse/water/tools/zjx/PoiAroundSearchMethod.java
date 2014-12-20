@@ -203,6 +203,7 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 	/**
 	 * Marker点击事件，查看Marker详情
 	 */
+
 	@Override
 	public boolean onMarkerClick(Marker marker) {
 		if (poiOverlay != null && poiItems != null && poiItems.size() > 0) {
@@ -217,6 +218,7 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 	/**
 	 * POI详情回调
 	 */
+
 	@Override
 	public void onPoiItemDetailSearched(PoiItemDetail result, int rCode) {
 		dialog.dissmissProgressDialog();// 去除对话框
@@ -248,6 +250,7 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 	/**
 	 * POI搜索回调方法
 	 */
+
 	@Override
 	public void onPoiSearched(PoiResult result, int rCode) {
 		dialog.dissmissProgressDialog();// 去除对话框
@@ -262,6 +265,7 @@ public class PoiAroundSearchMethod implements OnMarkerClickListener,
 						// aMap.clear();// 清理之前的图标
 						// 自定义PoiOverlay图层
 						poiOverlay = new PoiOverlay(aMap, poiItems) {
+
 							@Override
 							protected BitmapDescriptor getBitmapDescriptor(
 									int arg0) {
