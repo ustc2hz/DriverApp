@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="#66ffcc"
         android:gravity="center_horizontal|top"
-        android:text="车位预定"
+        android:text="@string/parking_order_title"
         android:textColor="#ff0033"
         android:textSize="30sp" />
 
@@ -24,7 +24,7 @@
     <TextView android:id="@+id/text_license_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="选择车牌："
+        android:text="@string/parking_order_chose_licence"
         android:layout_below="@id/book_view1"/>
     
     <ListView android:id="@+id/listview_license_chose"
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="选择预定时间："/>
+            android:text="@string/parking_order_chose_time"/>
         
         <Spinner android:id="@+id/spinner_time_chose"
             android:layout_width="match_parent"
@@ -69,13 +69,13 @@
             android:id="@+id/button_submit_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"           
-            android:text="提交预定" />
+            android:text="@string/parking_order_submit" />
 
         <Button
             android:id="@+id/button_cancel_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="取消预定" />
+            android:text="@string/parking_order_cancel" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -13,24 +13,40 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+/**
+ * 
+ * 停车场预定类. <br>
+ * 驾驶员预定停车场，选择车牌号，选择时间.
+ * <p>
+ * Copyright: Copyright (c) 2014-12-21 上午10:39:02
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * 
+ * @author 周晶鑫 sa614412@mail.ustc.edu.cn
+ * @version 1.0.0
+ */
 public class ParkingBook extends Activity implements OnClickListener,
 		OnItemSelectedListener {
-	private String[] license = { "��1234567", "��666666", "��888888" };
-	private String[] time = { "30����10Ԫ", "1Сʱ20Ԫ", "90����30Ԫ", "2Сʱ40Ԫ" };
-	private Button submitOrder;
-	private Button cancelOrder;
-	private ListView listView;
-	private Spinner spinner;
+	/* 模拟车牌号和预定时间 */
+	private String[] license = { "苏1234567", "苏666666", "苏888888" };
+	private String[] time = { "30分钟10元", "1小时20元", "90分钟30元", "2小时40元" };
+	private Button submitOrder;// 提交订单按钮
+	private Button cancelOrder;// 取消订单按钮
+	private ListView listView;// 车牌号的列表
+	private Spinner spinner; // 预定时间下拉框
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		getActionBar().hide();
+		getActionBar().hide(); // 隐藏ActionBar
 		setContentView(R.layout.parking_book);
 		initView();
 	}
 
+	/**
+	 * 初始化视图组件
+	 */
 	public void initView() {
 		ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_multiple_choice, license);
@@ -48,28 +64,36 @@ public class ParkingBook extends Activity implements OnClickListener,
 		cancelOrder.setOnClickListener(this);
 	}
 
+	/**
+	 * 提交订单
+	 */
 	public void submit() {
-		int count = listView.getCheckedItemCount();
-		Toast.makeText(this, "-->>" + count, 1).show();
+		int count = listView.getCheckedItemCount(); // 选择的车牌号数
+		Toast.makeText(this, "-->>" + count, 1).show(); // 测试
 	}
 
+	/**
+	 * 视图点击事件的处理
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.button_submit_order:
+		case R.id.button_submit_order:// 点击提交订单
 			submit();
 			break;
-		case R.id.button_cancel_order:
+		case R.id.button_cancel_order: // 点击取消预定
 			finish();
 			break;
 		}
 
 	}
 
+	/**
+	 * 下拉框的选择
+	 */
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
 		String str = parent.getItemAtPosition(position).toString();
 		Toast.makeText(this, str, 1).show();
 
@@ -77,8 +101,6 @@ public class ParkingBook extends Activity implements OnClickListener,
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

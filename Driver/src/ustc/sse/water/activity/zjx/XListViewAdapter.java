@@ -13,10 +13,23 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * 
+ * 自定义ListView的适配器. <br>
+ * ListView中的元素.
+ * <p>
+ * Copyright: Copyright (c) 2014-12-21 上午10:54:37
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * 
+ * @author 周晶鑫 sa614412@mail.ustc.edu.cn
+ * @version 1.0.0
+ */
 public class XListViewAdapter extends BaseAdapter implements OnClickListener {
-	private List<String> list;
-	private Context context;
-	private LayoutInflater inflater;
+	private List<String> list;// 信息列表
+	private Context context; // 上下文
+	private LayoutInflater inflater; // 填充器
 
 	public XListViewAdapter(Context con, List<String> list) {
 		this.context = con;
@@ -26,25 +39,23 @@ public class XListViewAdapter extends BaseAdapter implements OnClickListener {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
+		// 列表的元素个数
 		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		// 每个元素的初始化
 		ViewHolder vh;
 		if (convertView == null) {
 			vh = new ViewHolder();
@@ -70,20 +81,24 @@ public class XListViewAdapter extends BaseAdapter implements OnClickListener {
 		return convertView;
 	}
 
+	/* 缓冲类 */
 	class ViewHolder {
-		public TextView name;
-		public TextView distance;
-		public TextView address;
-		public Button btn1;
-		public Button btn2;
+		public TextView name; // 停车场名字
+		public TextView distance;// 停车场距离
+		public TextView address;// 停车场地址
+		public Button btn1; // 路线按钮
+		public Button btn2; // 预定按钮
 	}
 
+	/**
+	 * 按钮点击事件处理
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.button_parking_route:
+		case R.id.button_parking_route:// 路线按钮
 			break;
-		case R.id.button_parking_order:
+		case R.id.button_parking_order:// 预定按钮
 			Intent intent = new Intent(context, ParkingInfo.class);
 			context.startActivity(intent);
 			break;

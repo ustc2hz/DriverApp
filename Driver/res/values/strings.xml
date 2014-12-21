@@ -35,5 +35,24 @@
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <string name="spinner_chose_tip">请选择：</string>
+    
+    <string name="driver_info_welcome">欢迎使用</string>
+    <string name="driver_username">用户名：</string>
+    <string name="driver_licence">车牌号：</string>
+    <string name="driver_another_licence">其他车牌号：</string>
+    <string name="driver_add_another_licence">添加车牌</string>
+    <string name="driver_check_order">查看订单</string>
+    <string name="driver_two_code">二维码</string>
+    <string name="driver_back_map">返回地图</string>
+    <string name="driver_logout">退出登录</string>
+    <string name="driver_order_info">订单信息</string>
+    <string name="driver_order_base">基本内容</string>
+    <string name="driver_order_status">状态</string>
+    <string name="parking_order_money_unit">元</string>
+    <string name="parking_order_title">车位预定</string>
+    <string name="parking_order_chose_licence">选择车牌</string>
+    <string name="parking_order_chose_time">选择预定时间</string>
+    <string name="parking_order_submit">提交预定</string>
+    <string name="parking_order_cancel">取消预定</string>
 
 </resources>
