@@ -105,7 +105,19 @@
             android:label="@string/welcome">
             
        </activity>
-        
+       
+        <!-- 添加车牌号 -->
+        <activity android:name="ustc.sse.water.activity.zjx.AddDriverLicence"></activity>
+        <!-- 驾驶员信息界面 -->
+        <activity android:name="ustc.sse.water.activity.zjx.DriverInfo"></activity>
+        <!-- 驾驶员订单界面 -->
+        <activity android:name="ustc.sse.water.activity.zjx.DriverOrderInfo"></activity>
+        <!-- 停车场预定 -->
+        <activity android:name="ustc.sse.water.activity.zjx.ParkingBook"></activity>
+        <!-- 停车场信息 -->
+        <activity android:name="ustc.sse.water.activity.zjx.ParkingInfo"></activity>
+        <!-- 停车场列表 -->
+        <activity android:name="ustc.sse.water.activity.zjx.ParkingList"></activity>
     </application>
 
 </manifest>
