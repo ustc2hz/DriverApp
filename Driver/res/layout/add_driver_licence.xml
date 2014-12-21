@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <!-- Add licence -->
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="添加车牌号"/>
+    
+    <View android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="#000000" />
+    
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="车牌号："/>
+    
+    <EditText android:id="@+id/edit_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入车牌号..."/>
+    
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="联系方式："/>
+    
+    <EditText android:id="@+id/edit_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入联系方式..."/>
+    
+    <Button android:id="@+id/button_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加"/>
+
+</LinearLayout>

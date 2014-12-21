@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/text_info_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#66ffcc"
+        android:gravity="center_horizontal|top"
+        android:text="详细信息"
+        android:textColor="#ff0033"
+        android:textSize="30sp" />
+
+    <View android:id="@+id/info_view1"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/text_info_title"
+        android:background="#000000" />
+    
+    <LinearLayout android:layout_below="@id/info_view1"
+        android:id="@+id/info_linear1"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="可预订车位数："
+            android:layout_weight="1"/>
+        <TextView android:id="@+id/text_book_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="23"
+            android:gravity="center"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    
+    <LinearLayout android:layout_below="@id/info_linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提前预定收费情况："/>
+        
+        <ListView android:id="@+id/listview_book_parking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#ff0000"
+            android:dividerHeight="2dp" >
+        </ListView>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"      
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/button_make_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"           
+            android:text="预定" />
+
+        <Button
+            android:id="@+id/button_back_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="返回" />
+    </LinearLayout>
+
+</RelativeLayout>

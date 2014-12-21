@@ -36,7 +36,7 @@
         <!-- AMap的key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="4a7353785f59da34aa9e4d37934bed29" />
+            android:value="6ff5eece1c96b559d1f378517d1da4d0" />
         <!-- 地图界面 -->
 
         <activity
@@ -105,7 +105,19 @@
             android:label="@string/welcome">
             
        </activity>
-        
+       
+        <!-- 添加车牌号 -->
+        <activity android:name="ustc.sse.water.activity.zjx.AddDriverLicence"></activity>
+        <!-- 驾驶员信息界面 -->
+        <activity android:name="ustc.sse.water.activity.zjx.DriverInfo"></activity>
+        <!-- 驾驶员订单界面 -->
+        <activity android:name="ustc.sse.water.activity.zjx.DriverOrderInfo"></activity>
+        <!-- 停车场预定 -->
+        <activity android:name="ustc.sse.water.activity.zjx.ParkingBook"></activity>
+        <!-- 停车场信息 -->
+        <activity android:name="ustc.sse.water.activity.zjx.ParkingInfo"></activity>
+        <!-- 停车场列表 -->
+        <activity android:name="ustc.sse.water.activity.zjx.ParkingList"></activity>
     </application>
 
 </manifest>
