@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="#66ffcc"
         android:gravity="center_horizontal|top"
-        android:text="详细信息"
+        android:text="@string/parking_detail_info"
         android:textColor="#ff0033"
         android:textSize="30sp" />
 
@@ -30,7 +30,7 @@
         <TextView 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="可预订车位数："
+            android:text="@string/parking_detail_book_number"
             android:layout_weight="1"/>
         <TextView android:id="@+id/text_book_number"
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         
         <TextView android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="提前预定收费情况："/>
+            android:text="@string/parking_detail_book_money"/>
         
         <ListView android:id="@+id/listview_book_parking"
             android:layout_width="match_parent"
@@ -68,13 +68,13 @@
             android:id="@+id/button_make_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"           
-            android:text="预定" />
+            android:text="@string/parking_detail_book_submit" />
 
         <Button
             android:id="@+id/button_back_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="返回" />
+            android:text="@string/parking_detail_book_back" />
     </LinearLayout>
 
 </RelativeLayout>

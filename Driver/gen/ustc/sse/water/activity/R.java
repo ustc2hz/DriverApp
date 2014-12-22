@@ -669,6 +669,11 @@ public final class R {
         public static final int hello_world=0x7f07000f;
         public static final int key_search=0x7f070001;
         public static final int no_result=0x7f070005;
+        public static final int parking_detail_book_back=0x7f070037;
+        public static final int parking_detail_book_money=0x7f070035;
+        public static final int parking_detail_book_number=0x7f070034;
+        public static final int parking_detail_book_submit=0x7f070036;
+        public static final int parking_detail_info=0x7f070033;
         public static final int parking_order_cancel=0x7f070032;
         public static final int parking_order_chose_licence=0x7f07002f;
         public static final int parking_order_chose_time=0x7f070030;
