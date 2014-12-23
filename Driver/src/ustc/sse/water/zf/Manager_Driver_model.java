@@ -1,8 +1,5 @@
 package ustc.sse.water.zf;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
-import android.text.TextPaint;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -446,6 +442,7 @@ public class Manager_Driver_model extends Activity implements
 
 	// Handler
 	Handler handler1 = new Handler() {
+		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
@@ -472,6 +469,7 @@ public class Manager_Driver_model extends Activity implements
 	 * Handler
 	 */
 	Handler handler2 = new Handler() {
+		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
@@ -667,7 +665,7 @@ public class Manager_Driver_model extends Activity implements
 
 		StringBuffer hexValue = new StringBuffer();
 		for (int i = 0; i < md5Bytes.length; i++) {
-			int val = ((int) md5Bytes[i]) & 0xff;
+			int val = (md5Bytes[i]) & 0xff;
 			if (val < 16) {
 				hexValue.append("0");
 			}

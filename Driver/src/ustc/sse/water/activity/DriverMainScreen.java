@@ -28,12 +28,18 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMap.InfoWindowAdapter;
+import com.amap.api.maps.AMap.OnMapClickListener;
+import com.amap.api.maps.AMap.OnMarkerClickListener;
 import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.services.core.LatLonPoint;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -52,10 +58,13 @@ import com.iflytek.cloud.SpeechUtility;
  * @version 2.3.0
  */
 public class DriverMainScreen extends Activity implements LocationSource,
-		AMapLocationListener, OnClickListener {
+		AMapLocationListener, OnClickListener, OnMarkerClickListener,
+		InfoWindowAdapter, OnMapClickListener {
 
 	/* 高德地图AMap */
 	private AMap aMap;
+	/* AMapLocation的对象，用于定位——黄志恒注 */
+	private AMapLocation bLocation;
 	/* 汽车生活按钮 */
 	private Button btnDriverLife;
 	/* 路径规划按钮——黄志恒注 */
@@ -69,7 +78,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private boolean hasRouted = false;
 	/* 输入框 */
 	private AutoCompleteTextView keyEdit;
-	LatLonPoint lp;
+	/* 导航用的点——黄志恒注 */
+	private LatLonPoint lp;
 	private LocationManagerProxy mAMapLocationManager;
 	/* 用来显示地图的MapView */
 	private MapView mapView;
@@ -83,8 +93,14 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private NaviRouteMethod nRoute;
 	/* 周边搜索的类 ——黄志恒注 */
 	PoiAroundSearchMethod pas;
+	/* 搜索对象——黄志恒注 */
+	private PoiSearchMethod poisearch;
+	/* 搜索类型——黄志恒注 */
+	private String poiType;
 	/* 定义sharedpreference获取用户登录注册信息 */
 	SharedPreferences sharedPreferences;
+	/* 路径规划的目的地的点 ——黄志恒注 */
+	private LatLonPoint targetPoint;
 	/* 地图的基本设置 */
 	private UiSettings uiSettings;
 	/* 语音输入 */
@@ -120,6 +136,18 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		mAMapLocationManager = null;
 	}
 
+	@Override
+	public View getInfoContents(Marker arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public View getInfoWindow(Marker arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * 初始化地图信息
 	 */
@@ -143,7 +171,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		myLocation = (ImageButton) findViewById(R.id.button_my_location);
 		myLocation.setOnClickListener(this);
 		keyEdit = (AutoCompleteTextView) findViewById(R.id.actv_key_search);
-		new PoiSearchMethod(aMap, this, keyEdit); // 调用显示目的地的类（类似于监听效果）
+		poisearch = new PoiSearchMethod(aMap, this, keyEdit); // 调用显示目的地的类（类似于监听效果）
 		voiceInput = (ImageButton) findViewById(R.id.button_voice_search);
 		voiceInput.setOnClickListener(this);
 		btnRoutePlan = (Button) findViewById(R.id.button_route_planning);
@@ -155,6 +183,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54818227");
 		chooseUsers = (ImageButton) findViewById(R.id.button_chose_user);
 		chooseUsers.setOnClickListener(this);
+		aMap.setOnMarkerClickListener(this);
+		aMap.setOnMapClickListener(this);
+
 	}
 
 	/**
@@ -163,11 +194,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 1 && resultCode == 1) { // 从DriverLife传递过来的
-			String poiType = data.getStringExtra("result_type");
+			poiType = data.getStringExtra("result_type");
 			aMap.clear();
-			// 重新在地图上显示停车场
+			// 重新在地图上显示附近停车场
 			pas = new PoiAroundSearchMethod(aMap, this, poiType, lp);
-			// 重新在地图上显示云图数据
+			// 重新在地图上显示云图数据——黄志恒注
 			new MyCloudSearch(this, lp.getLatitude(), lp.getLongitude(), aMap);
 		}
 	}
@@ -255,12 +286,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	@Override
 	public void onLocationChanged(AMapLocation aLocation) {
 		if (mListener != null && aLocation != null) {
-
+			bLocation = aLocation;
 			myLatlng = new LatLng(aLocation.getLatitude(),
 					aLocation.getLongitude());// 获取我的位置
 			lp = new LatLonPoint(aLocation.getLatitude(),
 					aLocation.getLongitude());
-			// 显示我的位置附件的停车场，并产生附近搜索对象——黄志恒注
+			// 显示高德提供的附件的停车场，并产生附近搜索对象——黄志恒注
 			pas = new PoiAroundSearchMethod(aMap, this, "停车场", lp);
 			// 显示云图数据
 			new MyCloudSearch(this, aLocation.getLatitude(),
@@ -271,6 +302,29 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	@Override
 	public void onLocationChanged(Location location) {
+	}
+
+	@Override
+	public void onMapClick(LatLng arg0) {
+		aMap.clear();
+		aMap.addMarker(new MarkerOptions().position(arg0).icon(
+				BitmapDescriptorFactory
+						.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+		lp = new LatLonPoint(arg0.latitude, arg0.longitude);
+		// 显示高德提供的附件的停车场，并产生附近搜索对象——黄志恒注
+		pas = new PoiAroundSearchMethod(aMap, this, "停车场", lp);
+		// 显示云图数据
+		new MyCloudSearch(this, arg0.latitude, arg0.longitude, aMap);
+		// mListener.onLocationChanged(bLocation);// 显示系统小蓝点
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+		// TODO Auto-generated method stub
+		marker.showInfoWindow();
+		targetPoint = new LatLonPoint(marker.getPosition().latitude,
+				marker.getPosition().longitude);
+		return false;
 	}
 
 	/**
@@ -317,13 +371,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * 点击“开始导航，调用此方法”
 	 */
 	private void planNavi() {
-		if (pas.getTargetPoint() != null) {
+		if (targetPoint != null) {
 			Bundle bundle = new Bundle();
 			bundle.putDouble("start_latitude", lp.getLatitude());
 			bundle.putDouble("start_longitude", lp.getLongitude());
-			bundle.putDouble("end_latitude", pas.getTargetPoint().getLatitude());
-			bundle.putDouble("end_longitude", pas.getTargetPoint()
-					.getLongitude());
+			bundle.putDouble("end_latitude", targetPoint.getLatitude());
+			bundle.putDouble("end_longitude", targetPoint.getLongitude());
 			Intent naviIntent = new Intent();
 			naviIntent.putExtras(bundle);
 			naviIntent.setClass(DriverMainScreen.this, NaviStartActivity.class);
@@ -338,14 +391,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 */
 	private void planRoute() {
 
-		if (pas.getTargetPoint() != null) {
+		if (targetPoint != null) {
 			if (!hasRouted && nRoute == null) {
-				nRoute = new NaviRouteMethod(aMap, lp, this,
-						pas.getTargetPoint());
+				nRoute = new NaviRouteMethod(aMap, lp, this, targetPoint);
 			} else {
 				nRoute.mRouteOverLay.removeFromMap();
-				nRoute = new NaviRouteMethod(aMap, lp, this,
-						pas.getTargetPoint());
+				nRoute = new NaviRouteMethod(aMap, lp, this, targetPoint);
 			}
 		} else {
 			ToastUtil.show(this, "请选择目的地");

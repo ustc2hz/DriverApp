@@ -87,6 +87,7 @@ public class Ordering extends Activity implements OnClickListener, TabListener {
 	// 获取点击事件
 	private final class ItemClickListener implements OnItemClickListener {
 
+		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			ListView listView = (ListView) parent;
@@ -97,6 +98,7 @@ public class Ordering extends Activity implements OnClickListener, TabListener {
 		}
 	}
 
+	@Override
 	public void onSaveInstanceState(Bundle outState) {
 
 		// 将当前选中的Fragment页的索引保存到Bundle中
@@ -104,11 +106,13 @@ public class Ordering extends Activity implements OnClickListener, TabListener {
 				.getSelectedNavigationIndex());
 	}
 
+	@Override
 	public void onTabUnselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 
 	}
 
+	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 
@@ -129,11 +133,13 @@ public class Ordering extends Activity implements OnClickListener, TabListener {
 		ft.commit();
 	}
 
+	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 
 	}
 
+	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 

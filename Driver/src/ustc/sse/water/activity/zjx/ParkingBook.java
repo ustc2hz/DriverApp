@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -52,7 +53,7 @@ public class ParkingBook extends Activity implements OnClickListener,
 				android.R.layout.simple_list_item_multiple_choice, license);
 		listView = (ListView) findViewById(R.id.listview_license_chose);
 		listView.setAdapter(listViewAdapter);
-		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_expandable_list_item_1, time);
 		spinner = (Spinner) findViewById(R.id.spinner_time_chose);

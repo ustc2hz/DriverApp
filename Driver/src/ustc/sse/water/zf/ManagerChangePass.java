@@ -27,6 +27,7 @@ public class ManagerChangePass extends Activity implements OnClickListener {
 	// 定义两个button变量，点击事件时用
 	Button bt1, bt2;
 
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manager_change_password);
