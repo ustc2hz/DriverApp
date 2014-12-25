@@ -29,7 +29,6 @@ public class DriverInfo extends Activity implements OnClickListener {
 	private ImageView addLicence; // 添加车牌号的图片
 	private ImageView checkOrder; // 查看订单的图片
 	private ImageView twoCode; // 二维码的图片
-	private Button backMap; // 返回地图按钮
 	private Button logout;// 退出登录按钮
 	// 模拟车牌号
 	private String licences[] = { "111111", "222222", "333333" };
@@ -52,12 +51,10 @@ public class DriverInfo extends Activity implements OnClickListener {
 		addLicence = (ImageView) findViewById(R.id.ibtn_add_licence);
 		checkOrder = (ImageView) findViewById(R.id.ibtn_check_order);
 		twoCode = (ImageView) findViewById(R.id.ibtn_two__code);
-		backMap = (Button) findViewById(R.id.button_back_map);
 		logout = (Button) findViewById(R.id.button_logout);
 		addLicence.setOnClickListener(this);
 		checkOrder.setOnClickListener(this);
 		twoCode.setOnClickListener(this);
-		backMap.setOnClickListener(this);
 		logout.setOnClickListener(this);
 	}
 
@@ -78,11 +75,8 @@ public class DriverInfo extends Activity implements OnClickListener {
 		case R.id.ibtn_two__code: // 点击二维码
 			// Intent intent3 = new Intent(this,);
 			break;
-		case R.id.button_back_map: // 点击返回地图
-			finish();
-			break;
 		case R.id.button_logout: // 点击退出登录
-
+			finish();
 			break;
 		}
 

@@ -100,6 +100,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/round_search"/>
+       
+       <!-- 停车场列表按钮 -->
+       <Button android:id="@+id/button_parking_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/parking_info_list"/>
         
     </LinearLayout>
     

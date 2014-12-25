@@ -1,5 +1,6 @@
 package ustc.sse.water.activity;
 
+import ustc.sse.water.activity.zjx.ParkingList;
 import ustc.sse.water.tools.hzh.MyCloudSearch;
 import ustc.sse.water.tools.hzh.NaviRouteMethod;
 import ustc.sse.water.tools.zjx.MyLocationSet;
@@ -47,7 +48,7 @@ import com.iflytek.cloud.SpeechUtility;
 /**
  * 
  * 首界面类 <br>
- * 该类用来显示高德地图，并完成基本操作如：定位、导航、搜索、路线规划等
+ * 该类用来显示高德地图，并完成基本操作如：定位、导航、搜索、路线规划和停车场列表等
  * <p>
  * Copyright: Copyright (c) 2014-11-13 下午10:35:02
  * <p>
@@ -55,22 +56,23 @@ import com.iflytek.cloud.SpeechUtility;
  * <p>
  * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
- * @version 2.3.0
+ * @version 3.0.0
  */
 public class DriverMainScreen extends Activity implements LocationSource,
 		AMapLocationListener, OnClickListener, OnMarkerClickListener,
 		InfoWindowAdapter, OnMapClickListener {
-
 	/* 高德地图AMap */
 	private AMap aMap;
 	/* AMapLocation的对象，用于定位——黄志恒注 */
 	private AMapLocation bLocation;
 	/* 汽车生活按钮 */
 	private Button btnDriverLife;
-	/* 路径规划按钮——黄志恒注 */
+	/* 导航按钮——黄志恒注 */
 	private Button btnNavi;
 	/* 路径规划按钮 ——黄志恒注 */
 	private Button btnRoutePlan;
+	/* 列表按钮 */
+	private Button btnParkingList;
 	/* 登录 ——张芳注 */
 	private ImageButton chooseUsers;
 	// 获取编辑器
@@ -111,7 +113,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	/**
 	 * 激活定位
 	 */
-
 	@Override
 	public void activate(OnLocationChangedListener listener) {
 		mListener = listener;
@@ -125,7 +126,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	/**
 	 * 停止定位
 	 */
-
 	@Override
 	public void deactivate() {
 		mListener = null;
@@ -138,13 +138,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	@Override
 	public View getInfoContents(Marker arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public View getInfoWindow(Marker arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -157,7 +155,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			uiSettings = aMap.getUiSettings();
 			// 设置高德地图的logo在底部中间
 			uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
-			// uiSettings.setMyLocationButtonEnabled(false); // 不显示高德自带的定位按钮
 			aMap.setLocationSource(this);// 监听定位
 			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 			new MyLocationSet(aMap).setMapLocation(); // 开始定位
@@ -180,12 +177,13 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		btnNavi.setOnClickListener(this);
 		btnDriverLife = (Button) findViewById(R.id.button_round_search);
 		btnDriverLife.setOnClickListener(this);
+		btnParkingList = (Button) findViewById(R.id.button_parking_list);
+		btnParkingList.setOnClickListener(this);
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54818227");
 		chooseUsers = (ImageButton) findViewById(R.id.button_chose_user);
 		chooseUsers.setOnClickListener(this);
 		aMap.setOnMarkerClickListener(this);
 		aMap.setOnMapClickListener(this);
-
 	}
 
 	/**
@@ -196,7 +194,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		if (requestCode == 1 && resultCode == 1) { // 从DriverLife传递过来的
 			poiType = data.getStringExtra("result_type");
 			aMap.clear();
-			// 重新在地图上显示附近停车场
+			// 重新在地图上显示附近搜索结果
 			pas = new PoiAroundSearchMethod(aMap, this, poiType, lp);
 			// 重新在地图上显示云图数据——黄志恒注
 			new MyCloudSearch(this, lp.getLatitude(), lp.getLongitude(), aMap);
@@ -228,12 +226,18 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		case R.id.button_route_planning:
 			planRoute();
 			break;
+		// 点击的是开始导航按钮
 		case R.id.button_start_navigation: {
 			planNavi();
 			break;
 		}
+		// 点击的是列表按钮
+		case R.id.button_parking_list:
+			Intent intent2 = new Intent(this, ParkingList.class); // 跳转到停车场列表界面
+			startActivity(intent2);
+			break;
 		// By Zhangfang
-		// 点击登录
+		// 点击用户模式
 		case R.id.button_chose_user:
 			SharedPreferences shared = getSharedPreferences("loginState",
 					Context.MODE_PRIVATE);
@@ -282,7 +286,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	/**
 	 * 定位完成后回调该方法
 	 */
-
 	@Override
 	public void onLocationChanged(AMapLocation aLocation) {
 		if (mListener != null && aLocation != null) {
@@ -320,7 +323,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		// TODO Auto-generated method stub
 		marker.showInfoWindow();
 		targetPoint = new LatLonPoint(marker.getPosition().latitude,
 				marker.getPosition().longitude);

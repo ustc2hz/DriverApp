@@ -16,15 +16,17 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import ustc.sse.water.activity.*;
+import ustc.sse.water.activity.DriverMainScreen;
+import ustc.sse.water.activity.R;
+import ustc.sse.water.activity.zjx.DriverInfo;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences.Editor;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
@@ -124,7 +126,6 @@ public class Manager_Driver_model extends Activity implements
 		et2.setOnClickListener(this);
 		et3.setOnClickListener(this);
 
-		
 		// 获取只能被本应用读、写的SharedPreferences对象
 		sharedPreferences = getSharedPreferences("login_register",
 				Context.MODE_PRIVATE);
@@ -132,15 +133,15 @@ public class Manager_Driver_model extends Activity implements
 		editor = sharedPreferences.edit();
 		// 判断SharedPreferences中是否有用户名记录
 		int login_register = sharedPreferences.getInt("login_register", 1);
-		 SharedPreferences shared = getSharedPreferences("loginState",
-		 Context.MODE_PRIVATE);
-		 int loginState = shared.getInt("loginState", 1); //取不到，则默认为1
+		SharedPreferences shared = getSharedPreferences("loginState",
+				Context.MODE_PRIVATE);
+		int loginState = shared.getInt("loginState", 1); // 取不到，则默认为1
 		if (login_register == 1 || loginState == 1) {
 			// 用户未登录或注册
 			et3.setVisibility(View.GONE);
 			tv3.setVisibility(View.GONE);
 			bt2.setVisibility(View.GONE);
-			
+
 		} else {
 			// 已注册或登录过
 			Intent int2 = new Intent(this, ManagerMain.class);
@@ -328,10 +329,18 @@ public class Manager_Driver_model extends Activity implements
 				Thread loginThread = new Thread(new LoginThread());
 
 				loginThread.start();
+				if (mRadio1.isChecked()) { // 驾驶员登录
+					Intent intent1 = new Intent(Manager_Driver_model.this,
+							DriverInfo.class);
+					startActivity(intent1);
+					finish();
+				} else { // 管理员登录
+					Intent intent5 = new Intent(Manager_Driver_model.this,
+							ManagerMain.class);
+					startActivity(intent5);
+					finish();
+				}
 
-				Intent intent1 = new Intent(Manager_Driver_model.this,
-						ManagerMain.class);
-				startActivity(intent1);
 				editor.putInt("loginState", 1);
 				editor.commit();
 			}
@@ -363,7 +372,6 @@ public class Manager_Driver_model extends Activity implements
 			}
 			if (flag1 == 1 && flag2 == 1 && flag3 == 1) {
 
-
 				String newusername = et1.getText().toString();
 				String newpassword = md5(et2.getText().toString());
 				String confirmpwd = md5(et3.getText().toString());
@@ -392,7 +400,6 @@ public class Manager_Driver_model extends Activity implements
 							Toast.LENGTH_SHORT).show();
 				}
 
-				
 			}
 			break;
 		// 点击返回按钮
@@ -421,7 +428,7 @@ public class Manager_Driver_model extends Activity implements
 		}
 	}
 
-	private void showDialog(String str){
+	private void showDialog(String str) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("注册");
 		builder.setMessage(str);

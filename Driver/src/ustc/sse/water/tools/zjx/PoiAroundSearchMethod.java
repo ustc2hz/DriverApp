@@ -16,7 +16,6 @@ import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
 import com.amap.api.services.poisearch.Dining;
-import com.amap.api.services.poisearch.Hotel;
 import com.amap.api.services.poisearch.PoiItemDetail;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -59,10 +58,10 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	private Marker locationMarker;
 	/* 搜索中心 */
 	private LatLonPoint lp;
-	/* Poi返回的结果 */
-	private PoiResult poiResult;
+	/* Poi返回的结果，static类型方便外部类调用 */
+	public static PoiResult poiResult;
 	/* Poi查询条件类 */
-	private PoiSearch.Query query;
+	public static PoiSearch.Query query;
 	/* 路径规划的目的地的点 ——黄志恒注 */
 	private LatLonPoint targetPoint;
 
@@ -112,13 +111,13 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 		// aMap.setOnMapClickListener(null);// 进行poi搜索时清除掉地图点击事件
 		currentPage = 0;
 		query = new PoiSearch.Query("", deepType, "苏州");// Poi搜索
-		query.setPageSize(6);// 设置每页最多返回多少条poiitem
+		query.setPageSize(10);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 		if (lp != null) {
 			// 设置搜索区域为以lp点为圆心，其周围2000米范围
 			poiSearch = new PoiSearch(context, query); // 构造PoiSearch对象
 			poiSearch.setOnPoiSearchListener(this); // 设置查询监听接口
-			poiSearch.setBound(new SearchBound(lp, 5000, true)); // 设置查询矩形
+			poiSearch.setBound(new SearchBound(lp, 2000, true)); // 设置查询矩形
 			poiSearch.searchPOIAsyn();// 异步搜索
 		}
 	}
@@ -137,15 +136,6 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 						.append("\n菜系：" + dining.getTag() + "\n特色："
 								+ dining.getRecommend() + "\n来源："
 								+ dining.getDeepsrc());
-			}
-			break;
-		// 酒店深度信息
-		case HOTEL:
-			if (result.getHotel() != null) {
-				Hotel hotel = result.getHotel();
-				sbuBuffer.append("\n价位：" + hotel.getLowestPrice() + "\n卫生："
-						+ hotel.getHealthRating() + "\n来源："
-						+ hotel.getDeepsrc());
 			}
 			break;
 		default:
@@ -203,7 +193,6 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	/**
 	 * POI搜索回调方法
 	 */
-
 	@Override
 	public void onPoiSearched(PoiResult result, int rCode) {
 		dialog.dissmissProgressDialog();// 去除对话框

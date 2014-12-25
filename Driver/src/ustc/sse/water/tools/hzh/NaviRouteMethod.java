@@ -31,7 +31,6 @@ import com.amap.api.services.route.RouteSearch;
  * @author 黄志恒 sa14226399@mail.ustc.edu.cn
  * @version 2.0.0
  */
-
 public class NaviRouteMethod implements AMapNaviListener {
 	/* 高德地图AMap */
 	private AMap aMap;
@@ -59,8 +58,7 @@ public class NaviRouteMethod implements AMapNaviListener {
 	private LatLonPoint startPoint = null;
 
 	// 无参构造函数
-	NaviRouteMethod() {
-
+	public NaviRouteMethod() {
 	}
 
 	/**
@@ -130,19 +128,14 @@ public class NaviRouteMethod implements AMapNaviListener {
 
 	@Override
 	public void onArriveDestination() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onArrivedWayPoint(int arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onCalculateRouteFailure(int arg0) {
-		// TODO Auto-generated method stub
 		ToastUtil.show(this.context, "路径规划出错" + arg0);
 		// mIsCalculateRouteSuccess = false;
 		return;
@@ -162,73 +155,50 @@ public class NaviRouteMethod implements AMapNaviListener {
 		mRouteOverLay.addToMap();
 		// mIsCalculateRouteSuccess = true;
 		AMapNavi.getInstance(this.context).removeAMapNaviListener(this);
-
 	}
 
 	@Override
 	public void onEndEmulatorNavi() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onGetNavigationText(int arg0, String arg1) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onGpsOpenStatus(boolean arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onInitNaviFailure() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onInitNaviSuccess() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onLocationChange(AMapNaviLocation arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onNaviInfoUpdated(AMapNaviInfo arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onReCalculateRouteForTrafficJam() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onReCalculateRouteForYaw() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onStartNavi(int arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onTrafficStatusUpdate() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

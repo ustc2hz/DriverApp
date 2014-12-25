@@ -1,8 +1,10 @@
-package ustc.sse.water.activity.zjx;
+package ustc.sse.water.adapter.zjx;
 
 import java.util.List;
+import java.util.Map;
 
 import ustc.sse.water.activity.R;
+import ustc.sse.water.activity.zjx.ParkingInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -27,11 +29,11 @@ import android.widget.TextView;
  * @version 1.0.0
  */
 public class XListViewAdapter extends BaseAdapter implements OnClickListener {
-	private List<String> list;// 信息列表
+	private List<Map<String, Object>> list;// 信息列表
 	private Context context; // 上下文
 	private LayoutInflater inflater; // 填充器
 
-	public XListViewAdapter(Context con, List<String> list) {
+	public XListViewAdapter(Context con, List<Map<String, Object>> list) {
 		this.context = con;
 		this.list = list;
 		this.inflater = LayoutInflater.from(con);
@@ -39,8 +41,12 @@ public class XListViewAdapter extends BaseAdapter implements OnClickListener {
 
 	@Override
 	public int getCount() {
-		// 列表的元素个数
-		return list.size();
+		if (list != null) {
+			// 列表的元素个数
+			return list.size();
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
@@ -75,9 +81,12 @@ public class XListViewAdapter extends BaseAdapter implements OnClickListener {
 		} else {
 			vh = (ViewHolder) convertView.getTag();
 		}
-
-		vh.name.setText(list.get(position));
-
+		if (list != null) {
+			Map<String, Object> map = list.get(position);
+			vh.name.setText((String) map.get("parkingName")); // 显示停车场名字
+			vh.address.setText((String) map.get("parkingAddress")); // 显示停车场的地址
+			vh.distance.setText(map.get("parkingDistance").toString()); // 显示停车场的距离
+		}
 		return convertView;
 	}
 
@@ -103,7 +112,5 @@ public class XListViewAdapter extends BaseAdapter implements OnClickListener {
 			context.startActivity(intent);
 			break;
 		}
-
 	}
-
 }

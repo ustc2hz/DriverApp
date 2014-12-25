@@ -16,18 +16,27 @@
              />
 
         <TextView 
-            android:id="@+id/text_parking_distance"
+         	android:id="@+id/text_unit_mi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="100m" />
+            android:layout_marginRight="10dp"
+            android:text="@string/xlistview_unit_mi" />
+        
+        <TextView 
+            android:id="@+id/text_parking_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/text_unit_mi" 
+             />
+             
     </RelativeLayout>
 
     <TextView android:layout_below="@id/l1"
         android:id="@+id/text_parking_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="独墅湖旁边" />
+         />
 
     <LinearLayout 
         android:layout_below="@id/text_parking_address"
@@ -40,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:focusable="false"
-            android:text="路线"/>
+            android:text="@string/xlistview_button_route"/>
         
         <Button
             android:id="@+id/button_parking_order"
@@ -48,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:focusable="false"
-            android:text="可预定" />
+            android:text="@string/xlistview_button_book" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ustc.sse.water.utils.zjx;
 
 import com.amap.api.cloud.model.LatLonPoint;

@@ -36,7 +36,7 @@
         <!-- AMap的key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="6ff5eece1c96b559d1f378517d1da4d0" />
+            android:value="fef9803d166042f9b82ec1db72b312d5" />
         <!-- 地图界面 -->
 
         <activity
