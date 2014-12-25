@@ -7,8 +7,12 @@ import java.util.Map;
 
 import ustc.sse.water.activity.R;
 import ustc.sse.water.adapter.zjx.DriverOrderAdapter;
+import ustc.sse.water.utils.zjx.CustomDialog;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 /**
@@ -24,9 +28,10 @@ import android.widget.ListView;
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
-public class DriverOrderInfo extends Activity {
+public class DriverOrderInfo extends Activity implements OnItemClickListener {
 	private ListView listView; // 列表
 	private DriverOrderAdapter adapter; // 适配器
+	List<Map<String, Object>> list;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class DriverOrderInfo extends Activity {
 		adapter = new DriverOrderAdapter(this, getData());
 		listView = (ListView) findViewById(R.id.listview_order_info);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 	}
 
 	/**
@@ -50,7 +56,7 @@ public class DriverOrderInfo extends Activity {
 	 * @return
 	 */
 	public List<Map<String, Object>> getData() {
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = new ArrayList<Map<String, Object>>();
 		for (int i = 0; i < 10; i++) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("basicInfo", "2014-12-1" + i + "预定停车场" + i);
@@ -62,5 +68,27 @@ public class DriverOrderInfo extends Activity {
 			list.add(map);
 		}
 		return list;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		String title;
+		String content;
+		boolean flag;
+		// ListView单元点击事件
+		if (list != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map = list.get(position);
+			content = (String) map.get("basicInfo");
+			if ("正在进行".equals(map.get("status"))) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+			CustomDialog cd = new CustomDialog(this, "预定信息", content, flag);
+
+		}
+
 	}
 }
