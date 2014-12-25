@@ -53,7 +53,7 @@ public class DriverOrderInfo extends Activity {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		for (int i = 0; i < 10; i++) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("basicInfo", "2014-12-10" + i + "预定停车场" + i);
+			map.put("basicInfo", "2014-12-1" + i + "预定停车场" + i);
 			if (i % 2 == 0) {
 				map.put("status", "正在进行");
 			} else {
