@@ -51,6 +51,7 @@
     <string name="driver_hint_phone">请输入联系方式...</string>
     <string name="driver_sure_add_licence">添加</string>
     <string name="driver_check_order">查看订单</string>
+    <string name="driver_cancel_parking_order">取消订单</string>
     <string name="driver_two_code">二维码</string>
     <string name="driver_back_map">返回地图</string>
     <string name="driver_logout">退出登录</string>
