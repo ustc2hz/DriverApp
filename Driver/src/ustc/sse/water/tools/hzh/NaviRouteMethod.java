@@ -155,6 +155,7 @@ public class NaviRouteMethod implements AMapNaviListener {
 		mRouteOverLay.addToMap();
 		// mIsCalculateRouteSuccess = true;
 		AMapNavi.getInstance(this.context).removeAMapNaviListener(this);
+		// mAMapNavi = null;
 	}
 
 	@Override

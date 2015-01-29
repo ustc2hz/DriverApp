@@ -69,10 +69,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private Button btnDriverLife;
 	/* 导航按钮——黄志恒注 */
 	private Button btnNavi;
-	/* 路径规划按钮 ——黄志恒注 */
-	private Button btnRoutePlan;
 	/* 列表按钮 */
 	private Button btnParkingList;
+	/* 路径规划按钮 ——黄志恒注 */
+	private Button btnRoutePlan;
 	/* 登录 ——张芳注 */
 	private ImageButton chooseUsers;
 	// 获取编辑器
@@ -87,6 +87,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private MapView mapView;
 	/* 定位监听 */
 	private OnLocationChangedListener mListener;
+	/* 移动点击的点——黄志恒注 */
+	private LatLonPoint molp;
 	/* 我的位置坐标 */
 	private LatLng myLatlng;
 	/* 自定义定位按钮 */
@@ -287,7 +289,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * 定位完成后回调该方法
 	 */
 	@Override
-	public void onLocationChanged(AMapLocation aLocation) {
+	public void onLocationChanged(AMapLocation aLocation) {// lp wrong here
 		if (mListener != null && aLocation != null) {
 			bLocation = aLocation;
 			myLatlng = new LatLng(aLocation.getLatitude(),
@@ -313,9 +315,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		aMap.addMarker(new MarkerOptions().position(arg0).icon(
 				BitmapDescriptorFactory
 						.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-		lp = new LatLonPoint(arg0.latitude, arg0.longitude);
+		molp = new LatLonPoint(arg0.latitude, arg0.longitude);
 		// 显示高德提供的附件的停车场，并产生附近搜索对象——黄志恒注
-		pas = new PoiAroundSearchMethod(aMap, this, "停车场", lp);
+		pas = new PoiAroundSearchMethod(aMap, this, "停车场", molp);
 		// 显示云图数据
 		new MyCloudSearch(this, arg0.latitude, arg0.longitude, aMap);
 		// mListener.onLocationChanged(bLocation);// 显示系统小蓝点

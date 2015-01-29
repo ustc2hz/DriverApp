@@ -62,29 +62,448 @@ import android.widget.Toast;
 public class Manager_Driver_model extends Activity implements
 		View.OnClickListener, OnCheckedChangeListener {
 
-	public RadioGroup mRadioGroup1;
-	public RadioButton mRadio1, mRadio2;
-	private TextView tv1;
-	private TextView tv2;
-	private TextView tv3;
-	private TextView tv4;
-	private EditText et1;// 用户名
-	private EditText et2;// 密码
-	private EditText et3;// 确认密码
+	// LoginThread线程类
+	class LoginThread implements Runnable {
+
+		@Override
+		public void run() {
+			String username = et1.getText().toString();
+			String password = et2.getText().toString();
+			boolean checkstatus = sp.getBoolean("checkstatus", false);
+			if (checkstatus) {
+				// 获取已经存在的用户名和密码
+				String realUsername = sp.getString("username", "");
+				String realPassword = sp.getString("password", "");
+				if ((!realUsername.equals("")) && !(realUsername == null)
+						|| (!realPassword.equals(""))
+						|| !(realPassword == null)) {
+					if (username.equals(realUsername)
+							&& password.equals(realPassword)) {
+						username = et1.getText().toString();
+						password = et2.getText().toString();
+					}
+				}
+			} else {
+				password = md5(password);
+			}
+			System.out
+					.println("username=" + username + ":password=" + password);
+
+			// URL合法，但是这一步并不验证密码是否正确
+			boolean loginValidate = loginServer(username, password);
+			System.out.println("----------------------------bool is :"
+					+ loginValidate + "----------response:" + responseMsg);
+			Message msg = handler2.obtainMessage();
+			if (loginValidate) {
+				if (responseMsg.equals("success")) {
+					msg.what = 0;
+					handler2.sendMessage(msg);
+				} else {
+					msg.what = 1;
+					handler2.sendMessage(msg);
+				}
+
+			} else {
+				msg.what = 2;
+				handler2.sendMessage(msg);
+			}
+		}
+
+	}
+
+	// RegisterThread线程类
+	class RegisterThread implements Runnable {
+
+		@Override
+		public void run() {
+			String username = et1.getText().toString();
+			String password = md5(et2.getText().toString());
+
+			// URL合法，但是这一步并不验证密码是否正确
+			boolean registerValidate = registerServer(username, password);
+			Message msg = handler1.obtainMessage();
+			if (registerValidate) {
+				if (responseMsg.equals("success")) {
+					msg.what = 0;
+					handler1.sendMessage(msg);
+				} else {
+					msg.what = 1;
+					handler1.sendMessage(msg);
+				}
+
+			} else {
+				msg.what = 2;
+				handler1.sendMessage(msg);
+			}
+		}
+
+	}
+
+	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
+	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
+
+	/**
+	 * MD5单向加密，32位，用于加密密码，因为明文密码在信道中传输不安全，明文保存在本地也不安全
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String md5(String str) {
+		MessageDigest md5 = null;
+		try {
+			md5 = MessageDigest.getInstance("MD5");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+
+		char[] charArray = str.toCharArray();
+		byte[] byteArray = new byte[charArray.length];
+
+		for (int i = 0; i < charArray.length; i++) {
+			byteArray[i] = (byte) charArray[i];
+		}
+		byte[] md5Bytes = md5.digest(byteArray);
+
+		StringBuffer hexValue = new StringBuffer();
+		for (int i = 0; i < md5Bytes.length; i++) {
+			int val = (md5Bytes[i]) & 0xff;
+			if (val < 16) {
+				hexValue.append("0");
+			}
+			hexValue.append(Integer.toHexString(val));
+		}
+		return hexValue.toString();
+	}
+
 	private Button bt1; // 登录
 	private Button bt2; // 返回
 	private Button bt3; // 注册
+	public SharedPreferences.Editor editor;
+	private EditText et1;// 用户名
+	private EditText et2;// 密码
+	private EditText et3;// 确认密码
 
-	private CheckBox saveInfoItem;
-	private SharedPreferences sp;
+	// Handler
+	Handler handler1 = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+				mDialog.cancel();
+				showDialog("注册成功！");
+				break;
+			case 1:
+				mDialog.cancel();
+				Toast.makeText(getApplicationContext(), "注册失败",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 2:
+				mDialog.cancel();
+				Toast.makeText(getApplicationContext(), "URL验证失败",
+						Toast.LENGTH_SHORT).show();
+				break;
+
+			}
+
+		}
+	};
+	/**
+	 * Handler
+	 */
+	Handler handler2 = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+				mDialog.cancel();
+
+				Toast.makeText(getApplicationContext(), "登录成功！",
+						Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent();
+				intent.setClass(Manager_Driver_model.this, ManagerMain.class);
+				startActivity(intent);
+				finish();
+				break;
+			case 1:
+				mDialog.cancel();
+				Toast.makeText(getApplicationContext(), "密码错误",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 2:
+				mDialog.cancel();
+				Toast.makeText(getApplicationContext(), "URL验证失败",
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+	};
 
 	private ProgressDialog mDialog;
+	public RadioButton mRadio1, mRadio2;
+	public RadioGroup mRadioGroup1;
+	/**
+	 * 对radioButton做监听，根据radioButton显示相应的用户UI
+	 */
+	private RadioGroup.OnCheckedChangeListener radiogpchange = new RadioGroup.OnCheckedChangeListener() {
+		@Override
+		public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+			if (checkedId == mRadio1.getId()) {
+				tv1.setText("车牌号");
+				Toast.makeText(getApplicationContext(), "驾驶员", 1).show();
+			} else if (checkedId == mRadio2.getId()) {
+				tv1.setText("用户名");
+				Toast.makeText(getApplicationContext(), "管理员", 1).show();
+			}
+		}
+	};
 	private String responseMsg = "";
-	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
-	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
+	private CheckBox saveInfoItem;
+
 	// 定义SharedPreferences和Editor
 	public SharedPreferences sharedPreferences;
-	public SharedPreferences.Editor editor;
+
+	private SharedPreferences sp;
+
+	private TextView tv1;
+
+	private TextView tv2;
+
+	private TextView tv3;
+
+	private TextView tv4;
+
+	/**
+	 * 检查网络状态
+	 */
+	public void CheckNetworkState() {
+		ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		State mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+				.getState();
+		State wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+				.getState();
+		// 如果3G、wifi、2G等网络状态是连接的，则退出，否则显示提示信息进入网络设置界面
+		if (mobile == State.CONNECTED || mobile == State.CONNECTING) {
+			return;
+		}
+		if (wifi == State.CONNECTED || wifi == State.CONNECTING) {
+			return;
+		}
+		showTips();
+	}
+
+	// 初始化HttpClient，并设置超时
+	public HttpClient getHttpClient() {
+		BasicHttpParams httpParams = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
+		HttpClient client = new DefaultHttpClient(httpParams);
+		return client;
+	}
+
+	/**
+	 * 初始化用户数据
+	 */
+	private void LoadUserdata() {
+		boolean checkstatus = sp.getBoolean("checkstatus", false);
+		if (checkstatus) {
+			saveInfoItem.setChecked(true);
+			// 载入用户信息
+			// 获取已经存在的用户名和密码
+			String realUsername = sp.getString("username", "");
+			String realPassword = sp.getString("password", "");
+			if ((!realUsername.equals("")) && !(realUsername == null)
+					|| (!realPassword.equals("")) || !(realPassword == null)) {
+				et1.setText("");
+				et2.setText("");
+				et1.setText(realUsername);
+				et2.setText(realPassword);
+			}
+		} else {
+			saveInfoItem.setChecked(false);
+			et1.setText("");
+			et2.setText("");
+		}
+
+	}
+
+	private boolean loginServer(String username, String password) {
+		boolean loginValidate = false;
+		// 使用apache HTTP客户端实现
+		String urlStr = "http://192.168.1.101:8080/LoginServlet/LoginServlet";
+		HttpPost request = new HttpPost(urlStr);
+		// 如果传递参数多的话，可以丢传递的参数进行封装
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		// 添加用户名和密码
+		params.add(new BasicNameValuePair("username", username));
+		params.add(new BasicNameValuePair("password", password));
+		try {
+			// 设置请求参数项
+			request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			HttpClient client = getHttpClient();
+			// 执行请求返回相应
+			HttpResponse response = client.execute(request);
+
+			// 判断是否请求成功
+			if (response.getStatusLine().getStatusCode() == 200) {
+				loginValidate = true;
+				// 获得响应信息
+				responseMsg = EntityUtils.toString(response.getEntity());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return loginValidate;
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * 对组件进行监听，设置登录注册的规则
+	 */
+	@Override
+	public void onClick(View v) {
+		// 获得edittext中的值
+		String edit1 = Manager_Driver_model.this.et1.getText().toString();
+		String edit2 = Manager_Driver_model.this.et2.getText().toString();
+		String edit3 = Manager_Driver_model.this.et3.getText().toString();
+		// 标记输入的登录名和密码是否符合要求
+		int flag1 = 0;
+		int flag2 = 0;
+		int flag3 = 0;
+		switch (v.getId()) {
+		case R.id.button1:
+			// 利用正则表达式来判断
+			if ("".equals(edit1)) {
+				// 登录名为空
+				et1.setError("登录名不能为空");
+			} else if (edit1.matches("^[A-Za-z0-9]+$")) {
+				// 登录名只包含英文大小写和数字且大于六位数
+				flag1 = 1;
+			} else {
+				et1.setError("登录名只能包含字母和数字");
+			}
+			if ("".equals(edit2) && edit1.length() >= 6) {
+				// 登录密码为空
+				et2.setError("登录密码不能为空");
+			} else if (edit2.matches("^[A-Za-z0-9]+$")) {
+				// 登录密码只包含英文大小写和数字
+				flag2 = 1;
+			} else {
+				et2.setError("登录密码错误");
+			}
+			if (flag1 == 1 && flag2 == 1) {
+
+				mDialog = new ProgressDialog(Manager_Driver_model.this);
+				mDialog.setTitle("登陆");
+				mDialog.setMessage("正在登陆服务器，请稍后...");
+				// mDialog.show();// 这里出错了
+				Thread loginThread = new Thread(new LoginThread());
+
+				loginThread.start();
+				if (mRadio1.isChecked()) { // 驾驶员登录
+					Intent intent1 = new Intent(Manager_Driver_model.this,
+							DriverInfo.class);
+					startActivity(intent1);
+					finish();
+				} else { // 管理员登录
+					Intent intent5 = new Intent(Manager_Driver_model.this,
+							ManagerMain.class);
+					startActivity(intent5);
+					finish();
+				}
+
+				editor.putInt("loginState", 1);
+				editor.commit();
+			}
+			break;
+		case R.id.button2:
+			// 利用正则表达式来判断
+			if ("".equals(edit1)) {
+				// 注册名为空
+				et1.setError("注册名不能为空");
+			} else if (edit1.matches("^[A-Za-z0-9]+$")) {
+				// 登录名只包含英文大小写和数字
+				flag1 = 1;
+			} else {
+				et1.setError("注册名只能包含字母和数字");
+			}
+			if ("".equals(edit2) && edit1.length() >= 6) {
+				// 登录密码不能且大于六位数
+				et2.setError("密码不能为空");
+			} else if (edit2.matches("^[A-Za-z0-9]+$")) {
+				// 登录密码只包含英文大小写和数字
+				flag2 = 1;
+			} else {
+				et2.setError("密码只能包含字母和数字");
+			}
+			if (edit3.equals(edit2)) {
+				flag3 = 1;
+			} else {
+				et3.setError("密码不一致");
+			}
+			if (flag1 == 1 && flag2 == 1 && flag3 == 1) {
+
+				String newusername = et1.getText().toString();
+				String newpassword = md5(et2.getText().toString());
+				String confirmpwd = md5(et3.getText().toString());
+
+				if (newpassword.equals(confirmpwd)) {
+					SharedPreferences sp = getSharedPreferences("userdata", 0);
+					Editor editor = sp.edit();
+					editor.putString("username", newusername);
+					editor.putString("password", newpassword);
+					editor.commit();
+					mDialog = new ProgressDialog(Manager_Driver_model.this);
+					mDialog.setTitle("登陆");
+					mDialog.setMessage("正在登陆服务器，请稍后...");
+					// mDialog.show();// 这里逻辑有问题，因为这个界面已经跳转，但是还有进程对话框
+					Thread loginThread1 = new Thread(new RegisterThread());
+					loginThread1.start();
+					Intent intent2 = new Intent(Manager_Driver_model.this,
+							ManagerMain.class);
+					startActivity(intent2);
+					editor.putInt("login_register", 2);
+					// 提交
+					editor.commit();
+
+				} else {
+					Toast.makeText(getApplicationContext(), "您两次输入的密码不一致！",
+							Toast.LENGTH_SHORT).show();
+				}
+
+			}
+			break;
+		// 点击返回按钮
+		case R.id.button3:
+			Intent intent3 = new Intent(Manager_Driver_model.this,
+					DriverMainScreen.class);
+			startActivity(intent3);
+			finish();
+			break;
+		case R.id.textView4:
+			String string = tv4.getText().toString();
+			if (string.equals("立即注册")) {
+				et3.setVisibility(View.VISIBLE);
+				tv3.setVisibility(View.VISIBLE);
+				bt2.setVisibility(View.VISIBLE);
+				bt1.setVisibility(View.GONE);
+				tv4.setText("返回登录");
+			} else if (string.equals("返回登录")) {
+				et3.setVisibility(View.GONE);
+				tv3.setVisibility(View.GONE);
+				bt2.setVisibility(View.GONE);
+				bt1.setVisibility(View.VISIBLE);
+				tv4.setText("立即注册");
+			}
+			break;
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -198,320 +617,6 @@ public class Manager_Driver_model extends Activity implements
 				});
 	}
 
-	/**
-	 * 初始化用户数据
-	 */
-	private void LoadUserdata() {
-		boolean checkstatus = sp.getBoolean("checkstatus", false);
-		if (checkstatus) {
-			saveInfoItem.setChecked(true);
-			// 载入用户信息
-			// 获取已经存在的用户名和密码
-			String realUsername = sp.getString("username", "");
-			String realPassword = sp.getString("password", "");
-			if ((!realUsername.equals("")) && !(realUsername == null)
-					|| (!realPassword.equals("")) || !(realPassword == null)) {
-				et1.setText("");
-				et2.setText("");
-				et1.setText(realUsername);
-				et2.setText(realPassword);
-			}
-		} else {
-			saveInfoItem.setChecked(false);
-			et1.setText("");
-			et2.setText("");
-		}
-
-	}
-
-	/**
-	 * 检查网络状态
-	 */
-	public void CheckNetworkState() {
-		ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		State mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-				.getState();
-		State wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-				.getState();
-		// 如果3G、wifi、2G等网络状态是连接的，则退出，否则显示提示信息进入网络设置界面
-		if (mobile == State.CONNECTED || mobile == State.CONNECTING)
-			return;
-		if (wifi == State.CONNECTED || wifi == State.CONNECTING)
-			return;
-		showTips();
-	}
-
-	/**
-	 * 用于显示网络状态提示
-	 */
-	private void showTips() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setIcon(android.R.drawable.ic_dialog_alert);
-		builder.setTitle("没有可用网络");
-		builder.setMessage("当前网络不可用，是否设置网络？");
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// 如果没有网络连接，则进入网络设置界面
-				startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-			}
-		});
-		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.cancel();
-				Manager_Driver_model.this.finish();
-			}
-		});
-		builder.create();
-		builder.show();
-	}
-
-	/**
-	 * 对radioButton做监听，根据radioButton显示相应的用户UI
-	 */
-	private RadioGroup.OnCheckedChangeListener radiogpchange = new RadioGroup.OnCheckedChangeListener() {
-		@Override
-		public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-			if (checkedId == mRadio1.getId()) {
-				tv1.setText("车牌号");
-				Toast.makeText(getApplicationContext(), "驾驶员", 1).show();
-			} else if (checkedId == mRadio2.getId()) {
-				tv1.setText("用户名");
-				Toast.makeText(getApplicationContext(), "管理员", 1).show();
-			}
-		}
-	};
-
-	/**
-	 * 对组件进行监听，设置登录注册的规则
-	 */
-	@Override
-	public void onClick(View v) {
-		// 获得edittext中的值
-		String edit1 = Manager_Driver_model.this.et1.getText().toString();
-		String edit2 = Manager_Driver_model.this.et2.getText().toString();
-		String edit3 = Manager_Driver_model.this.et3.getText().toString();
-		// 标记输入的登录名和密码是否符合要求
-		int flag1 = 0;
-		int flag2 = 0;
-		int flag3 = 0;
-		switch (v.getId()) {
-		case R.id.button1:
-			// 利用正则表达式来判断
-			if ("".equals(edit1)) {
-				// 登录名为空
-				et1.setError("登录名不能为空");
-			} else if (edit1.matches("^[A-Za-z0-9]+$")) {
-				// 登录名只包含英文大小写和数字且大于六位数
-				flag1 = 1;
-			} else {
-				et1.setError("登录名只能包含字母和数字");
-			}
-			if ("".equals(edit2) && edit1.length() >= 6) {
-				// 登录密码为空
-				et2.setError("登录密码不能为空");
-			} else if (edit2.matches("^[A-Za-z0-9]+$")) {
-				// 登录密码只包含英文大小写和数字
-				flag2 = 1;
-			} else {
-				et2.setError("登录密码错误");
-			}
-			if (flag1 == 1 && flag2 == 1) {
-
-				mDialog = new ProgressDialog(Manager_Driver_model.this);
-				mDialog.setTitle("登陆");
-				mDialog.setMessage("正在登陆服务器，请稍后...");
-				mDialog.show();
-				Thread loginThread = new Thread(new LoginThread());
-
-				loginThread.start();
-				if (mRadio1.isChecked()) { // 驾驶员登录
-					Intent intent1 = new Intent(Manager_Driver_model.this,
-							DriverInfo.class);
-					startActivity(intent1);
-					finish();
-				} else { // 管理员登录
-					Intent intent5 = new Intent(Manager_Driver_model.this,
-							ManagerMain.class);
-					startActivity(intent5);
-					finish();
-				}
-
-				editor.putInt("loginState", 1);
-				editor.commit();
-			}
-			break;
-		case R.id.button2:
-			// 利用正则表达式来判断
-			if ("".equals(edit1)) {
-				// 注册名为空
-				et1.setError("注册名不能为空");
-			} else if (edit1.matches("^[A-Za-z0-9]+$")) {
-				// 登录名只包含英文大小写和数字
-				flag1 = 1;
-			} else {
-				et1.setError("注册名只能包含字母和数字");
-			}
-			if ("".equals(edit2) && edit1.length() >= 6) {
-				// 登录密码不能且大于六位数
-				et2.setError("密码不能为空");
-			} else if (edit2.matches("^[A-Za-z0-9]+$")) {
-				// 登录密码只包含英文大小写和数字
-				flag2 = 1;
-			} else {
-				et2.setError("密码只能包含字母和数字");
-			}
-			if (edit3.equals(edit2)) {
-				flag3 = 1;
-			} else {
-				et3.setError("密码不一致");
-			}
-			if (flag1 == 1 && flag2 == 1 && flag3 == 1) {
-
-				String newusername = et1.getText().toString();
-				String newpassword = md5(et2.getText().toString());
-				String confirmpwd = md5(et3.getText().toString());
-
-				if (newpassword.equals(confirmpwd)) {
-					SharedPreferences sp = getSharedPreferences("userdata", 0);
-					Editor editor = sp.edit();
-					editor.putString("username", newusername);
-					editor.putString("password", newpassword);
-					editor.commit();
-					mDialog = new ProgressDialog(Manager_Driver_model.this);
-					mDialog.setTitle("登陆");
-					mDialog.setMessage("正在登陆服务器，请稍后...");
-					mDialog.show();
-					Thread loginThread1 = new Thread(new RegisterThread());
-					loginThread1.start();
-					Intent intent2 = new Intent(Manager_Driver_model.this,
-							ManagerMain.class);
-					startActivity(intent2);
-					editor.putInt("login_register", 2);
-					// 提交
-					editor.commit();
-
-				} else {
-					Toast.makeText(getApplicationContext(), "您两次输入的密码不一致！",
-							Toast.LENGTH_SHORT).show();
-				}
-
-			}
-			break;
-		// 点击返回按钮
-		case R.id.button3:
-			Intent intent3 = new Intent(Manager_Driver_model.this,
-					DriverMainScreen.class);
-			startActivity(intent3);
-			finish();
-			break;
-		case R.id.textView4:
-			String string = tv4.getText().toString();
-			if (string.equals("立即注册")) {
-				et3.setVisibility(View.VISIBLE);
-				tv3.setVisibility(View.VISIBLE);
-				bt2.setVisibility(View.VISIBLE);
-				bt1.setVisibility(View.GONE);
-				tv4.setText("返回登录");
-			} else if (string.equals("返回登录")) {
-				et3.setVisibility(View.GONE);
-				tv3.setVisibility(View.GONE);
-				bt2.setVisibility(View.GONE);
-				bt1.setVisibility(View.VISIBLE);
-				tv4.setText("立即注册");
-			}
-			break;
-		}
-	}
-
-	private void showDialog(String str) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("注册");
-		builder.setMessage(str);
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				Intent intent = new Intent();
-				intent.setClass(Manager_Driver_model.this, ManagerMain.class);
-				startActivity(intent);
-				finish();
-			}
-		});
-		AlertDialog dialog = builder.create();
-		dialog.show();
-	}
-
-	// Handler
-	Handler handler1 = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case 0:
-				mDialog.cancel();
-				showDialog("注册成功！");
-				break;
-			case 1:
-				mDialog.cancel();
-				Toast.makeText(getApplicationContext(), "注册失败",
-						Toast.LENGTH_SHORT).show();
-				break;
-			case 2:
-				mDialog.cancel();
-				Toast.makeText(getApplicationContext(), "URL验证失败",
-						Toast.LENGTH_SHORT).show();
-				break;
-
-			}
-
-		}
-	};
-
-	/**
-	 * Handler
-	 */
-	Handler handler2 = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case 0:
-				mDialog.cancel();
-
-				Toast.makeText(getApplicationContext(), "登录成功！",
-						Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent();
-				intent.setClass(Manager_Driver_model.this, ManagerMain.class);
-				startActivity(intent);
-				finish();
-				break;
-			case 1:
-				mDialog.cancel();
-				Toast.makeText(getApplicationContext(), "密码错误",
-						Toast.LENGTH_SHORT).show();
-				break;
-			case 2:
-				mDialog.cancel();
-				Toast.makeText(getApplicationContext(), "URL验证失败",
-						Toast.LENGTH_SHORT).show();
-				break;
-			}
-		}
-	};
-
-	// 初始化HttpClient，并设置超时
-	public HttpClient getHttpClient() {
-		BasicHttpParams httpParams = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
-		HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
-		HttpClient client = new DefaultHttpClient(httpParams);
-		return client;
-	}
-
 	private boolean registerServer(String username, String password) {
 		boolean loginValidate = false;
 		// 使用apache HTTP客户端实现
@@ -541,150 +646,51 @@ public class Manager_Driver_model extends Activity implements
 		return loginValidate;
 	}
 
-	private boolean loginServer(String username, String password) {
-		boolean loginValidate = false;
-		// 使用apache HTTP客户端实现
-		String urlStr = "http://192.168.1.101:8080/LoginServlet/LoginServlet";
-		HttpPost request = new HttpPost(urlStr);
-		// 如果传递参数多的话，可以丢传递的参数进行封装
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		// 添加用户名和密码
-		params.add(new BasicNameValuePair("username", username));
-		params.add(new BasicNameValuePair("password", password));
-		try {
-			// 设置请求参数项
-			request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-			HttpClient client = getHttpClient();
-			// 执行请求返回相应
-			HttpResponse response = client.execute(request);
+	private void showDialog(String str) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("注册");
+		builder.setMessage(str);
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-			// 判断是否请求成功
-			if (response.getStatusLine().getStatusCode() == 200) {
-				loginValidate = true;
-				// 获得响应信息
-				responseMsg = EntityUtils.toString(response.getEntity());
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				Intent intent = new Intent();
+				intent.setClass(Manager_Driver_model.this, ManagerMain.class);
+				startActivity(intent);
+				finish();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return loginValidate;
-	}
-
-	// LoginThread线程类
-	class LoginThread implements Runnable {
-
-		@Override
-		public void run() {
-			String username = et1.getText().toString();
-			String password = et2.getText().toString();
-			boolean checkstatus = sp.getBoolean("checkstatus", false);
-			if (checkstatus) {
-				// 获取已经存在的用户名和密码
-				String realUsername = sp.getString("username", "");
-				String realPassword = sp.getString("password", "");
-				if ((!realUsername.equals("")) && !(realUsername == null)
-						|| (!realPassword.equals(""))
-						|| !(realPassword == null)) {
-					if (username.equals(realUsername)
-							&& password.equals(realPassword)) {
-						username = et1.getText().toString();
-						password = et2.getText().toString();
-					}
-				}
-			} else {
-				password = md5(password);
-			}
-			System.out
-					.println("username=" + username + ":password=" + password);
-
-			// URL合法，但是这一步并不验证密码是否正确
-			boolean loginValidate = loginServer(username, password);
-			System.out.println("----------------------------bool is :"
-					+ loginValidate + "----------response:" + responseMsg);
-			Message msg = handler2.obtainMessage();
-			if (loginValidate) {
-				if (responseMsg.equals("success")) {
-					msg.what = 0;
-					handler2.sendMessage(msg);
-				} else {
-					msg.what = 1;
-					handler2.sendMessage(msg);
-				}
-
-			} else {
-				msg.what = 2;
-				handler2.sendMessage(msg);
-			}
-		}
-
-	}
-
-	// RegisterThread线程类
-	class RegisterThread implements Runnable {
-
-		@Override
-		public void run() {
-			String username = et1.getText().toString();
-			String password = md5(et2.getText().toString());
-
-			// URL合法，但是这一步并不验证密码是否正确
-			boolean registerValidate = registerServer(username, password);
-			Message msg = handler1.obtainMessage();
-			if (registerValidate) {
-				if (responseMsg.equals("success")) {
-					msg.what = 0;
-					handler1.sendMessage(msg);
-				} else {
-					msg.what = 1;
-					handler1.sendMessage(msg);
-				}
-
-			} else {
-				msg.what = 2;
-				handler1.sendMessage(msg);
-			}
-		}
-
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	/**
-	 * MD5单向加密，32位，用于加密密码，因为明文密码在信道中传输不安全，明文保存在本地也不安全
-	 * 
-	 * @param str
-	 * @return
+	 * 用于显示网络状态提示
 	 */
-	public static String md5(String str) {
-		MessageDigest md5 = null;
-		try {
-			md5 = MessageDigest.getInstance("MD5");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
-		}
+	private void showTips() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setIcon(android.R.drawable.ic_dialog_alert);
+		builder.setTitle("没有可用网络");
+		builder.setMessage("当前网络不可用，是否设置网络？");
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-		char[] charArray = str.toCharArray();
-		byte[] byteArray = new byte[charArray.length];
-
-		for (int i = 0; i < charArray.length; i++) {
-			byteArray[i] = (byte) charArray[i];
-		}
-		byte[] md5Bytes = md5.digest(byteArray);
-
-		StringBuffer hexValue = new StringBuffer();
-		for (int i = 0; i < md5Bytes.length; i++) {
-			int val = (md5Bytes[i]) & 0xff;
-			if (val < 16) {
-				hexValue.append("0");
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// 如果没有网络连接，则进入网络设置界面
+				startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
 			}
-			hexValue.append(Integer.toHexString(val));
-		}
-		return hexValue.toString();
-	}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
-	@Override
-	public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-		// TODO Auto-generated method stub
-
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+				Manager_Driver_model.this.finish();
+			}
+		});
+		builder.create();
+		builder.show();
 	}
 
 }

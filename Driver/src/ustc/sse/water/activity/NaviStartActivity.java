@@ -200,6 +200,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	public void onDestroy() {
 		super.onDestroy();
 		// 删除导航监听
+		// mSynListener = null;
 		AMapNavi.getInstance(this).removeAMapNaviListener(this);
 	}
 
@@ -249,6 +250,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 			Intent intent = new Intent(NaviStartActivity.this,
 					DriverMainScreen.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			// mTts = null;
 			startActivity(intent);
 			finish();
 		}

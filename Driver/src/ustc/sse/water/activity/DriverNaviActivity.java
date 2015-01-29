@@ -95,6 +95,7 @@ public class DriverNaviActivity extends Activity implements
 				Intent intent = new Intent(DriverNaviActivity.this,
 						DriverMainScreen.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				// mAmapAMapNaviView = null;
 				startActivity(intent);
 				finish();
 
@@ -102,6 +103,7 @@ public class DriverNaviActivity extends Activity implements
 				Intent intent = new Intent(DriverNaviActivity.this,
 						DriverMainScreen.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				// mAmapAMapNaviView = null;
 				startActivity(intent);
 				finish();
 			} else {
@@ -120,6 +122,7 @@ public class DriverNaviActivity extends Activity implements
 		Intent intent = new Intent(DriverNaviActivity.this,
 				DriverMainScreen.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		// mAmapAMapNaviView = null;
 		startActivity(intent);
 		finish();
 	}
@@ -151,6 +154,7 @@ public class DriverNaviActivity extends Activity implements
 	public void onPause() {
 		super.onPause();
 		mAmapAMapNaviView.onPause();
+		// mAmapAMapNaviView = null;
 		AMapNavi.getInstance(this).stopNavi();
 	}
 
