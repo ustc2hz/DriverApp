@@ -1,26 +1,25 @@
-<!-- 主地图界面布局 -->
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
-
-    <!-- 顶部搜索框一栏 -->
-
+    
+    
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:orientation="horizontal" >
+        android:background="#fafafa"
+        android:orientation="horizontal"
+        >
 
-        <!-- 用户模式选择图片 -->
-
-        <ImageButton
-            android:id="@+id/button_chose_user"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/users_fb" />
+            android:background="@drawable/sousuo1"
+            android:layout_marginLeft="5dp"
+            />
 
         <!-- 关键字搜索框 -->
 
@@ -28,19 +27,20 @@
             android:id="@+id/actv_key_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5.0dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"           
             android:layout_weight="0.31"
-            android:background="@drawable/text_search"
+            android:background="@drawable/textview_border"
             android:completionThreshold="1"
             android:dropDownVerticalOffset="1.0dip"
             android:hint="@string/key_search"
             android:imeOptions="actionDone"
             android:inputType="text|textAutoComplete"
-            android:maxLength="20"
-            android:paddingRight="37.0dip"
+            android:maxLength="20"            
             android:singleLine="true"
             android:textColor="#000000"
-            android:textSize="16.0sp" />
+            android:textSize="18.0sp" />
 
         <!-- 语音搜索按钮 -->
 
@@ -48,11 +48,12 @@
             android:id="@+id/button_voice_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3.0dip"       
-            android:background="@drawable/voice_search_fb" />
+            android:layout_marginRight="5dip"       
+            android:background="@drawable/maikefeng1" />
     </LinearLayout>
     
-    <RelativeLayout android:layout_width="fill_parent"
+    
+   <RelativeLayout android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1">
@@ -61,53 +62,77 @@
 	        android:id="@+id/map"       
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent"/>
-	    
-	    <!-- 自定义定位按钮 -->
-	    <ImageButton android:id="@+id/button_my_location"
+	     <TextView 
+             android:id="@+id/show_directory"
+             android:layout_width="wrap_content"
+         	 android:layout_height="wrap_content"
+         	 android:layout_alignParentBottom="true"
+         	 android:layout_centerHorizontal="true"
+         	 android:layout_gravity="center_horizontal"
+         	 android:autoLink="phone"
+         	 android:gravity="left"
+         	 android:maxLines="6"
+         	 android:textSize="14sp"
+         	 android:background="@drawable/textview_border"
+         	 android:layout_marginBottom="6dp"        	
+         	 />  
+         
+	     <ImageButton android:id="@+id/button_my_location"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
 	        android:layout_marginLeft="10.0dip"
 	        android:layout_marginBottom="10.0dip"
-	        android:background="@drawable/my_location_fb"/>
-	    
-    </RelativeLayout>
+	        android:background="@drawable/dingwei1"/>	 
+	     
+	    </RelativeLayout>
     
-    <!-- 底部导航栏 -->
-    <LinearLayout android:layout_width="fill_parent"
+    
+     <LinearLayout         
+         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_gravity="bottom"
-        android:background="#CCCCCC" >
-        
-        <!-- 路径规划按钮 -->
-        <Button android:id="@+id/button_route_planning"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/path_planning" />
-        
-        <!-- 开始导航按钮 -->
-        <Button android:id="@+id/button_start_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_weight="1"      
-            android:text="@string/start_navigation"/>
-        
-        <!-- 周边搜索按钮 -->
-       <Button android:id="@+id/button_round_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/round_search"/>
-       
-       <!-- 停车场列表按钮 -->
-       <Button android:id="@+id/button_parking_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/parking_info_list"/>
-        
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+       >
     
+                  
+             
+         
+<TabHost android:id="@android:id/tabhost" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    >
+    <LinearLayout android:orientation="vertical" 
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent">
+        <FrameLayout android:id="@android:id/tabcontent" 
+            android:layout_width="fill_parent" 
+            android:layout_height="0.0dip" 
+            android:layout_weight="1.0" />
+        <TabWidget android:id="@android:id/tabs" 
+            android:visibility="gone" 
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content" 
+            android:layout_weight="0.0" />
+            <RadioGroup 
+                android:gravity="center_vertical" 
+                android:layout_gravity="bottom" 
+                android:orientation="horizontal" 
+                android:id="@id/main_radio" 
+                android:background="@drawable/baise" 
+                android:layout_width="fill_parent" 
+                android:layout_height="wrap_content">
+                
+                <RadioButton  android:id="@+id/radio_Carservice" android:layout_marginTop="2.0dip" android:text="@string/main_Carservice" android:drawableTop="@drawable/icon_1_n" style="@style/main_tab_bottom" />
+                <RadioButton  android:id="@+id/radio_navi" android:layout_marginTop="2.0dip" android:text="@string/main_navi" android:drawableTop="@drawable/icon_2_n" style="@style/main_tab_bottom" />
+                <RadioButton  android:id="@+id/radio_order" android:layout_marginTop="2.0dip" android:text="@string/main_order" android:drawableTop="@drawable/icon_3_n" style="@style/main_tab_bottom" />
+                <RadioButton  android:id="@+id/radio_mine" android:layout_marginTop="2.0dip" android:text="@string/main_mine" android:drawableTop="@drawable/icon_4_n" style="@style/main_tab_bottom" />
+                <RadioButton  android:id="@+id/radio_more" android:layout_marginTop="2.0dip" android:text="@string/main_more" android:drawableTop="@drawable/icon_5_n" style="@style/main_tab_bottom" />
+            </RadioGroup>
+    </LinearLayout>
+</TabHost>
+
+</LinearLayout>
+
 </LinearLayout>
