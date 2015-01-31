@@ -61,14 +61,17 @@
     
     <string name="parking_order_money_unit">元</string>
     <string name="parking_order_title">车位预定</string>
-    <string name="parking_order_chose_licence">选择车牌</string>
-    <string name="parking_order_chose_time">选择预定时间</string>
+    <string name="parking_order_make">填写订单</string>
+    <string name="parking_order_chose_licence">选择车牌：</string>
+    <string name="parking_order_chose_time">选择预定时间：</string>
     <string name="parking_order_submit">提交预定</string>
     <string name="parking_order_cancel">取消预定</string>
-    <string name="parking_detail_info">详细信息</string>
+    <string name="parking_detail_info">车位详情</string>
     <string name="parking_detail_book_number">可预定车位数：</string>
     <string name="parking_detail_book_money">预定收费情况：</string>
     <string name="parking_detail_book_submit">预定</string>
     <string name="parking_detail_book_back">返回</string>
+    <string name="parking_info_address">地址：</string>
+    <string name="parking_info_distance">距离：</string>
 
 </resources>

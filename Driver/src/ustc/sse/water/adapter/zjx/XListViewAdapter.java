@@ -1,10 +1,11 @@
 package ustc.sse.water.adapter.zjx;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 import ustc.sse.water.activity.R;
-import ustc.sse.water.activity.zjx.ParkingInfo;
+import ustc.sse.water.activity.zjx.ParkingDetail;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -28,7 +29,7 @@ import android.widget.TextView;
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
-public class XListViewAdapter extends BaseAdapter implements OnClickListener {
+public class XListViewAdapter extends BaseAdapter {
 	private List<Map<String, Object>> list;// 信息列表
 	private Context context; // 上下文
 	private LayoutInflater inflater; // 填充器
@@ -63,6 +64,10 @@ public class XListViewAdapter extends BaseAdapter implements OnClickListener {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// 每个元素的初始化
 		ViewHolder vh;
+		Map<String, Object> parking = null;
+		if (list != null) {
+			parking = list.get(position);
+		}
 		if (convertView == null) {
 			vh = new ViewHolder();
 			convertView = inflater.inflate(R.layout.xlistview_cell, null);
@@ -72,21 +77,23 @@ public class XListViewAdapter extends BaseAdapter implements OnClickListener {
 					.findViewById(R.id.text_parking_distance);
 			vh.address = (TextView) convertView
 					.findViewById(R.id.text_parking_address);
-			vh.btn2 = (Button) convertView
+			vh.btnBook = (Button) convertView
 					.findViewById(R.id.button_parking_order);
-			vh.btn2.setOnClickListener(this);
-			vh.btn1 = (Button) convertView
+			vh.btnBook.setOnClickListener(new BookOnClickListener(parking));
+			vh.btnRoot = (Button) convertView
 					.findViewById(R.id.button_parking_route);
+			// vh.btnRoot.setOnClickListener(this);
 			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder) convertView.getTag();
 		}
-		if (list != null) {
-			Map<String, Object> map = list.get(position);
-			vh.name.setText((String) map.get("parkingName")); // 显示停车场名字
-			vh.address.setText((String) map.get("parkingAddress")); // 显示停车场的地址
-			vh.distance.setText(map.get("parkingDistance").toString()); // 显示停车场的距离
+
+		if (parking != null) {
+			vh.name.setText((String) parking.get("parkingName")); // 显示停车场名字
+			vh.address.setText((String) parking.get("parkingAddress")); // 显示停车场的地址
+			vh.distance.setText(parking.get("parkingDistance").toString()); // 显示停车场的距离
 		}
+
 		return convertView;
 	}
 
@@ -95,22 +102,33 @@ public class XListViewAdapter extends BaseAdapter implements OnClickListener {
 		public TextView name; // 停车场名字
 		public TextView distance;// 停车场距离
 		public TextView address;// 停车场地址
-		public Button btn1; // 路线按钮
-		public Button btn2; // 预定按钮
+		public Button btnRoot; // 路线按钮
+		public Button btnBook; // 预定按钮
 	}
 
-	/**
-	 * 按钮点击事件处理
-	 */
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.button_parking_route:// 路线按钮
-			break;
-		case R.id.button_parking_order:// 预定按钮
-			Intent intent = new Intent(context, ParkingInfo.class);
-			context.startActivity(intent);
-			break;
+	/* 可预定停车场预定处理 */
+	class BookOnClickListener implements OnClickListener {
+		Map<String, Object> selectParking; // 选中的停车场
+
+		public BookOnClickListener(Map<String, Object> selectP) {
+			this.selectParking = selectP;
+		}
+
+		/**
+		 * 按钮点击事件处理
+		 */
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.button_parking_route:// 路线按钮
+				break;
+			case R.id.button_parking_order:// 预定按钮
+				Intent intent = new Intent(context, ParkingDetail.class);
+				// 将选中的停车场封装到Intent中
+				intent.putExtra("select_parking", (Serializable) selectParking);
+				context.startActivity(intent);
+				break;
+			}
 		}
 	}
 }

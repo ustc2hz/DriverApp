@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="#66ffcc"
         android:gravity="center_horizontal|top"
-        android:text="@string/parking_order_title"
+        android:text="@string/parking_order_make"
         android:textColor="#ff0033"
         android:textSize="30sp" />
 
@@ -24,6 +24,7 @@
     <TextView android:id="@+id/text_license_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="25dp"
         android:text="@string/parking_order_chose_licence"
         android:layout_below="@id/book_view1"/>
     
@@ -40,24 +41,18 @@
         android:layout_below="@id/listview_license_chose"
         android:background="#000000" />
     
-    <LinearLayout android:id="@+id/book_linear1"
+    <TextView android:id="@+id/text_book_time_chose"
         android:layout_below="@id/book_view2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView android:id="@+id/text_book_time_chose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/parking_order_chose_time"/>
-        
-        <Spinner android:id="@+id/spinner_time_chose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:prompt="@string/spinner_chose_tip"/>
-      
-    </LinearLayout>
+        android:textSize="25dp"
+        android:text="@string/parking_order_chose_time"/> 
+    
+    <Spinner android:id="@+id/spinner_time_chose"
+       	android:layout_below="@id/text_book_time_chose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/spinner_chose_tip"/>
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,11 +66,6 @@
             android:layout_height="wrap_content"           
             android:text="@string/parking_order_submit" />
 
-        <Button
-            android:id="@+id/button_cancel_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/parking_order_cancel" />
     </LinearLayout>
 
 </RelativeLayout>

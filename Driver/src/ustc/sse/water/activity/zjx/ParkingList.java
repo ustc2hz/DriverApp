@@ -41,6 +41,7 @@ public class ParkingList extends Activity implements IXListViewListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.parking_list);
 		start = 0;
 		refreshCnt = 0;
