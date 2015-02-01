@@ -4,20 +4,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-<RadioGroup
-            android:id="@+id/gendergroup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-    </RadioGroup>
-    <LinearLayout 
+
+    <LinearLayout
         android:id="@+id/linear1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/default_bg"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:id="@+id/relativelayout2"
@@ -135,26 +128,26 @@
                 android:layout_marginTop="40dp"
                 android:layout_toLeftOf="@+id/login_btn_zhuce"
                 android:text="@string/login" />
-		
-            <RadioButton
-                android:id="@+id/check_manager"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/login_btn_login"
-                android:layout_centerVertical="true"
-                android:text="管理员" />
 
-            <RadioButton
-                android:id="@+id/check_driver"
-                android:layout_width="wrap_content"
+            <RadioGroup android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/check_manager"
-                android:layout_alignBottom="@+id/check_manager"
-                android:layout_alignLeft="@+id/login_btn_zhuce"
-                android:text="驾驶员" />
-        
-            
-           
+                android:orientation="horizontal"
+                android:layout_alignRight="@+id/login_edit_pwd"
+                android:layout_below="@id/login_edit_pwd">
+
+                <RadioButton
+                    android:id="@+id/check_manager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"                
+                    android:text="管理员" />
+
+                <RadioButton
+                    android:id="@+id/check_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="驾驶员" />
+            </RadioGroup>
+
         </RelativeLayout>
 
     </LinearLayout>

@@ -17,7 +17,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import ustc.sse.water.activity.R;
-
+import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -58,10 +58,11 @@ public class RegisterActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String newusername = newUser.getText().toString();
-				String newpassword = md5(newPassword.getText().toString());
-				String confirmpwd = md5(confirmPassword.getText().toString());
-				
-				if(newpassword.equals(confirmpwd))
+				String newpassword = newPassword.getText().toString();
+				String confirmpwd = confirmPassword.getText().toString();
+				if("".equals(newusername) || "".equals(newpassword) || "".equals(confirmpwd)) {
+					ToastUtil.show(RegisterActivity.this, "输入信息不能为空");
+				} else if(newpassword.equals(confirmpwd))
 				{
 					SharedPreferences sp = getSharedPreferences("userdata",0);
 					Editor editor = sp.edit();
@@ -109,8 +110,14 @@ public class RegisterActivity extends Activity {
 	 private boolean registerServer(String username, String password)
 	    {
 	    	boolean loginValidate = false;
+	    	String urlStr = "";
+	    	Log.i("radio", LoginActivity.radioStatus+"");
 	    	//使用apache HTTP客户端实现
-	    	String urlStr = "http://192.168.9.179:8080/AppServerr/AdminRegisterServlet";
+	    	if(LoginActivity.radioStatus == 0) { // 驾驶员注册
+	    		urlStr = "http://192.168.9.179:8080/AppServerr/DriverRegisterServlet";
+	    	}else if(LoginActivity.radioStatus == 1) {// 管理员注册
+	    		urlStr = "http://192.168.9.179:8080/AppServerr/AdminRegisterServlet";
+	    	}
 	    	HttpPost request = new HttpPost(urlStr);
 	    	//如果传递参数多的话，可以丢传递的参数进行封装
 	    	List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -142,7 +149,8 @@ public class RegisterActivity extends Activity {
 	//Handler
 	    Handler handler = new Handler()
 	    {
-	    	public void handleMessage(Message msg)
+	    	@Override
+			public void handleMessage(Message msg)
 	    	{
 	    		switch(msg.what)
 	    		{
@@ -172,7 +180,7 @@ public class RegisterActivity extends Activity {
 			@Override
 			public void run() {
 				String username = newUser.getText().toString();
-				String password = md5(newPassword.getText().toString());
+				String password = newPassword.getText().toString();
 					
 				//URL合法，但是这一步并不验证密码是否正确
 		    	boolean registerValidate = registerServer(username, password);
@@ -248,7 +256,7 @@ public class RegisterActivity extends Activity {
         StringBuffer hexValue = new StringBuffer();  
         for( int i = 0; i < md5Bytes.length; i++)  
         {  
-            int val = ((int)md5Bytes[i])&0xff;  
+            int val = (md5Bytes[i])&0xff;  
             if(val < 16)  
             {  
                 hexValue.append("0");  

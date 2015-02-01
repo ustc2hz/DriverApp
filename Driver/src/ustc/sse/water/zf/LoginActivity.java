@@ -17,6 +17,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import ustc.sse.water.activity.R;
+import ustc.sse.water.managermain.zf.ManagerMainTabActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -31,12 +32,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -54,7 +54,7 @@ import android.widget.Toast;
  * @author张芳 sa614296@mail.ustc.edu.cn
  * @version 3.0.0
  */
-public class LoginActivity extends Activity implements OnClickListener, OnCheckedChangeListener {
+public class LoginActivity extends Activity {
     /** Called when the activity is first created. */
 	private Button loginBtn;
 	private Button registerBtn;
@@ -63,11 +63,12 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
 	private CheckBox saveInfoItem;
 	private RadioButton manager_check,driver_check;
 	private ProgressDialog mDialog;
-	private String responseMsg = "";
+	private String responseMsg;
 	private static final int REQUEST_TIMEOUT = 5*1000;//设置请求超时10秒钟  
 	private static final int SO_TIMEOUT = 10*1000;  //设置等待数据超时时间10秒钟  
 	private static final int LOGIN_OK = 1;
 	private SharedPreferences sp;
+	public static int radioStatus = 0; //默认是驾驶员
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,10 +82,10 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
         saveInfoItem = (CheckBox)findViewById(R.id.login_cb_savepwd);
         manager_check = (RadioButton)findViewById(R.id.check_manager);
         driver_check = (RadioButton)findViewById(R.id.check_driver);    
-        loginBtn.setOnClickListener(this);
-        registerBtn.setOnClickListener(this);
-        manager_check.setOnCheckedChangeListener(this);
-        driver_check.setOnCheckedChangeListener(this);
+        /*loginBtn.setOnClickListener(this);
+        registerBtn.setOnClickListener(this);*/
+        
+        checkOut();
         driver_check.setChecked(true);
        
         sp = getSharedPreferences("userdata",0);
@@ -145,8 +146,12 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
 				mDialog.setTitle("登陆");
 				mDialog.setMessage("正在登陆服务器，请稍后...");
 				mDialog.show();
-				Thread loginThread = new Thread(new LoginThread());
-				loginThread.start();
+				
+					Log.i("--->>>", "登录线程");
+					Thread loginThread = new Thread(new LoginThread());
+					loginThread.start();	
+				
+				
 			}
         	
         });
@@ -155,6 +160,11 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
         {
 			@Override
 			public void onClick(View arg0) {
+				if(driver_check.isChecked()) {
+					radioStatus = 0;
+				}else if(manager_check.isChecked()){
+					radioStatus = 1;
+				}
 				Intent intent = new Intent();
 				intent.setClass(LoginActivity.this, RegisterActivity.class);
 				startActivity(intent);
@@ -162,11 +172,25 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
         });
     }
      
-    private boolean loginServer(String username, String password)
+    private void checkOut() {
+		// TODO Auto-generated method stub
+		if(!manager_check.isChecked() || driver_check.isChecked()){
+			loginBtn.setClickable(false);
+		}
+	}
+
+	private boolean loginServer(String username, String password)
     {
     	boolean loginValidate = false;
+    	String urlStr = "";
+    	Log.i("--->>", driver_check.isChecked()+"");
+    	Log.i("--->>", manager_check.isChecked()+"");
+    	if(manager_check.isChecked()) {
     	//使用apache HTTP客户端实现
-    	String urlStr = "http://192.168.9.179:8080/AppServerr/AdminLoginServlet";
+    		urlStr = "http://192.168.9.179:8080/AppServerr/AdminLoginServlet";
+    	} else if(driver_check.isChecked()){   		
+    		urlStr = "http://192.168.9.179:8080/AppServerr/DriverLoginServlet";	
+    	}
     	HttpPost request = new HttpPost(urlStr);
     	//如果传递参数多的话，可以丢传递的参数进行封装
     	List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -179,17 +203,19 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
     		request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
     		HttpClient client = getHttpClient();
     		//执行请求返回相应
-    		HttpResponse response = client.execute(request);
-    		
+    		HttpResponse response = client.execute(request);  
+    		Log.i("code", response.getStatusLine().getStatusCode()+"");
     		//判断是否请求成功
     		if(response.getStatusLine().getStatusCode()==200)
-    		{
-    			loginValidate = true;
+    		{   			
     			//获得响应信息
     			responseMsg = EntityUtils.toString(response.getEntity());
+    			Log.i("-->>msg", responseMsg);
+    			loginValidate = true;
     		}
     	}catch(Exception e)
     	{
+    		loginValidate = false;
     		e.printStackTrace();
     	}
     	return loginValidate;
@@ -229,6 +255,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
 			 //获取已经存在的用户名和密码
 	        String realUsername = sp.getString("username", "");
 			String realPassword = sp.getString("password", "");
+			
 			if((!realUsername.equals(""))&&!(realUsername==null)||(!realPassword.equals(""))||!(realPassword==null))
 			{
 				inputUsername.setText("");
@@ -297,9 +324,9 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
     			mDialog.cancel();
     			Toast.makeText(getApplicationContext(), "登录成功！", Toast.LENGTH_SHORT).show();
     			Intent intent = new Intent();
-    			intent.setClass(LoginActivity.this, MainActivity.class);
+    			intent.setClass(LoginActivity.this, ManagerMainTabActivity.class);
     			startActivity(intent);
-    			finish();
+    		//	finish();
     			break;
     		case 1:
     			mDialog.cancel();
@@ -320,7 +347,8 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
 		@Override
 		public void run() {
 			String username = inputUsername.getText().toString();
-			String password = inputPassword.getText().toString();	
+			String password = inputPassword.getText().toString();
+			Log.i("--->>>", password);
 			boolean checkstatus = sp.getBoolean("checkstatus", false);
 			if(checkstatus)
 			{
@@ -337,7 +365,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
 				}
 			}else
 			{
-				password = md5(password);
+				//password = md5(password);
 			}
 			System.out.println("username="+username+":password="+password);
 				
@@ -347,12 +375,15 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
 	    	Message msg = handler.obtainMessage();
 	    	if(loginValidate)
 	    	{
+	    		Log.i("msg", responseMsg);
 	    		if(responseMsg.equals("success"))
 	    		{
+	    			Log.i("what", 0+"");
 	    			msg.what = 0;
 		    		handler.sendMessage(msg);
 	    		}else
-	    		{
+	    		{Log.i("msg", responseMsg);
+	    			Log.i("what", 1+"");
 	    			msg.what = 1;
 		    		handler.sendMessage(msg);
 	    		}
@@ -405,20 +436,6 @@ public class LoginActivity extends Activity implements OnClickListener, OnChecke
         }  
         return hexValue.toString();  
     }
-
-
-	@Override
-	public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		
-	}
   
 }
 
