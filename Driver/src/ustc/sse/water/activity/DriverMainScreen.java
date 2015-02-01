@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -366,6 +367,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			// 显示云图数据
 			mCloud = new MyCloudSearch(this, aLocation.getLatitude(),
 					aLocation.getLongitude(), aMap);
+			Log.v("sum", mCloud.mCloudItems.size()+"");
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
 
 			// showFirstMarker();
