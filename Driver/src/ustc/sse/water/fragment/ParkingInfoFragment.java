@@ -30,16 +30,28 @@ import android.widget.TextView;
  * @version 1.0.0
  */
 public class ParkingInfoFragment extends Fragment {
+	// 方便数据传递，之后更改——黄志恒
+	public static String[] tranMoney = new String[3];
 	/* 模拟数据 */
 	private String[] bookInfos = { "提前10分钟预定的订金： ", "提前20分钟预定的订金： ",
 			"提前30分钟预定的订金： ", "停车半个小时收费： ", "停车一个小时收费： ", "超过一个小时收费： " };
-	private String[] bookMoneys = { "10", "20", "30", "10" }; // just a simple
+
+	// 存储停车场收费详细信息——黄志恒
+	private String[] bookMoneys = { "10", "20", "30", "10" };
+
 	private Context context; // 上下文
 	private Map<String, Object> parking; // 停车场
 	private TextView parkingAdress; // 停车场地址
 	private TextView parkingDistance; // 停车距离
 	private TextView parkingName; // 停车场名
 	private TextView parKingNum;// 停车场车位数
+
+	/*
+	 * 重写空构造函数
+	 */
+	public ParkingInfoFragment() {
+
+	}
 
 	public ParkingInfoFragment(Context con, Map<String, Object> park) {
 		this.context = con;
@@ -58,8 +70,15 @@ public class ParkingInfoFragment extends Fragment {
 			map.put("info", bookInfos[i]);
 			map.put("money", bookMoneys[i]);
 			list.add(map);
+
 		}
 		return list;
+	}
+
+	private void initTranMoney() {
+		tranMoney[0] = "提前10分钟预定收取：" + bookMoneys[0] + "元";
+		tranMoney[1] = "提前20分钟预定收取：" + bookMoneys[1] + "元";
+		tranMoney[2] = "提前30分钟预定收取：" + bookMoneys[2] + "元";
 	}
 
 	/**
@@ -93,6 +112,7 @@ public class ParkingInfoFragment extends Fragment {
 		parKingNum.setText((String) parking.get("parkingSum"));
 
 		bookMoneys = (String[]) parking.get("bookMoney");
+		initTranMoney();
 
 		SimpleAdapter adapter = new SimpleAdapter(context, getData(),
 				R.layout.listview_book_money, new String[] { "info", "money" },
@@ -102,4 +122,5 @@ public class ParkingInfoFragment extends Fragment {
 		listView.setAdapter(adapter);
 		return view;
 	}
+
 }

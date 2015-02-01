@@ -32,7 +32,7 @@ public class DataToYutunServer {
 	// 发送的类型，“2”表示发送名称和地址
 	public static final String loctype = "2";
 	// 发送的本地服务器的地址
-	public static final String path = "http://192.168.64.143:8080/Test3_Yuntu/servlet/ServerToYuntu";
+	public static final String path = "http://192.168.9.179:8080/AppServerr/ServerToYuntu";
 	// 高德指定地图的id
 	public static final String tableid = "54c48b0ae4b0ff22e1f393f1";
 	// 将要发送给服务器的数据

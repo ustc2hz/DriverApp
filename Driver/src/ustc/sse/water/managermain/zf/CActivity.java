@@ -210,46 +210,4 @@ public class CActivity extends Activity implements OnClickListener {
 		mDataToServer.create();
 	}
 
-	/**
-	 * 张芳 存储管理员的个人信息
-	 */
-	public void Save() {
-
-		name = manager_name.getText().toString();
-		phone = manager_phone.getText().toString();
-		address = manager_address.getText().toString();
-
-		manager_name.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				name = preferences.getString("name", name);
-				editor.putString("name", name);
-				editor.commit();
-			}
-		});
-
-		manager_phone.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				phone = preferences.getString("phone", phone);
-				editor.putString("phone", phone);
-				editor.commit();
-			}
-		});
-
-		manager_address.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				address = preferences.getString("address", address);
-				editor.putString("address", address);
-				editor.commit();
-			}
-		});
-	}
 }

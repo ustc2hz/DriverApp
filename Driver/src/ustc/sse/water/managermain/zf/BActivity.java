@@ -87,26 +87,6 @@ public class BActivity extends Activity implements OnClickListener {
 
 	}
 
-	/*
-	 * 初始化停车场详细信息数据——黄志恒
-	 */
-	/*
-	 * private void initData() { dData = new ParkDetailData(); if
-	 * (park_number.getText() != null) {
-	 * dData.setOrderSpaceSum(park_number.getText().toString().trim()); } if
-	 * (l_price.getText() != null) {
-	 * dData.setOrderOfTen(l_price.getText().toString().trim()); } if
-	 * (m_price.getText() != null) {
-	 * dData.setOrderOfTwe(m_price.getText().toString().trim()); } if
-	 * (h_price.getText() != null) {
-	 * dData.setOrderOfTri(h_price.getText().toString().trim()); } if
-	 * (pl_price.getText() != null) {
-	 * dData.setSpaceOfHal(pl_price.getText().toString().trim()); } if
-	 * (pm_price.getText() != null) {
-	 * dData.setSpaceOfOne(pm_price.getText().toString().trim()); } if
-	 * (ph_price.getText() != null) {
-	 * dData.setSpaceOfMor(ph_price.getText().toString().trim()); } }
-	 */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -240,103 +220,9 @@ public class BActivity extends Activity implements OnClickListener {
 		postData.postDataToServer();
 	}
 
-	/**
-	 * 获得当前数据
-	 * 
+	/*
+	 * 保存数据——黄志恒
 	 */
-
-	public void SaveData() {
-
-		num = park_number.getText().toString();
-		price_ten = l_price.getText().toString();
-		price_twenty = m_price.getText().toString();
-		price_thirty = h_price.getText().toString();
-		pprice_ten = pl_price.getText().toString();
-		pprice_twenty = pm_price.getText().toString();
-		pprice_thirty = ph_price.getText().toString();
-
-		park_number.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				num = preferences.getString("num", num);
-				editor.putString("num", num);
-				editor.commit();
-			}
-		});
-		l_price.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				price_ten = preferences.getString("price_ten", price_ten);
-				editor.putString("price_ten", price_ten);
-				editor.commit();
-
-			}
-		});
-		m_price.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				price_twenty = preferences.getString("price_twenty",
-						price_twenty);
-				editor.putString("price_twenty", price_twenty);
-				editor.commit();
-			}
-		});
-		h_price.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				price_thirty = preferences.getString("price_thirty",
-						price_thirty);
-				editor.putString("price_thirty", price_thirty);
-				editor.commit();
-			}
-		});
-
-		pl_price.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-
-				pprice_ten = preferences.getString("pprice_ten", pprice_ten);
-				editor.putString("pprice_ten", pprice_ten);
-				editor.commit();
-			}
-		});
-		pm_price.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-
-				pprice_twenty = preferences.getString("pprice_twenty",
-						pprice_twenty);
-				editor.putString("pprice_twenty", pprice_twenty);
-				editor.commit();
-			}
-		});
-		ph_price.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-
-				pprice_thirty = preferences.getString("pprice_thirty",
-						pprice_thirty);
-				editor.putString("pprice_thirty", pprice_thirty);
-				editor.commit();
-			}
-		});
-
-	}
-
 	private void SaveData1() {
 		num = park_number.getText().toString();
 		price_ten = l_price.getText().toString();
