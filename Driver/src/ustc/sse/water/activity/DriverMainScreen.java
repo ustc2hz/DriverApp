@@ -398,7 +398,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		this.mMarker = marker;
 		TextshowMarkerInfo(marker);
 
-		marker.setSnippet(" 下面显示概要");
+		marker.setSnippet("");
 		marker.setToTop();
 		marker.showInfoWindow();
 
