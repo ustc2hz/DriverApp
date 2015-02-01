@@ -4,15 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/bt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="#FFFF00"
-        android:text="修改"
-        android:textSize="15sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -23,10 +14,10 @@
             android:layout_height="wrap_content"
             android:text="预定车位总数(个):" 
             android:textSize="18sp"
-            android:background="#ADFF2F"/>
+            />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/parknumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -44,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="预定车位价格(元)："
             android:textSize="20sp"
-            android:background="#ADFF2F" />
+            />
 
     </LinearLayout>
 
@@ -60,7 +51,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/price1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -84,7 +75,7 @@
             android:textSize="14sp"/>
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/price2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -105,7 +96,7 @@
             android:textSize="14sp"/>
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/price3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -120,7 +111,7 @@
         android:layout_height="wrap_content"
         android:text="停车价格(元):"
         android:textSize="20sp" 
-        android:background="#ADFF2F"/>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -134,12 +125,12 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/pprice1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.73"
             android:ems="10"
-            android:inputType="number"/>
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -154,12 +145,12 @@
             android:text="一个小时内:" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/pprice2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.73"
             android:ems="10"
-            android:inputType="number"/>
+            android:inputType="number" />
 
     </LinearLayout>
 
@@ -174,7 +165,7 @@
             android:text="一个小时以上" />
 
         <EditText
-            android:id="@+id/editText7"
+            android:id="@+id/pprice3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -182,6 +173,13 @@
             android:inputType="number"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/bt1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="修改"
+        android:textSize="15sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
