@@ -78,6 +78,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	/* 高德地图AMap */
 	private AMap aMap;
 
+	/* 记录停车场收费信息的数组——黄志恒 */
+	private String[] bookMoney;
 	/* 汽车生活按钮——黄志恒 */
 	private RadioButton Carservice;
 	// 获取编辑器
@@ -115,22 +117,26 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private String orderPrice;
 	/* 获取当前停车场的停车收费信息——黄志恒 */
 	private String parkPrice;
+	/* 停车位数量——黄志恒 */
+	private String parkSum;
 	/* 周边搜索的类 ——黄志恒注 */
 	PoiAroundSearchMethod pas;
 	/* 获取当前停车场的电话号码——黄志恒 */
 	private String phone;
 	/* 搜索对象——黄志恒注 */
 	private PoiSearchMethod poisearch;
+
 	/* 搜索类型——黄志恒注 */
 	private String poiType;
+
 	/* '我的'按钮——黄志恒 */
 	private RadioButton RMine;
-
 	/* '更多'按钮——黄志恒 */
 	private RadioButton RMore;
 
 	/* 导航按钮——黄志恒 */
 	private RadioButton RNavi;
+
 	/* 预定按钮——黄志恒 */
 	private RadioButton ROrder;
 
@@ -139,12 +145,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/* 设置一个文本显示区域，用来显示当前停车场的概要信息——黄志恒 */
 	private TextView showInfo;
-
 	/* 判断是否显示文字区域 */
 	private boolean showText = true;
 
 	/* 路径规划的目的地的点 ——黄志恒注 */
 	private LatLonPoint targetPoint;
+
 	/* 地图的基本设置 */
 	private UiSettings uiSettings;
 
@@ -299,7 +305,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			SharedPreferences shared = getSharedPreferences("loginState",
 					Context.MODE_PRIVATE);
 			int loginState = shared.getInt("loginState", 2); // 取不到，则默认为0
-			loginState = 2;
+			loginState = 1;
 			if (loginState == 2) {
 				Intent it2 = new Intent(DriverMainScreen.this,
 						LoginActivity.class);
@@ -313,7 +319,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 				it2.putExtra("choose_model", 1);
 				it2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(it2);
-				finish();
+				// finish();
 			}
 			break;
 		// 直接预定当前停车场的订单
@@ -497,6 +503,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		map.put("parkingName", this.name); // 存储停车场的名字
 		map.put("parkingDistance", this.itemDistance); // 存储停车场到中心点的距离
 		map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
+		map.put("parkingSum", this.parkSum);
+		map.put("bookMoney", this.bookMoney);
+
 		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
 		// 将选中的停车场封装到Intent中
 		intent.putExtra("select_parking", (Serializable) map);
@@ -583,7 +592,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			for (CloudItem mItem : mCloud.mCloudItems) {
 				if (title.equals(mItem.getTitle())
 						&& !"".equals(mItem.getSnippet())) {
-
+					bookMoney = new String[6];
+					for (int i = 0; i < 6; i++) {
+						bookMoney[i] = "0";
+					}
+					int count = 0;
 					this.itemAddress = mItem.getSnippet();
 					this.itemDistance = mItem.getDistance();
 
@@ -595,10 +608,22 @@ public class DriverMainScreen extends Activity implements LocationSource,
 						Object value = entry.getValue();
 						if ("phone".equals(key)) {
 							this.phone = (String) value;
+						} else if ("parkSum".equals(key)) {
+							this.parkSum = (String) value;
 						} else if ("orderTen".equals(key)) {
 							this.orderPrice = (String) value;
+							bookMoney[0] = (String) value;
+						} else if ("orderTwe".equals(key)) {
+							bookMoney[1] = (String) value;
+						} else if ("orderTri".equals(key)) {
+							bookMoney[2] = (String) value;
+						} else if ("payHalPay".equals(key)) {
+							bookMoney[3] = (String) value;
 						} else if ("payOneHour".equals(key)) {
 							this.parkPrice = (String) value;
+							bookMoney[4] = (String) value;
+						} else if ("payMorePay".equals(key)) {
+							bookMoney[5] = (String) value;
 						}
 					}
 				}

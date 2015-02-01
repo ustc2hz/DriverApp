@@ -43,6 +43,7 @@
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <string name="xlistview_unit_mi">米</string>
+    <string name="xlistview_unit_ge">个</string>
     <string name="xlistview_button_route">路线</string>
     <string name="xlistview_button_book">可预定</string>
     <string name="xlistview_button_no_book">不可预定</string>
@@ -73,12 +74,12 @@
     <string name="parking_order_submit">提交预定</string>
     <string name="parking_order_cancel">取消预定</string>
     <string name="parking_detail_info">车位详情</string>
-    <string name="parking_detail_book_number">可预定车位数：</string>
+    <string name="parking_detail_book_number">停车场车位数量：</string>
     <string name="parking_detail_book_money">预定收费情况：</string>
     <string name="parking_detail_book_submit">预定</string>
     <string name="parking_detail_book_back">返回</string>
-    <string name="parking_info_address">地址：</string>
-    <string name="parking_info_distance">距离：</string>
+    <string name="parking_info_address">停车场的地址\t：</string>
+    <string name="parking_info_distance">距目的地的距离：</string>
     
     <string name="username_hint">输入账号</string>
     <string name="username_input">账号</string>

@@ -50,6 +50,7 @@ public class DetailDataToServer {
 	public void postDataToServer() throws Exception {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(path);
+		// post.addHeader("Content-Type", "application/x-www-form-urluncoded");
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("data", this.data));
 		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, "UTF-8");

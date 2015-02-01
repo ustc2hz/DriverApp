@@ -27,7 +27,7 @@
             android:id="@+id/actv_key_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
+            android:layout_marginLeft="4dip"
             android:layout_marginRight="10dp"
             android:layout_gravity="center"           
             android:layout_weight="0.31"
@@ -40,7 +40,7 @@
             android:maxLength="20"            
             android:singleLine="true"
             android:textColor="#000000"
-            android:textSize="18.0sp" />
+            android:textSize="22.0sp" />
 
         <!-- 语音搜索按钮 -->
 
