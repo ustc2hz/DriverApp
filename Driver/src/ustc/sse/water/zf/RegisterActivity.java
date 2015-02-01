@@ -114,9 +114,9 @@ public class RegisterActivity extends Activity {
 	    	Log.i("radio", LoginActivity.radioStatus+"");
 	    	//使用apache HTTP客户端实现
 	    	if(LoginActivity.radioStatus == 0) { // 驾驶员注册
-	    		urlStr = "http://192.168.9.179:8080/AppServerr/DriverRegisterServlet";
+	    		urlStr = "http://192.168.9.178:8080/AppServerr/DriverRegisterServlet";
 	    	}else if(LoginActivity.radioStatus == 1) {// 管理员注册
-	    		urlStr = "http://192.168.9.179:8080/AppServerr/AdminRegisterServlet";
+	    		urlStr = "http://192.168.9.178:8080/AppServerr/AdminRegisterServlet";
 	    	}
 	    	HttpPost request = new HttpPost(urlStr);
 	    	//如果传递参数多的话，可以丢传递的参数进行封装

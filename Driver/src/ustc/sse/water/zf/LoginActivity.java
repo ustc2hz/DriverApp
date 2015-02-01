@@ -187,9 +187,9 @@ public class LoginActivity extends Activity {
     	Log.i("--->>", manager_check.isChecked()+"");
     	if(manager_check.isChecked()) {
     	//使用apache HTTP客户端实现
-    		urlStr = "http://192.168.9.179:8080/AppServerr/AdminLoginServlet";
+    		urlStr = "http://192.168.9.178:8080/AppServerr/AdminLoginServlet";
     	} else if(driver_check.isChecked()){   		
-    		urlStr = "http://192.168.9.179:8080/AppServerr/DriverLoginServlet";	
+    		urlStr = "http://192.168.9.178:8080/AppServerr/DriverLoginServlet";	
     	}
     	HttpPost request = new HttpPost(urlStr);
     	//如果传递参数多的话，可以丢传递的参数进行封装
