@@ -1,6 +1,7 @@
 package ustc.sse.water.zf;
 
 import ustc.sse.water.activity.*;
+import ustc.sse.water.managermain.zf.CActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -45,12 +46,12 @@ public class ManagerChangePass extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.button1:
 			Intent intent1 = new Intent(ManagerChangePass.this,
-					ManagerSettings.class);
+					CActivity.class);
 			startActivity(intent1);
 			break;
 		case R.id.button2:
 			Intent intent2 = new Intent(ManagerChangePass.this,
-					ManagerSettings.class);
+					CActivity.class);
 			startActivity(intent2);
 			break;
 		}

@@ -38,13 +38,13 @@ import com.amap.api.maps.model.MarkerOptions;
  * @version 1.0.0
  */
 public class MyCloudSearch implements OnCloudSearchListener {
+	// history：改为static，方便调用--zjx
+	public static ArrayList<CloudItem> items = new ArrayList<CloudItem>();// 存储从服务器中获取的节点
 	public static List<CloudItem> mCloudItems;// 存储从服务器中获取的点
 	public static CloudSearch mCloudSearch;// 云搜索对象
 	public static PoiOverlay mPoiCloudOverlay;// 显示云搜索的图层
-	public static String mTableID = "549050e6e4b0d2863fd1dba6";// 服务器中的表名
+	public static String mTableID = "54c48b0ae4b0ff22e1f393f1";// 服务器中的表名
 	private Context con;// 上下文对象
-	// history：改为static，方便调用--zjx
-	public static ArrayList<CloudItem> items = new ArrayList<CloudItem>();// 存储从服务器中获取的节点
 	private AMap mAMap;// 地图对象
 	private LatLonPoint mCenterPoint;// 中心点，即手机的当前所处位置
 	private Marker mCloudIDMarer;// 显示从服务器中获取的点的标记

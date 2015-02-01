@@ -1,6 +1,13 @@
 package ustc.sse.water.activity;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import ustc.sse.water.activity.zjx.ParkingDetail;
 import ustc.sse.water.activity.zjx.ParkingList;
+import ustc.sse.water.managermain.zf.ManagerMainTabActivity;
 import ustc.sse.water.tools.hzh.MyCloudSearch;
 import ustc.sse.water.tools.hzh.NaviRouteMethod;
 import ustc.sse.water.tools.zjx.MyLocationSet;
@@ -8,8 +15,7 @@ import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
 import ustc.sse.water.tools.zjx.VoiceSearch;
 import ustc.sse.water.utils.zjx.ToastUtil;
-import ustc.sse.water.zf.ManagerMain;
-import ustc.sse.water.zf.Manager_Driver_model;
+import ustc.sse.water.zf.LoginActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +23,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +31,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amap.api.cloud.model.CloudItem;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
@@ -79,6 +86,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private final String GREETING_WORDS = "很抱歉，附近暂无可用停车场";
 	/* 是否有路径的状态判断 */
 	private boolean hasRouted = false;
+	/* 选中的点的地址——黄志恒 */
+	private String itemAddress;
+	/* 选中的点距离目的位置或自身位置的距离——黄志恒 */
+	private int itemDistance;
 	/* 输入框 */
 	private AutoCompleteTextView keyEdit;
 	/* 导航用的点——黄志恒注 */
@@ -86,8 +97,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private LocationManagerProxy mAMapLocationManager;
 	/* 用来显示地图的MapView */
 	private MapView mapView;
+	/* 搜索云图的对象——黄志恒 */
+	MyCloudSearch mCloud;
 	/* 定位监听 */
 	private OnLocationChangedListener mListener;
+	/* 全局坐标对象——黄志恒 */
+	private Marker mMarker;
 	/* 移动点击的点——黄志恒注 */
 	private LatLonPoint molp;
 	/* 自定义定位按钮 */
@@ -110,12 +125,15 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private String poiType;
 	/* '我的'按钮——黄志恒 */
 	private RadioButton RMine;
+
 	/* '更多'按钮——黄志恒 */
 	private RadioButton RMore;
+
 	/* 导航按钮——黄志恒 */
 	private RadioButton RNavi;
 	/* 预定按钮——黄志恒 */
 	private RadioButton ROrder;
+
 	/* 定义sharedpreference获取用户登录注册信息 */
 	SharedPreferences sharedPreferences;
 
@@ -124,9 +142,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/* 判断是否显示文字区域 */
 	private boolean showText = true;
+
 	/* 路径规划的目的地的点 ——黄志恒注 */
 	private LatLonPoint targetPoint;
-
 	/* 地图的基本设置 */
 	private UiSettings uiSettings;
 
@@ -203,13 +221,14 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		showInfo = (TextView) findViewById(R.id.show_directory);
 
 		// 如果有字符串，则向文字显示区域付初始值
-		String tempStr = showParkInfo(this.name, this.phone, this.orderPrice,
-				this.parkPrice);
-		if (tempStr != null) {
-			showInfo.setText(tempStr);
-		} else {
-			showInfo.setText(GREETING_WORDS);
-		}
+		/*
+		 * String tempStr = showParkInfo(this.name, this.phone, this.orderPrice,
+		 * this.parkPrice);
+		 */
+		/*
+		 * if (tempStr != null) { showInfo.setText(tempStr); } else {
+		 * showInfo.setText(GREETING_WORDS); }
+		 */
 
 		myLocation = (ImageButton) findViewById(R.id.button_my_location);
 		myLocation.setOnClickListener(this);
@@ -236,7 +255,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			// 重新在地图上显示附近搜索结果
 			pas = new PoiAroundSearchMethod(aMap, this, poiType, lp);
 			// 重新在地图上显示云图数据——黄志恒注
-			new MyCloudSearch(this, lp.getLatitude(), lp.getLongitude(), aMap);
+			mCloud = new MyCloudSearch(this, lp.getLatitude(),
+					lp.getLongitude(), aMap);
+			// showFirstMarker();
 		}
 	}
 
@@ -269,6 +290,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// 点击的是列表按钮
 		case R.id.radio_more:
 			Intent intent2 = new Intent(this, ParkingList.class); // 跳转到停车场列表界面
+			intent2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent2);
 			break;
 		// By Zhangfang
@@ -277,23 +299,26 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			SharedPreferences shared = getSharedPreferences("loginState",
 					Context.MODE_PRIVATE);
 			int loginState = shared.getInt("loginState", 2); // 取不到，则默认为0
+			loginState = 2;
 			if (loginState == 2) {
 				Intent it2 = new Intent(DriverMainScreen.this,
-						Manager_Driver_model.class);
+						LoginActivity.class);
 				it2.putExtra("choose_model", 0);
+				it2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(it2);
 
 			} else if (loginState == 1) {
 				Intent it2 = new Intent(DriverMainScreen.this,
-						ManagerMain.class);
+						ManagerMainTabActivity.class);
 				it2.putExtra("choose_model", 1);
+				it2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(it2);
 				finish();
 			}
 			break;
 		// 直接预定当前停车场的订单
 		case R.id.radio_order:
-
+			sendDataToBook();
 			break;
 		}
 	}
@@ -333,9 +358,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			// 显示高德提供的附件的停车场，并产生附近搜索对象——黄志恒注
 			pas = new PoiAroundSearchMethod(aMap, this, "停车场", lp);
 			// 显示云图数据
-			new MyCloudSearch(this, aLocation.getLatitude(),
+			mCloud = new MyCloudSearch(this, aLocation.getLatitude(),
 					aLocation.getLongitude(), aMap);
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
+
+			// showFirstMarker();
 		}
 	}
 
@@ -354,8 +381,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// 显示高德提供的附件的停车场，并产生附近搜索对象——黄志恒注
 		pas = new PoiAroundSearchMethod(aMap, this, "停车场", molp);
 		// 显示云图数据
-		new MyCloudSearch(this, arg0.latitude, arg0.longitude, aMap);
+		mCloud = new MyCloudSearch(this, arg0.latitude, arg0.longitude, aMap);
 		// mListener.onLocationChanged(bLocation);// 显示系统小蓝点
+		// showFirstMarker();
 	}
 
 	@Override
@@ -370,11 +398,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		String title = marker.getTitle();
-		String val = marker.getSnippet();
-		Log.v(title, val);
+		this.mMarker = marker;
+		marker.setSnippet("");
+		TextshowMarkerInfo(marker);
 
-		marker.setSnippet("下面显示概要");
 		marker.setToTop();
 		marker.showInfoWindow();
 
@@ -429,6 +456,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	public void onTouch(MotionEvent arg0) {
 		// TODO Auto-generated method stub
 		if (showText == false) {
+			if (this.mMarker != null) {
+				this.mMarker.hideInfoWindow();
+			}
 			this.showInfo.setVisibility(View.INVISIBLE);
 		} else {
 			showText = false;
@@ -452,6 +482,48 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		} else {
 			ToastUtil.show(this, "请选择目的地");
 		}
+	}
+
+	/**
+	 * 将选中的停车场的信息传递给预定页面——黄志恒
+	 */
+	private void sendDataToBook() {
+		if (this.itemAddress == null) {
+			Toast.makeText(getApplicationContext(), "抱歉，此停车场不提供预定",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("parkingName", this.name); // 存储停车场的名字
+		map.put("parkingDistance", this.itemDistance); // 存储停车场到中心点的距离
+		map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
+		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
+		// 将选中的停车场封装到Intent中
+		intent.putExtra("select_parking", (Serializable) map);
+		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		startActivity(intent);
+	}
+
+	/**
+	 * 打开软件自动弹出第一个停车场的信息。
+	 */
+	private void showFirstMarker() {
+
+		this.mMarker.setTitle(mCloud.mCloudItems.get(0).getTitle());
+
+		LatLng lat = new LatLng(mCloud.mCloudItems.get(0).getLatLonPoint()
+				.getLatitude(), mCloud.mCloudItems.get(0).getLatLonPoint()
+				.getLongitude());
+		this.mMarker.setPosition(lat);
+		this.mMarker.setIcon(new BitmapDescriptorFactory()
+				.fromResource(R.drawable.yellow_marker));
+
+		this.mMarker.setSnippet("");
+		this.mMarker.setVisible(true);
+
+		this.mMarker.showInfoWindow();
+		TextshowMarkerInfo(this.mMarker);
+
 	}
 
 	/**
@@ -481,12 +553,18 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private String showParkInfo(String name, String phone, String orderPrice,
 			String parkPrice) {
 		// 如果停车场名字为null，则直接退出该函数
-		if (name == null) {
+		if (phone == null) {
 			return null;
 		}
 		StringBuffer sb = new StringBuffer();
 		if (name.length() > 17) {
 			name = name.substring(0, 15) + "...";
+		}
+		if (!"暂无".equals(orderPrice) && Integer.valueOf(orderPrice) < 100) {
+			orderPrice = "提前10分钟预定收取" + orderPrice + "元订金";
+		}
+		if (!"暂无".equals(parkPrice) && Integer.valueOf(parkPrice) < 100) {
+			parkPrice = "停车1个小时收取" + parkPrice + "元车费";
 		}
 		// 对文本输出格式做处理
 		sb.append("\n" + "\t名称： " + name + "\t\n" + "\t电话： " + phone + "\t\n"
@@ -494,4 +572,49 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		return sb.toString();
 	}
 
+	private void TextshowMarkerInfo(Marker marker) {
+		this.name = marker.getTitle();
+		this.phone = null;
+		this.orderPrice = null;
+		this.parkPrice = null;
+		String title = marker.getTitle();
+		// String val = marker.getSnippet();
+		if (mCloud != null) {
+			for (CloudItem mItem : mCloud.mCloudItems) {
+				if (title.equals(mItem.getTitle())
+						&& !"".equals(mItem.getSnippet())) {
+
+					this.itemAddress = mItem.getSnippet();
+					this.itemDistance = mItem.getDistance();
+
+					Iterator iter = mItem.getCustomfield().entrySet()
+							.iterator();
+					while (iter.hasNext()) {
+						Map.Entry entry = (Map.Entry) iter.next();
+						Object key = entry.getKey();
+						Object value = entry.getValue();
+						if ("phone".equals(key)) {
+							this.phone = (String) value;
+						} else if ("orderTen".equals(key)) {
+							this.orderPrice = (String) value;
+						} else if ("payOneHour".equals(key)) {
+							this.parkPrice = (String) value;
+						}
+					}
+				}
+			}
+		}
+		if (this.phone == null) {
+			this.showInfo.setText("  无此停车场详细信息                 ");
+			this.itemAddress = null;
+			this.itemDistance = 0;
+			return;
+		}
+
+		String markerData = showParkInfo(this.name, this.phone,
+				this.orderPrice, this.parkPrice);
+		this.showInfo.setText(markerData);
+		this.showInfo.setVisibility(View.VISIBLE);
+
+	}
 }

@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sousuo1"
+            android:background="@drawable/sousuo2"
             android:layout_marginLeft="5dp"
             />
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dip"       
-            android:background="@drawable/maikefeng1" />
+            android:background="@drawable/maikefeng2" />
     </LinearLayout>
     
     
