@@ -4,13 +4,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    <RadioGroup
+<RadioGroup
             android:id="@+id/gendergroup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-        </RadioGroup>
-
+    </RadioGroup>
     <LinearLayout 
         android:id="@+id/linear1"
         android:layout_width="fill_parent"
@@ -136,7 +135,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_toLeftOf="@+id/login_btn_zhuce"
                 android:text="@string/login" />
-
+		
             <RadioButton
                 android:id="@+id/check_manager"
                 android:layout_width="wrap_content"
@@ -153,6 +152,8 @@
                 android:layout_alignBottom="@+id/check_manager"
                 android:layout_alignLeft="@+id/login_btn_zhuce"
                 android:text="驾驶员" />
+        
+            
            
         </RelativeLayout>
 

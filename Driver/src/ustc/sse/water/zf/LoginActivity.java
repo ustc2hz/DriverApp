@@ -32,6 +32,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -53,8 +54,7 @@ import android.widget.Toast;
  * @author张芳 sa614296@mail.ustc.edu.cn
  * @version 3.0.0
  */
-
-public class LoginActivity extends Activity implements android.view.View.OnClickListener, OnCheckedChangeListener {
+public class LoginActivity extends Activity implements OnClickListener, OnCheckedChangeListener {
     /** Called when the activity is first created. */
 	private Button loginBtn;
 	private Button registerBtn;
@@ -69,12 +69,10 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
 	private static final int LOGIN_OK = 1;
 	private SharedPreferences sp;
 	
-	
-	
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActionBar().hide();
         setContentView(R.layout.login);
         loginBtn = (Button)findViewById(R.id.login_btn_login);
         registerBtn = (Button)findViewById(R.id.login_btn_zhuce);
@@ -82,19 +80,15 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
         inputPassword = (EditText)findViewById(R.id.login_edit_pwd);
         saveInfoItem = (CheckBox)findViewById(R.id.login_cb_savepwd);
         manager_check = (RadioButton)findViewById(R.id.check_manager);
-        driver_check = (RadioButton)findViewById(R.id.check_driver);
-        
+        driver_check = (RadioButton)findViewById(R.id.check_driver);    
         loginBtn.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
         manager_check.setOnCheckedChangeListener(this);
         driver_check.setOnCheckedChangeListener(this);
-        
         driver_check.setChecked(true);
-
-        
+       
         sp = getSharedPreferences("userdata",0);
-        
-        
+   
         if(driver_check.isChecked()){
         	manager_check.setChecked(false);
         }
@@ -111,10 +105,8 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
             public void onCheckedChanged(CompoundButton buttonView,  
                     boolean isChecked) {  
                 // TODO Auto-generated method stub  
-            	//载入用户信息
-               
+            	//载入用户信息               
                 Editor editor = sp.edit();
-                
                 if(saveInfoItem.isChecked())
                 {
                 	 //获取已经存在的用户名和密码
@@ -147,7 +139,6 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
         //登录
         loginBtn.setOnClickListener(new Button.OnClickListener()
         {
-
 			@Override
 			public void onClick(View arg0) {
 				mDialog = new ProgressDialog(LoginActivity.this);
@@ -155,27 +146,22 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
 				mDialog.setMessage("正在登陆服务器，请稍后...");
 				mDialog.show();
 				Thread loginThread = new Thread(new LoginThread());
-				
 				loginThread.start();
-
 			}
         	
         });
         
         registerBtn.setOnClickListener(new Button.OnClickListener()
         {
-
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent();
 				intent.setClass(LoginActivity.this, RegisterActivity.class);
 				startActivity(intent);
-			}
-        	
+			} 	
         });
     }
-    
-    
+     
     private boolean loginServer(String username, String password)
     {
     	boolean loginValidate = false;
@@ -208,9 +194,7 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
     	}
     	return loginValidate;
     }
-    
-   
-    
+      
     //初始化HttpClient，并设置超时
     public HttpClient getHttpClient()
     {
@@ -304,13 +288,13 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
     //Handler
     Handler handler = new Handler()
     {
-    	public void handleMessage(Message msg)
+    	@Override
+		public void handleMessage(Message msg)
     	{
     		switch(msg.what)
     		{
     		case 0:
     			mDialog.cancel();
-
     			Toast.makeText(getApplicationContext(), "登录成功！", Toast.LENGTH_SHORT).show();
     			Intent intent = new Intent();
     			intent.setClass(LoginActivity.this, MainActivity.class);
@@ -324,8 +308,7 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
     		case 2:
     			mDialog.cancel();
     			Toast.makeText(getApplicationContext(), "URL验证失败", Toast.LENGTH_SHORT).show();
-    			break;
-    		
+    			break;		
     		}
     		
     	}
@@ -334,7 +317,6 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
     //LoginThread线程类
     class LoginThread implements Runnable
     {
-
 		@Override
 		public void run() {
 			String username = inputUsername.getText().toString();
@@ -414,7 +396,7 @@ public class LoginActivity extends Activity implements android.view.View.OnClick
         StringBuffer hexValue = new StringBuffer();  
         for( int i = 0; i < md5Bytes.length; i++)  
         {  
-            int val = ((int)md5Bytes[i])&0xff;  
+            int val = (md5Bytes[i])&0xff;  
             if(val < 16)  
             {  
                 hexValue.append("0");  
