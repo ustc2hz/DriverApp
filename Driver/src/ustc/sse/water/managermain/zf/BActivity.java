@@ -87,6 +87,16 @@ public class BActivity extends Activity implements OnClickListener {
 
 	}
 
+	private void initText() {
+		park_number.setText(preferences.getString("num", "暂无信息"));
+		l_price.setText(preferences.getString("price_ten", "暂无信息"));
+		m_price.setText(preferences.getString("price_twenty", "暂无信息"));
+		h_price.setText(preferences.getString("price_thirty", "暂无信息"));
+		pl_price.setText(preferences.getString("pprice_ten", "暂无信息"));
+		pm_price.setText(preferences.getString("pprice_twenty", "暂无信息"));
+		ph_price.setText(preferences.getString("pprice_thirty", "暂无信息"));
+	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -94,26 +104,19 @@ public class BActivity extends Activity implements OnClickListener {
 
 		case R.id.bt1:
 			// 点击修改,将所有的edittext设置成可编辑的
-			if (changeMess.getText().equals("修改")) {
-				park_number.setEnabled(true);
-				l_price.setEnabled(true);
-				m_price.setEnabled(true);
-				h_price.setEnabled(true);
-				pl_price.setEnabled(true);
-				pm_price.setEnabled(true);
-				ph_price.setEnabled(true);
-				changeMess.setText("取消修改");
-			} else if (changeMess.getText().equals("取消修改")) {
-				// 点击取消修改，文本框恢复为不可编辑的，按钮文本重置为修改
-				park_number.setEnabled(false);
-				l_price.setEnabled(false);
-				m_price.setEnabled(false);
-				h_price.setEnabled(false);
-				pl_price.setEnabled(false);
-				pm_price.setEnabled(false);
-				ph_price.setEnabled(false);
-				changeMess.setText("修改");
-			}
+			/*
+			 * if (changeMess.getText().equals("修改")) {
+			 * park_number.setEnabled(true); l_price.setEnabled(true);
+			 * m_price.setEnabled(true); h_price.setEnabled(true);
+			 * pl_price.setEnabled(true); pm_price.setEnabled(true);
+			 * ph_price.setEnabled(true); changeMess.setText("取消修改"); } else if
+			 * (changeMess.getText().equals("取消修改")) { //
+			 * 点击取消修改，文本框恢复为不可编辑的，按钮文本重置为修改 park_number.setEnabled(false);
+			 * l_price.setEnabled(false); m_price.setEnabled(false);
+			 * h_price.setEnabled(false); pl_price.setEnabled(false);
+			 * pm_price.setEnabled(false); ph_price.setEnabled(false);
+			 * changeMess.setText("修改"); }
+			 */
 			break;
 
 		// 点击提交数据提交给服务器
@@ -180,13 +183,12 @@ public class BActivity extends Activity implements OnClickListener {
 		ph_price = (EditText) findViewById(R.id.pprice3);
 
 		// 分别设置文本框不可编辑，并且输入默认数据
-		park_number.setEnabled(false);
-		l_price.setEnabled(false);
-		m_price.setEnabled(false);
-		h_price.setEnabled(false);
-		pl_price.setEnabled(false);
-		pm_price.setEnabled(false);
-		ph_price.setEnabled(false);
+		/*
+		 * park_number.setEnabled(false); l_price.setEnabled(false);
+		 * m_price.setEnabled(false); h_price.setEnabled(false);
+		 * pl_price.setEnabled(false); pm_price.setEnabled(false);
+		 * ph_price.setEnabled(false);
+		 */
 
 		// 取出preferenced的對象
 		preferences = getSharedPreferences("manager_message",
@@ -199,6 +201,8 @@ public class BActivity extends Activity implements OnClickListener {
 		name = preferences.getString("name", name);
 		phone = preferences.getString("phone", phone);
 		address = preferences.getString("address", address);
+
+		initText();
 
 	}
 

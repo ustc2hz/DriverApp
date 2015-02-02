@@ -42,7 +42,7 @@
         
     </LinearLayout>
     
-    <!-- 距离 -->
+    <!-- 电话号码 -->
     <LinearLayout android:layout_below="@id/info_linear2"
         android:id="@+id/info_linear3"
         android:layout_marginTop="4dp"
@@ -53,14 +53,32 @@
         
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"           
+            android:text="@string/parking_info_phnoe"/>              
+            
+            <TextView android:id="@+id/parking_info_phone"
+                android:layout_width="wrap_content"
+                android:autoLink="phone"
+                android:textSize="20dp"
+                android:textColor="#AB82FF"
+                android:layout_height="wrap_content"/>
+      
+    </LinearLayout>
+    
+    <!-- 距离 -->
+    <LinearLayout android:layout_below="@id/info_linear3"
+        android:id="@+id/info_linear4"
+        android:layout_marginTop="4dp"
+        android:textSize="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="@string/parking_info_distance"/>
-        
-        <!-- <LinearLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"> -->
-            
+          
             <TextView android:id="@+id/parking_info_distance_show"
                 android:layout_width="wrap_content"
                 android:textSize="20dp"
@@ -76,7 +94,7 @@
     </LinearLayout>
     
     <!-- 停车位数量 -->
-    <LinearLayout android:layout_below="@id/info_linear3"
+    <LinearLayout android:layout_below="@id/info_linear4"
         android:id="@+id/info_linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,6 +117,8 @@
                 android:textSize="20dp"
                 android:text="@string/xlistview_unit_ge"/>
     </LinearLayout>
+    
+   <!--停车场收费信息列表-->
     
     <LinearLayout android:layout_below="@id/info_linear1"
         android:layout_width="match_parent"
