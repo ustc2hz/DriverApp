@@ -48,6 +48,9 @@ public final class R {
         /** 暗红色 
          */
         public static final int blueviolet=0x7f05005b;
+        /** 黑色 
+         */
+        public static final int bookColor=0x7f050092;
         /** 暗灰色 
          */
         public static final int brown=0x7f050050;
@@ -375,6 +378,7 @@ public final class R {
         /** 红紫色 
          */
         public static final int red=0x7f05001e;
+        public static final int rootColor=0x7f050093;
         /** 暗黄褐色 
          */
         public static final int rosybrown=0x7f050045;

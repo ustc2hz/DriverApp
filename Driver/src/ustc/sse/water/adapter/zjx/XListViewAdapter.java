@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import ustc.sse.water.activity.R;
+import ustc.sse.water.activity.R.color;
 import ustc.sse.water.activity.zjx.ParkingDetail;
 import android.content.Context;
 import android.content.Intent;
@@ -92,6 +93,15 @@ public class XListViewAdapter extends BaseAdapter {
 			vh.name.setText((String) parking.get("parkingName")); // 显示停车场名字
 			vh.address.setText((String) parking.get("parkingAddress")); // 显示停车场的地址
 			vh.distance.setText(parking.get("parkingDistance").toString()); // 显示停车场的距离
+		}
+		// 如果是高德的停车场，则不可以预定
+		if("AMapPark".equals(parking.get("isAmap"))) {
+			vh.btnBook.setText("无预定信息");
+			vh.btnBook.setClickable(false);
+			vh.btnBook.setTextColor(color.black);
+		} else if("AMapCloudPark".equals(parking.get("isAmap"))) {
+			vh.btnBook.setClickable(true);
+			
 		}
 
 		return convertView;

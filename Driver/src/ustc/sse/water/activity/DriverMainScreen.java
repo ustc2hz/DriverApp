@@ -507,6 +507,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
 		map.put("parkingSum", this.parkSum);
 		map.put("bookMoney", this.bookMoney);
+		map.put("phone", this.phone);
+		map.put("isAmap", "AMapCloudPark"); // 标记是云图的停车场
 
 		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
 		// 将选中的停车场封装到Intent中

@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:focusable="false"
+            android:textColor="@color/rootColor"
             android:text="@string/xlistview_button_route"/>
         
         <Button
@@ -57,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:focusable="false"
+            android:textColor="@color/bookColor"
             android:text="@string/xlistview_button_book" />
     </LinearLayout>
 

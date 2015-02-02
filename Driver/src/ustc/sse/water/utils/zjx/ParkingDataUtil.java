@@ -2,6 +2,7 @@ package ustc.sse.water.utils.zjx;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,43 @@ public class ParkingDataUtil {
 	public List<Map<String, Object>> getParkingData(int currentPage) {
 		listParking.clear(); // 清空数据表
 		if (poiQuery != null && poiResult != null && cloudItems != null) { // 不空的话才操作数据
+			// 处理云图中的停车场点
+			for (CloudItem mItem : cloudItems) {
+				String phone = null, parkSum = null;
+				String[] orderPrice = new String[6];
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("parkingName", mItem.getTitle()); // 存储停车场的名字
+				map.put("parkingDistance", mItem.getDistance()); // 存储停车场到中心点的距离
+				map.put("parkingAddress", mItem.getSnippet()); // 存储停车场的地点
+				Iterator iter = mItem.getCustomfield().entrySet().iterator();
+				while (iter.hasNext()) {
+					Map.Entry entry = (Map.Entry) iter.next();
+					Object key = entry.getKey();
+					Object value = entry.getValue();
+					if ("phone".equals(key)) {
+						phone = (String) value;
+					} else if ("parkSum".equals(key)) {
+						parkSum = (String) value;
+					} else if ("orderTen".equals(key)) {
+						orderPrice[0] = (String) value;
+					} else if ("orderTwe".equals(key)) {
+						orderPrice[1] = (String) value;
+					} else if ("orderTri".equals(key)) {
+						orderPrice[2] = (String) value;
+					} else if ("payHalPay".equals(key)) {
+						orderPrice[3] = (String) value;
+					} else if ("payOneHour".equals(key)) {
+						orderPrice[4] = (String) value;
+					} else if ("payMorePay".equals(key)) {
+						orderPrice[5] = (String) value;
+					}
+				}
+				map.put("parkingSum", parkSum);
+				map.put("bookMoney", orderPrice);
+				map.put("phone", phone);
+				map.put("isAmap", "AMapCloudPark"); // 标记是云图的停车场
+				listParking.add(map); // 将每个停车场都放入列表中
+			}
 			if (poiResult.getPageCount() - 1 > currentPage) {
 				// 处理周边搜索的停车场
 				/*
@@ -71,18 +109,9 @@ public class ParkingDataUtil {
 						map.put("parkingName", poiItem.getTitle()); // 存储停车场的名字
 						map.put("parkingDistance", poiItem.getDistance()); // 存储停车场到中心点的距离
 						map.put("parkingAddress", poiItem.getSnippet()); // 存储停车场的地点
+						map.put("isAmap", "AMapPark"); // 标记是高德的停车场
 						listParking.add(map); // 将每个停车场都放入列表中
 					}
-				}
-
-				// 处理云图中的停车场点
-				for (int i = 0; i < cloudItems.size(); i++) {
-					CloudItem cloudItem = cloudItems.get(i);
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("parkingName", cloudItem.getTitle()); // 存储停车场的名字
-					map.put("parkingDistance", cloudItem.getDistance()); // 存储停车场到中心点的距离
-					map.put("parkingAddress", cloudItem.getSnippet()); // 存储停车场的地点
-					listParking.add(map); // 将每个停车场都放入列表中
 				}
 			}
 		}

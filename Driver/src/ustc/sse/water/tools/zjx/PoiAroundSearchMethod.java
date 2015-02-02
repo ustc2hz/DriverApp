@@ -111,7 +111,7 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 		// aMap.setOnMapClickListener(null);// 进行poi搜索时清除掉地图点击事件
 		currentPage = 0;
 		query = new PoiSearch.Query("", deepType, "苏州");// Poi搜索
-		query.setPageSize(10);// 设置每页最多返回多少条poiitem
+		query.setPageSize(6);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 		if (lp != null) {
 			// 设置搜索区域为以lp点为圆心，其周围2000米范围
