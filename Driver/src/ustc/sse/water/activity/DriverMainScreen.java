@@ -124,14 +124,15 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	PoiAroundSearchMethod pas;
 	/* 获取当前停车场的电话号码——黄志恒 */
 	private String phone;
+
 	/* 搜索对象——黄志恒注 */
 	private PoiSearchMethod poisearch;
 
 	/* 搜索类型——黄志恒注 */
 	private String poiType;
-
 	/* '我的'按钮——黄志恒 */
 	private RadioButton RMine;
+
 	/* '更多'按钮——黄志恒 */
 	private RadioButton RMore;
 
@@ -143,9 +144,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/* 定义sharedpreference获取用户登录注册信息 */
 	SharedPreferences sharedPreferences;
-
 	/* 设置一个文本显示区域，用来显示当前停车场的概要信息——黄志恒 */
 	private TextView showInfo;
+
 	/* 判断是否显示文字区域 */
 	private boolean showText = true;
 
@@ -367,7 +368,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			// 显示云图数据
 			mCloud = new MyCloudSearch(this, aLocation.getLatitude(),
 					aLocation.getLongitude(), aMap);
-			Log.v("sum", mCloud.mCloudItems.size()+"");
+			Log.v("sum", mCloud.mCloudItems.size() + "");
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
 
 			// showFirstMarker();
@@ -505,10 +506,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		map.put("parkingName", this.name); // 存储停车场的名字
 		map.put("parkingDistance", this.itemDistance); // 存储停车场到中心点的距离
 		map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
-		map.put("parkingSum", this.parkSum);
-		map.put("bookMoney", this.bookMoney);
-		map.put("phone", this.phone);
-		map.put("isAmap", "AMapCloudPark"); // 标记是云图的停车场
+
+		map.put("parkingSum", this.parkSum);// 停车场车位数
+		map.put("bookMoney", this.bookMoney);// 停车场收费信息
+		map.put("phone", this.phone);// 停车场电话
+		map.put("isAmap", "AMapCloudPark"); // 标记是云图的停车
 
 		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
 		// 将选中的停车场封装到Intent中

@@ -78,8 +78,9 @@
     <string name="parking_detail_book_money">预定收费情况：</string>
     <string name="parking_detail_book_submit">预定</string>
     <string name="parking_detail_book_back">返回</string>
-    <string name="parking_info_address">停车场的地址\t：</string>
+    <string name="parking_info_address">停车场的地址：</string>
     <string name="parking_info_distance">距目的地的距离：</string>
+    <string name="parking_info_phnoe">\t\t\t\t停车场电话：</string>
     
     <string name="username_hint">输入账号</string>
     <string name="username_input">账号</string>

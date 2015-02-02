@@ -45,6 +45,7 @@ public class ParkingInfoFragment extends Fragment {
 	private TextView parkingDistance; // 停车距离
 	private TextView parkingName; // 停车场名
 	private TextView parKingNum;// 停车场车位数
+	private TextView parKingPhone;// 停车场电话
 
 	/*
 	 * 重写空构造函数
@@ -101,11 +102,15 @@ public class ParkingInfoFragment extends Fragment {
 		parkingName = (TextView) view.findViewById(R.id.text_info_title);
 		parkingAdress = (TextView) view
 				.findViewById(R.id.parking_detail_address_show);
+
+		parKingPhone = (TextView) view.findViewById(R.id.parking_info_phone);
+
 		parkingDistance = (TextView) view
 				.findViewById(R.id.parking_info_distance_show);
 
 		parKingNum = (TextView) view.findViewById(R.id.text_book_number);
 
+		parKingPhone.setText((String) parking.get("phone"));
 		parkingName.setText((String) parking.get("parkingName"));
 		parkingAdress.setText((String) parking.get("parkingAddress"));
 		parkingDistance.setText(parking.get("parkingDistance").toString());

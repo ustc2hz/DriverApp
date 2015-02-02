@@ -35,36 +35,105 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
-	private EditText newUser,newPassword,confirmPassword;
-	private Button registerBtn, clearBtn;
-	private ProgressDialog mDialog;
-	private String responseMsg = "";
-	private static final int REQUEST_TIMEOUT = 5*1000;//设置请求超时10秒钟  
-	private static final int SO_TIMEOUT = 10*1000;  //设置等待数据超时时间10秒钟  
+	// RegisterThread线程类
+	class RegisterThread implements Runnable {
+
+		@Override
+		public void run() {
+			String username = newUser.getText().toString();
+			String password = newPassword.getText().toString();
+
+			// URL合法，但是这一步并不验证密码是否正确
+			boolean registerValidate = registerServer(username, password);
+			// System.out.println("----------------------------bool is :"+registerValidate+"----------response:"+responseMsg);
+			Message msg = handler.obtainMessage();
+			if (registerValidate) {
+				if (responseMsg.equals("success")) {
+					msg.what = 0;
+					handler.sendMessage(msg);
+				} else {
+					msg.what = 1;
+					handler.sendMessage(msg);
+				}
+
+			} else {
+				msg.what = 2;
+				handler.sendMessage(msg);
+			}
+		}
+
+	}
+
 	private static final int LOGIN_OK = 1;
+	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
+	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
+
+	/**
+	 * MD5单向加密，32位，用于加密密码，因为明文密码在信道中传输不安全，明文保存在本地也不安全
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String md5(String str) {
+		MessageDigest md5 = null;
+		try {
+			md5 = MessageDigest.getInstance("MD5");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+
+		char[] charArray = str.toCharArray();
+		byte[] byteArray = new byte[charArray.length];
+
+		for (int i = 0; i < charArray.length; i++) {
+			byteArray[i] = (byte) charArray[i];
+		}
+		byte[] md5Bytes = md5.digest(byteArray);
+
+		StringBuffer hexValue = new StringBuffer();
+		for (int i = 0; i < md5Bytes.length; i++) {
+			int val = (md5Bytes[i]) & 0xff;
+			if (val < 16) {
+				hexValue.append("0");
+			}
+			hexValue.append(Integer.toHexString(val));
+		}
+		return hexValue.toString();
+	}
+
+	
+	private ProgressDialog mDialog;
+	private EditText newUser, newPassword, confirmPassword;
+
+	private Button registerBtn, clearBtn;
+
+	private String responseMsg = "";
+
+	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
-		newUser = (EditText)findViewById(R.id.newUser_input);
-		newPassword = (EditText)findViewById(R.id.newPassword_input);
-		confirmPassword = (EditText)findViewById(R.id.Confirm_input);
-		registerBtn = (Button)findViewById(R.id.registerbtn);
-		clearBtn = (Button)findViewById(R.id.clearbtn);
-		registerBtn.setOnClickListener(new Button.OnClickListener()
-		{
+		newUser = (EditText) findViewById(R.id.newUser_input);
+		newPassword = (EditText) findViewById(R.id.newPassword_input);
+		confirmPassword = (EditText) findViewById(R.id.Confirm_input);
+		registerBtn = (Button) findViewById(R.id.registerbtn);
+		clearBtn = (Button) findViewById(R.id.clearbtn);
+		registerBtn.setOnClickListener(new Button.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				String newusername = newUser.getText().toString();
 				String newpassword = newPassword.getText().toString();
 				String confirmpwd = confirmPassword.getText().toString();
-				if("".equals(newusername) || "".equals(newpassword) || "".equals(confirmpwd)) {
+				if ("".equals(newusername) || "".equals(newpassword)
+						|| "".equals(confirmpwd)) {
 					ToastUtil.show(RegisterActivity.this, "输入信息不能为空");
-				} else if(newpassword.equals(confirmpwd))
-				{
-					SharedPreferences sp = getSharedPreferences("userdata",0);
+				} else if (newpassword.equals(confirmpwd)) {
+					SharedPreferences sp = getSharedPreferences("userdata", 0);
 					Editor editor = sp.edit();
 					editor.putString("username", newusername);
 					editor.putString("password", newpassword);
@@ -75,17 +144,16 @@ public class RegisterActivity extends Activity {
 					mDialog.show();
 					Thread loginThread = new Thread(new RegisterThread());
 					loginThread.start();
-					
-				}else
-				{
-					Toast.makeText(getApplicationContext(), "您两次输入的密码不一致！", Toast.LENGTH_SHORT).show();
+
+				} else {
+					Toast.makeText(getApplicationContext(), "您两次输入的密码不一致！",
+							Toast.LENGTH_SHORT).show();
 				}
 			}
-			
+
 		});
-		
-		clearBtn.setOnClickListener(new Button.OnClickListener()
-		{
+
+		clearBtn.setOnClickListener(new Button.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -93,9 +161,10 @@ public class RegisterActivity extends Activity {
 				newPassword.setText("");
 				confirmPassword.setText("");
 			}
-			
+
 		});
 	}
+
 	
 	//初始化HttpClient，并设置超时
     public HttpClient getHttpClient()
@@ -173,47 +242,14 @@ public class RegisterActivity extends Activity {
 	    };
 	    
 	    
-	    //RegisterThread线程类
-	    class RegisterThread implements Runnable
-	    {
+	    
 
-			@Override
-			public void run() {
-				String username = newUser.getText().toString();
-				String password = newPassword.getText().toString();
-					
-				//URL合法，但是这一步并不验证密码是否正确
-		    	boolean registerValidate = registerServer(username, password);
-		    	//System.out.println("----------------------------bool is :"+registerValidate+"----------response:"+responseMsg);
-		    	Message msg = handler.obtainMessage();
-		    	if(registerValidate)
-		    	{
-		    		if(responseMsg.equals("success"))
-		    		{
-		    			msg.what = 0;
-			    		handler.sendMessage(msg);
-		    		}else
-		    		{
-		    			msg.what = 1;
-			    		handler.sendMessage(msg);
-		    		}
-		    		
-		    	}else
-		    	{
-		    		msg.what = 2;
-		    		handler.sendMessage(msg);
-		    	}
-			}
-	    	
-	    }
-	
-	private void showDialog(String str)
-	{
+	private void showDialog(String str) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("注册");
 		builder.setMessage(str);
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
@@ -226,44 +262,5 @@ public class RegisterActivity extends Activity {
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
-	
-	/**
-	 * MD5单向加密，32位，用于加密密码，因为明文密码在信道中传输不安全，明文保存在本地也不安全  
-	 * @param str
-	 * @return
-	 */
-    public static String md5(String str)  
-    {  
-        MessageDigest md5 = null;  
-        try  
-        {  
-            md5 = MessageDigest.getInstance("MD5");  
-        }catch(Exception e)  
-        {  
-            e.printStackTrace();  
-            return "";  
-        }  
-          
-        char[] charArray = str.toCharArray();  
-        byte[] byteArray = new byte[charArray.length];  
-          
-        for(int i = 0; i < charArray.length; i++)  
-        {  
-            byteArray[i] = (byte)charArray[i];  
-        }  
-        byte[] md5Bytes = md5.digest(byteArray);  
-          
-        StringBuffer hexValue = new StringBuffer();  
-        for( int i = 0; i < md5Bytes.length; i++)  
-        {  
-            int val = (md5Bytes[i])&0xff;  
-            if(val < 16)  
-            {  
-                hexValue.append("0");  
-            }  
-            hexValue.append(Integer.toHexString(val));  
-        }  
-        return hexValue.toString();  
-    }  
-      
+
 }

@@ -97,6 +97,12 @@ public class CActivity extends Activity implements OnClickListener {
 		Log.v("phone", preferences.getString("phone", null));
 	}
 
+	private void initText() {
+		manager_name.setText(preferences.getString("name", "暂无信息"));
+		manager_address.setText(preferences.getString("address", "暂无信息"));
+		manager_phone.setText(preferences.getString("phone", "暂无信息"));
+	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -109,19 +115,16 @@ public class CActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.change:
 			// 点击button2修改相关信息，edittext恢复可编辑，按钮成为取消修改，点击取下修改edittext恢复不可编辑
-			if (change.getText().equals("修改")) {
-				manager_name.setEnabled(true);
-				password.setEnabled(true);
-				manager_phone.setEnabled(true);
-				manager_address.setEnabled(true);
-				change.setText("取消修改");
-			} else if (change.getText().equals("取消修改")) {
-				manager_name.setEnabled(false);
-				password.setEnabled(false);
-				manager_phone.setEnabled(false);
-				manager_address.setEnabled(false);
-				change.setText("修改");
-			}
+			/*
+			 * if (change.getText().equals("修改")) {
+			 * manager_name.setEnabled(true); password.setEnabled(true);
+			 * manager_phone.setEnabled(true); manager_address.setEnabled(true);
+			 * change.setText("取消修改"); } else if
+			 * (change.getText().equals("取消修改")) {
+			 * manager_name.setEnabled(false); password.setEnabled(false);
+			 * manager_phone.setEnabled(false);
+			 * manager_address.setEnabled(false); change.setText("修改"); }
+			 */
 			break;
 		case R.id.password:
 			Intent intent1 = new Intent(CActivity.this, ManagerChangePass.class);
@@ -180,15 +183,17 @@ public class CActivity extends Activity implements OnClickListener {
 		manager_phone.setOnClickListener(this);
 		manager_address.setOnClickListener(this);
 		// 设置edittext不可编辑
-		manager_name.setEnabled(false);
-		password.setEnabled(false);
-		manager_phone.setEnabled(false);
-		manager_address.setEnabled(false);
+		/*
+		 * manager_name.setEnabled(false); password.setEnabled(false);
+		 * manager_phone.setEnabled(false); manager_address.setEnabled(false);
+		 */
 
 		// 取出原有的preferenced
 		preferences = getSharedPreferences("manager_message",
 				MODE_WORLD_READABLE);
 		editor = preferences.edit();
+
+		initText();
 
 		// 存储数据——逻辑有问题
 		// Save();
