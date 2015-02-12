@@ -158,12 +158,6 @@ public class LoginActivity extends Activity {
 		showTips();
 	}
 
-	private void checkOut() {
-		if (!manager_check.isChecked() || driver_check.isChecked()) {
-			loginBtn.setClickable(false);
-		}
-	}
-
 	private boolean loginServer(String username, String password)
     {
     	boolean loginValidate = false;
@@ -261,7 +255,6 @@ public class LoginActivity extends Activity {
 		saveInfoItem = (CheckBox) findViewById(R.id.login_cb_savepwd);
 		manager_check = (RadioButton) findViewById(R.id.check_manager);
 		driver_check = (RadioButton) findViewById(R.id.check_driver);
-		checkOut();
 		driver_check.setChecked(true);
 
 		sp = getSharedPreferences("userdata", 0);
