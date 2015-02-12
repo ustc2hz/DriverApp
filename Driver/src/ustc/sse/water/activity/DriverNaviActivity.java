@@ -12,7 +12,7 @@ import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.AMapNaviViewListener;
 
 /**
- * 导航类 <br>
+ * 导航类，导航界面 <br>
  * 提供导航功能
  * <p>
  * Copyright: Copyright (c) 2014年11月29日 下午3:51:53
@@ -23,12 +23,6 @@ import com.amap.api.navi.AMapNaviViewListener;
  * @author 黄志恒 sa14226399@mail.ustc.edu.cn
  * @version 1.0.0
  */
-
-/**
- * 
- * 导航界面
- * 
- * */
 public class DriverNaviActivity extends Activity implements
 		AMapNaviViewListener {
 	// 导航View
@@ -40,8 +34,6 @@ public class DriverNaviActivity extends Activity implements
 
 	/**
 	 * 初始化
-	 * 
-	 * @param savedInstanceState
 	 */
 	private void init(Bundle savedInstanceState) {
 
@@ -129,25 +121,18 @@ public class DriverNaviActivity extends Activity implements
 
 	@Override
 	public void onNaviMapMode(int arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onNaviSetting() {
-
 	}
 
 	@Override
 	public void onNaviTurnClick() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onNextRoadClick() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -174,8 +159,6 @@ public class DriverNaviActivity extends Activity implements
 
 	@Override
 	public void onScanViewButtonClick() {
-		// TODO Auto-generated method stub
-
 	}
 
 	private void processBundle(Bundle bundle) {

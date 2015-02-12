@@ -9,6 +9,7 @@ import ustc.sse.water.data.model.DataToYutunServer;
 import ustc.sse.water.data.model.DetailDataToServer;
 import ustc.sse.water.data.model.ParkDetailData;
 import ustc.sse.water.data.model.ParkDetailObject;
+import ustc.sse.water.utils.zjx.ToastUtil;
 import ustc.sse.water.zf.MainActivity;
 import ustc.sse.water.zf.ManagerMainScreen;
 import android.app.Activity;
@@ -24,7 +25,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class BActivity extends Activity implements OnClickListener {
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
@@ -42,12 +42,9 @@ public class BActivity extends Activity implements OnClickListener {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
-				// txt_status.setText("success");
-				Toast.makeText(getApplicationContext(), "Submit Success!",
-						Toast.LENGTH_SHORT).show();
+				ToastUtil.show(BActivity.this, "Submit Success!");
 			} else {
-				Toast.makeText(getApplicationContext(), "Submit Failed!",
-						Toast.LENGTH_SHORT).show();
+				ToastUtil.show(BActivity.this, "Submit Failed!");
 			}
 		}
 	};

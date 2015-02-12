@@ -53,7 +53,6 @@ public class VoiceSearch {
 		/**
 		 * 错误回调
 		 */
-
 		@Override
 		public void onError(SpeechError error) {
 
@@ -63,7 +62,6 @@ public class VoiceSearch {
 		/**
 		 * 语音识别结果回调方法 注意：result为json字符串，需要进行解析
 		 */
-
 		@Override
 		public void onResult(RecognizerResult result, boolean arg1) {
 			// 取出语音识别结果，先将其转化为汉字字符串

@@ -1,10 +1,21 @@
 package ustc.sse.water.data.model;
-
+/**
+ * 
+ * 停车场详细信息对象. <br>
+ * 方便数据处理.
+ * <p>
+ * Copyright: Copyright (c) 2015-2-12 上午10:01:52
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * @author 黄志恒
+ * @version 1.0.0
+ */
 public class ParkDetailObject {
-	private String _name;
-	private String _address;
-	private String phone;
-	private String orderTen;
+	private String _name; // 停车场名
+	private String _address; // 停车场地址
+	private String phone; // 电话
+	private String orderTen; 
 	private String orderTri;
 	
 	private String orderTwe;

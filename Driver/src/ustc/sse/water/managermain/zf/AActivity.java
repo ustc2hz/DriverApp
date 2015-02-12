@@ -11,9 +11,19 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
+/**
+ * 
+ * 标题、简要说明. <br>
+ * 类详细说明.
+ * <p>
+ * Copyright: Copyright (c) 2015-2-12 上午10:08:49
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * @author ****
+ * @version 1.0.0
+ */
 public class AActivity extends Activity {
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,15 +62,9 @@ public class AActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
-				
 			}  
 		 
         });  
 	}
-	
-
-
-
 
 }

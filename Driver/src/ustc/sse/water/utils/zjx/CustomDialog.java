@@ -7,13 +7,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+/**
+ * 
+ * 自定义对话框. <br>
+ * 订单详情对话框.
+ * <p>
+ * Copyright: Copyright (c) 2015-2-12 上午10:32:03
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * @author 
+ * @version 1.0.0
+ */
 public class CustomDialog {
-	private Context context;
-	private AlertDialog ad;
-	private TextView orderTitle;
-	private TextView orderContent;
-	private Button cancelOrder;
+	private Context context; // 上下文
+	private AlertDialog ad; // 对话框
+	private TextView orderTitle; // 订单标题
+	private TextView orderContent; // 订单内容
+	private Button cancelOrder; // 取消按钮
 
 	public CustomDialog(Context con, String title, String content, boolean flag) {
 		this.context = con;

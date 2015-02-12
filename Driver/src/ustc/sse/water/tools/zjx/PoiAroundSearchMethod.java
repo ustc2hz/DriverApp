@@ -144,24 +144,9 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 		return sbuBuffer;
 	}
 
-	/*
-	 * @Override public void onInfoWindowClick(Marker marker) {
-	 * locationMarker.hideInfoWindow(); lp = new
-	 * LatLonPoint(locationMarker.getPosition().latitude,
-	 * locationMarker.getPosition().longitude); locationMarker.destroy(); }
-	 */
-
-	/*
-	 * @Override public void onMapClick(LatLng latng) { locationMarker =
-	 * aMap.addMarker(new MarkerOptions().anchor(0.5f, 1)
-	 * .icon(BitmapDescriptorFactory.fromResource(R.drawable.point))
-	 * .position(latng).title("点击选择为中心点")); locationMarker.showInfoWindow(); }
-	 */
-
 	/**
 	 * POI详情回调
 	 */
-
 	@Override
 	public void onPoiItemDetailSearched(PoiItemDetail result, int rCode) {
 		dialog.dissmissProgressDialog();// 去除对话框

@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.util.Log;
-
 /**
  * 
  * Http工具类. <br>
@@ -30,9 +28,7 @@ public class HttpUtils {
 
 	/**
 	 * 通过URL访问服务器，Get方式
-	 * 
-	 * @param path
-	 *            url
+	 * @param path url
 	 * @return String 服务器返回的结果
 	 */
 	public static String getJsonContent(String path) {
@@ -47,7 +43,6 @@ public class HttpUtils {
 			httpURLConnection.setRequestMethod("GET"); // Get方式访问
 			httpURLConnection.setDoInput(true);
 			int code = httpURLConnection.getResponseCode(); // 连接结果号
-			Log.i("code", "-->>" + code);
 			if (code == 200) { // 200为连接成功
 				// 调用方法将返回的流解析为String，并且返回
 				return changeInputStream(httpURLConnection.getInputStream());
@@ -81,5 +76,5 @@ public class HttpUtils {
 		}
 		return jsonString;
 	}
-
+    
 }

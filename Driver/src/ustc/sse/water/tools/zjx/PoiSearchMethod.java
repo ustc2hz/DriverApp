@@ -153,20 +153,6 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 	/**
 	 * 初始化一些必要的组件和监听器
 	 */
-	/*
-	 * private void initSearch() { dialog = new DialogUtil(context); // 生成对话框
-	 * aMap.setOnMarkerClickListener(this);// 添加点击marker监听事件
-	 * aMap.setInfoWindowAdapter(this);// 添加显示infowindow监听事件 }
-	 */
-
-	/*
-	 * @Override public boolean onMarkerClick(Marker marker) { // if (poiOverlay
-	 * != null && poiItems != null && poiItems.size() > 0) { // // detailMarker
-	 * = marker; //
-	 * doSearchPoiDetail(poiItems.get(poiOverlay.getPoiIndex(marker)) //
-	 * .getPoiId()); // } marker.showInfoWindow(); return false; }
-	 */
-
 	@Override
 	public void onPoiItemDetailSearched(PoiItemDetail arg0, int arg1) {
 	}
@@ -174,7 +160,6 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 	/**
 	 * Poi信息查询回调方法
 	 */
-
 	@Override
 	public void onPoiSearched(PoiResult result, int rCode) {
 		// dialog.dissmissProgressDialog();// 去除对话框

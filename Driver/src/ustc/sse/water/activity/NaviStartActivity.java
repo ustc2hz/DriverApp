@@ -59,46 +59,33 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 		@Override
 		public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
 		public void onCompleted(SpeechError arg0) {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
 		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
 		public void onSpeakBegin() {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
 		public void onSpeakPaused() {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
 		public void onSpeakProgress(int arg0, int arg1, int arg2) {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
 		public void onSpeakResumed() {
-			// TODO Auto-generated method stub
-
 		}
 	};
+	
 	/* 创建 SpeechSynthesizer 对象, 第二个参数：本地合成时传 InitListener */
 	SpeechSynthesizer mTts;
 
@@ -140,14 +127,11 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onArriveDestination() {
-		// TODO Auto-generated method stub
 		mTts.startSpeaking("到达目的地", mSynListener);
 	}
 
 	@Override
 	public void onArrivedWayPoint(int arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -206,34 +190,26 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onEndEmulatorNavi() {
-		// TODO Auto-generated method stub
 		mTts.startSpeaking("导航结束", mSynListener);
 
 	}
 
 	@Override
 	public void onGetNavigationText(int arg0, String arg1) {
-		// TODO Auto-generated method stub
 		mTts.startSpeaking(arg1, mSynListener);
 
 	}
 
 	@Override
 	public void onGpsOpenStatus(boolean arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onInitNaviFailure() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onInitNaviSuccess() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -273,64 +249,46 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onNaviInfoUpdated(AMapNaviInfo arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onNaviMapMode(int arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onNaviSetting() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onNaviTurnClick() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onNextRoadClick() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onReCalculateRouteForTrafficJam() {
-		// TODO Auto-generated method stub
 		mTts.startSpeaking("前方道路拥挤，路线重新规划", mSynListener);
 
 	}
 
 	@Override
 	public void onReCalculateRouteForYaw() {
-		// TODO Auto-generated method stub
 		mTts.startSpeaking("您已偏离规划路线", mSynListener);
 
 	}
 
 	@Override
 	public void onScanViewButtonClick() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onStartNavi(int arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onTrafficStatusUpdate() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**

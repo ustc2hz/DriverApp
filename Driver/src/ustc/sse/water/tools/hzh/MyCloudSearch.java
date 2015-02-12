@@ -141,7 +141,6 @@ public class MyCloudSearch implements OnCloudSearchListener {
 	 */
 	@Override
 	public void onCloudSearched(CloudResult result, int rCode) {
-		// TODO Auto-generated method stub
 
 		if (rCode == 0) {
 			if (result != null && result.getQuery() != null) {

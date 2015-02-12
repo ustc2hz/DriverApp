@@ -1,6 +1,5 @@
 package ustc.sse.water.zf;
 
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import ustc.sse.water.activity.R;
+import ustc.sse.water.utils.zjx.HttpUtils;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,11 +28,9 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
 	// RegisterThread线程类
@@ -45,7 +43,6 @@ public class RegisterActivity extends Activity {
 
 			// URL合法，但是这一步并不验证密码是否正确
 			boolean registerValidate = registerServer(username, password);
-			// System.out.println("----------------------------bool is :"+registerValidate+"----------response:"+responseMsg);
 			Message msg = handler.obtainMessage();
 			if (registerValidate) {
 				if (responseMsg.equals("success")) {
@@ -55,7 +52,6 @@ public class RegisterActivity extends Activity {
 					msg.what = 1;
 					handler.sendMessage(msg);
 				}
-
 			} else {
 				msg.what = 2;
 				handler.sendMessage(msg);
@@ -64,57 +60,15 @@ public class RegisterActivity extends Activity {
 
 	}
 
-	private static final int LOGIN_OK = 1;
 	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
 	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
-
-	/**
-	 * MD5单向加密，32位，用于加密密码，因为明文密码在信道中传输不安全，明文保存在本地也不安全
-	 * 
-	 * @param str
-	 * @return
-	 */
-	public static String md5(String str) {
-		MessageDigest md5 = null;
-		try {
-			md5 = MessageDigest.getInstance("MD5");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
-		}
-
-		char[] charArray = str.toCharArray();
-		byte[] byteArray = new byte[charArray.length];
-
-		for (int i = 0; i < charArray.length; i++) {
-			byteArray[i] = (byte) charArray[i];
-		}
-		byte[] md5Bytes = md5.digest(byteArray);
-
-		StringBuffer hexValue = new StringBuffer();
-		for (int i = 0; i < md5Bytes.length; i++) {
-			int val = (md5Bytes[i]) & 0xff;
-			if (val < 16) {
-				hexValue.append("0");
-			}
-			hexValue.append(Integer.toHexString(val));
-		}
-		return hexValue.toString();
-	}
-
-	
 	private ProgressDialog mDialog;
 	private EditText newUser, newPassword, confirmPassword;
-
 	private Button registerBtn, clearBtn;
-
 	private String responseMsg = "";
-
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 		newUser = (EditText) findViewById(R.id.newUser_input);
@@ -144,10 +98,8 @@ public class RegisterActivity extends Activity {
 					mDialog.show();
 					Thread loginThread = new Thread(new RegisterThread());
 					loginThread.start();
-
 				} else {
-					Toast.makeText(getApplicationContext(), "您两次输入的密码不一致！",
-							Toast.LENGTH_SHORT).show();
+					ToastUtil.show(RegisterActivity.this, "您两次输入的密码不一致！");
 				}
 			}
 
@@ -161,10 +113,8 @@ public class RegisterActivity extends Activity {
 				newPassword.setText("");
 				confirmPassword.setText("");
 			}
-
 		});
 	}
-
 	
 	//初始化HttpClient，并设置超时
     public HttpClient getHttpClient()
@@ -180,12 +130,11 @@ public class RegisterActivity extends Activity {
 	    {
 	    	boolean loginValidate = false;
 	    	String urlStr = "";
-	    	Log.i("radio", LoginActivity.radioStatus+"");
 	    	//使用apache HTTP客户端实现
 	    	if(LoginActivity.radioStatus == 0) { // 驾驶员注册
-	    		urlStr = "http://192.168.9.178:8080/AppServerr/DriverRegisterServlet";
+	    		urlStr = "http://"+HttpUtils.MY_IP+"/AppServerr/DriverRegisterServlet";
 	    	}else if(LoginActivity.radioStatus == 1) {// 管理员注册
-	    		urlStr = "http://192.168.9.178:8080/AppServerr/AdminRegisterServlet";
+	    		urlStr = "http://"+HttpUtils.MY_IP+"/AppServerr/AdminRegisterServlet";
 	    	}
 	    	HttpPost request = new HttpPost(urlStr);
 	    	//如果传递参数多的话，可以丢传递的参数进行封装
@@ -229,20 +178,15 @@ public class RegisterActivity extends Activity {
 	    			break;
 	    		case 1:
 	    			mDialog.cancel();
-	    			Toast.makeText(getApplicationContext(), "注册失败", Toast.LENGTH_SHORT).show();
+	    			ToastUtil.show(RegisterActivity.this, "注册失败");
 	    			break;
 	    		case 2:
 	    			mDialog.cancel();
-	    			Toast.makeText(getApplicationContext(), "URL验证失败", Toast.LENGTH_SHORT).show();
+	    			ToastUtil.show(RegisterActivity.this, "URL验证失败");
 	    			break;
-	    		
 	    		}
-	    		
 	    	}
 	    };
-	    
-	    
-	    
 
 	private void showDialog(String str) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);

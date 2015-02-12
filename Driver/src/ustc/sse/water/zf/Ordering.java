@@ -1,11 +1,10 @@
 package ustc.sse.water.zf;
 
 import java.util.HashMap;
-import ustc.sse.water.activity.*;
-import ustc.sse.water.util.zf.DummyFragment;
 
+import ustc.sse.water.activity.R;
+import ustc.sse.water.util.zf.DummyFragment;
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
@@ -137,14 +136,11 @@ public class Ordering extends Activity implements OnClickListener, TabListener {
 	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
-
 	}
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 
 	}
-
 	
 }

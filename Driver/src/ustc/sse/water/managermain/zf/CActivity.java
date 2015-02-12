@@ -7,6 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import ustc.sse.water.activity.R;
 import ustc.sse.water.data.model.DataToYutunServer;
 import ustc.sse.water.data.model.ParkingData;
+import ustc.sse.water.utils.zjx.ToastUtil;
 import ustc.sse.water.zf.ManagerChangePass;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 /**
  * 
@@ -43,6 +43,7 @@ public class CActivity extends Activity implements OnClickListener {
 	private String address;
 	private Button change, data_submit, back;
 	SharedPreferences.Editor editor;
+	
 	/**
 	 * 返回通知数据提交服务器是否成功——黄志恒
 	 */
@@ -50,12 +51,9 @@ public class CActivity extends Activity implements OnClickListener {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
-				// txt_status.setText("success");
-				Toast.makeText(getApplicationContext(), "Submit Success!",
-						Toast.LENGTH_SHORT).show();
+				ToastUtil.show(CActivity.this, "Submit Success!");
 			} else {
-				Toast.makeText(getApplicationContext(), "Submit Failed!",
-						Toast.LENGTH_SHORT).show();
+				ToastUtil.show(CActivity.this, "Submit Failed!");
 			}
 		}
 	};

@@ -1,8 +1,7 @@
 package ustc.sse.water.zf;
 
-import ustc.sse.water.activity.*;
+import ustc.sse.water.activity.R;
 import ustc.sse.water.managermain.zf.CActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,7 +41,6 @@ public class ManagerChangePass extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.button1:
 			Intent intent1 = new Intent(ManagerChangePass.this,

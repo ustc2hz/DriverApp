@@ -143,7 +143,6 @@ public class NaviRouteMethod implements AMapNaviListener {
 
 	@Override
 	public void onCalculateRouteSuccess() {
-		// TODO Auto-generated method stub
 		du.dissmissProgressDialog();
 		AMapNaviPath naviPath = mAMapNavi.getNaviPath();
 		if (naviPath == null) {

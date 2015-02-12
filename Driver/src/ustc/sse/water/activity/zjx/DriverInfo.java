@@ -73,7 +73,6 @@ public class DriverInfo extends Activity implements OnClickListener {
 			startActivity(intent2);
 			break;
 		case R.id.ibtn_two__code: // 点击二维码
-			// Intent intent3 = new Intent(this,);
 			break;
 		case R.id.button_logout: // 点击退出登录
 			finish();

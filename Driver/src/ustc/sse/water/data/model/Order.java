@@ -12,19 +12,19 @@ package ustc.sse.water.data.model;
  * @version 1.0.0
  */
 public class Order {
-	private Integer orderId;
-	private Integer driverId;
-	private Integer adminId;
-	private String parkName;
-	private String parkAddress;
-	private Integer driverNum;
-	private String orderDate;
-	private String driverPhone;
-	private String orderInfo;
-	private String orderPrice;
-	private Integer orderStatus;
-	private Admin admin;
-	private Driver driver;
+	private Integer orderId; // 订单Id
+	private Integer driverId; // 驾驶员Id
+	private Integer adminId; // 管理员Id
+	private String parkName; // 停车场名
+	private String parkAddress; // 停车场地址
+	private Integer driverNum; // 驾驶员数量
+	private String orderDate; // 订单日期
+	private String driverPhone; // 驾驶员电话
+	private String orderInfo; // 订单信息
+	private String orderPrice; // 订单价格
+	private Integer orderStatus; // 订单状态
+	private Admin admin; // 管理员
+	private Driver driver; // 驾驶员
 
 	public Integer getOrderId() {
 		return orderId;
