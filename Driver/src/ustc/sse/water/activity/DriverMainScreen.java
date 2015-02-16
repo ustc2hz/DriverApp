@@ -307,7 +307,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			SharedPreferences shared = getSharedPreferences("loginState",
 					Context.MODE_PRIVATE);
 			int loginState = shared.getInt("loginState", 2); // 取不到，则默认为0
-			loginState = 2;
+			loginState = 1;
 			if (loginState == 2) {
 				Intent it2 = new Intent(DriverMainScreen.this,
 						LoginActivity.class);

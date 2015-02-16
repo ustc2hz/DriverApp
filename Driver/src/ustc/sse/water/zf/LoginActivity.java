@@ -158,16 +158,15 @@ public class LoginActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "登录成功！",
 						Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent();
-				if(radioStatus == 0) { // 驾驶员登录成功
-					intent.setClass(LoginActivity.this,
-							DriverInfo.class);
+				if (radioStatus == 0) { // 驾驶员登录成功
+					intent.setClass(LoginActivity.this, DriverInfo.class);
 					startActivity(intent);
-				} else if(radioStatus == 1) { // 管理员
+				} else if (radioStatus == 1) { // 管理员
 					intent.setClass(LoginActivity.this,
 							ManagerMainTabActivity.class);
-					startActivity(intent);	
+					startActivity(intent);
 				}
-				
+
 				// finish();
 				break;
 			case 1:
@@ -223,60 +222,14 @@ public class LoginActivity extends Activity {
 		}
 	}
 
-	private boolean loginServer(String username, String password)
-    {
-    	boolean loginValidate = false;
-    	String urlStr = "";
-    	Log.i("--->>", driver_check.isChecked()+"");
-    	Log.i("--->>", manager_check.isChecked()+"");
-    	if(manager_check.isChecked()) {
-    	//使用apache HTTP客户端实现
-    		urlStr = "http://192.168.9.178:8080/AppServerr/AdminLoginServlet";
-    	} else if(driver_check.isChecked()){   		
-    		urlStr = "http://192.168.9.178:8080/AppServerr/DriverLoginServlet";	
-    	}
-    	HttpPost request = new HttpPost(urlStr);
-    	//如果传递参数多的话，可以丢传递的参数进行封装
-    	List<NameValuePair> params = new ArrayList<NameValuePair>();
-    	//添加用户名和密码
-    	params.add(new BasicNameValuePair("username",username));
-    	params.add(new BasicNameValuePair("password",password));
-    	try
-    	{
-    		//设置请求参数项
-    		request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-    		HttpClient client = getHttpClient();
-    		//执行请求返回相应
-    		HttpResponse response = client.execute(request);  
-    		Log.i("code", response.getStatusLine().getStatusCode()+"");
-    		//判断是否请求成功
-    		if(response.getStatusLine().getStatusCode()==200)
-    		{   			
-    			//获得响应信息
-    			responseMsg = EntityUtils.toString(response.getEntity());
-    			Log.i("-->>msg", responseMsg);
-    			loginValidate = true;
-    		}
-    	}catch(Exception e)
-    	{
-    		loginValidate = false;
-    		e.printStackTrace();
-    	}
-    	return loginValidate;
-    }
-      
-    //初始化HttpClient，并设置超时
-    public HttpClient getHttpClient()
-    {
-    	BasicHttpParams httpParams = new BasicHttpParams();
-    	HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
-    	HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
-    	HttpClient client = new DefaultHttpClient(httpParams);
-    	return client;
-    }
-
-    
-    //判断是否记住密码，默认记住
+	// 初始化HttpClient，并设置超时
+	public HttpClient getHttpClient() {
+		BasicHttpParams httpParams = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
+		HttpClient client = new DefaultHttpClient(httpParams);
+		return client;
+	}
 
 	private boolean isRemembered() {
 		try {
@@ -289,6 +242,8 @@ public class LoginActivity extends Activity {
 		}
 		return false;
 	}
+
+	// 判断是否记住密码，默认记住
 
 	// 初始化用户数据
 	private void LoadUserdata() {
@@ -315,7 +270,43 @@ public class LoginActivity extends Activity {
 
 	}
 
-	
+	private boolean loginServer(String username, String password) {
+		boolean loginValidate = false;
+		String urlStr = "";
+		Log.i("--->>", driver_check.isChecked() + "");
+		Log.i("--->>", manager_check.isChecked() + "");
+		if (manager_check.isChecked()) {
+			// 使用apache HTTP客户端实现
+			urlStr = "http://192.168.9.178:8080/AppServerr/AdminLoginServlet";
+		} else if (driver_check.isChecked()) {
+			urlStr = "http://192.168.9.178:8080/AppServerr/DriverLoginServlet";
+		}
+		HttpPost request = new HttpPost(urlStr);
+		// 如果传递参数多的话，可以丢传递的参数进行封装
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		// 添加用户名和密码
+		params.add(new BasicNameValuePair("username", username));
+		params.add(new BasicNameValuePair("password", password));
+		try {
+			// 设置请求参数项
+			request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			HttpClient client = getHttpClient();
+			// 执行请求返回相应
+			HttpResponse response = client.execute(request);
+			Log.i("code", response.getStatusLine().getStatusCode() + "");
+			// 判断是否请求成功
+			if (response.getStatusLine().getStatusCode() == 200) {
+				// 获得响应信息
+				responseMsg = EntityUtils.toString(response.getEntity());
+				Log.i("-->>msg", responseMsg);
+				loginValidate = true;
+			}
+		} catch (Exception e) {
+			loginValidate = false;
+			e.printStackTrace();
+		}
+		return loginValidate;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -390,6 +381,11 @@ public class LoginActivity extends Activity {
 		loginBtn.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				if (driver_check.isChecked()) {
+					radioStatus = 0;
+				} else if (manager_check.isChecked()) {
+					radioStatus = 1;
+				}
 				mDialog = new ProgressDialog(LoginActivity.this);
 				mDialog.setTitle("登陆");
 				mDialog.setMessage("正在登陆服务器，请稍后...");
