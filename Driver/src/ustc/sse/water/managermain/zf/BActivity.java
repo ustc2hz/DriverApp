@@ -7,7 +7,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import ustc.sse.water.activity.R;
 import ustc.sse.water.data.model.DataToYutunServer;
 import ustc.sse.water.data.model.DetailDataToServer;
-import ustc.sse.water.data.model.ParkDetailData;
 import ustc.sse.water.data.model.ParkDetailObject;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import ustc.sse.water.zf.MainActivity;
@@ -29,11 +28,11 @@ import android.widget.EditText;
 public class BActivity extends Activity implements OnClickListener {
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
 	public static ObjectMapper objectMapper = new ObjectMapper();
+	// 停车场地址全局变量——黄志恒
 	private String address;
 	// button的申明
 	private Button changeMess, commit, back;
-	// 停车场详细数据的对象——黄志恒
-	ParkDetailData dData;
+	// 构造sharedPreference的编辑对象——黄志恒
 	SharedPreferences.Editor editor;
 	/**
 	 * 返回通知数据提交服务器是否成功——黄志恒
@@ -49,6 +48,7 @@ public class BActivity extends Activity implements OnClickListener {
 		}
 	};
 
+	// 停车场名称全局变量——黄志恒
 	private String name;
 	// 用于获取edittext的值
 	private String num, price_ten, price_twenty, price_thirty, pprice_ten,
@@ -57,8 +57,17 @@ public class BActivity extends Activity implements OnClickListener {
 	private EditText park_number, l_price, m_price, h_price, pl_price,
 			pm_price, ph_price;
 
+	// 停车场地址——黄志恒
+	private EditText parkAddress;
+	// 停车场名称——黄志恒
+	private EditText parkName;
+	// 停车场电话——黄志恒
+	private EditText parkPhone;
+
+	// 停车场详细信息数据结构对象——黄志恒
 	private ParkDetailObject pdo;
 
+	// 停车场电话全局变量——黄志恒
 	private String phone;
 
 	private DataToYutunServer post;
@@ -67,6 +76,9 @@ public class BActivity extends Activity implements OnClickListener {
 	// SharedPreference获取当前的发布信息
 	SharedPreferences preferences;
 
+	/**
+	 * 初始化停车场详细信息对象——黄志恒
+	 * */
 	private void initObject() {
 		pdo = new ParkDetailObject();
 		pdo.set_name(name.toString());
@@ -84,6 +96,9 @@ public class BActivity extends Activity implements OnClickListener {
 
 	}
 
+	/**
+	 * 初始化输入框中显示的信息——黄志恒
+	 */
 	private void initText() {
 		park_number.setText(preferences.getString("num", "暂无信息"));
 		l_price.setText(preferences.getString("price_ten", "暂无信息"));
@@ -92,6 +107,9 @@ public class BActivity extends Activity implements OnClickListener {
 		pl_price.setText(preferences.getString("pprice_ten", "暂无信息"));
 		pm_price.setText(preferences.getString("pprice_twenty", "暂无信息"));
 		ph_price.setText(preferences.getString("pprice_thirty", "暂无信息"));
+		parkName.setText(preferences.getString("name", "暂无信息"));
+		parkAddress.setText(preferences.getString("address", "暂无信息"));
+		parkPhone.setText(preferences.getString("phone", "暂无信息"));
 	}
 
 	@Override
@@ -178,6 +196,9 @@ public class BActivity extends Activity implements OnClickListener {
 		pl_price = (EditText) findViewById(R.id.pprice1);
 		pm_price = (EditText) findViewById(R.id.pprice2);
 		ph_price = (EditText) findViewById(R.id.pprice3);
+		parkName = (EditText) findViewById(R.id.manager_park_name);
+		parkAddress = (EditText) findViewById(R.id.manager_park_address);
+		parkPhone = (EditText) findViewById(R.id.manager_park_phone);
 
 		// 分别设置文本框不可编辑，并且输入默认数据
 		/*
@@ -221,17 +242,21 @@ public class BActivity extends Activity implements OnClickListener {
 		postData.postDataToServer();
 	}
 
-	/*
-	 * 保存数据——黄志恒
+	/**
+	 * 保存输入框的数据——黄志恒
 	 */
 	private void SaveData1() {
-		num = park_number.getText().toString();
-		price_ten = l_price.getText().toString();
-		price_twenty = m_price.getText().toString();
-		price_thirty = h_price.getText().toString();
-		pprice_ten = pl_price.getText().toString();
-		pprice_twenty = pm_price.getText().toString();
-		pprice_thirty = ph_price.getText().toString();
+		name = parkName.getText().toString().trim();
+		address = parkAddress.getText().toString().trim();
+		phone = parkPhone.getText().toString().trim();
+
+		num = park_number.getText().toString().trim();
+		price_ten = l_price.getText().toString().trim();
+		price_twenty = m_price.getText().toString().trim();
+		price_thirty = h_price.getText().toString().trim();
+		pprice_ten = pl_price.getText().toString().trim();
+		pprice_twenty = pm_price.getText().toString().trim();
+		pprice_thirty = ph_price.getText().toString().trim();
 
 		editor.putString("num", num);
 		editor.commit();
@@ -252,6 +277,15 @@ public class BActivity extends Activity implements OnClickListener {
 		editor.commit();
 
 		editor.putString("pprice_thirty", pprice_thirty);
+		editor.commit();
+
+		editor.putString("name", name);
+		editor.commit();
+
+		editor.putString("phone", phone);
+		editor.commit();
+
+		editor.putString("address", address);
 		editor.commit();
 
 	}
@@ -295,17 +329,20 @@ public class BActivity extends Activity implements OnClickListener {
 				});
 	}
 
+	/**
+	 * 在logCat中打印sharedPreference信息，用于测试——黄志恒
+	 */
 	private void showTemp() {
-		Log.v("name", name);
-		Log.v("address", address);
-		Log.v("phone", phone);
-		Log.v("sum", preferences.getString("num", num));
-		Log.v("orderTen", preferences.getString("price_ten", num));
-		Log.v("orderTw", preferences.getString("price_twenty", num));
-		Log.v("orderThr", preferences.getString("price_thirty", num));
-		Log.v("payHalf", preferences.getString("pprice_ten", num));
-		Log.v("payOne", preferences.getString("pprice_twenty", num));
-		Log.v("payMore", preferences.getString("pprice_thirty", num));
+		Log.v("name", preferences.getString("name", "fail"));
+		Log.v("address", preferences.getString("address", "fail"));
+		Log.v("phone", preferences.getString("phone", "fail"));
+		Log.v("sum", preferences.getString("num", "fail"));
+		Log.v("orderTen", preferences.getString("price_ten", "fail"));
+		Log.v("orderTw", preferences.getString("price_twenty", "fail"));
+		Log.v("orderThr", preferences.getString("price_thirty", "fail"));
+		Log.v("payHalf", preferences.getString("pprice_ten", "fail"));
+		Log.v("payOne", preferences.getString("pprice_twenty", "fail"));
+		Log.v("payMore", preferences.getString("pprice_thirty", "fail"));
 	}
 
 	public void simple(View source) {

@@ -89,7 +89,7 @@ public class LoginActivity extends Activity {
 				}
 			} else {
 				msg.what = 2;
-				
+
 			}
 			handler.sendMessage(msg);
 		}
@@ -109,10 +109,9 @@ public class LoginActivity extends Activity {
 			case 0:
 				ToastUtil.show(LoginActivity.this, "登录成功！");
 				Intent intent = new Intent();
-				if(radioStatus == 0) { // 驾驶员登录成功
-					intent.setClass(LoginActivity.this,
-							DriverInfo.class);
-				} else if(radioStatus == 1) { // 管理员
+				if (radioStatus == 0) { // 驾驶员登录成功
+					intent.setClass(LoginActivity.this, DriverInfo.class);
+				} else if (radioStatus == 1) { // 管理员
 					intent.setClass(LoginActivity.this,
 							ManagerMainTabActivity.class);
 				}
@@ -125,7 +124,7 @@ public class LoginActivity extends Activity {
 			case 2:
 				ToastUtil.show(LoginActivity.this, "URL验证失败");
 				break;
-			} 
+			}
 		}
 	};
 
@@ -158,55 +157,16 @@ public class LoginActivity extends Activity {
 		showTips();
 	}
 
-	private boolean loginServer(String username, String password)
-    {
-    	boolean loginValidate = false;
-    	String urlStr = "";
-    	if(manager_check.isChecked()) {
-    	//使用apache HTTP客户端实现
-    		urlStr = "http://"+HttpUtils.MY_IP+"/AppServerr/AdminLoginServlet";
-    	} else if(driver_check.isChecked()){   		
-    		urlStr = "http://"+HttpUtils.MY_IP+"/AppServerr/DriverLoginServlet";	
-    	}
-    	HttpPost request = new HttpPost(urlStr);
-    	//如果传递参数多的话，可以丢传递的参数进行封装
-    	List<NameValuePair> params = new ArrayList<NameValuePair>();
-    	//添加用户名和密码
-    	params.add(new BasicNameValuePair("username",username));
-    	params.add(new BasicNameValuePair("password",password));
-    	try
-    	{
-    		//设置请求参数项
-    		request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-    		HttpClient client = getHttpClient();
-    		//执行请求返回相应
-    		HttpResponse response = client.execute(request);  
-    		//判断是否请求成功
-    		if(response.getStatusLine().getStatusCode()==200)
-    		{   			
-    			//获得响应信息
-    			responseMsg = EntityUtils.toString(response.getEntity());
-    			loginValidate = true;
-    		}
-    	}catch(Exception e)
-    	{
-    		loginValidate = false;
-    		e.printStackTrace();
-    	}
-    	return loginValidate;
-    }
-      
-    //初始化HttpClient，并设置超时
-    public HttpClient getHttpClient()
-    {
-    	BasicHttpParams httpParams = new BasicHttpParams();
-    	HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
-    	HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
-    	HttpClient client = new DefaultHttpClient(httpParams);
-    	return client;
-    }
-    
-    //判断是否记住密码，默认记住
+	// 初始化HttpClient，并设置超时
+	public HttpClient getHttpClient() {
+		BasicHttpParams httpParams = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
+		HttpClient client = new DefaultHttpClient(httpParams);
+		return client;
+	}
+
+	// 判断是否记住密码，默认记住
 	private boolean isRemembered() {
 		try {
 			if (saveInfoItem.isChecked()) {
@@ -241,6 +201,42 @@ public class LoginActivity extends Activity {
 			inputPassword.setText("");
 		}
 
+	}
+
+	private boolean loginServer(String username, String password) {
+		boolean loginValidate = false;
+		String urlStr = "";
+		if (manager_check.isChecked()) {
+			// 使用apache HTTP客户端实现
+			urlStr = "http://" + HttpUtils.MY_IP
+					+ "/AppServerr/AdminLoginServlet";
+		} else if (driver_check.isChecked()) {
+			urlStr = "http://" + HttpUtils.MY_IP
+					+ "/AppServerr/DriverLoginServlet";
+		}
+		HttpPost request = new HttpPost(urlStr);
+		// 如果传递参数多的话，可以丢传递的参数进行封装
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		// 添加用户名和密码
+		params.add(new BasicNameValuePair("username", username));
+		params.add(new BasicNameValuePair("password", password));
+		try {
+			// 设置请求参数项
+			request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			HttpClient client = getHttpClient();
+			// 执行请求返回相应
+			HttpResponse response = client.execute(request);
+			// 判断是否请求成功
+			if (response.getStatusLine().getStatusCode() == 200) {
+				// 获得响应信息
+				responseMsg = EntityUtils.toString(response.getEntity());
+				loginValidate = true;
+			}
+		} catch (Exception e) {
+			loginValidate = false;
+			e.printStackTrace();
+		}
+		return loginValidate;
 	}
 
 	@Override
