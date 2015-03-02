@@ -41,6 +41,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+
 /**
  * 
  * 登录界面类 <br>
@@ -55,6 +56,11 @@ import android.widget.RadioButton;
  * @version 3.0.0
  */
 public class LoginActivity extends Activity {
+	
+	public void temp()
+	{
+		
+	}
 	// LoginThread线程类
 	class LoginThread implements Runnable {
 		@Override
