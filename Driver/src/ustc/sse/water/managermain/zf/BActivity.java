@@ -4,6 +4,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import ustc.sse.water.activity.MapForAddress;
 import ustc.sse.water.activity.R;
 import ustc.sse.water.data.model.DataToYutunServer;
 import ustc.sse.water.data.model.DetailDataToServer;
@@ -24,16 +25,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class BActivity extends Activity implements OnClickListener {
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
 	public static ObjectMapper objectMapper = new ObjectMapper();
-	// 停车场地址全局变量——黄志恒
-	private String address;
 	// button的申明
 	private Button changeMess, commit, back;
 	// 构造sharedPreference的编辑对象——黄志恒
 	SharedPreferences.Editor editor;
+
 	/**
 	 * 返回通知数据提交服务器是否成功——黄志恒
 	 */
@@ -47,32 +48,40 @@ public class BActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
+	// 停车场地址的经纬度——黄志恒
+	// private String address;
+	private String location;
+	// 地图选点按钮
+	private Button modeButton;
 
+	// 切换手工输入和地图选点的Spinner——黄志恒
+	private Spinner modeSpinner;
 	// 停车场名称全局变量——黄志恒
 	private String name;
 	// 用于获取edittext的值
 	private String num, price_ten, price_twenty, price_thirty, pprice_ten,
 			pprice_twenty, pprice_thirty;
+
 	// edittext的申明
 	private EditText park_number, l_price, m_price, h_price, pl_price,
 			pm_price, ph_price;
 
-	// 停车场地址——黄志恒
-	private EditText parkAddress;
+	// 停车场地理坐标——黄志恒
+	private EditText parkLocation;
+
 	// 停车场名称——黄志恒
 	private EditText parkName;
 	// 停车场电话——黄志恒
 	private EditText parkPhone;
-
 	// 停车场详细信息数据结构对象——黄志恒
 	private ParkDetailObject pdo;
-
 	// 停车场电话全局变量——黄志恒
 	private String phone;
 
 	private DataToYutunServer post;
 	// 将停车场详细数据发送到服务器的对象——黄志恒
 	DetailDataToServer postData;
+
 	// SharedPreference获取当前的发布信息
 	SharedPreferences preferences;
 
@@ -82,9 +91,10 @@ public class BActivity extends Activity implements OnClickListener {
 	private void initObject() {
 		pdo = new ParkDetailObject();
 		pdo.set_name(name.toString());
+
 		Log.v("name tostring", name.toString());
-		pdo.set_address(address.toString());
-		Log.v("addr tostring", address.toString());
+		pdo.set_location(location);
+		// pdo.set_address(" ");
 		pdo.setPhone(phone);
 		pdo.setParkSum(num);
 		pdo.setOrderTen(price_ten);
@@ -94,6 +104,20 @@ public class BActivity extends Activity implements OnClickListener {
 		pdo.setPayHalPay(pprice_twenty);
 		pdo.setPayMorePay(pprice_twenty);
 
+	}
+
+	/**
+	 * 初始化存储——黄志恒
+	 */
+	public void initSharedPreference() {
+		// 取出preferenced的對象
+		preferences = getSharedPreferences("manager_message",
+				MODE_WORLD_READABLE);
+		editor = preferences.edit();
+
+		name = preferences.getString("name", name);
+		phone = preferences.getString("phone", phone);
+		location = preferences.getString("location", "0,0");
 	}
 
 	/**
@@ -108,8 +132,51 @@ public class BActivity extends Activity implements OnClickListener {
 		pm_price.setText(preferences.getString("pprice_twenty", "暂无信息"));
 		ph_price.setText(preferences.getString("pprice_thirty", "暂无信息"));
 		parkName.setText(preferences.getString("name", "暂无信息"));
-		parkAddress.setText(preferences.getString("address", "暂无信息"));
+		parkLocation
+				.setText("坐标： " + preferences.getString("location", "暂无信息"));
 		parkPhone.setText(preferences.getString("phone", "暂无信息"));
+	}
+
+	/**
+	 * 初始化界面控件——黄志恒
+	 */
+	public void initViews() {
+
+		// 返回按钮
+		changeMess = (Button) findViewById(R.id.bt1);
+		// 编辑按钮
+		commit = (Button) findViewById(R.id.bt2);
+		// 提交按钮
+		back = (Button) findViewById(R.id.bt3);
+		// 通过findViewById找到对应的
+		park_number = (EditText) findViewById(R.id.parknumber);
+		l_price = (EditText) findViewById(R.id.price1);
+		m_price = (EditText) findViewById(R.id.price2);
+		h_price = (EditText) findViewById(R.id.price3);
+		pl_price = (EditText) findViewById(R.id.pprice1);
+		pm_price = (EditText) findViewById(R.id.pprice2);
+		ph_price = (EditText) findViewById(R.id.pprice3);
+		parkName = (EditText) findViewById(R.id.manager_park_name);
+		parkLocation = (EditText) findViewById(R.id.manager_park_location);
+		parkLocation.setFocusable(false);
+		parkPhone = (EditText) findViewById(R.id.manager_park_phone);
+
+		modeButton = (Button) findViewById(R.id.mode_button);
+
+		// 对按钮分别做监听
+		changeMess.setOnClickListener(this);
+		commit.setOnClickListener(this);
+		back.setOnClickListener(this);
+		modeButton.setOnClickListener(this);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
+		if (resultCode == 4) {
+			location = preferences.getString("location", "0,0");
+			parkLocation.setText("坐标： " + location);
+		}
 	}
 
 	@Override
@@ -168,6 +235,13 @@ public class BActivity extends Activity implements OnClickListener {
 			Intent intent1 = new Intent(BActivity.this, MainActivity.class);
 			startActivity(intent1);
 			break;
+
+		// 点击“地图选点”按钮进行地图选点
+		case R.id.mode_button:
+			Intent toAddMap = new Intent();
+			toAddMap.setClass(BActivity.this, MapForAddress.class);
+			int resultCode = 2;
+			startActivityForResult(toAddMap, resultCode);
 		}
 
 	}
@@ -177,49 +251,8 @@ public class BActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manager_distribute_messages);
 
-		// 返回按钮
-		changeMess = (Button) findViewById(R.id.bt1);
-		// 编辑按钮
-		commit = (Button) findViewById(R.id.bt2);
-		// 提交按钮
-		back = (Button) findViewById(R.id.bt3);
-		// 对按钮分别做监听
-		changeMess.setOnClickListener(this);
-		commit.setOnClickListener(this);
-		back.setOnClickListener(this);
-
-		// 通过findViewById找到对应的
-		park_number = (EditText) findViewById(R.id.parknumber);
-		l_price = (EditText) findViewById(R.id.price1);
-		m_price = (EditText) findViewById(R.id.price2);
-		h_price = (EditText) findViewById(R.id.price3);
-		pl_price = (EditText) findViewById(R.id.pprice1);
-		pm_price = (EditText) findViewById(R.id.pprice2);
-		ph_price = (EditText) findViewById(R.id.pprice3);
-		parkName = (EditText) findViewById(R.id.manager_park_name);
-		parkAddress = (EditText) findViewById(R.id.manager_park_address);
-		parkPhone = (EditText) findViewById(R.id.manager_park_phone);
-
-		// 分别设置文本框不可编辑，并且输入默认数据
-		/*
-		 * park_number.setEnabled(false); l_price.setEnabled(false);
-		 * m_price.setEnabled(false); h_price.setEnabled(false);
-		 * pl_price.setEnabled(false); pm_price.setEnabled(false);
-		 * ph_price.setEnabled(false);
-		 */
-
-		// 取出preferenced的對象
-		preferences = getSharedPreferences("manager_message",
-				MODE_WORLD_READABLE);
-		editor = preferences.edit();
-
-		// 逻辑有问题
-		// SaveData();
-
-		name = preferences.getString("name", name);
-		phone = preferences.getString("phone", phone);
-		address = preferences.getString("address", address);
-
+		initViews();
+		initSharedPreference();
 		initText();
 
 	}
@@ -247,7 +280,6 @@ public class BActivity extends Activity implements OnClickListener {
 	 */
 	private void SaveData1() {
 		name = parkName.getText().toString().trim();
-		address = parkAddress.getText().toString().trim();
 		phone = parkPhone.getText().toString().trim();
 
 		num = park_number.getText().toString().trim();
@@ -259,33 +291,14 @@ public class BActivity extends Activity implements OnClickListener {
 		pprice_thirty = ph_price.getText().toString().trim();
 
 		editor.putString("num", num);
-		editor.commit();
-
 		editor.putString("price_ten", price_ten);
-		editor.commit();
-
 		editor.putString("price_twenty", price_twenty);
-		editor.commit();
-
 		editor.putString("price_thirty", price_thirty);
-		editor.commit();
-
 		editor.putString("pprice_ten", pprice_ten);
-		editor.commit();
-
 		editor.putString("pprice_twenty", pprice_twenty);
-		editor.commit();
-
 		editor.putString("pprice_thirty", pprice_thirty);
-		editor.commit();
-
 		editor.putString("name", name);
-		editor.commit();
-
 		editor.putString("phone", phone);
-		editor.commit();
-
-		editor.putString("address", address);
 		editor.commit();
 
 	}
@@ -334,7 +347,7 @@ public class BActivity extends Activity implements OnClickListener {
 	 */
 	private void showTemp() {
 		Log.v("name", preferences.getString("name", "fail"));
-		Log.v("address", preferences.getString("address", "fail"));
+		Log.v("location", preferences.getString("location", "fail"));
 		Log.v("phone", preferences.getString("phone", "fail"));
 		Log.v("sum", preferences.getString("num", "fail"));
 		Log.v("orderTen", preferences.getString("price_ten", "fail"));
@@ -345,12 +358,11 @@ public class BActivity extends Activity implements OnClickListener {
 		Log.v("payMore", preferences.getString("pprice_thirty", "fail"));
 	}
 
-	public void simple(View source) {
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle(
-				"尊敬的用户您好！").setMessage("您确定要提交吗？");
-		// 为AlertDialog.Builder添加按钮
-		setPositiveButton(builder);
-		setNegativeButton(builder).create().show();
-	}
+	/*
+	 * public void simple(View source) {
+	 * 
+	 * AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle(
+	 * "尊敬的用户您好！").setMessage("您确定要提交吗？"); // 为AlertDialog.Builder添加按钮
+	 * setPositiveButton(builder); setNegativeButton(builder).create().show(); }
+	 */
 }
