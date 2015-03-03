@@ -228,16 +228,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 		showInfo = (TextView) findViewById(R.id.show_directory);
 
-		// 如果有字符串，则向文字显示区域付初始值
-		/*
-		 * String tempStr = showParkInfo(this.name, this.phone, this.orderPrice,
-		 * this.parkPrice);
-		 */
-		/*
-		 * if (tempStr != null) { showInfo.setText(tempStr); } else {
-		 * showInfo.setText(GREETING_WORDS); }
-		 */
-
 		myLocation = (ImageButton) findViewById(R.id.button_my_location);
 		myLocation.setOnClickListener(this);
 		keyEdit = (AutoCompleteTextView) findViewById(R.id.actv_key_search);
@@ -265,7 +255,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			// 重新在地图上显示云图数据——黄志恒注
 			mCloud = new MyCloudSearch(this, lp.getLatitude(),
 					lp.getLongitude(), aMap);
-			// showFirstMarker();
 		}
 	}
 
@@ -466,11 +455,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// TODO Auto-generated method stub
 		if (showText == false) {
 			if (this.mMarker != null) {
-				this.mMarker.hideInfoWindow();
+				// this.mMarker.hideInfoWindow();
 			}
-			this.showInfo.setVisibility(View.INVISIBLE);
+			// this.showInfo.setVisibility(View.INVISIBLE);
 		} else {
-			showText = false;
+			// showText = false;
 		}
 	}
 
@@ -497,7 +486,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * 将选中的停车场的信息传递给预定页面——黄志恒
 	 */
 	private void sendDataToBook() {
-		if (this.itemAddress == null) {
+		if (this.phone == null) {
 			Toast.makeText(getApplicationContext(), "抱歉，此停车场不提供预定",
 					Toast.LENGTH_SHORT).show();
 			return;
@@ -505,7 +494,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("parkingName", this.name); // 存储停车场的名字
 		map.put("parkingDistance", this.itemDistance); // 存储停车场到中心点的距离
-		map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
+		// map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
 
 		map.put("parkingSum", this.parkSum);// 停车场车位数
 		map.put("bookMoney", this.bookMoney);// 停车场收费信息
@@ -565,6 +554,18 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * @param parkPrice 停车场停车收费价格
 	 */
 
+	/**
+	 * 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒
+	 * 
+	 * @param name
+	 *            停车场地址
+	 * @param phone
+	 *            停车场电话
+	 * @param orderPrice
+	 *            停车场预定价格条目
+	 * @param parkPrice
+	 *            停车场停车收费条目
+	 */
 	private String showParkInfo(String name, String phone, String orderPrice,
 			String parkPrice) {
 		// 如果停车场名字为null，则直接退出该函数
@@ -587,6 +588,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		return sb.toString();
 	}
 
+	/**
+	 * 在文字区域显示停车场大概信息
+	 * 
+	 * @param marker
+	 *            点击的地图上的点
+	 */
 	private void TextshowMarkerInfo(Marker marker) {
 		this.name = marker.getTitle();
 		this.phone = null;
@@ -596,14 +603,13 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// String val = marker.getSnippet();
 		if (mCloud != null) {
 			for (CloudItem mItem : mCloud.mCloudItems) {
-				if (title.equals(mItem.getTitle())
-						&& !"".equals(mItem.getSnippet())) {
+				if (title.equals(mItem.getTitle())) {
 					bookMoney = new String[6];
 					for (int i = 0; i < 6; i++) {
 						bookMoney[i] = "0";
 					}
-					int count = 0;
-					this.itemAddress = mItem.getSnippet();
+					// int count = 0;
+					// this.itemAddress = mItem.getSnippet();
 					this.itemDistance = mItem.getDistance();
 
 					Iterator iter = mItem.getCustomfield().entrySet()

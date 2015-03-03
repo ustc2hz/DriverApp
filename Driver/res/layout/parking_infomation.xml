@@ -21,29 +21,8 @@
         android:layout_below="@id/text_info_title"
         android:background="#000000" />
     
-    <!-- 停车场地址 -->
-    <LinearLayout android:id="@+id/info_linear2"
-        android:layout_below="@id/info_view1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        
-        <TextView android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="@string/parking_info_address"/>
-        
-        <TextView android:id="@+id/parking_detail_address_show"
-            android:layout_width="match_parent"
-            android:textSize="25dp"
-            android:layout_height="wrap_content"
-            android:textColor="#AB82FF"
-            />
-        
-    </LinearLayout>
-    
     <!-- 电话号码 -->
-    <LinearLayout android:layout_below="@id/info_linear2"
+    <LinearLayout android:layout_below="@id/info_view1"
         android:id="@+id/info_linear3"
         android:layout_marginTop="4dp"
         android:textSize="25dp"

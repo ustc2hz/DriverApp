@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="manager_back">返回</string>
+    <string name="manager_commit">创建</string>
+    <string name="manager_update">更新</string>
+    <string name="mode_button">地图选点（坐标）</string>
     <string name="main_navi">导航</string>
     <string name="main_Carservice">服务</string>
     <string name="main_more">更多</string>
     <string name="main_order">预定</string>
     <string name="main_mine">我的</string>
-    
     <string name="app_name">Driver</string>
     <string name="key_search">\t请输入查询内容…</string>
     <string name="path_planning">路径规划</string>
@@ -35,7 +38,6 @@
     <string name="title_activity_navi_start">NaviStartActivity</string>
     <string name="title_activity_manager_main">Manager_main</string>
     <string name="welcome">欢迎</string>
-    
     <string name="xlistview_header_hint_normal">下拉刷新</string>
     <string name="xlistview_header_hint_ready">松开刷新数据</string>
     <string name="xlistview_header_hint_loading">正在加载...</string>
@@ -48,7 +50,6 @@
     <string name="xlistview_button_book">可预定</string>
     <string name="xlistview_button_no_book">不可预定</string>
     <string name="spinner_chose_tip">请选择：</string>
-    
     <string name="driver_info_welcome">欢迎使用</string>
     <string name="driver_phone">联系方式：</string>
     <string name="driver_licence">车牌号：</string>
@@ -65,7 +66,6 @@
     <string name="driver_order_info">订单信息</string>
     <string name="driver_order_base">基本内容</string>
     <string name="driver_order_status">状态</string>
-    
     <string name="parking_order_money_unit">元</string>
     <string name="parking_order_title">车位预定</string>
     <string name="parking_order_make">填写订单</string>
@@ -81,7 +81,6 @@
     <string name="parking_info_address">停车场的地址：</string>
     <string name="parking_info_distance">距目的地的距离：</string>
     <string name="parking_info_phnoe">\t\t\t\t停车场电话：</string>
-    
     <string name="username_hint">输入账号</string>
     <string name="username_input">账号</string>
     <string name="password_hint">输入密码</string>
@@ -89,9 +88,10 @@
     <string name="opt_remember">记住密码</string>
     <string name="login">登录</string>
     <string name="zhuce">注册</string>
-
-	<string name="main_news">发布消息</string>
+    <string name="main_news">发布消息</string>
     <string name="main_home">订单</string>
-	<string name="main_manage_date">个人设置</string>
+    <string name="main_manage_date">个人设置</string>
+    <string name="title_activity_my_spinner">MySpinner</string>
+    <string name="title_activity_map_for_address">MapForAddress</string>
 
 </resources>
