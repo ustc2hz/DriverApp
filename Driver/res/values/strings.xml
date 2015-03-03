@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="mode_button">地图选点</string>
+    <string name="manager_back">返回</string>
+    <string name="manager_commit">创建</string>
+    <string name="manager_update">更新</string>
+    <string name="mode_button">地图选点（坐标）</string>
     <string name="main_navi">导航</string>
     <string name="main_Carservice">服务</string>
     <string name="main_more">更多</string>

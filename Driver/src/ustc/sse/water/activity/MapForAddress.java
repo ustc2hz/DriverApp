@@ -62,10 +62,12 @@ public class MapForAddress extends Activity implements LocationSource,
 	private AutoCompleteTextView keyEdit;
 	// 点击点的纬度
 	private double latitude;
+	// 选中点的坐标
+	public String location;
 	// 点击点的经度
 	private double longitude;
-	private LocationManagerProxy mAMapLocationManager;
 
+	private LocationManagerProxy mAMapLocationManager;
 	/* 用来显示地图的MapView */
 	private MapView mapView;
 	/* 定位监听 */
@@ -78,6 +80,7 @@ public class MapForAddress extends Activity implements LocationSource,
 	private final int resultCode = 4;
 	/* 定义sharedpreference获取用户登录注册信息 */
 	SharedPreferences sharedPreferences;
+
 	/* 地图的基本设置 */
 	private UiSettings uiSettings;
 
@@ -178,7 +181,8 @@ public class MapForAddress extends Activity implements LocationSource,
 			break;
 		case R.id.button_map_yes:
 			saveLL();
-			Intent intent = getIntent();
+			Intent intent = new Intent();
+			intent.putExtra("location", location);
 			setResult(resultCode, intent);
 			finish();
 			break;
@@ -319,9 +323,9 @@ public class MapForAddress extends Activity implements LocationSource,
 	 */
 	public void saveLL() {
 		if (latitude != 0 && longitude != 0) {
-			String location = longitude + "," + latitude;
-			editor.putString("location", location);
-			editor.commit();
+			location = longitude + "," + latitude;
+			// editor.putString("location", location);
+			// editor.commit();
 		} else {
 			Toast.makeText(this, "no infomation", Toast.LENGTH_SHORT).show();
 		}

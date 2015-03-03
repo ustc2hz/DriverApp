@@ -486,7 +486,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * 将选中的停车场的信息传递给预定页面——黄志恒
 	 */
 	private void sendDataToBook() {
-		if (this.itemAddress == null) {
+		if (this.phone == null) {
 			Toast.makeText(getApplicationContext(), "抱歉，此停车场不提供预定",
 					Toast.LENGTH_SHORT).show();
 			return;
@@ -494,7 +494,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("parkingName", this.name); // 存储停车场的名字
 		map.put("parkingDistance", this.itemDistance); // 存储停车场到中心点的距离
-		map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
+		// map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
 
 		map.put("parkingSum", this.parkSum);// 停车场车位数
 		map.put("bookMoney", this.bookMoney);// 停车场收费信息
@@ -603,14 +603,13 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// String val = marker.getSnippet();
 		if (mCloud != null) {
 			for (CloudItem mItem : mCloud.mCloudItems) {
-				if (title.equals(mItem.getTitle())
-						&& !"".equals(mItem.getSnippet())) {
+				if (title.equals(mItem.getTitle())) {
 					bookMoney = new String[6];
 					for (int i = 0; i < 6; i++) {
 						bookMoney[i] = "0";
 					}
-					int count = 0;
-					this.itemAddress = mItem.getSnippet();
+					// int count = 0;
+					// this.itemAddress = mItem.getSnippet();
 					this.itemDistance = mItem.getDistance();
 
 					Iterator iter = mItem.getCustomfield().entrySet()

@@ -10,7 +10,6 @@ import ustc.sse.water.data.model.DataToYutunServer;
 import ustc.sse.water.data.model.DetailDataToServer;
 import ustc.sse.water.data.model.ParkDetailObject;
 import ustc.sse.water.utils.zjx.ToastUtil;
-import ustc.sse.water.zf.MainActivity;
 import ustc.sse.water.zf.ManagerMainScreen;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,12 +25,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class BActivity extends Activity implements OnClickListener {
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
 	public static ObjectMapper objectMapper = new ObjectMapper();
 	// button的申明
-	private Button changeMess, commit, back;
+	private Button changeMess, commit;
 	// 构造sharedPreference的编辑对象——黄志恒
 	SharedPreferences.Editor editor;
 
@@ -84,11 +84,111 @@ public class BActivity extends Activity implements OnClickListener {
 
 	// SharedPreference获取当前的发布信息
 	SharedPreferences preferences;
+	// 需要更新的数据
+	private String updateData;
+
+	/**
+	 * 检查输入框是否有更新,如有更新则保存更新的数据
+	 */
+	public void checkChangeAndSave() {
+		StringBuilder saveChange = new StringBuilder();
+
+		saveChange.append("{\"_id\":\"" + preferences.getString("id", "空")
+				+ "\"");
+		if (!parkName.getText().toString().trim()
+				.equals(preferences.getString("name", "空"))) {
+			saveChange.append(",\"_name\":\""
+					+ parkName.getText().toString().trim() + "\"");
+			editor.putString("name", parkName.getText().toString().trim());
+			editor.commit();
+
+		}
+		if (!parkLocation.getText().toString().trim()
+				.equals(preferences.getString("location", "空"))) {
+			saveChange.append(",\"_location\":\""
+					+ parkLocation.getText().toString().trim() + "\"");
+			editor.putString("location", parkLocation.getText().toString()
+					.trim());
+			editor.commit();
+		}
+
+		if (!parkPhone.getText().toString().trim()
+				.equals(preferences.getString("phone", "空"))) {
+			saveChange.append(",\"phone\":\""
+					+ parkPhone.getText().toString().trim() + "\"");
+			editor.putString("phone", parkPhone.getText().toString().trim());
+			editor.commit();
+		}
+
+		if (!park_number.getText().toString().trim()
+				.equals(preferences.getString("num", "空"))) {
+			saveChange.append(",\"parkSum\":\""
+					+ park_number.getText().toString().trim() + "\"");
+			editor.putString("num", park_number.getText().toString().trim());
+			editor.commit();
+
+		}
+
+		if (!l_price.getText().toString().trim()
+				.equals(preferences.getString("price_ten", "空"))) {
+			saveChange.append(",\"orderTen\":\""
+					+ l_price.getText().toString().trim() + "\"");
+			editor.putString("price_ten", l_price.getText().toString().trim());
+			editor.commit();
+		}
+
+		if (!m_price.getText().toString().trim()
+				.equals(preferences.getString("price_twenty", "空"))) {
+			saveChange.append(",\"orderTwe\":\""
+					+ m_price.getText().toString().trim() + "\"");
+			editor.putString("price_twenty", m_price.getText().toString()
+					.trim());
+			editor.commit();
+		}
+
+		if (!h_price.getText().toString().trim()
+				.equals(preferences.getString("price_thirty", "空"))) {
+			saveChange.append(",\"orderTri\":\""
+					+ h_price.getText().toString().trim() + "\"");
+			editor.putString("price_thirty", h_price.getText().toString()
+					.trim());
+			editor.commit();
+		}
+
+		if (!pl_price.getText().toString().trim()
+				.equals(preferences.getString("pprice_ten", "空"))) {
+			saveChange.append(",\"payHalPay\":\""
+					+ pl_price.getText().toString().trim() + "\"");
+			editor.putString("pprice_ten", pl_price.getText().toString().trim());
+			editor.commit();
+		}
+
+		if (!pm_price.getText().toString().trim()
+				.equals(preferences.getString("pprice_twenty", "空"))) {
+			saveChange.append(",\"payOneHour\":\""
+					+ pm_price.getText().toString().trim() + "\"");
+			editor.putString("pprice_twenty", pm_price.getText().toString()
+					.trim());
+			editor.commit();
+		}
+
+		if (!ph_price.getText().toString().trim()
+				.equals(preferences.getString("pprice_thirty", "空"))) {
+			saveChange.append(",\"payMorePay\":\""
+					+ ph_price.getText().toString().trim() + "\"");
+			editor.putString("pprice_thirty", ph_price.getText().toString()
+					.trim());
+			editor.commit();
+		}
+
+		saveChange.append("}");
+		updateData = saveChange.toString();
+	}
 
 	/**
 	 * 初始化停车场详细信息对象——黄志恒
 	 * */
-	private void initObject() {
+	public void initObject() {
 		pdo = new ParkDetailObject();
 		pdo.set_name(name.toString());
 
@@ -123,18 +223,18 @@ public class BActivity extends Activity implements OnClickListener {
 	/**
 	 * 初始化输入框中显示的信息——黄志恒
 	 */
-	private void initText() {
-		park_number.setText(preferences.getString("num", "暂无信息"));
-		l_price.setText(preferences.getString("price_ten", "暂无信息"));
-		m_price.setText(preferences.getString("price_twenty", "暂无信息"));
-		h_price.setText(preferences.getString("price_thirty", "暂无信息"));
-		pl_price.setText(preferences.getString("pprice_ten", "暂无信息"));
-		pm_price.setText(preferences.getString("pprice_twenty", "暂无信息"));
-		ph_price.setText(preferences.getString("pprice_thirty", "暂无信息"));
-		parkName.setText(preferences.getString("name", "暂无信息"));
-		parkLocation
-				.setText("坐标： " + preferences.getString("location", "暂无信息"));
-		parkPhone.setText(preferences.getString("phone", "暂无信息"));
+	public void initText() {
+		park_number.setText(preferences.getString("num", "空"));
+		l_price.setText(preferences.getString("price_ten", "空"));
+		m_price.setText(preferences.getString("price_twenty", "空"));
+		h_price.setText(preferences.getString("price_thirty", "空"));
+		pl_price.setText(preferences.getString("pprice_ten", "空"));
+		pm_price.setText(preferences.getString("pprice_twenty", "空"));
+		ph_price.setText(preferences.getString("pprice_thirty", "空"));
+		parkName.setText(preferences.getString("name", "空"));
+		parkLocation.setText(preferences.getString("location", "空"));
+		parkPhone.setText(preferences.getString("phone", "空"));
+
 	}
 
 	/**
@@ -143,11 +243,11 @@ public class BActivity extends Activity implements OnClickListener {
 	public void initViews() {
 
 		// 返回按钮
-		changeMess = (Button) findViewById(R.id.bt1);
+		changeMess = (Button) findViewById(R.id.manager_update);
 		// 编辑按钮
-		commit = (Button) findViewById(R.id.bt2);
+		commit = (Button) findViewById(R.id.manager_commit);
 		// 提交按钮
-		back = (Button) findViewById(R.id.bt3);
+
 		// 通过findViewById找到对应的
 		park_number = (EditText) findViewById(R.id.parknumber);
 		l_price = (EditText) findViewById(R.id.price1);
@@ -158,6 +258,7 @@ public class BActivity extends Activity implements OnClickListener {
 		ph_price = (EditText) findViewById(R.id.pprice3);
 		parkName = (EditText) findViewById(R.id.manager_park_name);
 		parkLocation = (EditText) findViewById(R.id.manager_park_location);
+		// 因为坐标是地图上选点自动生成的，所以这里禁止输入
 		parkLocation.setFocusable(false);
 		parkPhone = (EditText) findViewById(R.id.manager_park_phone);
 
@@ -166,7 +267,6 @@ public class BActivity extends Activity implements OnClickListener {
 		// 对按钮分别做监听
 		changeMess.setOnClickListener(this);
 		commit.setOnClickListener(this);
-		back.setOnClickListener(this);
 		modeButton.setOnClickListener(this);
 	}
 
@@ -174,8 +274,8 @@ public class BActivity extends Activity implements OnClickListener {
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent intent) {
 		if (resultCode == 4) {
-			location = preferences.getString("location", "0,0");
-			parkLocation.setText("坐标： " + location);
+			location = intent.getStringExtra("location");
+			parkLocation.setText(location);
 		}
 	}
 
@@ -184,56 +284,76 @@ public class BActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 
-		case R.id.bt1:
-			// 点击修改,将所有的edittext设置成可编辑的
-			/*
-			 * if (changeMess.getText().equals("修改")) {
-			 * park_number.setEnabled(true); l_price.setEnabled(true);
-			 * m_price.setEnabled(true); h_price.setEnabled(true);
-			 * pl_price.setEnabled(true); pm_price.setEnabled(true);
-			 * ph_price.setEnabled(true); changeMess.setText("取消修改"); } else if
-			 * (changeMess.getText().equals("取消修改")) { //
-			 * 点击取消修改，文本框恢复为不可编辑的，按钮文本重置为修改 park_number.setEnabled(false);
-			 * l_price.setEnabled(false); m_price.setEnabled(false);
-			 * h_price.setEnabled(false); pl_price.setEnabled(false);
-			 * pm_price.setEnabled(false); ph_price.setEnabled(false);
-			 * changeMess.setText("修改"); }
-			 */
+		case R.id.manager_update:
+			// 点击更新数据
+			checkChangeAndSave();
+			if (12 < updateData.length()) {
+				showTemp();
+				// 使用子线程向服务器提交数据，并对返回的数据做处理——黄志恒
+				new Thread() {
+					@Override
+					public void run() {
+						try {
+							postUpdateData();
+							if (postData.responseMsg.equals("1")) {
+								Message msg = new Message();
+								msg.what = 1;
+								handler.sendMessage(msg);
+							} else {
+								Message msg = Message.obtain();
+								msg.what = 0;
+								handler.sendMessage(msg);
+							}
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						// 线程逻辑
+					}
+				}.start();
+			} else {
+				Toast.makeText(this, "没有可更新的数据", Toast.LENGTH_SHORT).show();
+			}
 			break;
 
 		// 点击提交数据提交给服务器
-		case R.id.bt2:
-			SaveData1();
-			showTemp();
-			// 使用子线程向服务器提交数据，并对返回的数据做处理——黄志恒
-			new Thread() {
-				@Override
-				public void run() {
-					try {
-						postData();
-						if (postData.responseMsg.equals("1")) {
-							Message msg = new Message();
-							msg.what = 1;
-							handler.sendMessage(msg);
-						} else {
-							Message msg = Message.obtain();
-							msg.what = 0;
-							handler.sendMessage(msg);
+		case R.id.manager_commit:
+
+			// 在第一次输入过自己的停车场信息后，禁止“提交”按钮可选中。
+			// 此时只能进行更新修改操作
+			if (!"空".equals(preferences.getString("id", "空"))) {
+				Toast.makeText(this, "已创建，更新数据请点击更新按钮", Toast.LENGTH_SHORT)
+						.show();
+			} else {
+				SaveData1();
+				showTemp();
+				// 使用子线程向服务器提交数据，并对返回的数据做处理——黄志恒
+				new Thread() {
+					@Override
+					public void run() {
+						try {
+							postData();
+							if (!"0".endsWith(postData.responseMsg)) {
+								editor.putString("id", postData.responseMsg);
+								editor.commit();
+								Message msg = new Message();
+								msg.what = 1;
+								handler.sendMessage(msg);
+							} else {
+								Message msg = Message.obtain();
+								msg.what = 0;
+								handler.sendMessage(msg);
+							}
+
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						// 线程逻辑
 					}
-					// 线程逻辑
-				}
-			}.start();
-
-			break;
-		case R.id.bt3:
-			// 点击返回，返回主界面
-			Intent intent1 = new Intent(BActivity.this, MainActivity.class);
-			startActivity(intent1);
+				}.start();
+			}
 			break;
 
 		// 点击“地图选点”按钮进行地图选点
@@ -258,27 +378,38 @@ public class BActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 发送数据——黄志恒
+	 * 发送创建新停车场的数据——黄志恒
 	 * 
 	 * @throws Exception
 	 * @throws JsonMappingException
 	 * @throws JsonGenerationException
 	 */
-	private void postData() throws JsonGenerationException,
+	public void postData() throws JsonGenerationException,
 			JsonMappingException, Exception {
 		initObject();
-		// initData();
+
 		// 将ParkingData转换为Json字符串
 		String data = objectMapper.writeValueAsString(this.pdo);
 		Log.v("123", data);
-		postData = new DetailDataToServer(data);
-		postData.postDataToServer();
+		postData = new DetailDataToServer();
+		postData.postDataToServer(data);
+	}
+
+	/**
+	 * 发送创建新停车场的数据——黄志恒
+	 * 
+	 * @throws Exception
+	 */
+	public void postUpdateData() throws Exception {
+		Log.v("123", updateData);
+		postData = new DetailDataToServer();
+		postData.postUpdateDataToServer(updateData);
 	}
 
 	/**
 	 * 保存输入框的数据——黄志恒
 	 */
-	private void SaveData1() {
+	public void SaveData1() {
 		name = parkName.getText().toString().trim();
 		phone = parkPhone.getText().toString().trim();
 
@@ -298,12 +429,13 @@ public class BActivity extends Activity implements OnClickListener {
 		editor.putString("pprice_twenty", pprice_twenty);
 		editor.putString("pprice_thirty", pprice_thirty);
 		editor.putString("name", name);
+		editor.putString("location", location);
 		editor.putString("phone", phone);
 		editor.commit();
 
 	}
 
-	private AlertDialog.Builder setNegativeButton(AlertDialog.Builder builder) {
+	public AlertDialog.Builder setNegativeButton(AlertDialog.Builder builder) {
 
 		// 调用setPositiveButton方法添加取消按钮
 		return builder.setNegativeButton("取消",
@@ -323,7 +455,7 @@ public class BActivity extends Activity implements OnClickListener {
 				});
 	}
 
-	private AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder) {
+	public AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder) {
 
 		return builder.setPositiveButton("提交",
 				new DialogInterface.OnClickListener() {
@@ -345,7 +477,7 @@ public class BActivity extends Activity implements OnClickListener {
 	/**
 	 * 在logCat中打印sharedPreference信息，用于测试——黄志恒
 	 */
-	private void showTemp() {
+	public void showTemp() {
 		Log.v("name", preferences.getString("name", "fail"));
 		Log.v("location", preferences.getString("location", "fail"));
 		Log.v("phone", preferences.getString("phone", "fail"));
@@ -356,13 +488,6 @@ public class BActivity extends Activity implements OnClickListener {
 		Log.v("payHalf", preferences.getString("pprice_ten", "fail"));
 		Log.v("payOne", preferences.getString("pprice_twenty", "fail"));
 		Log.v("payMore", preferences.getString("pprice_thirty", "fail"));
+		Log.v("id", preferences.getString("id", "fail"));
 	}
-
-	/*
-	 * public void simple(View source) {
-	 * 
-	 * AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle(
-	 * "尊敬的用户您好！").setMessage("您确定要提交吗？"); // 为AlertDialog.Builder添加按钮
-	 * setPositiveButton(builder); setNegativeButton(builder).create().show(); }
-	 */
 }

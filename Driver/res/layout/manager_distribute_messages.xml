@@ -221,31 +221,24 @@
         android:paddingTop="10dp" >
 
         <Button
-            android:id="@+id/bt1"
+            android:id="@+id/manager_commit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#CD5B45"
-            android:text="修改"
+            android:background="@drawable/manager_commit_selector"
+            android:text="@string/manager_commit"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/manager_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/manager_update_selector"
+            android:text="@string/manager_update"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/bt2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#E6E6FA"
-            android:text="提交"
-            android:textSize="20sp" />
+        
 
-        <Button
-            android:id="@+id/bt3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#EE82EE"
-            android:text="返回"
-            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>
