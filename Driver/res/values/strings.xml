@@ -91,7 +91,8 @@
     <string name="zhuce">注册</string>
 
 	<string name="main_news">发布消息</string>
-    <string name="main_home">订单</string>
+    <string name="main_home">预定订单</string>
 	<string name="main_manage_date">个人设置</string>
+	<string name="main_finished">已完成订单</string>
 
 </resources>

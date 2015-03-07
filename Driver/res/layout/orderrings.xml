@@ -4,15 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-<!-- 标题 -->  
- <LinearLayout  
-  android:orientation="horizontal"  
-  android:layout_width="fill_parent"  
-  android:layout_height="wrap_content"
-  android:layout_marginLeft="0dp">  
- <!-- 车牌号 -->   
+   
+   
+	<!-- 标题 -->  
+	 <LinearLayout  
+  	android:orientation="horizontal"  
+  	android:layout_width="fill_parent"  
+  	android:layout_height="wrap_content"
+  	android:layout_marginLeft="0dp">  
+ 	<!-- 车牌号 -->   
 
-  <TextView
+ 	 <TextView
       android:layout_width="92dp"
       android:layout_height="wrap_content"
       android:text="车牌号"
@@ -29,7 +31,7 @@
    <!-- 显示预定状态 -->
 
    <TextView
-       android:layout_width="match_parent"
+       android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text="是否成功预定"
        android:textSize="20sp" />

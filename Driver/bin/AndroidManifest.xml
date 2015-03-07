@@ -36,7 +36,7 @@
         <!-- AMap的key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="4a7353785f59da34aa9e4d37934bed29" />
+            android:value="ecfde488f9d3f8c795372f388b14c7de" />
         <!-- 地图界面 -->
 
         <activity
@@ -122,6 +122,10 @@
             android:name="ustc.sse.water.managermain.zf.CActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="ustc.sse.water.managermain.zf.DActivity"
+            android:label="@string/app_name" >
+        </activity>
         <!-- 发布消息界面 -->
        <activity
             android:name="ustc.sse.water.zf.ManagerDistributeMessage"
@@ -131,7 +135,7 @@
         <activity
             android:name="ustc.sse.water.zf.ManagerSettings"
             android:label="@string/welcome">
-            
+         <!-- 已完成订单 -->   
        </activity>
        <!-- 修改密码 -->
        <activity

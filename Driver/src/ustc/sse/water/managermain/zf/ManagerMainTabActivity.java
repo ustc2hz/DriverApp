@@ -27,6 +27,7 @@ public class ManagerMainTabActivity extends TabActivity implements OnCheckedChan
 	private Intent mAIntent; 
 	private Intent mBIntent;
 	private Intent mCIntent;
+	private Intent mDIntent;
 	
     /** Called when the activity is first created. */
     @Override
@@ -38,12 +39,15 @@ public class ManagerMainTabActivity extends TabActivity implements OnCheckedChan
         this.mAIntent = new Intent(this,AActivity.class);
         this.mBIntent = new Intent(this,BActivity.class);
         this.mCIntent = new Intent(this,CActivity.class);
+        this.mDIntent = new Intent(this,DActivity.class);
 		((RadioButton) findViewById(R.id.radio_button0))
 				.setOnCheckedChangeListener(this);
 		((RadioButton) findViewById(R.id.radio_button1))
 				.setOnCheckedChangeListener(this);
 		((RadioButton) findViewById(R.id.radio_button2))
 				.setOnCheckedChangeListener(this);
+		((RadioButton) findViewById(R.id.radio_button3))
+		.setOnCheckedChangeListener(this);
 		setupIntent();
     }
 
@@ -60,6 +64,9 @@ public class ManagerMainTabActivity extends TabActivity implements OnCheckedChan
 			case R.id.radio_button2:
 				this.mTabHost.setCurrentTabByTag("C_TAB");
 				break;
+			case R.id.radio_button3:
+				this.mTabHost.setCurrentTabByTag("D_TAB");
+				break;
 			}
 		}
 	}
@@ -70,6 +77,7 @@ public class ManagerMainTabActivity extends TabActivity implements OnCheckedChan
 
 		localTabHost.addTab(buildTabSpec("A_TAB", R.string.main_home,
 				R.drawable.icon_1_n, this.mAIntent));
+		
 
 		localTabHost.addTab(buildTabSpec("B_TAB", R.string.main_news,
 				R.drawable.icon_2_n, this.mBIntent));
@@ -78,6 +86,8 @@ public class ManagerMainTabActivity extends TabActivity implements OnCheckedChan
 				R.string.main_manage_date, R.drawable.icon_3_n,
 				this.mCIntent));
 
+		localTabHost.addTab(buildTabSpec("D_TAB", R.string.main_order,
+				R.drawable.icon_1_n, this.mDIntent));
 	}
 	
 	private TabHost.TabSpec buildTabSpec(String tag, int resLabel, int resIcon,

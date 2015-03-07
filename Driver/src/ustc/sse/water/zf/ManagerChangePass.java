@@ -3,6 +3,9 @@ package ustc.sse.water.zf;
 import ustc.sse.water.activity.R;
 import ustc.sse.water.managermain.zf.CActivity;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,9 +46,28 @@ public class ManagerChangePass extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.button1:
-			Intent intent1 = new Intent(ManagerChangePass.this,
-					CActivity.class);
-			startActivity(intent1);
+			Dialog dialog = new AlertDialog.Builder(ManagerChangePass.this)
+			.setTitle("您确定提交吗？")
+			.setMessage("确定提交？")
+			.setPositiveButton("提交", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					// TODO Auto-generated method stub
+					Intent intent1 = new Intent(ManagerChangePass.this,
+							CActivity.class);
+					startActivity(intent1);
+				}
+			}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					// TODO Auto-generated method stub
+					
+				}
+			}).create();
+			dialog.show();
+			
 			break;
 		case R.id.button2:
 			Intent intent2 = new Intent(ManagerChangePass.this,

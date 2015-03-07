@@ -25,6 +25,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * 
+ * 订单界面、默认显示当前正在进行的订单. <br>
+ * 订单界面类.
+  * <p>
+ * Copyright: Copyright (c) 2015-03-01 下午10:35:02
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * 
+ * @author张芳 sa614296@mail.ustc.edu.cn
+ * @version 3.0.0
+ */
+
 public class BActivity extends Activity implements OnClickListener {
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
 	public static ObjectMapper objectMapper = new ObjectMapper();
