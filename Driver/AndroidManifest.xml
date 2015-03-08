@@ -13,10 +13,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--允许程序改变网络连接状态 -->
-	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-	<!--读取联系人权限，上传联系人需要用到此权限 -->
-	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 读取联系人权限，上传联系人需要用到此权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -62,8 +62,7 @@
             android:label="@string/title_activity_navi_start" >
         </activity>
         <!-- 导航界面 -->
-        <activity
-            android:name=".DriverNaviActivity">
+        <activity android:name=".DriverNaviActivity" >
         </activity>
         <!-- 管理员主界面 -->
         <activity
@@ -74,25 +73,22 @@
         <activity
             android:name="ustc.sse.water.zf.Manager_Driver_model"
             android:label="@string/app_name" >
-           
         </activity>
         <!-- 管理员主界面 -->
         <activity
             android:name="ustc.sse.water.zf.ManagerMain"
             android:label="@string/app_name" >
-           
         </activity>
-        
-          <!-- 驾驶员管理员登陆界面 -->
+
+        <!-- 驾驶员管理员登陆界面 -->
         <activity
             android:name="ustc.sse.water.zf.MainActivity"
             android:label="@string/app_name" >
         </activity>
-        
         <activity
             android:name="ustc.sse.water.zf.ManagerMainScreen"
-            android:label="@string/app_name">           
-            </activity>
+            android:label="@string/app_name" >
+        </activity>
         <!-- 登录界面 -->
         <activity
             android:name="ustc.sse.water.zf.LoginActivity"
@@ -127,39 +123,51 @@
             android:label="@string/app_name" >
         </activity>
         <!-- 发布消息界面 -->
-       <activity
+        <activity
             android:name="ustc.sse.water.zf.ManagerDistributeMessage"
-            android:label="@string/welcome">
-       </activity>
-       <!-- 管理员个人设置界面 -->
+            android:label="@string/welcome" >
+        </activity>
+        <!-- 管理员个人设置界面 -->
         <activity
             android:name="ustc.sse.water.zf.ManagerSettings"
             android:label="@string/welcome">
-         <!-- 已完成订单 -->   
-       </activity>
-       <!-- 修改密码 -->
-       <activity
-            android:name="ustc.sse.water.zf.ManagerChangePass"
-            android:label="@string/welcome">
-            
-       </activity>
-       <!-- 接收订单 -->
-        <activity
-            android:name="ustc.sse.water.zf.Ordering"
-            android:label="@string/welcome">
-            
+          
        </activity>
        
+        <!-- 修改密码 -->
+        <activity
+            android:name="ustc.sse.water.zf.ManagerChangePass"
+            android:label="@string/welcome" >
+        </activity>
+        <!-- 接收订单 -->
+        <activity
+            android:name="ustc.sse.water.zf.Ordering"
+            android:label="@string/welcome" >
+        </activity>
+
         <!-- 添加车牌号 -->
-        <activity android:name="ustc.sse.water.activity.zjx.AddDriverLicence"></activity>
+        <activity android:name=".zjx.AddDriverLicence" >
+        </activity>
         <!-- 驾驶员信息界面 -->
-        <activity android:name="ustc.sse.water.activity.zjx.DriverInfo"></activity>
+        <activity android:name=".zjx.DriverInfo" >
+        </activity>
         <!-- 驾驶员订单界面 -->
-        <activity android:name="ustc.sse.water.activity.zjx.DriverOrderInfo"></activity>
+        <activity android:name=".zjx.DriverOrderInfo" >
+        </activity>
         <!-- 停车场详情和预定 -->
-        <activity android:name="ustc.sse.water.activity.zjx.ParkingDetail"></activity>
+        <activity android:name=".zjx.ParkingDetail" >
+        </activity>
         <!-- 停车场列表 -->
-        <activity android:name="ustc.sse.water.activity.zjx.ParkingList"></activity>
+        <activity android:name=".zjx.ParkingList" >
+        </activity>
+        <activity
+            android:name=".MySpinner"
+            android:label="@string/title_activity_my_spinner" >
+        </activity>
+        <activity
+            android:name=".MapForAddress"
+            android:label="@string/title_activity_map_for_address" >
+        </activity>
     </application>
 
 </manifest>

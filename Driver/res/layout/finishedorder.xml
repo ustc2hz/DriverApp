@@ -36,6 +36,10 @@
              android:layout_below="@id/order_number"
             android:layout_toRightOf="@id/orderring_time"
             android:layout_alignParentRight="true"/>
+        <TextView android:id="@+id/aaaaaa"
+            android:layout_below="@id/orderring_time"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
         
              
     </RelativeLayout>

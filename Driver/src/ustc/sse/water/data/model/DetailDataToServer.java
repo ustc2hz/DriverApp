@@ -29,30 +29,53 @@ import android.util.Log;
 public class DetailDataToServer {
 
 	// 发送的本地服务器的地址
-	public static final String path = "http://192.168.9.178:8080/AppServerr/ServerToYuntu";
-	// 将要发送给服务器的数据
-	public String data;
+	// public static final String path =
+	// "http://192.168.8.199:8080/AppServerr/ServerToYuntu";
+	public static final String path = "http://192.168.8.199:8080/Test3_Yuntu/ServerToYuntu";
+	public static final String updatePath = "http://192.168.8.199:8080/Test3_Yuntu/ServerUpdateYuntu";
 	// 接收传递回来的数据
 	public String responseMsg = "";
 
 	/*
-	 * 构造函数
-	 * 
-	 * @param data 需要向服务器传递的数据
+	 * 空构造函数
 	 */
-	public DetailDataToServer(String data) {
-		this.data = data;
+	public DetailDataToServer() {
+
 	}
 
 	/**
-	 * 发送数据
+	 * 发送创建表的数据
 	 */
-	public void postDataToServer() throws Exception {
+	public void postDataToServer(String data) throws Exception {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(path);
 		// post.addHeader("Content-Type", "application/x-www-form-urluncoded");
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("data", this.data));
+		params.add(new BasicNameValuePair("data", data));
+		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, "UTF-8");
+		post.setEntity(entity);
+
+		HttpResponse resp = client.execute(post);
+
+		if (resp.getStatusLine().getStatusCode() == 200) {// 这只是链接成功了，或者说是发送成功了。
+			Log.v("status", "success");
+			responseMsg = EntityUtils.toString(resp.getEntity());
+
+		}
+		if (client != null) {
+			client.getConnectionManager().shutdown();
+		}
+
+	}
+
+	/**
+	 * 发送更新数据
+	 */
+	public void postUpdateDataToServer(String updateData) throws Exception {
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(updatePath);
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("data", updateData));
 		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, "UTF-8");
 		post.setEntity(entity);
 
