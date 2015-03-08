@@ -42,8 +42,8 @@ public class XListViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public int getCount() {
-		if (list != null) {
+	public int getCount(){
+		if (list != null){
 			// 列表的元素个数
 			return list.size();
 		} else {

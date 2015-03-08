@@ -44,10 +44,10 @@ public class ParkingList extends Activity implements IXListViewListener {
 		getActionBar().hide();
 		setContentView(R.layout.parking_list);
 		start = 0;
-		refreshCnt = 0;
+		refreshCnt =   0;
 		parkingDate = new ParkingDataUtil();
 		if (!geneItems()) { // 取到停车场的列表信息
-			currentItems();
+			currentItems(); 
 			adapter = new XListViewAdapter(this, items);
 			mListView = (XListView) findViewById(R.id.xListView);
 			mListView.setPullLoadEnable(true);

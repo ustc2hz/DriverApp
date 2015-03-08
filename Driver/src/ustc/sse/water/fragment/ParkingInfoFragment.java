@@ -43,7 +43,7 @@ public class ParkingInfoFragment extends Fragment {
 
 	private Context context; // 上下文
 	private Map<String, Object> parking; // 停车场
-	private TextView parkingAdress; // 停车场地址
+	// private TextView parkingAdress; // 停车场地址
 	private TextView parkingDistance; // 停车距离
 	private TextView parkingName; // 停车场名
 	private TextView parKingNum;// 停车场车位数
@@ -107,8 +107,6 @@ public class ParkingInfoFragment extends Fragment {
 		View view = inflater.inflate(R.layout.parking_infomation, container,
 				false);
 		parkingName = (TextView) view.findViewById(R.id.text_info_title);
-		parkingAdress = (TextView) view
-				.findViewById(R.id.parking_detail_address_show);
 
 		parKingPhone = (TextView) view.findViewById(R.id.parking_info_phone);
 
@@ -119,7 +117,7 @@ public class ParkingInfoFragment extends Fragment {
 
 		parKingPhone.setText((String) parking.get("phone"));
 		parkingName.setText((String) parking.get("parkingName"));
-		parkingAdress.setText((String) parking.get("parkingAddress"));
+		// parkingAdress.setText((String) parking.get("parkingAddress"));
 		parkingDistance.setText(parking.get("parkingDistance").toString());
 		parKingNum.setText((String) parking.get("parkingSum"));
 

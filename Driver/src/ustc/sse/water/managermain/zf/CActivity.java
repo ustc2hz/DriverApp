@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * 
@@ -57,7 +58,9 @@ public class CActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
-	EditText manager_name, password, manager_phone, manager_address;
+	EditText manager_name, manager_phone, manager_address;
+	
+	TextView change_password;
 
 	// 向服务器发送数据的对象——黄志恒
 	private DataToYutunServer mDataToServer;
@@ -124,7 +127,7 @@ public class CActivity extends Activity implements OnClickListener {
 			 * manager_address.setEnabled(false); change.setText("修改"); }
 			 */
 			break;
-		case R.id.password:
+		case R.id.change_pass:
 			Intent intent1 = new Intent(CActivity.this, ManagerChangePass.class);
 			startActivity(intent1);
 			break;
@@ -161,7 +164,7 @@ public class CActivity extends Activity implements OnClickListener {
 
 		// 通过findViewById方法获得对应的edittext
 		manager_name = (EditText) findViewById(R.id.manager_name);
-		password = (EditText) findViewById(R.id.password);
+		change_password = (TextView) findViewById(R.id.change_pass);
 		manager_phone = (EditText) findViewById(R.id.phone);
 		manager_address = (EditText) findViewById(R.id.address);
 
@@ -177,7 +180,7 @@ public class CActivity extends Activity implements OnClickListener {
 
 		// 对edittext做监听
 		manager_name.setOnClickListener(this);
-		password.setOnClickListener(this);
+		change_password.setOnClickListener(this);
 		manager_phone.setOnClickListener(this);
 		manager_address.setOnClickListener(this);
 		// 设置edittext不可编辑
