@@ -6,7 +6,6 @@
     android:orientation="vertical" >
 
     <!-- Welcome -->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +19,6 @@
         android:background="#000000" />
 
     <!-- 用户名和车牌号 -->
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -73,96 +71,27 @@
         android:layout_height="4dp"
         android:background="#000000" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/driver_another_licence"
-        android:textSize="20sp" />
-
-    <!-- 车牌号的列表 -->
-
-    <ListView
-        android:id="@+id/listview_license_show"
+    <!-- 为方便扩展，使用GridView制作Dashboard样式 -->
+    <GridView android:id="@+id/gridView_driver_functions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="#00ff00"
-        android:dividerHeight="4dp" >
-    </ListView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="#000000" />
-    <!-- 表格显示三个图片按钮 -->
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <ImageView
-                android:id="@+id/ibtn_add_licence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/happy" />
-
-            <ImageView
-                android:id="@+id/ibtn_check_order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/happy" />
-
-            <ImageView
-                android:id="@+id/ibtn_two__code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/happy" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/driver_add_another_licence" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/driver_check_order" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/driver_two_code" />
-        </TableRow>
-    </TableLayout>
-
+        android:layout_height="match_parent"
+        android:numColumns="auto_fit"
+        android:gravity="center"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"/>
+    
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="#000000" />
 
     <!-- 退出登录按钮 -->
-
     <Button
         android:id="@+id/button_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/driver_logout" />
+        android:text="@string/driver_logout"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
 
 </LinearLayout>

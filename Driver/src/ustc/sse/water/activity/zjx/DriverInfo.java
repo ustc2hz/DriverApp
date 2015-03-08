@@ -1,15 +1,18 @@
 package ustc.sse.water.activity.zjx;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import ustc.sse.water.activity.R;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.GridView;
+import android.widget.SimpleAdapter;
 
 /**
  * 
@@ -24,18 +27,16 @@ import android.widget.ListView;
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
-public class DriverInfo extends Activity implements OnClickListener {
-	private ListView listView; // 车牌号的列表
-	private ImageView addLicence; // 添加车牌号的图片
-	private ImageView checkOrder; // 查看订单的图片
-	private ImageView twoCode; // 二维码的图片
+public class DriverInfo extends Activity implements OnItemClickListener ,OnClickListener {
+	private final int[] funImages = {R.drawable.happy,R.drawable.happy};
+	private final String[] funTexts = {"查看订单","二维码"};
+	private GridView gridView;
 	private Button logout;// 退出登录按钮
-	// 模拟车牌号
-	private String licences[] = { "111111", "222222", "333333" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.driver_info);
 		initView();
 	}
@@ -44,17 +45,26 @@ public class DriverInfo extends Activity implements OnClickListener {
 	 * 初始化视图组件
 	 */
 	public void initView() {
-		listView = (ListView) findViewById(R.id.listview_license_show);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_expandable_list_item_1, licences);
-		listView.setAdapter(adapter);
-		addLicence = (ImageView) findViewById(R.id.ibtn_add_licence);
-		checkOrder = (ImageView) findViewById(R.id.ibtn_check_order);
-		twoCode = (ImageView) findViewById(R.id.ibtn_two__code);
+		gridView = (GridView)findViewById(R.id.gridView_driver_functions);
+		// 初始化数据源
+		ArrayList<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
+		for (int i = 0; i < funImages.length; i++) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("imgItem", funImages[i]);
+			map.put("txtItem", funTexts[i]);
+			items.add(map);
+		}
+
+		/* 创建适配器 */
+		SimpleAdapter adapter = new SimpleAdapter(this, items,
+				R.layout.driver_functions_item, new String[] { "imgItem",
+						"txtItem" }, new int[] {
+						R.id.imageView_driver_function_order,
+						R.id.textView_driver_function_order });
+		gridView.setAdapter(adapter);
+		gridView.setOnItemClickListener(this);
+		
 		logout = (Button) findViewById(R.id.button_logout);
-		addLicence.setOnClickListener(this);
-		checkOrder.setOnClickListener(this);
-		twoCode.setOnClickListener(this);
 		logout.setOnClickListener(this);
 	}
 
@@ -64,21 +74,19 @@ public class DriverInfo extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.ibtn_add_licence: // 点击添加车牌号
-			Intent intent1 = new Intent(this, AddDriverLicence.class);
-			startActivity(intent1);
-			break;
-		case R.id.ibtn_check_order: // 点击查看订单
-			Intent intent2 = new Intent(this, DriverOrderInfo.class);
-			startActivity(intent2);
-			break;
-		case R.id.ibtn_two__code: // 点击二维码
-			break;
 		case R.id.button_logout: // 点击退出登录
 			finish();
 			break;
 		}
+	}
 
+	/**
+	 * GridView的Item点击事件处理
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		
 	}
 
 }

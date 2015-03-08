@@ -37,7 +37,9 @@ public class ParkingInfoFragment extends Fragment {
 			"提前30分钟预定的订金： ", "停车半个小时收费： ", "停车一个小时收费： ", "超过一个小时收费： " };
 
 	// 存储停车场收费详细信息——黄志恒
-	private String[] bookMoneys = { "10", "20", "30", "10" };
+	public static String[] bookMoneys = new String[3];
+	// 用来存放生成订单所需的基本信息
+	public static String[] orderMessages = new String[2];
 
 	private Context context; // 上下文
 	private Map<String, Object> parking; // 停车场
@@ -61,7 +63,6 @@ public class ParkingInfoFragment extends Fragment {
 
 	/**
 	 * 读取停车场的预定信息数据，放入List中
-	 * 
 	 * @return List<Map<String, String>>
 	 */
 	public List<Map<String, String>> getData() {
@@ -71,11 +72,13 @@ public class ParkingInfoFragment extends Fragment {
 			map.put("info", bookInfos[i]);
 			map.put("money", bookMoneys[i]);
 			list.add(map);
-
 		}
 		return list;
 	}
 
+	/**
+	 * 初始化收费信息
+	 */
 	private void initTranMoney() {
 		tranMoney[0] = "提前10分钟预定收取：" + bookMoneys[0] + "元";
 		tranMoney[1] = "提前20分钟预定收取：" + bookMoneys[1] + "元";
@@ -88,6 +91,10 @@ public class ParkingInfoFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		bookMoneys = (String[]) parking.get("bookMoney");
+		initTranMoney();
+		orderMessages[0] = (String) parking.get("parkingName");
+		orderMessages[1] = (String) parking.get("parkingAddress");
 	}
 
 	/**
@@ -115,9 +122,6 @@ public class ParkingInfoFragment extends Fragment {
 		parkingAdress.setText((String) parking.get("parkingAddress"));
 		parkingDistance.setText(parking.get("parkingDistance").toString());
 		parKingNum.setText((String) parking.get("parkingSum"));
-
-		bookMoneys = (String[]) parking.get("bookMoney");
-		initTranMoney();
 
 		SimpleAdapter adapter = new SimpleAdapter(context, getData(),
 				R.layout.listview_book_money, new String[] { "info", "money" },

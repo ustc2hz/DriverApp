@@ -36,7 +36,7 @@ public class SendOrderThread extends Thread {
 			String basicpath = "http://";
 			StringBuffer path = new StringBuffer(basicpath);
 			path.append(HttpUtils.MY_IP)
-					.append("/TestOrderServer/OrderServlet?order=")
+					.append("/AppServerr/SolveOrderServlet?order=")
 					.append(URLEncoder.encode(sendMessage, "utf-8"));
 			// 调用Http方法
 			String jsonString = HttpUtils.getJsonContent(path.toString());

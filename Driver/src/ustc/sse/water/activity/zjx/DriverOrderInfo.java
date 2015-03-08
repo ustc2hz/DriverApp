@@ -36,6 +36,7 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.driver_order_info);
 		initView();
 	}

@@ -1,27 +1,16 @@
 package ustc.sse.water.data.model;
-/**
- * 
- * Driver的Model类. <br>
- * 驾驶员的数据结构.
- * <p>
- * Copyright: Copyright (c) 2015-2-1 下午1:55:28
- * <p>
- * Company: 中国科学技术大学软件学院
- * <p>
- * @author 韩琼 
- * @version 1.0.0
- */
+
 public class Driver {
-	private Integer driverId; // 驾驶员id
+	private int driverId; // 驾驶员id
 	private String driverName; // 驾驶员名字
-	private String driverPassword; // 驾驶员密码
+	private String driverPassword; // 驾驶员密码	
 	private String driverPhone; // 驾驶员电话
 
-	public Integer getDriverId() {
+	public int getDriverId() {
 		return driverId;
 	}
 
-	public void setDriverId(Integer driverId) {
+	public void setDriverId(int driverId) {
 		this.driverId = driverId;
 	}
 

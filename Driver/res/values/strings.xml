@@ -69,7 +69,7 @@
     <string name="parking_order_money_unit">元</string>
     <string name="parking_order_title">车位预定</string>
     <string name="parking_order_make">填写订单</string>
-    <string name="parking_order_chose_licence">选择车牌：</string>
+    <string name="parking_order_chose_number">预定位数：</string>
     <string name="parking_order_chose_time">选择预定时间：</string>
     <string name="parking_order_submit">提交预定</string>
     <string name="parking_order_cancel">取消预定</string>

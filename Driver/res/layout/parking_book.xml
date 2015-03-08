@@ -24,28 +24,30 @@
     <TextView android:id="@+id/text_license_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:text="@string/parking_order_chose_licence"
+        android:textSize="25sp"
+        android:text="@string/parking_order_chose_number"
         android:layout_below="@id/book_view1"/>
     
-    <ListView android:id="@+id/listview_license_chose"
-        android:layout_below="@id/text_license_show"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="#0000ff"
-        android:dividerHeight="4dp"></ListView>
+        <!-- 预定车位数输入框 -->
+        <EditText android:id="@+id/edit_licenses_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_license_show"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:inputType="number" />
     
     <View android:id="@+id/book_view2"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:layout_below="@id/listview_license_chose"
+        android:layout_below="@id/edit_licenses_number"
         android:background="#000000" />
     
     <TextView android:id="@+id/text_book_time_chose"
         android:layout_below="@id/book_view2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:text="@string/parking_order_chose_time"/> 
     
     <Spinner android:id="@+id/spinner_time_chose"
@@ -63,7 +65,9 @@
         <Button
             android:id="@+id/button_submit_order"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"           
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"           
             android:text="@string/parking_order_submit" />
 
     </LinearLayout>
