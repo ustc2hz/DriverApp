@@ -7,7 +7,7 @@ import java.util.Map;
 
 import ustc.sse.water.activity.zjx.ParkingDetail;
 import ustc.sse.water.activity.zjx.ParkingList;
-import ustc.sse.water.managermain.zf.ManagerMainTabActivity;
+import ustc.sse.water.manager.zf.ManagerMainTabActivity;
 import ustc.sse.water.tools.hzh.MyCloudSearch;
 import ustc.sse.water.tools.hzh.NaviRouteMethod;
 import ustc.sse.water.tools.zjx.MyLocationSet;
