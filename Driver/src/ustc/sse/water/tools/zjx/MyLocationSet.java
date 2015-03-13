@@ -44,6 +44,7 @@ public class MyLocationSet {
 		aMap.setMyLocationStyle(myLocationStyle);
 		aMap.getUiSettings().setMyLocationButtonEnabled(false);
 		aMap.setMyLocationEnabled(true);// 显示定位层，触发定位
+
 	}
 
 }

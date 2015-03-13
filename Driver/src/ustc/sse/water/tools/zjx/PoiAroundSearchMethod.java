@@ -42,8 +42,12 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	public static List<PoiItem> poiItems;
 	/* poi图层 */
 	public static PoiOverlay poiOverlay;
+	/* Poi返回的结果，static类型方便外部类调用 */
+	public static PoiResult poiResult;
 	/* Poi搜索 */
 	public static PoiSearch poiSearch;
+	/* Poi查询条件类 */
+	public static PoiSearch.Query query;
 	/* 显示搜索结果的地图 */
 	private AMap aMap;
 	/* 上下文 */
@@ -58,10 +62,6 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	private Marker locationMarker;
 	/* 搜索中心 */
 	private LatLonPoint lp;
-	/* Poi返回的结果，static类型方便外部类调用 */
-	public static PoiResult poiResult;
-	/* Poi查询条件类 */
-	public static PoiSearch.Query query;
 	/* 路径规划的目的地的点 ——黄志恒注 */
 	private LatLonPoint targetPoint;
 
@@ -108,7 +108,6 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	 */
 	public void doSearchQuery() {
 		dialog.showProgressDialog();// 显示对话框
-		// aMap.setOnMapClickListener(null);// 进行poi搜索时清除掉地图点击事件
 		currentPage = 0;
 		query = new PoiSearch.Query("", deepType, "苏州");// Poi搜索
 		query.setPageSize(6);// 设置每页最多返回多少条poiitem
@@ -159,11 +158,9 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 						sb = getDeepInfo(result, sb);
 						detailMarker.setSnippet(sb.toString());
 					} else {
-						// ToastUtil.show(context, "此Poi点没有深度信息");
 					}
 				}
 			} else {
-				// ToastUtil.show(context, R.string.no_result);
 			}
 		} else if (rCode == 27) {
 			ToastUtil.show(context, R.string.error_network);
@@ -189,10 +186,8 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 					List<SuggestionCity> suggestionCities = poiResult
 							.getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
 					if (poiItems != null && poiItems.size() > 0) {
-						// aMap.clear();// 清理之前的图标
 						// 自定义PoiOverlay图层
 						poiOverlay = new PoiOverlay(aMap, poiItems) {
-
 							@Override
 							protected BitmapDescriptor getBitmapDescriptor(
 									int arg0) {
@@ -204,16 +199,9 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 						};
 						poiOverlay.removeFromMap();
 						poiOverlay.addToMap();
-						poiOverlay.zoomToSpan();
-
-					} else if (suggestionCities != null
-							&& suggestionCities.size() > 0) {
-					} else {
-						// ToastUtil.show(context, R.string.no_result);
+						// poiOverlay.zoomToSpan();
 					}
 				}
-			} else {
-				// ToastUtil.show(context, R.string.no_result);
 			}
 		} else if (rCode == 27) {
 			ToastUtil.show(context, R.string.error_network);

@@ -85,9 +85,9 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		public void onSpeakResumed() {
 		}
 	};
-	
+
 	/* 创建 SpeechSynthesizer 对象, 第二个参数：本地合成时传 InitListener */
-	SpeechSynthesizer mTts;
+	public SpeechSynthesizer mTts;
 
 	/**
 	 * 初始化起点终点列表
@@ -126,6 +126,22 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	// ---------------------导航回调--------------------
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		if (resultCode == 4) {
+			if (mTts != null) {
+				mTts.destroy();
+			}
+			AMapNavi.getInstance(this).removeAMapNaviListener(this);
+			Intent intent = new Intent(NaviStartActivity.this,
+					DriverMainScreen.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			startActivity(intent);
+			finish();
+		}
+	}
+
+	@Override
 	public void onArriveDestination() {
 		mTts.startSpeaking("到达目的地", mSynListener);
 	}
@@ -147,17 +163,15 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onCalculateRouteSuccess() {
-		// mTts.startSpeaking("路径计算就绪", mSynListener);
 		dialog.dissmissProgressDialog();
 		Intent intent = new Intent(NaviStartActivity.this,
 				DriverNaviActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		Bundle bundle = new Bundle();
 		bundle.putInt(NaviUtils.ACTIVITYINDEX, NaviUtils.SIMPLEGPSNAVI);
 		bundle.putBoolean(NaviUtils.ISEMULATOR, false);
 		intent.putExtras(bundle);
-		startActivity(intent);
-		finish();
+		startActivityForResult(intent, 2);
 
 	}
 
@@ -183,8 +197,9 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		// 删除导航监听
-		// mSynListener = null;
+		if (mTts != null) {
+			mTts.destroy();
+		}
 		AMapNavi.getInstance(this).removeAMapNaviListener(this);
 	}
 
@@ -223,10 +238,12 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (mTts != null) {
+				mTts.destroy();
+			}
 			Intent intent = new Intent(NaviStartActivity.this,
 					DriverMainScreen.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			// mTts = null;
 			startActivity(intent);
 			finish();
 		}
@@ -244,6 +261,9 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onNaviCancel() {
+		if (mTts != null) {
+			mTts.destroy();
+		}
 
 	}
 

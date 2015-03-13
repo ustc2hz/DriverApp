@@ -10,8 +10,13 @@ import ustc.sse.water.utils.zjx.ToastUtil;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.overlay.PoiOverlay;
@@ -40,7 +45,8 @@ import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.0.0
  */
-public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
+public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
+		OnEditorActionListener {
 	/* 接收传递的AMap */
 	private AMap aMap;
 	/* 上下文 */
@@ -83,7 +89,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 		this.context = context;
 		this.keyEdit = edit;
 		keyEdit.addTextChangedListener(this);// 自动填充文本框监听事件
-		// initSearch();
+		keyEdit.setOnEditorActionListener(this);
 	}
 
 	/**
@@ -100,9 +106,8 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 		this.aMap = map;
 		this.context = con;
 		this.keySearch = keyword;
-		// initSearch();
 		dialog = new DialogUtil(context);
-		doSearchQuery();
+		// doSearchQuery();
 	}
 
 	/**
@@ -110,9 +115,9 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 	 */
 	@Override
 	public void afterTextChanged(Editable s) {
-		keySearch = s.toString();
-		doSearchQuery(); // 开始搜索
-	}
+		/*
+		 * keySearch = s.toString(); doSearchQuery(); // 开始搜索
+		 */}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
@@ -134,9 +139,9 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 	/**
 	 * 开始搜索
 	 */
-	protected void doSearchQuery() {
-		// dialog.showProgressDialog();// 显示对话框
+	public void doSearchQuery() {
 		currentPage = 0;
+		keySearch = keyEdit.getText().toString().trim();
 		query = new PoiSearch.Query(keySearch, "", "苏州");// 开始在苏州按关键字搜索
 		query.setPageSize(1);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
@@ -148,6 +153,28 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 
 	public LatLonPoint getLp() {
 		return lp;
+	}
+
+	@Override
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		// TODO Auto-generated method stub
+
+		switch (actionId) {
+		case EditorInfo.IME_ACTION_DONE:
+
+			doSearchQuery();
+			// 隐藏输入法
+			InputMethodManager imm = (InputMethodManager) context
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			// 显示或者隐藏输入法
+			imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
+			break;
+		default:
+			break;
+		}
+
+		return true;
 	}
 
 	/**
@@ -162,7 +189,6 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 	 */
 	@Override
 	public void onPoiSearched(PoiResult result, int rCode) {
-		// dialog.dissmissProgressDialog();// 去除对话框
 		if (rCode == 0) {
 			if (result != null && result.getQuery() != null) {// 搜索Poi的结果
 				if (result.getQuery().equals(query)) {// 是否同一条
@@ -232,7 +258,8 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener {
 			}
 		});
 		try {
-			inputTips.requestInputtips(newText, "苏州");// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
+			// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
+			inputTips.requestInputtips(newText, "苏州");
 		} catch (AMapException e) {
 			e.printStackTrace();
 		}
