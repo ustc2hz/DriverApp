@@ -147,8 +147,8 @@
             android:label="@string/welcome" >
         </activity>
 
-        <!-- 添加车牌号 -->
-        <activity android:name=".zjx.AddDriverLicence" >
+        <!-- 修改驾驶员信息界面 -->
+        <activity android:name=".zjx.UpdateDriverInfo" >
         </activity>
         <!-- 驾驶员信息界面 -->
         <activity android:name=".zjx.DriverInfo" >

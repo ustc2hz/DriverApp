@@ -1,8 +1,6 @@
 package ustc.sse.water.data.model;
 /**
- * 
- * @author Administrator
- *
+ * 驾驶员订单
  */
 public class DriverOrderShow {
 	private String parkName; // 停车场名
@@ -10,7 +8,7 @@ public class DriverOrderShow {
 	private int parkNumber; // 预定车位数
 	private String orderDate; // 订单日期
 	private String orderDetail; // 订单详情
-	private String adminName; // 管理员名
+	private String orderPrice; // 订单总价
 	private String adminPhone; // 管理员电话
 	private int orderStatus; // 订单状态
 	
@@ -44,11 +42,12 @@ public class DriverOrderShow {
 	public void setOrderDetail(String orderDetail) {
 		this.orderDetail = orderDetail;
 	}
-	public String getAdminName() {
-		return adminName;
+	
+	public String getOrderPrice() {
+		return orderPrice;
 	}
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
+	public void setOrderPrice(String orderPrice) {
+		this.orderPrice = orderPrice;
 	}
 	public String getAdminPhone() {
 		return adminPhone;

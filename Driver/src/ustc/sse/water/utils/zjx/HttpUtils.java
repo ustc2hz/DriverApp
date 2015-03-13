@@ -20,7 +20,7 @@ import java.net.URL;
  */
 public class HttpUtils {
 	/* 服务器的IP地址和端口号 */
-	public final static String MY_IP = "192.168.9.178:8080";
+	public final static String MY_IP = "192.168.9.241:8080";
 
 	public HttpUtils() {
 		// 无参构造函数

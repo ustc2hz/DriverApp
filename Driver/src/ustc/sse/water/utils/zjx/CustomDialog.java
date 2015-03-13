@@ -22,29 +22,40 @@ import android.widget.TextView;
 public class CustomDialog {
 	private Context context; // 上下文
 	private AlertDialog ad; // 对话框
-	private TextView orderTitle; // 订单标题
+	private TextView parkNumber; // 预定车位数
 	private TextView orderContent; // 订单内容
-	private Button cancelOrder; // 取消按钮
+	private TextView parkPhone; // 管理员电话
+	private Button gpsPark; // 定位按钮
 
-	public CustomDialog(Context con, String title, String content, boolean flag) {
+	public CustomDialog(Context con, String parkNum, String orderInfo, String phone) {
 		this.context = con;
 		AlertDialog.Builder adb = new AlertDialog.Builder(context);
 		View ll = LayoutInflater.from(con).inflate(
 				R.layout.order_custom_dialog, null);
 		adb.setView(ll);
-		orderTitle = (TextView) ll.findViewById(R.id.order_custom_dialog_title);
-		orderContent = (TextView) ll
-				.findViewById(R.id.order_custom_dialog_content);
-		cancelOrder = (Button) ll.findViewById(R.id.order_custom_dialog_button);
-		orderTitle.setText(title);
-		orderContent.setText(content);
-		if (flag) {
-			cancelOrder.setText("已过期");
-		} else {
-			cancelOrder.setText(R.string.driver_cancel_parking_order);
-		}
+		
+		parkNumber = (TextView) ll.findViewById(R.id.text_order_detail_number);
+		orderContent = (TextView) ll.findViewById(R.id.text_order_detail_info);
+		parkPhone = (TextView) ll.findViewById(R.id.text_order_detail_phone);
+		parkNumber.setText(parkNum);
+		orderContent.setText(orderInfo);
+		parkPhone.setText(phone);
+		
+		gpsPark = (Button) ll.findViewById(R.id.button_order_detail_gps);
+		gpsPark.setOnClickListener(new GPSClickListener());
+		
 		ad = adb.create();
 		ad.show();
+	}
+	
+	class GPSClickListener implements View.OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			// 通过停车场的坐标，在地图上定位
+			
+		}
+		
 	}
 
 }
