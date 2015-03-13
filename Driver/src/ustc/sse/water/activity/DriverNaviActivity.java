@@ -84,18 +84,24 @@ public class DriverNaviActivity extends Activity implements
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (mCode == NaviUtils.SIMPLEROUTENAVI) {
+				/*
+				 * Intent intent = new Intent(DriverNaviActivity.this,
+				 * DriverMainScreen.class);
+				 * intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				 * 
+				 * startActivity(intent); finish();
+				 */
 				Intent intent = new Intent(DriverNaviActivity.this,
 						DriverMainScreen.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				// mAmapAMapNaviView = null;
-				startActivity(intent);
+				setResult(4, intent);
+				mAmapAMapNaviView.onDestroy();
 				finish();
 
 			} else if (mCode == NaviUtils.SIMPLEGPSNAVI) {
 				Intent intent = new Intent(DriverNaviActivity.this,
 						DriverMainScreen.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				// mAmapAMapNaviView = null;
 				startActivity(intent);
 				finish();
 			} else {
@@ -114,8 +120,8 @@ public class DriverNaviActivity extends Activity implements
 		Intent intent = new Intent(DriverNaviActivity.this,
 				DriverMainScreen.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-		// mAmapAMapNaviView = null;
-		startActivity(intent);
+		setResult(4, intent);
+		mAmapAMapNaviView.onDestroy();
 		finish();
 	}
 
@@ -139,7 +145,6 @@ public class DriverNaviActivity extends Activity implements
 	public void onPause() {
 		super.onPause();
 		mAmapAMapNaviView.onPause();
-		// mAmapAMapNaviView = null;
 		AMapNavi.getInstance(this).stopNavi();
 	}
 

@@ -85,8 +85,6 @@ public class MyCloudSearch implements OnCloudSearchListener {
 	private void init() {
 		mCloudSearch = new CloudSearch(con);
 		mCloudSearch.setOnCloudSearchListener(this);
-
-		// mPoiCloudOverlay = new PoiOverlay(this.mAMap, mCloudItems);
 	}
 
 	/**

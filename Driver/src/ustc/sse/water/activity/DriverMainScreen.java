@@ -9,7 +9,6 @@ import ustc.sse.water.activity.zjx.ParkingDetail;
 import ustc.sse.water.activity.zjx.ParkingList;
 import ustc.sse.water.managermain.zf.ManagerMainTabActivity;
 import ustc.sse.water.tools.hzh.MyCloudSearch;
-import ustc.sse.water.tools.hzh.NaviRouteMethod;
 import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
@@ -23,7 +22,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,6 +44,7 @@ import com.amap.api.maps.AMap.OnMapLongClickListener;
 import com.amap.api.maps.AMap.OnMapTouchListener;
 import com.amap.api.maps.AMap.OnMarkerClickListener;
 import com.amap.api.maps.AMapOptions;
+import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
@@ -104,16 +103,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	MyCloudSearch mCloud;
 	/* 定位监听 */
 	private OnLocationChangedListener mListener;
-	/* 全局坐标对象——黄志恒 */
-	private Marker mMarker;
-	/* 移动点击的点——黄志恒注 */
-	private LatLonPoint molp;
 	/* 自定义定位按钮 */
 	private ImageButton myLocation;
 	/* 获取当前停车场的名称——黄志恒 */
 	private String name;
 	/* 进行路径规划的处理对象——黄志恒注 */
-	private NaviRouteMethod nRoute;
+	// private NaviRouteMethod nRoute;
 	/* 获取当前停车场的订金信息——黄志恒 */
 	private String orderPrice;
 	/* 获取当前停车场的停车收费信息——黄志恒 */
@@ -183,6 +178,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			mAMapLocationManager.destory();
 		}
 		mAMapLocationManager = null;
+		aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 	}
 
 	@Override
@@ -199,47 +195,50 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * 初始化地图信息
 	 */
 	private void initMap() {
+
 		if (aMap == null) {
 			aMap = mapView.getMap();
 			uiSettings = aMap.getUiSettings();
 			// 设置高德地图的logo在底部中间
 			uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_CENTER);
 			aMap.setLocationSource(this);// 监听定位
-			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 			new MyLocationSet(aMap).setMapLocation(); // 开始定位
+			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 		}
+
+		RMore.setOnClickListener(this);
+		RMine.setOnClickListener(this);
+		ROrder.setOnClickListener(this);
+		RNavi.setOnClickListener(this);
+		Carservice.setOnClickListener(this);
+		myLocation.setOnClickListener(this);
+		// 调用显示目的地的类（类似于监听效果）
+		poisearch = new PoiSearchMethod(aMap, this, keyEdit);
+
+		voiceInput.setOnClickListener(this);
+		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54818227");
+		aMap.setOnMarkerClickListener(this);
+		aMap.setOnMapClickListener(this);
+		aMap.setOnMapLongClickListener(this);// 对 amap 添加长按地图事件监听器
+		aMap.setOnMapTouchListener(this);
+		aMap.moveCamera(CameraUpdateFactory.zoomTo(16));
+
 	}
 
 	/**
 	 * 初始化Ui控件
 	 */
 	private void initViews() {
-
 		Carservice = (RadioButton) findViewById(R.id.radio_Carservice);
-		Carservice.setOnClickListener(this);
 		RNavi = (RadioButton) findViewById(R.id.radio_navi);
-		RNavi.setOnClickListener(this);
 		ROrder = (RadioButton) findViewById(R.id.radio_order);
-		ROrder.setOnClickListener(this);
 		RMine = (RadioButton) findViewById(R.id.radio_mine);
-		RMine.setOnClickListener(this);
 		RMore = (RadioButton) findViewById(R.id.radio_more);
-		RMore.setOnClickListener(this);
-
 		showInfo = (TextView) findViewById(R.id.show_directory);
-
 		myLocation = (ImageButton) findViewById(R.id.button_my_location);
-		myLocation.setOnClickListener(this);
 		keyEdit = (AutoCompleteTextView) findViewById(R.id.actv_key_search);
-		poisearch = new PoiSearchMethod(aMap, this, keyEdit); // 调用显示目的地的类（类似于监听效果）
 		voiceInput = (ImageButton) findViewById(R.id.button_voice_search);
-		voiceInput.setOnClickListener(this);
-		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54818227");
 
-		aMap.setOnMarkerClickListener(this);
-		aMap.setOnMapClickListener(this);
-		aMap.setOnMapLongClickListener(this);// 对 amap 添加长按地图事件监听器
-		aMap.setOnMapTouchListener(this);
 	}
 
 	/**
@@ -329,10 +328,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		setContentView(R.layout.driver_main);
 		mapView = (MapView) findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 必须重写
-		initMap();
 		initViews();
-		sharedPreferences = getSharedPreferences("zf", Context.MODE_PRIVATE);
-		editor = sharedPreferences.edit();
 	}
 
 	/**
@@ -348,7 +344,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * 定位完成后回调该方法
 	 */
 	@Override
-	public void onLocationChanged(AMapLocation aLocation) {// lp wrong here
+	public void onLocationChanged(AMapLocation aLocation) {
 		if (mListener != null && aLocation != null) {
 			lp = new LatLonPoint(aLocation.getLatitude(),
 					aLocation.getLongitude());
@@ -357,10 +353,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			// 显示云图数据
 			mCloud = new MyCloudSearch(this, aLocation.getLatitude(),
 					aLocation.getLongitude(), aMap);
-			Log.v("sum", mCloud.mCloudItems.size() + "");
+			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
 
-			// showFirstMarker();
 		}
 	}
 
@@ -375,13 +370,15 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		aMap.addMarker(new MarkerOptions().position(arg0).icon(
 				BitmapDescriptorFactory
 						.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-		molp = new LatLonPoint(arg0.latitude, arg0.longitude);
+		targetPoint = new LatLonPoint(arg0.latitude, arg0.longitude);
 		// 显示高德提供的附件的停车场，并产生附近搜索对象——黄志恒注
-		pas = new PoiAroundSearchMethod(aMap, this, "停车场", molp);
+		pas = new PoiAroundSearchMethod(aMap, this, "停车场", targetPoint);
 		// 显示云图数据
 		mCloud = new MyCloudSearch(this, arg0.latitude, arg0.longitude, aMap);
-		// mListener.onLocationChanged(bLocation);// 显示系统小蓝点
-		// showFirstMarker();
+
+		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(arg0, 15);
+		aMap.moveCamera(update);
+
 	}
 
 	@Override
@@ -396,7 +393,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		this.mMarker = marker;
 		marker.setSnippet("");
 		TextshowMarkerInfo(marker);
 
@@ -447,20 +443,21 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		initMap();
+		sharedPreferences = getSharedPreferences("zf", Context.MODE_PRIVATE);
+		editor = sharedPreferences.edit();
+	}
+
+	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 	}
 
 	@Override
 	public void onTouch(MotionEvent arg0) {
 		// TODO Auto-generated method stub
-		if (showText == false) {
-			if (this.mMarker != null) {
-				// this.mMarker.hideInfoWindow();
-			}
-			// this.showInfo.setVisibility(View.INVISIBLE);
-		} else {
-			// showText = false;
-		}
 	}
 
 	/**
@@ -469,8 +466,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private void planNavi() {
 		if (targetPoint != null) {
 			Bundle bundle = new Bundle();
+			// lp 是导航起始点
 			bundle.putDouble("start_latitude", lp.getLatitude());
 			bundle.putDouble("start_longitude", lp.getLongitude());
+			// targetPoint是导航目的点
 			bundle.putDouble("end_latitude", targetPoint.getLatitude());
 			bundle.putDouble("end_longitude", targetPoint.getLongitude());
 			Intent naviIntent = new Intent();
@@ -480,54 +479,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		} else {
 			ToastUtil.show(this, "请选择目的地");
 		}
-	}
-
-	/**
-	 * 将选中的停车场的信息传递给预定页面——黄志恒
-	 */
-	private void sendDataToBook() {
-		if (this.phone == null) {
-			Toast.makeText(getApplicationContext(), "抱歉，此停车场不提供预定",
-					Toast.LENGTH_SHORT).show();
-			return;
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("parkingName", this.name); // 存储停车场的名字
-		map.put("parkingDistance", this.itemDistance); // 存储停车场到中心点的距离
-		// map.put("parkingAddress", this.itemAddress); // 存储停车场的地点
-
-		map.put("parkingSum", this.parkSum);// 停车场车位数
-		map.put("bookMoney", this.bookMoney);// 停车场收费信息
-		map.put("phone", this.phone);// 停车场电话
-		map.put("isAmap", "AMapCloudPark"); // 标记是云图的停车
-
-		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
-		// 将选中的停车场封装到Intent中
-		intent.putExtra("select_parking", (Serializable) map);
-		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-		startActivity(intent);
-	}
-
-	/**
-	 * 打开软件自动弹出第一个停车场的信息。
-	 */
-	private void showFirstMarker() {
-
-		this.mMarker.setTitle(mCloud.mCloudItems.get(0).getTitle());
-
-		LatLng lat = new LatLng(mCloud.mCloudItems.get(0).getLatLonPoint()
-				.getLatitude(), mCloud.mCloudItems.get(0).getLatLonPoint()
-				.getLongitude());
-		this.mMarker.setPosition(lat);
-		this.mMarker.setIcon(new BitmapDescriptorFactory()
-				.fromResource(R.drawable.yellow_marker));
-
-		this.mMarker.setSnippet("");
-		this.mMarker.setVisible(true);
-
-		this.mMarker.showInfoWindow();
-		TextshowMarkerInfo(this.mMarker);
-
 	}
 
 	/**
@@ -553,6 +504,54 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * 
 	 * @param parkPrice 停车场停车收费价格
 	 */
+
+	/**
+	 * 将选中的停车场的信息传递给预定页面——黄志恒
+	 */
+	private void sendDataToBook() {
+		if (this.phone == null) {
+			Toast.makeText(getApplicationContext(), "抱歉，此停车场不提供预定",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("parkingName", this.name); // 存储停车场的名字
+		map.put("parkingDistance", this.itemDistance); // 存储停车场到中心点的距离
+		map.put("parkingSum", this.parkSum);// 停车场车位数
+		map.put("bookMoney", this.bookMoney);// 停车场收费信息
+		map.put("phone", this.phone);// 停车场电话
+		map.put("isAmap", "AMapCloudPark"); // 标记是云图的停车
+
+		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
+		// 将选中的停车场封装到Intent中
+		intent.putExtra("select_parking", (Serializable) map);
+		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		startActivity(intent);
+	}
+
+	/**
+	 * 打开软件自动弹出第一个停车场的信息。
+	 */
+	private void showFirstMarker() {
+
+		Marker mMarker = new Marker(null);
+		mMarker.setTitle(mCloud.mCloudItems.get(0).getTitle());
+
+		LatLng lat = new LatLng(mCloud.mCloudItems.get(0).getLatLonPoint()
+				.getLatitude(), mCloud.mCloudItems.get(0).getLatLonPoint()
+				.getLongitude());
+		mMarker.setPosition(lat);
+		mMarker.setIcon(new BitmapDescriptorFactory()
+				.fromResource(R.drawable.yellow_marker));
+
+		mMarker.setAnchor(0.5f, 1.0f);
+		mMarker.setSnippet("");
+		mMarker.setVisible(true);
+		mMarker.setToTop();
+		mMarker.showInfoWindow();
+		TextshowMarkerInfo(mMarker);
+
+	}
 
 	/**
 	 * 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒
@@ -600,7 +599,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		this.orderPrice = null;
 		this.parkPrice = null;
 		String title = marker.getTitle();
-		// String val = marker.getSnippet();
 		if (mCloud != null) {
 			for (CloudItem mItem : mCloud.mCloudItems) {
 				if (title.equals(mItem.getTitle())) {
@@ -608,8 +606,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 					for (int i = 0; i < 6; i++) {
 						bookMoney[i] = "0";
 					}
-					// int count = 0;
-					// this.itemAddress = mItem.getSnippet();
 					this.itemDistance = mItem.getDistance();
 
 					Iterator iter = mItem.getCustomfield().entrySet()
