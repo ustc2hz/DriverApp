@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <!-- 车牌号 -->
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        style="?android:listSeparatorTextViewStyle"
+        android:text="@string/driver_update_licence"/>
+    
+    <EditText android:id="@+id/edit_driver_licence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        />
+    
+    <!-- 联系电话 -->
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        style="?android:listSeparatorTextViewStyle"
+        android:text="@string/driver_update_phone"/>
+    
+    <EditText android:id="@+id/edit_driver_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:inputType="phone"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        />
+    
+    <!-- 修改密码 -->
+	<TextView android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20sp"
+	    android:textStyle="bold"
+	    android:layout_marginTop="20dp"
+	    android:text="@string/driver_update_password"
+	    style="?android:listSeparatorTextViewStyle"/>
+	
+	<LinearLayout android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+	    <!-- 旧密码 -->
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="16dp"
+	        android:textSize="20sp"
+	       	android:text="@string/driver_update_password_old"/>
+	    
+	    <EditText android:id="@+id/edit_input_old_pwd"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="16dp"
+	        android:inputType="textPassword"
+	        android:hint="@string/driver_hint_old_pwd"/>
+	    
+	</LinearLayout>
+	
+	<LinearLayout android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    >
+	    <!-- 新密码 -->
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="16dp"
+	        android:textSize="20sp"
+	       	android:text="@string/driver_update_password_new"/>
+	    
+	    <EditText android:id="@+id/edit_input_new_pwd"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="16dp"
+	        android:inputType="textPassword"
+	        android:hint="@string/driver_hint_new_pwd"/>
+	    
+	</LinearLayout>
+    
+    <!-- 修改按钮 -->
+    <Button android:id="@+id/button_update_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#7CCD7C"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/driver_sure_update_info"/>
+
+</LinearLayout>

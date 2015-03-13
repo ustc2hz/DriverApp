@@ -10,7 +10,7 @@ import ustc.sse.water.data.model.DataToYutunServer;
 import ustc.sse.water.data.model.DetailDataToServer;
 import ustc.sse.water.data.model.ParkDetailObject;
 import ustc.sse.water.utils.zjx.ToastUtil;
-import ustc.sse.water.zf.ManagerMainScreen;
+import ustc.sse.water.zf.LoginActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -226,7 +226,7 @@ public class BActivity extends Activity implements OnClickListener {
 	public void initSharedPreference() {
 		// 取出preferenced的對象
 		preferences = getSharedPreferences("manager_message",
-				MODE_WORLD_READABLE);
+				MODE_PRIVATE);
 		editor = preferences.edit();
 
 		name = preferences.getString("name", name);
@@ -481,7 +481,7 @@ public class BActivity extends Activity implements OnClickListener {
 						arg0.dismiss();
 						// 设置跳转
 						Intent it = new Intent(BActivity.this,
-								ManagerMainScreen.class);
+								LoginActivity.class);
 						it.putExtra("etr", "1");
 						startActivity(it);
 					}

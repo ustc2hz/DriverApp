@@ -13,6 +13,7 @@ import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
 import ustc.sse.water.tools.zjx.PoiSearchMethod;
 import ustc.sse.water.tools.zjx.VoiceSearch;
+import ustc.sse.water.utils.zjx.CheckNetwork;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import ustc.sse.water.zf.LoginActivity;
 import android.app.Activity;
@@ -326,6 +327,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.driver_main);
+		
+		// 检查网络
+		CheckNetwork cn = new CheckNetwork(this);
+		cn.checkNetworkState();
+		
 		mapView = (MapView) findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 必须重写
 		initViews();
@@ -431,6 +437,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	protected void onResume() {
 		super.onResume();
 		mapView.onResume();
+		// 返回地图界面时，重新定位
+		new MyLocationSet(aMap).setMapLocation();
 	}
 
 	/**
