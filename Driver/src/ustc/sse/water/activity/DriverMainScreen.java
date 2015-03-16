@@ -438,7 +438,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		super.onResume();
 		mapView.onResume();
 		// 返回地图界面时，重新定位
-		new MyLocationSet(aMap).setMapLocation();
+		//new MyLocationSet(aMap).setMapLocation();
 	}
 
 	/**
