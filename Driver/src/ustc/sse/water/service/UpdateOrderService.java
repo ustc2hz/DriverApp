@@ -7,7 +7,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import ustc.sse.water.activity.R;
 import ustc.sse.water.data.model.OrderShowList;
-import ustc.sse.water.managermain.zf.ManagerMainTabActivity;
 import ustc.sse.water.utils.zjx.ConstantKeep;
 import ustc.sse.water.utils.zjx.HttpUtils;
 import android.app.Notification;
@@ -106,7 +105,7 @@ public class UpdateOrderService extends Service {
 	// 发更新通知
 	private void sendNotification(String content) {
 		
-		Intent intent = new Intent(this, ManagerMainTabActivity.class);
+		Intent intent = new Intent(this, ustc.sse.water.manager.zf.ManagerMainTabActivity.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		RemoteViews view_custom = new RemoteViews(getPackageName(),

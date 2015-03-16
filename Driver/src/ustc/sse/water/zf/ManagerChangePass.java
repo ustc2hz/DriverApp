@@ -1,7 +1,7 @@
 package ustc.sse.water.zf;
 
 import ustc.sse.water.activity.R;
-import ustc.sse.water.managermain.zf.CActivity;
+import ustc.sse.water.manager.zf.CActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;

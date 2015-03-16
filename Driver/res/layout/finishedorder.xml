@@ -1,70 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout android:id="@+id/l0001"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车  牌  号：" />
 
         <TextView
             android:id="@+id/car_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"          
-             />
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
 
-        <TextView 
-         	android:id="@+id/order_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:text="辆" />
-        
-        <TextView 
-            android:id="@+id/orderring_time"
-            android:layout_below="@id/car_number"
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             />
-        
-        <TextView android:id="@+id/money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:layout_below="@id/order_number"
-            android:layout_toRightOf="@id/orderring_time"
-            android:layout_alignParentRight="true"/>
-        <TextView android:id="@+id/aaaaaa"
-            android:layout_below="@id/orderring_time"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
-        
-             
-    </RelativeLayout>
+            android:text="预定数量：" />
 
-    <TextView android:layout_below="@id/l0001"
-        android:id="@+id/text_parking_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         />
-
-    <LinearLayout 
-        android:layout_below="@id/text_parking_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button android:id="@+id/complete_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:focusable="false"
-            android:textColor="@color/rootColor"
-            android:text="确定"/>
-        
-       
+        <TextView
+            android:id="@+id/order_number"
+            android:layout_width="120dp"
+            android:layout_height="fill_parent" />
     </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预定时间：" />
+
+        <TextView
+            android:id="@+id/orderring_time"
+            android:layout_width="120dp"
+            android:layout_height="fill_parent"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="金       额：" />
+
+         <TextView
+            android:id="@+id/money"
+            android:layout_width="120dp"
+            android:layout_height="fill_parent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/complete_order"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="确定" />
+
+</LinearLayout>
