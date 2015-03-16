@@ -7,7 +7,7 @@ import java.util.Map;
 
 import ustc.sse.water.activity.zjx.ParkingDetail;
 import ustc.sse.water.activity.zjx.ParkingList;
-import ustc.sse.water.managermain.zf.ManagerMainTabActivity;
+import ustc.sse.water.manager.zf.ManagerMainTabActivity;
 import ustc.sse.water.tools.hzh.MyCloudSearch;
 import ustc.sse.water.tools.zjx.MyLocationSet;
 import ustc.sse.water.tools.zjx.PoiAroundSearchMethod;
@@ -543,13 +543,14 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private void showFirstMarker() {
 
 		Marker mMarker = new Marker(null);
-		mMarker.setTitle(mCloud.mCloudItems.get(0).getTitle());
+		mMarker.setTitle(MyCloudSearch.mCloudItems.get(0).getTitle());
 
-		LatLng lat = new LatLng(mCloud.mCloudItems.get(0).getLatLonPoint()
-				.getLatitude(), mCloud.mCloudItems.get(0).getLatLonPoint()
+		LatLng lat = new LatLng(MyCloudSearch.mCloudItems.get(0).getLatLonPoint()
+				.getLatitude(), MyCloudSearch.mCloudItems.get(0).getLatLonPoint()
 				.getLongitude());
 		mMarker.setPosition(lat);
-		mMarker.setIcon(new BitmapDescriptorFactory()
+		new BitmapDescriptorFactory();
+		mMarker.setIcon(BitmapDescriptorFactory
 				.fromResource(R.drawable.yellow_marker));
 
 		mMarker.setAnchor(0.5f, 1.0f);
@@ -608,7 +609,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		this.parkPrice = null;
 		String title = marker.getTitle();
 		if (mCloud != null) {
-			for (CloudItem mItem : mCloud.mCloudItems) {
+			for (CloudItem mItem : MyCloudSearch.mCloudItems) {
 				if (title.equals(mItem.getTitle())) {
 					bookMoney = new String[6];
 					for (int i = 0; i < 6; i++) {

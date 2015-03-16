@@ -1,19 +1,14 @@
 package ustc.sse.water.adapter.zjx;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ustc.sse.water.activity.R;
-import ustc.sse.water.activity.R.color;
-import ustc.sse.water.adapter.zjx.XListViewAdapter.BookOnClickListener;
-import ustc.sse.water.adapter.zjx.XListViewAdapter.ViewHolder;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.nfc.NfcAdapter.CreateBeamUrisCallback;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,17 +29,19 @@ import android.widget.TextView;
  * @张芳
  * @version 3.0.0
  */
-public class OrderStateProcessingAdapter extends BaseAdapter{
+public class OrderStateProcessAdapter extends BaseAdapter{
 	
 	private List<Map<String, Object>> list;// 信息列表
 	private Context context;//上下文
 	private LayoutInflater inflater; // 填充器
 	
-	public OrderStateProcessingAdapter(Context context, List<Map<String, Object>> list) {
+	public OrderStateProcessAdapter(Context context, List<Map<String, Object>> list) {
 		this.context = context;
 		this.list = list;
 		this.inflater = LayoutInflater.from(context);
 	}
+
+
 
 	@Override
 	public int getCount() {
@@ -75,21 +72,22 @@ public class OrderStateProcessingAdapter extends BaseAdapter{
 		
 			// 每个元素的初始化
 				ViewHolder vh;
-				Map<String, Object> order = null;
+				Map<String, Object> order = new HashMap<String,Object>();
 				if (list != null) {
 					order = list.get(position);
 				}
 				if (convertView == null) {
 					vh = new ViewHolder();
-					convertView = inflater.inflate(R.layout.driver_finished_order2, null);
+					convertView = inflater.inflate(R.layout.finishedorder, null);
 					vh.car_number = (TextView) convertView
 							.findViewById(R.id.car_number);
 					vh.order_number   = (TextView) convertView
 							.findViewById(R.id.order_number);
 					vh.order_time = (TextView) convertView
-							.findViewById(R.id.order_time);
+							.findViewById(R.id.orderring_time);
 					vh.money = (TextView) convertView
 							.findViewById(R.id.money);
+					vh.complete_order = (Button) convertView.findViewById(R.id.complete_order);
 					vh.complete_order.setOnClickListener(new BookOnClickListener(order));
 					convertView.setTag(vh);
 				} else {
@@ -97,10 +95,10 @@ public class OrderStateProcessingAdapter extends BaseAdapter{
 				}
 
 				if (order != null) {
-					vh.car_number.setText((String) order.get("parkingName")); // 显示车牌号
-					vh.order_number.setText((String) order.get("parkingAddress")); // 显示停车场的地址
-					vh.order_time.setText(order.get("parkingDistance").toString()); // 显示停车场的距离
-					vh.money.setText((String)order.get("money"));
+					vh.car_number.setText((String) order.get("CarNumber")); // 显示车牌号
+					vh.order_number.setText(String.valueOf(order.get("OrderNumber"))); // 显示预定的数量
+					vh.order_time.setText((String)order.get("OrderTime")); // 显示预定时间
+					vh.money.setText(order.get("Money").toString());//显示预定金额
 				}
 				return convertView;
 	}

@@ -1,4 +1,4 @@
-package ustc.sse.water.managermain.zf;
+package ustc.sse.water.manager.zf;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;

@@ -1,4 +1,4 @@
-package ustc.sse.water.managermain.zf;
+package ustc.sse.water.manager.zf;
 
 import ustc.sse.water.activity.R;
 import android.app.TabActivity;

@@ -1,18 +1,18 @@
-package ustc.sse.water.managermain.zf;
+package ustc.sse.water.manager.zf;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import ustc.sse.water.activity.R;
-import ustc.sse.water.activity.R.id;
+import ustc.sse.water.adapter.zjx.OrderStateProcessAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 /**
  * 
  * 订单界面、默认显示当前正在进行的订单. <br>
@@ -28,13 +28,8 @@ import android.widget.TextView;
  */
 public class AActivity extends Activity {
 	
-	private TextView mtv_show1,mtv_show2,mtv_show3,mtv_show4;
+	private OrderStateProcessAdapter myAdapter;
 	
-	private ListView mlv_show;
-	
-	private ArrayList<String> mdata = new ArrayList<String>();
-	
-	private ListItemClickAdapter madapter;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,29 +39,22 @@ public class AActivity extends Activity {
         ListView list = (ListView) findViewById(R.id.orderlist);	
 
       //生成动态数组，加入数据  
-        ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();  
+        List<Map<String, Object>> listItem = new ArrayList<Map<String, Object>>();  
         for(int i=0;i<10;i++)  
         {  
-            HashMap<String, Object> map = new HashMap<String, Object>();  
-            map.put("CarNumber", R.id.car_number);  
-            map.put("OrderNumber", R.id.order_number);
-            map.put("OrderTime", R.id.orderring_time);
-            map.put("Money", R.id.money);
-            map.put("OrderState", R.id.complete_order);  
+            Map<String, Object> map = new HashMap<String, Object>();  
+            map.put("CarNumber","aaaaa");  
+            map.put("OrderNumber", 1111);
+            map.put("OrderTime", "abv");
+            map.put("Money", "dug");
             listItem.add(map);  
         }  
         
         //生成适配器的Item和动态数组对应的元素  
-        SimpleAdapter listItemAdapter = new SimpleAdapter(this,listItem,//数据源   
-            R.layout.finishedorder,//ListItem的XML实现  
-            //动态数组与ImageItem对应的子项          
-            new String[] {"CarNumber","OrderNumber","OrderTime","Money", "OrderState"},   
-            //ImageItem的XML文件里面的一个ImageView,两个TextView ID  
-            new int[] {R.id.car_number, R.id.order_number,R.id.orderring_time,R.id.money,R.id.complete_order}  
-        );  
+        myAdapter = new OrderStateProcessAdapter(AActivity.this,listItem);  
          
         //添加并且显示  
-        list.setAdapter(listItemAdapter);  
+        list.setAdapter(myAdapter);  
           
         //添加点击  
         list.setOnItemClickListener(new OnItemClickListener() {
