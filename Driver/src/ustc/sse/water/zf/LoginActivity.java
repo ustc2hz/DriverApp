@@ -17,7 +17,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import ustc.sse.water.activity.R;
 import ustc.sse.water.activity.zjx.DriverInfo;
 import ustc.sse.water.manager.zf.ManagerMainTabActivity;
-import ustc.sse.water.service.UpdateOrderService;
 import ustc.sse.water.utils.zjx.HttpUtils;
 import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
@@ -221,9 +220,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 					
 					intent.setClass(LoginActivity.this,
 							ManagerMainTabActivity.class);
-					// 管理员只要登录成功，就启动更新Service
-					startService(new Intent(LoginActivity.this,
-							UpdateOrderService.class));
 				}
 				if(sp.getBoolean("checkstatus", false)) {
 					spEditor.putString("username", valUserName);

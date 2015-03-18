@@ -10,7 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+/**
+ * 
+ * Adapter类. <br>
+ * 驾驶员订单ListView的适配器.
+ * <p>
+ * Copyright: Copyright (c) 2015-3-18 下午7:10:29
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * @author 周晶鑫
+ * @version 1.0.0
+ */
 public class DriverOrderAdapter extends BaseAdapter {
 	private Context context; // 上下文
 	private LayoutInflater inflater; // 填充器

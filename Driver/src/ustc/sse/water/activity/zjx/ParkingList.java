@@ -60,7 +60,6 @@ public class ParkingList extends Activity implements IXListViewListener {
 
 	/**
 	 * 列表页面更新，每次都去ParkingDataUtil类中取
-	 * 
 	 * @return boolean true为取到数据，false为无数据
 	 */
 	private boolean geneItems() {
@@ -97,7 +96,6 @@ public class ParkingList extends Activity implements IXListViewListener {
 	/**
 	 * 下拉刷新列表
 	 */
-
 	@Override
 	public void onRefresh() {
 		mHandler.postDelayed(new Runnable() {

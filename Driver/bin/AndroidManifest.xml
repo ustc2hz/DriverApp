@@ -131,10 +131,9 @@
         <!-- 管理员个人设置界面 -->
         <activity
             android:name="ustc.sse.water.zf.ManagerSettings"
-            android:label="@string/welcome">
-          
-       </activity>
-       
+            android:label="@string/welcome" >
+        </activity>
+
         <!-- 修改密码 -->
         <activity
             android:name="ustc.sse.water.zf.ManagerChangePass"
@@ -159,10 +158,13 @@
         <activity android:name=".zjx.ParkingDetail" >
         </activity>
         <!-- 停车场列表 -->
-        <activity android:name="ustc.sse.water.activity.zjx.ParkingList"></activity>
-        
+        <activity android:name="ustc.sse.water.activity.zjx.ParkingList" >
+        </activity>
+
         <!-- 更新订单的Service -->
-        <service android:name="ustc.sse.water.service.UpdateOrderService"></service>
+        <service android:name="ustc.sse.water.service.UpdateOrderService" >
+        </service>
+
         <activity
             android:name=".MySpinner"
             android:label="@string/title_activity_my_spinner" >

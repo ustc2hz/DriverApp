@@ -76,13 +76,9 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 有参构造函数
-	 * 
-	 * @param map
-	 *            操作的地图
-	 * @param context
-	 *            上下文
-	 * @param edit
-	 *            自动填充文本框
+	 * @param map  操作的地图
+	 * @param context  上下文
+	 * @param edit 自动填充文本框
 	 */
 	public PoiSearchMethod(AMap map, Context context, AutoCompleteTextView edit) {
 		this.aMap = map;
@@ -94,13 +90,9 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 有参构造函数
-	 * 
-	 * @param map
-	 *            高德地图
-	 * @param con
-	 *            上下文
-	 * @param keyword
-	 *            Poi关键字
+	 * @param map 高德地图
+	 * @param con  上下文
+	 * @param keyword  Poi关键字
 	 */
 	public PoiSearchMethod(AMap map, Context con, String keyword) {
 		this.aMap = map;

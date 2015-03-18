@@ -52,6 +52,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	private ProgressDialog mRouteCalculatorProgressDialog;
 	/* 起点列表 */
 	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
+	
 	/**
 	 * 导航语音监听
 	 */
@@ -229,11 +230,8 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	/**
 	 * 返回键处理事件
-	 * 
-	 * @param keyCode
-	 *            传递的事件代码
-	 * @param event
-	 *            传递的事件
+	 * @param keyCode 传递的事件代码
+	 * @param event 传递的事件
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -253,8 +251,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onLocationChange(AMapNaviLocation arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	// ---------------------导航View事件回调-----------------------------
@@ -264,7 +260,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		if (mTts != null) {
 			mTts.destroy();
 		}
-
 	}
 
 	@Override

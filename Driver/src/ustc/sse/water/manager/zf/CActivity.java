@@ -1,6 +1,7 @@
 package ustc.sse.water.manager.zf;
 
 import ustc.sse.water.activity.R;
+import ustc.sse.water.service.UpdateOrderService;
 import ustc.sse.water.zf.ManagerChangePass;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -78,6 +79,8 @@ public class CActivity extends Activity implements OnClickListener {
 					spEditor.putInt("userLoginStatus", 2);
 					spEditor.commit();
 					dialog.dismiss();
+					// 退出登录时关闭service
+					stopService(new Intent(CActivity.this, UpdateOrderService.class));
 					finish();
 				}
 

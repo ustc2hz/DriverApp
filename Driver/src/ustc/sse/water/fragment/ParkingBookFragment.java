@@ -16,7 +16,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +43,7 @@ import android.widget.Toast;
  */
 public class ParkingBookFragment extends Fragment implements OnClickListener,
 		OnItemSelectedListener {
+	
 	public static ObjectMapper objectMapper = new ObjectMapper();
 	private String[] parkingInfo = new String[2]; // 预定的停车场基本信息
 	private String[] parkingMoney = new String[3]; // 预定的停车场收费
@@ -51,6 +51,14 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 	private static String orderUUID = ""; 
 	private int selectIndex = 0; // 驾驶员选择的价格序号
 	private Context context; // 上下文
+	private Spinner spinner; // 预定时间下拉框
+	private Button submitOrder;// 提交订单按钮
+	private EditText driverNumber; // 预定车位个数
+	private String[] time = new String[3];
+	
+	public ParkingBookFragment(Context con) {
+		this.context = con;
+	}
 	
 	/**
 	 * 处理发送订单的线程的返回结果
@@ -71,7 +79,6 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 				break;
 			case 2: // 发送请求判断对应的管理员是否已经接收到订单
 				result = msg.getData().getString("check_result");
-				Log.i("--->>>result check", result);
 				// 判断是否接收成功
 				if ("success".equals(result)) {
 					// 只有管理员接收到订单后，预定才算成功
@@ -84,15 +91,6 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 		};
 	};
 	
-	private Spinner spinner; // 预定时间下拉框
-	private Button submitOrder;// 提交订单按钮
-	private EditText driverNumber; // 预定车位个数
-	private String[] time = new String[3];
-
-	public ParkingBookFragment(Context con) {
-		this.context = con;
-	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -110,7 +108,6 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 				// 发送订单到服务器
 				SendOrderThread st = new SendOrderThread(h, jacksonString);
 				st.start();
-				Log.i("-->>uuid", orderUUID);
 				// 查看刚刚发送的订单是否被管理员接收到
 				CheckOrderReceiveThread crt = new CheckOrderReceiveThread(h,orderUUID);
 				crt.start();

@@ -3,6 +3,7 @@ package ustc.sse.water.zf;
 import ustc.sse.water.activity.R;
 import ustc.sse.water.thread.UpdateAdminInfoThread;
 import ustc.sse.water.utils.zjx.ToastUtil;
+import ustc.sse.water.utils.zjx.ValidatorUtils;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -79,8 +80,24 @@ public class ManagerChangePass extends Activity implements OnClickListener {
 			rePwd = rePassword.getText().toString().trim();
 			
 			// 检验规则检验输入
+			if(!newPwd.equals(rePwd)) {
+				newPassword.setText("");
+				rePassword.setText("");
+				rePassword.setError("两次密码不一致！");
+			} else {
+				if (ValidatorUtils.passwordValidator(oldPwd)
+						&& ValidatorUtils.passwordValidator(newPwd)) {
+					submitDialog();
+				} else {
+					oldPassword.setText("");
+					newPassword.setText("");
+					rePassword.setText("");
+					oldPassword.setError("密码只能由6到12位的字母和数组组成！");
+					newPassword.setError("密码只能由6到12位的字母和数组组成！");
+					rePassword.setError("密码只能由6到12位的字母和数组组成！");
+				}
+			}
 			
-			submitDialog();
 			break;
 		}
 

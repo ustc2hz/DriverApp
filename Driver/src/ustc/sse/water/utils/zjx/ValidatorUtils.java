@@ -30,6 +30,24 @@ public class ValidatorUtils {
 	}
 	
 	/**
+	 * 静态方法；对电话号码的验证；
+	 * 规则：手机号码：1开头，11位数
+	 * @param phone 手机号
+	 * @return boolean
+	 */
+	public static boolean phoneValidator(String phone) {
+		boolean flag = false;
+		
+		// 由于手机号码种类比较多，这里简单验证
+		String regex = "^[1]{1}[0-9]{10}$";
+		if(phone.matches(regex)) {
+			flag = true;
+		}
+		
+		return flag;
+	}
+	
+	/**
 	 * 静态方法，对密码的验证
 	 * 规则：只能由大小写字母和数字组成，6到12位
 	 * @param password 密码

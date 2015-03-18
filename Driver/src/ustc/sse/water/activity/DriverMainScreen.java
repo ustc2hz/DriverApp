@@ -84,74 +84,40 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private static final int LOGIN_STATUS_NO = 2;// 没有人登录过，或者登录者已经退出
 	private long exitTime = 0; // 记录退出按键时间
 	
-	/* 高德地图AMap */
-	private AMap aMap;
-	/* 记录停车场收费信息的数组——黄志恒 */
-	private String[] bookMoney;
-	/* 汽车生活按钮——黄志恒 */
-	private RadioButton Carservice;
-	// 获取编辑器
-	Editor editor;
-	/* 静态常量，当没有停车场信息时使用 */
-	private final String GREETING_WORDS = "很抱歉，附近暂无可用停车场";
-	/* 是否有路径的状态判断 */
-	private boolean hasRouted = false;
-	/* 选中的点的地址——黄志恒 */
-	private String itemAddress;
-	/* 选中的点距离目的位置或自身位置的距离——黄志恒 */
-	private int itemDistance;
-	/* 输入框 */
-	private AutoCompleteTextView keyEdit;
-	/* 导航用的点——黄志恒注 */
-	private LatLonPoint lp;
+	private AMap aMap; /* 高德地图AMap */
+	private String[] bookMoney; /* 记录停车场收费信息的数组——黄志恒 */
+	private RadioButton Carservice;/* 汽车生活按钮——黄志恒 */
+	private Editor editor; // 获取编辑器
+	private final String GREETING_WORDS = "很抱歉，附近暂无可用停车场"; /* 静态常量，当没有停车场信息时使用 */
+	private boolean hasRouted = false; /* 是否有路径的状态判断 */
+	private String itemAddress; /* 选中的点的地址——黄志恒 */
+	private int itemDistance; /* 选中的点距离目的位置或自身位置的距离——黄志恒 */
+	private AutoCompleteTextView keyEdit; /* 输入框 */
+	private LatLonPoint lp; /* 导航用的点——黄志恒注 */
 	private LocationManagerProxy mAMapLocationManager;
-	/* 用来显示地图的MapView */
-	private MapView mapView;
-	/* 搜索云图的对象——黄志恒 */
-	MyCloudSearch mCloud;
-	/* 定位监听 */
-	private OnLocationChangedListener mListener;
-	/* 自定义定位按钮 */
-	private ImageButton myLocation;
-	/* 获取当前停车场的名称——黄志恒 */
-	private String name;
-	/* 进行路径规划的处理对象——黄志恒注 */
-	// private NaviRouteMethod nRoute;
-	/* 获取当前停车场的订金信息——黄志恒 */
-	private String orderPrice;
-	/* 获取当前停车场的停车收费信息——黄志恒 */
-	private String parkPrice;
-	/* 停车位数量——黄志恒 */
-	private String parkSum;
-	/* 周边搜索的类 ——黄志恒注 */
-	PoiAroundSearchMethod pas;
-	/* 获取当前停车场的电话号码——黄志恒 */
-	private String phone;
-
-	/* 搜索对象——黄志恒注 */
-	private PoiSearchMethod poisearch;
-	/* 搜索类型——黄志恒注 */
-	private String poiType;
-	/* '我的'按钮——黄志恒 */
-	private RadioButton RMine;
-	/* '更多'按钮——黄志恒 */
-	private RadioButton RMore;
-	/* 导航按钮——黄志恒 */
-	private RadioButton RNavi;
-	/* 预定按钮——黄志恒 */
-	private RadioButton ROrder;
-	/* 定义sharedpreference获取用户登录注册信息 */
-	SharedPreferences sharedPreferences;
-	/* 设置一个文本显示区域，用来显示当前停车场的概要信息——黄志恒 */
-	private TextView showInfo;
-	/* 判断是否显示文字区域 */
-	private boolean showText = true;
-	/* 路径规划的目的地的点 ——黄志恒注 */
-	private LatLonPoint targetPoint;
-	/* 地图的基本设置 */
-	private UiSettings uiSettings;
-	/* 语音输入 */
-	private ImageView voiceInput;
+	private MapView mapView; /* 用来显示地图的MapView */
+	MyCloudSearch mCloud; /* 搜索云图的对象——黄志恒 */
+	private OnLocationChangedListener mListener;/* 定位监听 */
+	private ImageButton myLocation; /* 自定义定位按钮 */
+	private String name; /* 获取当前停车场的名称——黄志恒 */
+	private String orderPrice; /* 获取当前停车场的订金信息——黄志恒 */
+	private String parkPrice; /* 获取当前停车场的停车收费信息——黄志恒 */
+	private String parkSum; /* 停车位数量——黄志恒 */
+	PoiAroundSearchMethod pas; /* 周边搜索的类 ——黄志恒注 */
+	private String phone; /* 获取当前停车场的电话号码——黄志恒 */
+	
+	private PoiSearchMethod poisearch; /* 搜索对象——黄志恒注 */
+	private String poiType; /* 搜索类型——黄志恒注 */
+	private RadioButton RMine; /* '我的'按钮——黄志恒 */
+	private RadioButton RMore; /* '更多'按钮——黄志恒 */
+	private RadioButton RNavi; /* 导航按钮——黄志恒 */
+	private RadioButton ROrder; /* 预定按钮——黄志恒 */
+	SharedPreferences sharedPreferences; /* 定义sharedpreference获取用户登录注册信息 */
+	private TextView showInfo;/* 设置一个文本显示区域，用来显示当前停车场的概要信息——黄志恒 */
+	private boolean showText = true;/* 判断是否显示文字区域 */
+	private LatLonPoint targetPoint;/* 路径规划的目的地的点 ——黄志恒注 */
+	private UiSettings uiSettings;/* 地图的基本设置 */
+	private ImageView voiceInput;/* 语音输入 */
 
 	/**
 	 * 激活定位
@@ -287,7 +253,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			intent2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent2);
 			break;
-		// By Zhangfang
 		// 点击用户模式
 		case R.id.radio_mine:
 			Intent intentUser = new Intent();
@@ -358,7 +323,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 					aLocation.getLongitude(), aMap);
 			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 			mListener.onLocationChanged(aLocation);// 显示系统小蓝点
-
 		}
 	}
 
@@ -431,8 +395,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	protected void onResume() {
 		super.onResume();
 		mapView.onResume();
-		// 返回地图界面时，重新定位
-		//new MyLocationSet(aMap).setMapLocation();
 	}
 
 	/**
@@ -493,18 +455,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * lp, this, targetPoint); } } else { ToastUtil.show(this, "请选择目的地"); } }
 	 */
 
-	/*
-	 * 为文本区域赋值并做输出格式处理
-	 * 
-	 * @param name 停车场名称
-	 * 
-	 * @param phone 停车场电话
-	 * 
-	 * @param orderPrice 停车场订金价格
-	 * 
-	 * @param parkPrice 停车场停车收费价格
-	 */
-
 	/**
 	 * 将选中的停车场的信息传递给预定页面——黄志恒
 	 */
@@ -555,15 +505,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒
-	 * 
-	 * @param name
-	 *            停车场地址
-	 * @param phone
-	 *            停车场电话
-	 * @param orderPrice
-	 *            停车场预定价格条目
-	 * @param parkPrice
-	 *            停车场停车收费条目
+	 * @param name 停车场地址
+	 * @param phone 停车场电话
+	 * @param orderPrice 停车场预定价格条目
+	 * @param parkPrice  停车场停车收费条目
 	 */
 	private String showParkInfo(String name, String phone, String orderPrice,
 			String parkPrice) {
@@ -589,9 +534,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 在文字区域显示停车场大概信息
-	 * 
-	 * @param marker
-	 *            点击的地图上的点
+	 * @param marker 点击的地图上的点
 	 */
 	private void TextshowMarkerInfo(Marker marker) {
 		this.name = marker.getTitle();

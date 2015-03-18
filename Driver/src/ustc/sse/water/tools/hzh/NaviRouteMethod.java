@@ -65,15 +65,10 @@ public class NaviRouteMethod implements AMapNaviListener {
 
 	/**
 	 * 有参构造函数
-	 * 
-	 * @param map
-	 *            传递的地图
-	 * @param lp
-	 *            当前位置
-	 * @param con
-	 *            传递来的上下文
-	 * @param tp
-	 *            目的地位置
+	 * @param map  传递的地图
+	 * @param lp 当前位置
+	 * @param con 传递来的上下文
+	 * @param tp  目的地位置
 	 */
 	public NaviRouteMethod(AMap aMap, LatLonPoint lp, Context con,
 			LatLonPoint tp) {
@@ -121,11 +116,8 @@ public class NaviRouteMethod implements AMapNaviListener {
 
 	/**
 	 * 驾车结果回调
-	 * 
-	 * @param result
-	 *            计算路径后返回的结果
-	 * @param rCode
-	 *            计算路径后返回的参数，0代表计算路径成功
+	 * @param result 计算路径后返回的结果
+	 * @param rCode 计算路径后返回的参数，0代表计算路径成功
 	 */
 
 	@Override

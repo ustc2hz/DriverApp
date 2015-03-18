@@ -29,8 +29,6 @@ import android.util.Log;
 public class DetailDataToServer {
 
 	// 发送的本地服务器的地址
-	// public static final String path =
-	// "http://192.168.8.199:8080/AppServerr/ServerToYuntu";
 	public static final String path = "http://192.168.8.199:8080/Test3_Yuntu/ServerToYuntu";
 	public static final String updatePath = "http://192.168.8.199:8080/Test3_Yuntu/ServerUpdateYuntu";
 	// 接收传递回来的数据

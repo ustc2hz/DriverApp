@@ -3,31 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
     <!-- 驾驶员电话 -->
-    <TextView android:layout_width="match_parent"
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/admin_order_show_driverPhone"
-        style="?android:listSeparatorTextViewStyle"/>
-    
-	<TextView android:id="@+id/text_admin_order_show_phone" 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="16dp"
-	    android:layout_marginRight="16dp"/>
-	
-	<!-- 预定详细 -->
-	<TextView android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="@string/admin_order_show_detail"
-	    style="?android:listSeparatorTextViewStyle"/>
-	
-	<TextView android:id="@+id/text_admin_order_show_detail"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="16dp"
-	    android:layout_marginRight="16dp"
-	    android:layout_marginBottom="10dp"
-	    />
-    
+        android:text="@string/admin_order_show_driverPhone" />
+
+    <TextView
+        android:id="@+id/text_admin_order_show_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
+
+    <!-- 预定详细 -->
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/admin_order_show_detail" />
+
+    <TextView
+        android:id="@+id/text_admin_order_show_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
+
 </LinearLayout>

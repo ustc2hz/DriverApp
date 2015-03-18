@@ -5,21 +5,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
-    
-    
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#fafafa"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal" >
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sousuo2"
             android:layout_marginLeft="5dp"
-            />
+            android:background="@drawable/sousuo2" />
 
         <!-- 关键字搜索框 -->
 
@@ -27,16 +24,16 @@
             android:id="@+id/actv_key_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="4dip"
             android:layout_marginRight="10dp"
-            android:layout_gravity="center"           
             android:layout_weight="0.31"
             android:background="@drawable/textview_border"
             android:completionThreshold="1"
             android:dropDownVerticalOffset="2.0dip"
             android:hint="@string/key_search"
             android:imeOptions="actionDone"
-            android:maxLength="20"            
+            android:maxLength="20"
             android:singleLine="true"
             android:textColor="#000000"
             android:textSize="22.0sp" />
@@ -47,91 +44,123 @@
             android:id="@+id/button_voice_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dip"       
+            android:layout_marginRight="5dip"
             android:background="@drawable/maikefeng2" />
     </LinearLayout>
-    
-    
-   <RelativeLayout android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
-	    <!-- AMap地图显示 -->
-	    <com.amap.api.maps.MapView
-	        android:id="@+id/map"       
-	        android:layout_width="fill_parent"
-	        android:layout_height="match_parent"/>
-	     <TextView 
-             android:id="@+id/show_directory"
-             android:layout_width="wrap_content"
-         	 android:layout_height="wrap_content"
-         	 android:layout_alignParentBottom="true"
-         	 android:layout_centerHorizontal="true"
-         	 android:layout_gravity="center_horizontal"
-         	 android:autoLink="phone"
-         	 android:gravity="left"
-         	 android:maxLines="6"
-         	 android:textSize="14sp"
-         	 android:background="@drawable/textview_border"
-         	 android:layout_marginBottom="6dp"        	
-         	 />  
-         
-	     <ImageButton android:id="@+id/button_my_location"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentBottom="true"
-	        android:layout_marginLeft="10.0dip"
-	        android:layout_marginBottom="10.0dip"
-	        android:background="@drawable/dingwei1"/>	 
-	     
-	    </RelativeLayout>
-    
-    
-     <LinearLayout         
-         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="bottom"
-        android:layout_alignParentBottom="true"
-       >
-    
-                  
-             
-         
-<TabHost android:id="@android:id/tabhost" 
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    >
-    <LinearLayout android:orientation="vertical" 
-        android:layout_width="fill_parent" 
-        android:layout_height="fill_parent">
-        <FrameLayout android:id="@android:id/tabcontent" 
-            android:layout_width="fill_parent" 
-            android:layout_height="0.0dip" 
-            android:layout_weight="1.0" />
-        <TabWidget android:id="@android:id/tabs" 
-            android:visibility="gone" 
-            android:layout_width="fill_parent" 
-            android:layout_height="wrap_content" 
-            android:layout_weight="0.0" />
-            <RadioGroup 
-                android:gravity="center_vertical" 
-                android:layout_gravity="bottom" 
-                android:orientation="horizontal" 
-                android:id="@id/main_radio" 
-                android:background="@drawable/baise" 
-                android:layout_width="fill_parent" 
-                android:layout_height="wrap_content">
-                
-                <RadioButton  android:id="@+id/radio_Carservice" android:layout_marginTop="2.0dip" android:text="@string/main_Carservice" android:drawableTop="@drawable/icon_1_n" style="@style/main_tab_bottom" />
-                <RadioButton  android:id="@+id/radio_navi" android:layout_marginTop="2.0dip" android:text="@string/main_navi" android:drawableTop="@drawable/icon_2_n" style="@style/main_tab_bottom" />
-                <RadioButton  android:id="@+id/radio_order" android:layout_marginTop="2.0dip" android:text="@string/main_order" android:drawableTop="@drawable/icon_3_n" style="@style/main_tab_bottom" />
-                <RadioButton  android:id="@+id/radio_mine" android:layout_marginTop="2.0dip" android:text="@string/main_mine" android:drawableTop="@drawable/icon_4_n" style="@style/main_tab_bottom" />
-                <RadioButton  android:id="@+id/radio_more" android:layout_marginTop="2.0dip" android:text="@string/main_more" android:drawableTop="@drawable/icon_5_n" style="@style/main_tab_bottom" />
-            </RadioGroup>
-    </LinearLayout>
-</TabHost>
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <!-- AMap地图显示 -->
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/show_directory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="6dp"
+            android:autoLink="phone"
+            android:background="@drawable/textview_border"
+            android:gravity="left"
+            android:maxLines="6"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/button_my_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10.0dip"
+            android:layout_marginLeft="10.0dip"
+            android:background="@drawable/dingwei1" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical" >
+
+        <TabHost
+            android:id="@android:id/tabhost"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.0dip"
+                    android:layout_weight="1.0" />
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.0"
+                    android:visibility="gone" />
+
+                <RadioGroup
+                    android:id="@id/main_radio"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/baise"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/radio_Carservice"
+                        style="@style/main_tab_bottom"
+                        android:layout_marginTop="2.0dip"
+                        android:drawableTop="@drawable/icon_1_n"
+                        android:text="@string/main_Carservice" />
+
+                    <RadioButton
+                        android:id="@+id/radio_navi"
+                        style="@style/main_tab_bottom"
+                        android:layout_marginTop="2.0dip"
+                        android:drawableTop="@drawable/icon_2_n"
+                        android:text="@string/main_navi" />
+
+                    <RadioButton
+                        android:id="@+id/radio_order"
+                        style="@style/main_tab_bottom"
+                        android:layout_marginTop="2.0dip"
+                        android:drawableTop="@drawable/icon_3_n"
+                        android:text="@string/main_order" />
+
+                    <RadioButton
+                        android:id="@+id/radio_mine"
+                        style="@style/main_tab_bottom"
+                        android:layout_marginTop="2.0dip"
+                        android:drawableTop="@drawable/icon_4_n"
+                        android:text="@string/main_mine" />
+
+                    <RadioButton
+                        android:id="@+id/radio_more"
+                        style="@style/main_tab_bottom"
+                        android:layout_marginTop="2.0dip"
+                        android:drawableTop="@drawable/icon_5_n"
+                        android:text="@string/main_more" />
+                </RadioGroup>
+            </LinearLayout>
+        </TabHost>
+    </LinearLayout>
 
 </LinearLayout>

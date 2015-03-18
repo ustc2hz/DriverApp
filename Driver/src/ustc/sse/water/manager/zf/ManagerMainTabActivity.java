@@ -1,6 +1,7 @@
 package ustc.sse.water.manager.zf;
 
 import ustc.sse.water.activity.R;
+import ustc.sse.water.service.UpdateOrderService;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,6 +50,9 @@ public class ManagerMainTabActivity extends TabActivity implements OnCheckedChan
 		((RadioButton) findViewById(R.id.radio_button3))
 		.setOnCheckedChangeListener(this);
 		setupIntent();
+		
+		// 管理员只要登录成功，就启动更新Service
+		startService(new Intent(this, UpdateOrderService.class));
     }
 
 	@Override
@@ -95,4 +99,5 @@ public class ManagerMainTabActivity extends TabActivity implements OnCheckedChan
 		return this.mTabHost.newTabSpec(tag).setIndicator(getString(resLabel),
 				getResources().getDrawable(resIcon)).setContent(content);
 	}
+	
 }

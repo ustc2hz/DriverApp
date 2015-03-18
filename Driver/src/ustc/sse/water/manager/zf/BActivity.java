@@ -42,12 +42,51 @@ import android.widget.Toast;
  */
 
 public class BActivity extends Activity implements OnClickListener {
+	
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
 	public static ObjectMapper objectMapper = new ObjectMapper();
 	// button的申明
 	private Button changeMess, commit;
 	// 构造sharedPreference的编辑对象——黄志恒
 	SharedPreferences.Editor editor;
+	// 停车场地址的经纬度——黄志恒
+		// private String address;
+		private String location;
+		// 地图选点按钮
+		private Button modeButton;
+
+		// 切换手工输入和地图选点的Spinner——黄志恒
+		private Spinner modeSpinner;
+		// 停车场名称全局变量——黄志恒
+		private String name;
+		// 用于获取edittext的值
+		private String num, price_ten, price_twenty, price_thirty, pprice_ten,
+				pprice_twenty, pprice_thirty;
+
+		// edittext的申明
+		private EditText park_number, l_price, m_price, h_price, pl_price,
+				pm_price, ph_price;
+
+		// 停车场地理坐标——黄志恒
+		private EditText parkLocation;
+
+		// 停车场名称——黄志恒
+		private EditText parkName;
+		// 停车场电话——黄志恒
+		private EditText parkPhone;
+		// 停车场详细信息数据结构对象——黄志恒
+		private ParkDetailObject pdo;
+		// 停车场电话全局变量——黄志恒
+		private String phone;
+
+		private DataToYutunServer post;
+		// 将停车场详细数据发送到服务器的对象——黄志恒
+		DetailDataToServer postData;
+
+		// SharedPreference获取当前的发布信息
+		SharedPreferences preferences;
+		// 需要更新的数据
+		private String updateData;
 
 	/**
 	 * 返回通知数据提交服务器是否成功——黄志恒
@@ -62,44 +101,6 @@ public class BActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
-	// 停车场地址的经纬度——黄志恒
-	// private String address;
-	private String location;
-	// 地图选点按钮
-	private Button modeButton;
-
-	// 切换手工输入和地图选点的Spinner——黄志恒
-	private Spinner modeSpinner;
-	// 停车场名称全局变量——黄志恒
-	private String name;
-	// 用于获取edittext的值
-	private String num, price_ten, price_twenty, price_thirty, pprice_ten,
-			pprice_twenty, pprice_thirty;
-
-	// edittext的申明
-	private EditText park_number, l_price, m_price, h_price, pl_price,
-			pm_price, ph_price;
-
-	// 停车场地理坐标——黄志恒
-	private EditText parkLocation;
-
-	// 停车场名称——黄志恒
-	private EditText parkName;
-	// 停车场电话——黄志恒
-	private EditText parkPhone;
-	// 停车场详细信息数据结构对象——黄志恒
-	private ParkDetailObject pdo;
-	// 停车场电话全局变量——黄志恒
-	private String phone;
-
-	private DataToYutunServer post;
-	// 将停车场详细数据发送到服务器的对象——黄志恒
-	DetailDataToServer postData;
-
-	// SharedPreference获取当前的发布信息
-	SharedPreferences preferences;
-	// 需要更新的数据
-	private String updateData;
 
 	/**
 	 * 检查输入框是否有更新,如有更新则保存更新的数据
@@ -295,7 +296,6 @@ public class BActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 
 		case R.id.manager_update:
@@ -320,7 +320,6 @@ public class BActivity extends Activity implements OnClickListener {
 							}
 
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						// 线程逻辑
@@ -361,7 +360,6 @@ public class BActivity extends Activity implements OnClickListener {
 							}
 
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						// 线程逻辑

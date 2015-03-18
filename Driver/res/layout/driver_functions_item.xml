@@ -3,18 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
     <!-- 导航图片 -->
-    <ImageView android:id="@+id/imageView_driver_function_order"
+
+    <ImageView
+        android:id="@+id/imageView_driver_function_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-    
+        android:layout_gravity="center" />
+
     <!-- 导航文字 -->
-    <TextView android:id="@+id/textView_driver_function_order"
+
+    <TextView
+        android:id="@+id/textView_driver_function_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:textStyle="bold" />
 
 </LinearLayout>
