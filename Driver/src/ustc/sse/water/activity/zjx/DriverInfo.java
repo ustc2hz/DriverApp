@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import ustc.sse.water.activity.R;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import android.widget.TextView;
  * @version 2.0.0
  */
 public class DriverInfo extends Activity implements OnItemClickListener ,OnClickListener {
+	
 	private final static int GV_UPATE_INFO = 0; // GridView中“修改信息”的position
 	private final static int GV_CHECK_ORDER = 1; // “查看订单”的position
 	private final static int GV_TWO_CODE = 2; // “二维码”的position
@@ -38,12 +41,14 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 	private final int[] funImages = {R.drawable.tubiao1,R.drawable.tubiao5,R.drawable.tubiao4};
 	// 导航文字
 	private final String[] funTexts = {"修改信息","查看订单","二维码"};
+	
 	private GridView gridView; // 导航
 	private Button logout;// 退出登录按钮
 	private Button backMap; // 返回到地图
 	private TextView textLicence; // 车牌号
 	private TextView textPhone; // 电话
-	private SharedPreferences sp;
+	private SharedPreferences sp = null;
+	private SharedPreferences.Editor spEditor = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +68,8 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 		textLicence = (TextView)findViewById(R.id.text_driver_licence);
 		textPhone = (TextView)findViewById(R.id.text_driver_phone);
 		// 取出SP中的数据
-		String spDriverLicence = sp.getString("driverLoginLicence", "没有驾驶员登录...");
-		String spDriverPhone = sp.getString("driverLoginPhone", "暂无联系电话...");
+		String spDriverLicence = sp.getString("driverLoginLicence", "没有驾驶员登录");
+		String spDriverPhone = sp.getString("driverLoginPhone", "暂无联系电话");
 		// 赋值
 		textLicence.setText(spDriverLicence);
 		textPhone.setText(spDriverPhone);
@@ -105,7 +110,26 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 			finish();
 			break;
 		case R.id.button_logout: // 点击退出登录
-			finish();
+			// 退出登录需要改变登录者状态
+			spEditor = sp.edit();
+			new AlertDialog.Builder(this).setTitle("提示").setMessage("是否退出登录？")
+			.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					spEditor.putInt("userLoginStatus", 2);
+					spEditor.commit();
+					dialog.dismiss();
+					finish();
+				}
+
+			}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}).create().show();
 			break;
 		}
 	}
@@ -124,9 +148,9 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 		case GV_CHECK_ORDER: // 查看订单
 			intent.setClass(DriverInfo.this, DriverOrderInfo.class);
 			break;
-		case GV_TWO_CODE: // 二维码
-			
-			break;
+		/*case GV_TWO_CODE: // 二维码
+			ToastUtil.show(DriverInfo.this, "暂未开放！敬请期待...");
+			break;*/
 		}
 		startActivity(intent);
 	}
@@ -134,8 +158,8 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 	@Override
 	protected void onResume() {
 		// 从“修改信息”界面返回时，刷新联系电话
-		textLicence.setText(sp.getString("driverLoginLicence", "没有驾驶员登录..."));
-		textPhone.setText(sp.getString("driverLoginPhone", "没有联系电话..."));
+		textLicence.setText(sp.getString("driverLoginLicence", "没有驾驶员登录"));
+		textPhone.setText(sp.getString("driverLoginPhone", "没有联系电话"));
 		super.onResume();
 	}
 

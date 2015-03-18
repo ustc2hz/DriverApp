@@ -7,7 +7,7 @@ import ustc.sse.water.adapter.zjx.DriverOrderAdapter;
 import ustc.sse.water.data.model.DriverOrderShow;
 import ustc.sse.water.thread.ShowDriverOrderThread;
 import ustc.sse.water.utils.zjx.ConstantKeep;
-import ustc.sse.water.utils.zjx.CustomDialog;
+import ustc.sse.water.utils.zjx.DriverCustomDialog;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -41,7 +41,7 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 	private ActionBar ab; // ActionBar
 	private List<DriverOrderShow> driverOrders; // 驾驶员的订单信息
 	private SharedPreferences sp;
-	private String driverId; // 操作驾驶员的id
+	private int driverId; // 操作驾驶员的id
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +51,11 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setTitle(R.string.driver_order_information);
-		
+
 		driverOrders = ConstantKeep.dos; // 获取本地保存的驾驶员订单信息
 		sp = getSharedPreferences("userdata", MODE_PRIVATE);
-		driverId = String.valueOf(sp.getInt("driverLoginId", 0));
-		
+		driverId = sp.getInt("driverLoginId", 0);
+
 		setContentView(R.layout.driver_order_info);
 		initView();
 	}
@@ -67,32 +67,35 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 		listView = (ListView) findViewById(R.id.listview_order_info);
 		listView.setOnItemClickListener(this);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar_waiting);
-		
-		if(driverOrders != null) {
-			adapter = new DriverOrderAdapter(this,driverOrders);
-			listView.setAdapter(adapter);	
+
+		if (driverOrders != null) {
+			adapter = new DriverOrderAdapter(this, driverOrders);
+			listView.setAdapter(adapter);
 			listView.setVisibility(View.VISIBLE);
-		} else {
+		} else if(driverId != 0) {
 			// 如果显示环形进度条等待刷新
 			progressBar.setVisibility(View.VISIBLE);
 			// 开启线程访问服务器获取订单数据
 			ShowDriverOrderThread showOrder = new ShowDriverOrderThread(h, "1",
-					driverId);
+					String.valueOf(driverId));
 			showOrder.start();
+		} else {
+			ToastUtil.show(this, "无效驾驶员");
 		}
-		
+
 	}
 
 	Handler h = new Handler() {
-		
+
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			switch(msg.arg1) {
+			switch (msg.arg1) {
 			case 22: // 获取全部订单数据成功
 				// 重新获取本地保存的驾驶员订单信息
-				driverOrders = ConstantKeep.dos; 
-				adapter = new DriverOrderAdapter(DriverOrderInfo.this,driverOrders);
-				listView.setAdapter(adapter);	
+				driverOrders = ConstantKeep.dos;
+				adapter = new DriverOrderAdapter(DriverOrderInfo.this,
+						driverOrders);
+				listView.setAdapter(adapter);
 				listView.setVisibility(View.VISIBLE);
 				progressBar.setVisibility(View.GONE);
 				break;
@@ -109,13 +112,13 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 			long id) {
 		// 获取选择的订单
 		DriverOrderShow order = driverOrders.get(position);
-		new CustomDialog(this, String.valueOf(order.getParkNumber()),
+		new DriverCustomDialog(this, String.valueOf(order.getParkNumber()),
 				order.getOrderDetail(), order.getAdminPhone());
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
+		switch (item.getItemId()) {
 		case android.R.id.home: // ActionBar中向左箭头点击
 			finish(); // 返回主菜单
 			break;

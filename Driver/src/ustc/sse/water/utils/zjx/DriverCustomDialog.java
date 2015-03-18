@@ -16,10 +16,10 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * @author 
+ * @author 周晶鑫
  * @version 1.0.0
  */
-public class CustomDialog {
+public class DriverCustomDialog {
 	private Context context; // 上下文
 	private AlertDialog ad; // 对话框
 	private TextView parkNumber; // 预定车位数
@@ -27,7 +27,7 @@ public class CustomDialog {
 	private TextView parkPhone; // 管理员电话
 	private Button gpsPark; // 定位按钮
 
-	public CustomDialog(Context con, String parkNum, String orderInfo, String phone) {
+	public DriverCustomDialog(Context con, String parkNum, String orderInfo, String phone) {
 		this.context = con;
 		AlertDialog.Builder adb = new AlertDialog.Builder(context);
 		View ll = LayoutInflater.from(con).inflate(

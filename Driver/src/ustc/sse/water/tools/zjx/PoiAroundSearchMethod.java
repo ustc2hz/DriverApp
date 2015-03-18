@@ -3,7 +3,7 @@ package ustc.sse.water.tools.zjx;
 import java.util.List;
 
 import ustc.sse.water.activity.R;
-import ustc.sse.water.utils.zjx.DialogUtil;
+import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.content.Context;
 
@@ -57,7 +57,7 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	/* Poi搜索类型 */
 	private String deepType = "";
 	/* 对话框类 */
-	DialogUtil dialog;
+	ProgressDialogUtil dialog;
 	/* 选择的点 */
 	private Marker locationMarker;
 	/* 搜索中心 */
@@ -87,7 +87,7 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 		this.context = con;
 		this.deepType = type;
 		this.lp = lp;
-		dialog = new DialogUtil(context);
+		dialog = new ProgressDialogUtil(context,"正在搜索...");
 		doSearchQuery(); // 开始搜索
 	}
 

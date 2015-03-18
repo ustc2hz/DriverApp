@@ -74,6 +74,8 @@
     <string name="driver_update_password">修改密码</string>
     <string name="driver_update_password_old">旧密码：</string>
     <string name="driver_update_password_new">新密码：</string>
+    <string name="admin_order_show_driverPhone">驾驶员电话</string>
+    <string name="admin_order_show_detail">预定详情</string>
     
     <string name="parking_order_money_unit">元</string>
     <string name="parking_order_title">车位预定</string>
@@ -90,7 +92,7 @@
     <string name="parking_info_address">停车场的地址：</string>
     <string name="parking_info_distance">距目的地的距离：</string>
     <string name="parking_info_phnoe">\t\t\t\t停车场电话：</string>
-    <string name="username_hint">请输入车牌号</string>
+    <string name="username_hint">请输入用户名</string>
     <string name="username_input">账号</string>
     <string name="password_hint">请输入密码</string>
     <string name="password_input">密码</string>
@@ -104,5 +106,21 @@
     <string name="main_manage_date">个人设置</string>
     <string name="title_activity_my_spinner">MySpinner</string>
     <string name="title_activity_map_for_address">MapForAddress</string>
+    <string name="tip_no_orders">暂无订单信息</string>
+    <string name="label_username">用户名:</string>
+    <string name="label_password">密码:</string>
+    <string name="label_repassword">确认密码:</string>
+    <string name="label_newPassword">新密码:</string>
+    <string name="label_oldPassword">旧密码:</string>
+    <string name="register_button_reset">重置</string>
+    <string name="register_button_submit">注册</string>
+    <string name="register_hint_licence">请注册您的车牌号</string>
+    <string name="register_hint_username">请注册6到16位的用户名</string>
+    <string name="register_hint_password">请输入6到12位的密码</string>
+    <string name="register_hint_repassword">请确认输入的密码</string>
+    <string name="title_register_driver">驾驶员注册</string> 
+    <string name="title_register_manager">停车场管理员注册</string>
+    <string name="login_radiobutton_driver">驾驶员</string>
+    <string name="login_radiobutton_manager">停车场</string>
 
 </resources>

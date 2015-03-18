@@ -139,13 +139,13 @@
                     android:id="@+id/check_manager"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"                
-                    android:text="管理员" />
+                    android:text="@string/login_radiobutton_manager" />
 
                 <RadioButton
                     android:id="@+id/check_driver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="驾驶员" />
+                    android:text="@string/login_radiobutton_driver" />
             </RadioGroup>
 
         </RelativeLayout>

@@ -6,7 +6,7 @@ import android.content.Context;
 /**
  * 
  * 对话框工具类 <br>
- * 显示各种对话框
+ * 显示进度条对话框
  * <p>
  * Copyright: Copyright (c) 2014-11-14 上午9:06:52
  * <p>
@@ -14,26 +14,22 @@ import android.content.Context;
  * <p>
  * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
- * @version 1.0.0
+ * @version 2.0.0
  */
-public class DialogUtil {
+public class ProgressDialogUtil {
 	/* 上下文 */
 	private Context context;
 	/* 进度对话框 */
 	private ProgressDialog progressDialog = null;
-
-	public DialogUtil() {
-		// 无参构造函数
-	}
+	private String message; // 提示的信息
 
 	/**
 	 * 有参构造函数
-	 * 
-	 * @param context
-	 *            上下文
+	 * @param context 上下文
 	 */
-	public DialogUtil(Context context) {
+	public ProgressDialogUtil(Context context,String msg) {
 		this.context = context;
+		message = msg;
 	}
 
 	/**
@@ -54,7 +50,7 @@ public class DialogUtil {
 			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			progressDialog.setIndeterminate(false);
 			progressDialog.setCancelable(false);
-			progressDialog.setMessage("正在搜索...");
+			progressDialog.setMessage(message);
 			progressDialog.show();
 		}
 	}

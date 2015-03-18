@@ -49,29 +49,6 @@ public class Ordering extends Activity implements OnClickListener, TabListener {
 		bar.addTab(bar.newTab().setText("正在进行的订单").setTabListener(this));
 		bar.addTab(bar.newTab().setText("已经完成的订单").setTabListener(this));
 
-		// service = new PersonService();
-		// ListView listView = (ListView) this.findViewById(R.id.list);
-		//
-		// //获取到集合数据
-		// List<Person> persons = service.getScrollData(0, 10);
-		// List<HashMap<String, Object>> data = new
-		// ArrayList<HashMap<String,Object>>();
-		// for(Person person : persons){
-		// HashMap<String, Object> item = new HashMap<String, Object>();
-		// item.put("id", person.getId());
-		// item.put("name", person.getName());
-		// item.put("phone", person.getPhone());
-		// item.put("amount", person.getAmount());
-		// data.add(item);
-		// }
-		// //创建SimpleAdapter适配器将数据绑定到item显示控件上
-		// SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.item,
-		// new String[]{"name", "phone", "amount"}, new int[]{R.id.car_id,
-		// R.id.order_time, R.id.button});
-		// //实现列表的显示
-		// listView.setAdapter(adapter);
-		// //条目点击事件
-		// listView.setOnItemClickListener(new ItemClickListener());
 	}
 
 	@Override

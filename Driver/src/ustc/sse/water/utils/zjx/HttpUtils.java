@@ -5,6 +5,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+
 /**
  * 
  * Http工具类. <br>
@@ -21,6 +26,8 @@ import java.net.URL;
 public class HttpUtils {
 	/* 服务器的IP地址和端口号 */
 	public final static String MY_IP = "192.168.9.241:8080";
+	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
+	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
 
 	public HttpUtils() {
 		// 无参构造函数
@@ -55,9 +62,7 @@ public class HttpUtils {
 
 	/**
 	 * 将服务器返回的流转化为String
-	 * 
-	 * @param inputStream
-	 *            输入流
+	 * @param inputStream 输入流
 	 * @return String 转化结果
 	 */
 	public static String changeInputStream(InputStream inputStream) {
@@ -77,4 +82,13 @@ public class HttpUtils {
 		return jsonString;
 	}
     
+	//初始化HttpClient，并设置超时
+    public static HttpClient getHttpClient()
+    {
+    	BasicHttpParams httpParams = new BasicHttpParams();
+    	HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
+    	HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
+    	HttpClient client = new DefaultHttpClient(httpParams);
+    	return client;
+    }
 }

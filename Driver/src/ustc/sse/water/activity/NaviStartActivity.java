@@ -3,8 +3,8 @@ package ustc.sse.water.activity;
 //import ustc.sse.water.tools.hzh.TTSController;
 import java.util.ArrayList;
 
-import ustc.sse.water.utils.zjx.DialogUtil;
 import ustc.sse.water.utils.zjx.NaviUtils;
+import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -41,7 +41,7 @@ import com.iflytek.cloud.SynthesizerListener;
 public class NaviStartActivity extends Activity implements OnClickListener,
 		AMapNaviListener, AMapNaviViewListener {
 	/* 对话框类对象 */
-	private DialogUtil dialog = new DialogUtil(this);
+	private ProgressDialogUtil dialog = new ProgressDialogUtil(this,"正在搜索...");
 	/* 终点列表 */
 	private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
 	/* 终点 */

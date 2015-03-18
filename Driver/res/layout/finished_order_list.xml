@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+     >
     
     <ListView android:id="@+id/orderlist"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-   <!--  <include android:id="@+id/fini" layout="@layout/finishedorder"/>--> "
+        android:layout_height="wrap_content"
+        android:dividerHeight="4dp">
 	</ListView>
-</LinearLayout>
+	
+    <!-- 暂无订单的提示 -->
+
+    <TextView
+        android:id="@+id/text_admin_no_order_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="@string/tip_no_orders"
+        android:textColor="#ff0000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

@@ -25,4 +25,10 @@ public class ConstantKeep {
 	// 暂存驾驶员的新订单
 	public static List<DriverOrderShow> dos = null;	
 	
+	// 暂存管理员的正在进行的订单
+	public static List<AdminOrderShow> aosIng = null;
+	
+	// 暂存管理员的已经完成的订单
+	public static List<AdminOrderShow> aosDown = null;
+	
 }

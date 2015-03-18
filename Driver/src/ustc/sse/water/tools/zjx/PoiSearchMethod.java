@@ -5,7 +5,7 @@ import java.util.List;
 
 import ustc.sse.water.activity.R;
 import ustc.sse.water.tools.hzh.MyCloudSearch;
-import ustc.sse.water.utils.zjx.DialogUtil;
+import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.content.Context;
 import android.text.Editable;
@@ -54,7 +54,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 	/* 当前搜索页 */
 	private int currentPage = 0;
 	/* 对话框类 */
-	DialogUtil dialog;
+	ProgressDialogUtil dialog;
 	/* 接收传递的自动输入框 */
 	private AutoCompleteTextView keyEdit;
 	/* Poi搜索的关键字 */
@@ -106,7 +106,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 		this.aMap = map;
 		this.context = con;
 		this.keySearch = keyword;
-		dialog = new DialogUtil(context);
+		dialog = new ProgressDialogUtil(context,"正在搜索...");
 		// doSearchQuery();
 	}
 

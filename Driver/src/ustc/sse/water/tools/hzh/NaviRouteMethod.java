@@ -2,7 +2,7 @@ package ustc.sse.water.tools.hzh;
 
 import java.util.ArrayList;
 
-import ustc.sse.water.utils.zjx.DialogUtil;
+import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -42,7 +42,7 @@ public class NaviRouteMethod implements AMapNaviListener {
 	private DriveRouteResult driveRouteResult;
 	/* 驾车默认模式 */
 	private int drivingMode = RouteSearch.DrivingDefault;
-	private DialogUtil du;
+	private ProgressDialogUtil du;
 	/* 计算路径时的起始位置 */
 	private LatLonPoint endPoint = null;
 	private AMapNavi mAMapNavi;
@@ -81,7 +81,7 @@ public class NaviRouteMethod implements AMapNaviListener {
 		this.aMap = aMap;
 		this.startPoint = lp;
 		this.endPoint = tp;
-		du = new DialogUtil(this.context);
+		du = new ProgressDialogUtil(this.context,"正在搜索...");
 		if (initValue()) {
 			// routeSearch = new RouteSearch(con);
 			du.showProgressDialog();
