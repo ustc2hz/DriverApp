@@ -42,9 +42,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-
 /**
- * 
+ *
  * 登录界面类 <br>
  * 该类用来显示驾驶员和管理员的登录和注册等。
  * <p>
@@ -52,16 +51,36 @@ import android.widget.RadioButton;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author张芳 sa614296@mail.ustc.edu.cn
  * @version 3.0.0
  */
 public class LoginActivity extends Activity {
-	
-	public void temp()
-	{
-		
+
+	public static int radioStatus = 0; // 默认是驾驶员
+	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
+	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
+	private EditText inputPassword;
+	private EditText inputUsername;
+	/** Called when the activity is first created. */
+	private Button loginBtn;
+	private RadioButton manager_check, driver_check;
+	private ProgressDialog mDialog;
+	private Button registerBtn;
+	private String responseMsg;
+	private CheckBox saveInfoItem;
+	private SharedPreferences sp;
+
+	// 设置全局的管理员或者驾驶员信息
+	private SharedPreferences globalID;
+	private Editor globalEdit;
+	// 获取管理员或者驾驶员是否已经登陆过的信息
+	private SharedPreferences global;
+
+	public void temp() {
+
 	}
+
 	// LoginThread线程类
 	class LoginThread implements Runnable {
 		@Override
@@ -103,10 +122,6 @@ public class LoginActivity extends Activity {
 
 	}
 
-	public static int radioStatus = 0; // 默认是驾驶员
-	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
-	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
-
 	// Handler
 	Handler handler = new Handler() {
 		@Override
@@ -117,12 +132,17 @@ public class LoginActivity extends Activity {
 				ToastUtil.show(LoginActivity.this, "登录成功！");
 				Intent intent = new Intent();
 				if (radioStatus == 0) { // 驾驶员登录成功
+					globalEdit.putString("whoLogin", "driver");
+					globalEdit.commit();
 					intent.setClass(LoginActivity.this, DriverInfo.class);
 				} else if (radioStatus == 1) { // 管理员
+					globalEdit.putString("whoLogin", "manager");
+					globalEdit.commit();
 					intent.setClass(LoginActivity.this,
 							ManagerMainTabActivity.class);
 					// 启动Service
-					startService(new Intent(LoginActivity.this, UpdateOrderService.class));
+					startService(new Intent(LoginActivity.this,
+							UpdateOrderService.class));
 				}
 				startActivity(intent);
 				finish();
@@ -137,20 +157,8 @@ public class LoginActivity extends Activity {
 		}
 	};
 
-	private EditText inputPassword;
-	private EditText inputUsername;
-	/** Called when the activity is first created. */
-	private Button loginBtn;
-	private RadioButton manager_check, driver_check;
-	private ProgressDialog mDialog;
-	private Button registerBtn;
-	private String responseMsg;
-	private CheckBox saveInfoItem;
-	private SharedPreferences sp;
-
 	// 检查网络状态
 	public void CheckNetworkState() {
-		boolean flag = false;
 		ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		State mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
 				.getState();
@@ -176,16 +184,11 @@ public class LoginActivity extends Activity {
 	}
 
 	// 判断是否记住密码，默认记住
-	private boolean isRemembered() {
-		try {
-			if (saveInfoItem.isChecked()) {
-				return true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+	/*
+	 * private boolean isRemembered() { try { if (saveInfoItem.isChecked()) {
+	 * return true; } } catch (Exception e) { e.printStackTrace(); } return
+	 * false; }
+	 */
 
 	// 初始化用户数据
 	private void LoadUserdata() {
@@ -263,6 +266,8 @@ public class LoginActivity extends Activity {
 		driver_check.setChecked(true);
 
 		sp = getSharedPreferences("userdata", 0);
+		globalID = getSharedPreferences("global", 0);
+		globalEdit = globalID.edit();
 
 		if (driver_check.isChecked()) {
 			manager_check.setChecked(false);

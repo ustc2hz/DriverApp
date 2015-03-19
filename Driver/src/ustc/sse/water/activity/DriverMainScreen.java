@@ -58,7 +58,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
 /**
- * 
+ *
  * 首界面类 <br>
  * 该类用来显示高德地图，并完成基本操作如：定位、导航、搜索、路线规划和停车场列表等
  * <p>
@@ -66,7 +66,7 @@ import com.iflytek.cloud.SpeechUtility;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 4.0.0
@@ -153,6 +153,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/* 语音输入 */
 	private ImageView voiceInput;
+	// 获取管理员或者驾驶员是否已经登陆过的信息
+	private SharedPreferences global;
 
 	/**
 	 * 激活定位
@@ -295,7 +297,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			SharedPreferences shared = getSharedPreferences("loginState",
 					Context.MODE_PRIVATE);
 			int loginState = shared.getInt("loginState", 2); // 取不到，则默认为0
-			loginState = 2;
+			loginState = 1;
 			if (loginState == 2) {
 				Intent it2 = new Intent(DriverMainScreen.this,
 						LoginActivity.class);
@@ -309,7 +311,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 				it2.putExtra("choose_model", 1);
 				it2.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				startActivity(it2);
-				// finish();
 			}
 			break;
 		// 直接预定当前停车场的订单
@@ -378,6 +379,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(arg0, 15);
 		aMap.moveCamera(update);
+		showInfo.setVisibility(View.INVISIBLE);
 
 	}
 
@@ -482,30 +484,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒
-	 */
-	/*
-	 * private void planRoute() {
-	 * 
-	 * if (targetPoint != null) { if (!hasRouted && nRoute == null) { nRoute =
-	 * new NaviRouteMethod(aMap, lp, this, targetPoint); } else {
-	 * nRoute.mRouteOverLay.removeFromMap(); nRoute = new NaviRouteMethod(aMap,
-	 * lp, this, targetPoint); } } else { ToastUtil.show(this, "请选择目的地"); } }
-	 */
-
-	/*
-	 * 为文本区域赋值并做输出格式处理
-	 * 
-	 * @param name 停车场名称
-	 * 
-	 * @param phone 停车场电话
-	 * 
-	 * @param orderPrice 停车场订金价格
-	 * 
-	 * @param parkPrice 停车场停车收费价格
-	 */
-
-	/**
 	 * 将选中的停车场的信息传递给预定页面——黄志恒
 	 */
 	private void sendDataToBook() {
@@ -555,7 +533,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒
-	 * 
+	 *
 	 * @param name
 	 *            停车场地址
 	 * @param phone
@@ -589,7 +567,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 在文字区域显示停车场大概信息
-	 * 
+	 *
 	 * @param marker
 	 *            点击的地图上的点
 	 */
@@ -650,4 +628,5 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		this.showInfo.setVisibility(View.VISIBLE);
 
 	}
+
 }
