@@ -24,9 +24,7 @@ public class PDTabListener implements TabListener {
 
 	/**
 	 * 有参构造函数
-	 * 
-	 * @param fragment
-	 *            传递的Fragment
+	 * @param fragment 传递的Fragment
 	 */
 	public PDTabListener(Fragment fragment) {
 		this.mFragment = fragment;

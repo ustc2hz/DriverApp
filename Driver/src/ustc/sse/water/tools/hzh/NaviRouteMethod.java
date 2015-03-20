@@ -2,7 +2,7 @@ package ustc.sse.water.tools.hzh;
 
 import java.util.ArrayList;
 
-import ustc.sse.water.utils.zjx.DialogUtil;
+import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,6 +18,8 @@ import com.amap.api.navi.view.RouteOverLay;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.RouteSearch;
+
+
 
 /**
  * 路径规划类 <br>
@@ -40,7 +42,7 @@ public class NaviRouteMethod implements AMapNaviListener {
 	private DriveRouteResult driveRouteResult;
 	/* 驾车默认模式 */
 	private int drivingMode = RouteSearch.DrivingDefault;
-	private DialogUtil du;
+	private ProgressDialogUtil du;
 	/* 计算路径时的起始位置 */
 	private LatLonPoint endPoint = null;
 	private AMapNavi mAMapNavi;
@@ -63,15 +65,10 @@ public class NaviRouteMethod implements AMapNaviListener {
 
 	/**
 	 * 有参构造函数
-	 * 
-	 * @param map
-	 *            传递的地图
-	 * @param lp
-	 *            当前位置
-	 * @param con
-	 *            传递来的上下文
-	 * @param tp
-	 *            目的地位置
+	 * @param map  传递的地图
+	 * @param lp 当前位置
+	 * @param con 传递来的上下文
+	 * @param tp  目的地位置
 	 */
 	public NaviRouteMethod(AMap aMap, LatLonPoint lp, Context con,
 			LatLonPoint tp) {
@@ -79,7 +76,7 @@ public class NaviRouteMethod implements AMapNaviListener {
 		this.aMap = aMap;
 		this.startPoint = lp;
 		this.endPoint = tp;
-		du = new DialogUtil(this.context);
+		du = new ProgressDialogUtil(this.context,"正在搜索...");
 		if (initValue()) {
 			// routeSearch = new RouteSearch(con);
 			du.showProgressDialog();
@@ -119,11 +116,8 @@ public class NaviRouteMethod implements AMapNaviListener {
 
 	/**
 	 * 驾车结果回调
-	 * 
-	 * @param result
-	 *            计算路径后返回的结果
-	 * @param rCode
-	 *            计算路径后返回的参数，0代表计算路径成功
+	 * @param result 计算路径后返回的结果
+	 * @param rCode 计算路径后返回的参数，0代表计算路径成功
 	 */
 
 	@Override

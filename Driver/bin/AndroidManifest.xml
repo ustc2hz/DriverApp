@@ -39,6 +39,7 @@
 
             android:value="4a7353785f59da34aa9e4d37934bed29" />
 
+
         <!-- 地图界面 -->
 
         <activity
@@ -102,26 +103,26 @@
         </activity>
         <!-- 管理员主界面 -->
         <activity
-            android:name="ustc.sse.water.managermain.zf.ManagerMainTabActivity"
+            android:name="ustc.sse.water.manager.zf.ManagerMainTabActivity"
             android:label="@string/app_name" >
         </activity>
         <!-- 默认订单界面 -->
         <activity
-            android:name="ustc.sse.water.managermain.zf.AActivity"
+            android:name="ustc.sse.water.manager.zf.AActivity"
             android:label="@string/app_name" >
         </activity>
         <!-- 发布消息界面 -->
         <activity
-            android:name="ustc.sse.water.managermain.zf.BActivity"
+            android:name="ustc.sse.water.manager.zf.BActivity"
             android:label="@string/app_name" >
         </activity>
         <!-- 个人设置界面 -->
         <activity
-            android:name="ustc.sse.water.managermain.zf.CActivity"
+            android:name="ustc.sse.water.manager.zf.CActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="ustc.sse.water.managermain.zf.DActivity"
+            android:name="ustc.sse.water.manager.zf.DActivity"
             android:label="@string/app_name" >
         </activity>
         <!-- 发布消息界面 -->
@@ -132,10 +133,9 @@
         <!-- 管理员个人设置界面 -->
         <activity
             android:name="ustc.sse.water.zf.ManagerSettings"
-            android:label="@string/welcome">
-          
-       </activity>
-       
+            android:label="@string/welcome" >
+        </activity>
+
         <!-- 修改密码 -->
         <activity
             android:name="ustc.sse.water.zf.ManagerChangePass"
@@ -147,8 +147,8 @@
             android:label="@string/welcome" >
         </activity>
 
-        <!-- 添加车牌号 -->
-        <activity android:name=".zjx.AddDriverLicence" >
+        <!-- 修改驾驶员信息界面 -->
+        <activity android:name=".zjx.UpdateDriverInfo" >
         </activity>
         <!-- 驾驶员信息界面 -->
         <activity android:name=".zjx.DriverInfo" >
@@ -160,10 +160,13 @@
         <activity android:name=".zjx.ParkingDetail" >
         </activity>
         <!-- 停车场列表 -->
-        <activity android:name="ustc.sse.water.activity.zjx.ParkingList"></activity>
-        
+        <activity android:name="ustc.sse.water.activity.zjx.ParkingList" >
+        </activity>
+
         <!-- 更新订单的Service -->
-        <service android:name="ustc.sse.water.service.UpdateOrderService"></service>
+        <service android:name="ustc.sse.water.service.UpdateOrderService" >
+        </service>
+
         <activity
             android:name=".MySpinner"
             android:label="@string/title_activity_my_spinner" >

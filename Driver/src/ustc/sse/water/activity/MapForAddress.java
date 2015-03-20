@@ -46,46 +46,25 @@ public class MapForAddress extends Activity implements LocationSource,
 		AMapLocationListener, OnClickListener, InfoWindowAdapter,
 		OnMarkerClickListener, OnMapClickListener {
 
-	/* 高德地图AMap */
-	private AMap aMap;
-	// “返回”按钮
-	private Button buttonBack;
-	// “确定”按钮
-	private Button buttonYes;
-	// 获取编辑器
-	Editor editor;
-	// 显示点击处的坐标
-	private TextView infoShow;
-	/* 选中的点的地址——黄志恒 */
-	private String itemAddress;
-	/* 输入框 */
-	private AutoCompleteTextView keyEdit;
-	// 点击点的纬度
-	private double latitude;
-	// 选中点的坐标
-	public String location;
-	// 点击点的经度
-	private double longitude;
-
+	private AMap aMap; /* 高德地图AMap */
+	private Button buttonBack;// “返回”按钮
+	private Button buttonYes;// “确定”按钮
+	Editor editor;// 获取编辑器
+	private TextView infoShow;// 显示点击处的坐标
+	private String itemAddress;/* 选中的点的地址——黄志恒 */
+	private AutoCompleteTextView keyEdit;/* 输入框 */
+	private double latitude;// 点击点的纬度
+	public String location;// 选中点的坐标
+	private double longitude;// 点击点的经度
 	private LocationManagerProxy mAMapLocationManager;
-	/* 用来显示地图的MapView */
-	private MapView mapView;
-	/* 定位监听 */
-	private OnLocationChangedListener mListener;
-	/* 移动点击的点 */
-	private LatLonPoint molp;
-	/* 自定义定位按钮 */
-	private ImageButton myLocation;
-	/* 返回传输的识别码 */
-	private final int resultCode = 4;
-	/* 定义sharedpreference获取用户登录注册信息 */
-	SharedPreferences sharedPreferences;
-
-	/* 地图的基本设置 */
-	private UiSettings uiSettings;
-
-	/* 语音输入 */
-	private ImageView voiceInput;
+	private MapView mapView;/* 用来显示地图的MapView */
+	private OnLocationChangedListener mListener;/* 定位监听 */
+	private LatLonPoint molp;/* 移动点击的点 */
+	private ImageButton myLocation;/* 自定义定位按钮 */
+	private final int resultCode = 4;/* 返回传输的识别码 */
+	SharedPreferences sharedPreferences;/* 定义sharedpreference获取用户登录注册信息 */
+	private UiSettings uiSettings;/* 地图的基本设置 */
+	private ImageView voiceInput;/* 语音输入 */
 
 	/**
 	 * 激活定位
@@ -115,13 +94,11 @@ public class MapForAddress extends Activity implements LocationSource,
 
 	@Override
 	public View getInfoContents(Marker arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public View getInfoWindow(Marker arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -166,7 +143,6 @@ public class MapForAddress extends Activity implements LocationSource,
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		// 点击的是自定义定位按钮
 		case R.id.button_my_location_map:
@@ -229,19 +205,15 @@ public class MapForAddress extends Activity implements LocationSource,
 	 */
 	@Override
 	public void onLocationChanged(AMapLocation arg0) {
-		// TODO Auto-generated method stub
 		mListener.onLocationChanged(arg0);// 显示系统小蓝点
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onMapClick(LatLng arg0) {
-		// TODO Auto-generated method stub
 
 		aMap.clear();
 		MarkerOptions mm = new MarkerOptions().position(arg0).icon(
@@ -250,12 +222,10 @@ public class MapForAddress extends Activity implements LocationSource,
 		// 向地图上添加一个坐标点
 		aMap.addMarker(mm);
 		showLLOnDirectory(mm.getPosition());
-
 	}
 
 	@Override
 	public boolean onMarkerClick(Marker arg0) {
-		// TODO Auto-generated method stub
 		arg0.showInfoWindow();
 		return true;
 	}
@@ -284,14 +254,10 @@ public class MapForAddress extends Activity implements LocationSource,
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -314,8 +280,6 @@ public class MapForAddress extends Activity implements LocationSource,
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -333,9 +297,7 @@ public class MapForAddress extends Activity implements LocationSource,
 
 	/**
 	 * 在一个文本区域显示点击点的坐标
-	 * 
-	 * @param thePoint
-	 *            点击的坐标点的对象
+	 * @param thePoint 点击的坐标点的对象
 	 */
 	public void showLLOnDirectory(LatLng thePoint) {
 

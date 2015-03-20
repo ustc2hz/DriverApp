@@ -6,9 +6,11 @@
     android:orientation="vertical" >
 
     <!-- Welcome -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#97F709"
         android:gravity="top|center_horizontal"
         android:text="@string/driver_info_welcome"
         android:textSize="25sp" />
@@ -16,12 +18,15 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="#000000" />
+        android:background="#EE0000" />
 
-    <!-- 用户名和车牌号 -->
+    <!-- 车牌号和联系电话 -->
+
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp" >
 
         <TableRow
             android:layout_width="match_parent"
@@ -31,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:gravity="right"
                 android:text="@string/driver_licence"
                 android:textSize="20sp" />
 
@@ -52,16 +57,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
+                android:gravity="right"
                 android:text="@string/driver_phone"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/text_driver_name"
+                android:id="@+id/text_driver_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="测试电话"
+                android:text="@string/driver_phone_null"
                 android:textSize="20sp" />
         </TableRow>
     </TableLayout>
@@ -69,29 +74,49 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="#000000" />
+        android:background="#DA70D6" />
 
     <!-- 为方便扩展，使用GridView制作Dashboard样式 -->
-    <GridView android:id="@+id/gridView_driver_functions"
+
+    <GridView
+        android:id="@+id/gridView_driver_functions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="auto_fit"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"/>
-    
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="10dp" >
+    </GridView>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="#000000" />
+        android:background="#DA70D6" />
+
+    <!-- 返回地图 -->
+
+    <Button
+        android:id="@+id/button_backToMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="50dp"
+        android:background="#EE5C42"
+        android:text="@string/driver_back_map" />
 
     <!-- 退出登录按钮 -->
+
     <Button
         android:id="@+id/button_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/driver_logout"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="40dp"
+        android:background="#8B4789"
+        android:text="@string/driver_logout" />
 
 </LinearLayout>

@@ -1,5 +1,16 @@
 package ustc.sse.water.data.model;
-
+/**
+ * 
+ * Model类. <br>
+ * 停车场管理员信息.
+ * <p>
+ * Copyright: Copyright (c) 2015-3-18 下午9:55:00
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * @author 韩琼
+ * @version 1.0.0
+ */
 public class Admin {
 	private int adminId; // 管理员id
 	private String adminName; // 管理员名字

@@ -44,7 +44,6 @@ public class ParkingData {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this._name + "#" + this._address + "#" + this.phone;
 	}
 

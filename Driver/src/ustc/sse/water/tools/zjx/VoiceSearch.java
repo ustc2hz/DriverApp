@@ -81,11 +81,8 @@ public class VoiceSearch {
 
 	/**
 	 * 有参构造函数
-	 * 
-	 * @param map
-	 *            高德地图
-	 * @param con
-	 *            上下文
+	 * @param map 高德地图
+	 * @param con 上下文
 	 */
 	public VoiceSearch(AMap map, Context con) {
 		this.aMap = map;

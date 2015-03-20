@@ -14,7 +14,7 @@ import ustc.sse.water.data.model.DriverOrderShow;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * @author ****
+ * @author 周晶鑫
  * @version 1.0.0
  */
 public class ConstantKeep {
@@ -24,5 +24,11 @@ public class ConstantKeep {
 	
 	// 暂存驾驶员的新订单
 	public static List<DriverOrderShow> dos = null;	
+	
+	// 暂存管理员的正在进行的订单
+	public static List<AdminOrderShow> aosIng = null;
+	
+	// 暂存管理员的已经完成的订单
+	public static List<AdminOrderShow> aosDown = null;
 	
 }

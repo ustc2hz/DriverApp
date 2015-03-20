@@ -3,8 +3,8 @@ package ustc.sse.water.activity;
 //import ustc.sse.water.tools.hzh.TTSController;
 import java.util.ArrayList;
 
-import ustc.sse.water.utils.zjx.DialogUtil;
 import ustc.sse.water.utils.zjx.NaviUtils;
+import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -41,7 +41,7 @@ import com.iflytek.cloud.SynthesizerListener;
 public class NaviStartActivity extends Activity implements OnClickListener,
 		AMapNaviListener, AMapNaviViewListener {
 	/* 对话框类对象 */
-	private DialogUtil dialog = new DialogUtil(this);
+	private ProgressDialogUtil dialog = new ProgressDialogUtil(this,"正在搜索...");
 	/* 终点列表 */
 	private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
 	/* 终点 */
@@ -52,6 +52,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	private ProgressDialog mRouteCalculatorProgressDialog;
 	/* 起点列表 */
 	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
+	
 	/**
 	 * 导航语音监听
 	 */
@@ -229,11 +230,8 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	/**
 	 * 返回键处理事件
-	 * 
-	 * @param keyCode
-	 *            传递的事件代码
-	 * @param event
-	 *            传递的事件
+	 * @param keyCode 传递的事件代码
+	 * @param event 传递的事件
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -253,8 +251,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onLocationChange(AMapNaviLocation arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	// ---------------------导航View事件回调-----------------------------
@@ -264,7 +260,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		if (mTts != null) {
 			mTts.destroy();
 		}
-
 	}
 
 	@Override

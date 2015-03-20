@@ -42,9 +42,7 @@ public class DataToYutunServer {
 
 	/**
 	 * 构造函数，
-	 * 
-	 * @param data
-	 *            要向服务器发送的数据
+	 * @param data 要向服务器发送的数据
 	 */
 	public DataToYutunServer(String data) {
 		this.data = data;
