@@ -48,12 +48,13 @@ public class DetailDataToServer {
 	/**
 	 * 发送创建表的数据
 	 */
-	public void postDataToServer(String data) throws Exception {
+	public void postDataToServer(String data, String name) throws Exception {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(path);
 		// post.addHeader("Content-Type", "application/x-www-form-urluncoded");
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("data", data));
+		params.add(new BasicNameValuePair("name", name));
 		UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, "UTF-8");
 		post.setEntity(entity);
 

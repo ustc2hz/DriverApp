@@ -28,21 +28,21 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
- * 
+ *
  * 订单界面、默认显示当前正在进行的订单. <br>
  * 订单界面类.
-  * <p>
+ * <p>
  * Copyright: Copyright (c) 2015-03-01 下午10:35:02
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author张芳 sa614296@mail.ustc.edu.cn
  * @version 3.0.0
  */
 
 public class BActivity extends Activity implements OnClickListener {
-	
+
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
 	public static ObjectMapper objectMapper = new ObjectMapper();
 	// button的申明
@@ -50,43 +50,47 @@ public class BActivity extends Activity implements OnClickListener {
 	// 构造sharedPreference的编辑对象——黄志恒
 	SharedPreferences.Editor editor;
 	// 停车场地址的经纬度——黄志恒
-		// private String address;
-		private String location;
-		// 地图选点按钮
-		private Button modeButton;
+	// private String address;
+	private String location;
+	// 地图选点按钮
+	private Button modeButton;
 
-		// 切换手工输入和地图选点的Spinner——黄志恒
-		private Spinner modeSpinner;
-		// 停车场名称全局变量——黄志恒
-		private String name;
-		// 用于获取edittext的值
-		private String num, price_ten, price_twenty, price_thirty, pprice_ten,
-				pprice_twenty, pprice_thirty;
+	// 切换手工输入和地图选点的Spinner——黄志恒
+	private Spinner modeSpinner;
+	// 停车场名称全局变量——黄志恒
+	private String name;
+	// 用于获取edittext的值
+	private String num, price_ten, price_twenty, price_thirty, pprice_ten,
+			pprice_twenty, pprice_thirty;
 
-		// edittext的申明
-		private EditText park_number, l_price, m_price, h_price, pl_price,
-				pm_price, ph_price;
+	// edittext的申明
+	private EditText park_number, l_price, m_price, h_price, pl_price,
+			pm_price, ph_price;
 
-		// 停车场地理坐标——黄志恒
-		private EditText parkLocation;
+	// 停车场地理坐标——黄志恒
+	private EditText parkLocation;
 
-		// 停车场名称——黄志恒
-		private EditText parkName;
-		// 停车场电话——黄志恒
-		private EditText parkPhone;
-		// 停车场详细信息数据结构对象——黄志恒
-		private ParkDetailObject pdo;
-		// 停车场电话全局变量——黄志恒
-		private String phone;
+	// 停车场名称——黄志恒
+	private EditText parkName;
+	// 停车场电话——黄志恒
+	private EditText parkPhone;
+	// 停车场详细信息数据结构对象——黄志恒
+	private ParkDetailObject pdo;
+	// 停车场电话全局变量——黄志恒
+	private String phone;
 
-		private DataToYutunServer post;
-		// 将停车场详细数据发送到服务器的对象——黄志恒
-		DetailDataToServer postData;
+	private DataToYutunServer post;
+	// 将停车场详细数据发送到服务器的对象——黄志恒
+	DetailDataToServer postData;
 
-		// SharedPreference获取当前的发布信息
-		SharedPreferences preferences;
-		// 需要更新的数据
-		private String updateData;
+	// SharedPreference获取当前的发布信息
+	SharedPreferences preferences;
+	// 获取管理员名字
+	SharedPreferences userDataPreFer;
+	// 需要更新的数据
+	private String updateData;
+	// 保存管理员名字
+	private String managerName;
 
 	/**
 	 * 返回通知数据提交服务器是否成功——黄志恒
@@ -226,9 +230,11 @@ public class BActivity extends Activity implements OnClickListener {
 	 */
 	public void initSharedPreference() {
 		// 取出preferenced的對象
-		preferences = getSharedPreferences("manager_message",
-				MODE_PRIVATE);
+		preferences = getSharedPreferences("manager_message", MODE_PRIVATE);
 		editor = preferences.edit();
+
+		userDataPreFer = getSharedPreferences("userdata", MODE_PRIVATE);
+		managerName = userDataPreFer.getString("adminLoginName", "NULL");
 
 		name = preferences.getString("name", name);
 		phone = preferences.getString("phone", phone);
@@ -391,7 +397,7 @@ public class BActivity extends Activity implements OnClickListener {
 
 	/**
 	 * 发送创建新停车场的数据——黄志恒
-	 * 
+	 *
 	 * @throws Exception
 	 * @throws JsonMappingException
 	 * @throws JsonGenerationException
@@ -404,12 +410,12 @@ public class BActivity extends Activity implements OnClickListener {
 		String data = objectMapper.writeValueAsString(this.pdo);
 		Log.v("123", data);
 		postData = new DetailDataToServer();
-		postData.postDataToServer(data);
+		postData.postDataToServer(data, managerName);
 	}
 
 	/**
 	 * 发送创建新停车场的数据——黄志恒
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public void postUpdateData() throws Exception {

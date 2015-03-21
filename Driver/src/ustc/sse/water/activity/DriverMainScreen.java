@@ -119,6 +119,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private LatLonPoint targetPoint;/* 路径规划的目的地的点 ——黄志恒注 */
 	private UiSettings uiSettings;/* 地图的基本设置 */
 	private ImageView voiceInput;/* 语音输入 */
+	private String managerId;
 
 	/**
 	 * 激活定位
@@ -447,11 +448,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * <<<<<<< HEAD ======= 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒
+	 * 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒
 	 */
 	/*
 	 * private void planRoute() {
-	 * 
+	 *
 	 * if (targetPoint != null) { if (!hasRouted && nRoute == null) { nRoute =
 	 * new NaviRouteMethod(aMap, lp, this, targetPoint); } else {
 	 * nRoute.mRouteOverLay.removeFromMap(); nRoute = new NaviRouteMethod(aMap,
@@ -459,7 +460,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 */
 
 	/**
-	 * >>>>>>> 2a2adaccec4b537cbd97467cb31405f7b163ac6f 将选中的停车场的信息传递给预定页面——黄志恒
+	 * 将选中的停车场的信息传递给预定页面——黄志恒
 	 */
 	private void sendDataToBook() {
 		if (this.phone == null) {
@@ -474,6 +475,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		map.put("bookMoney", this.bookMoney);// 停车场收费信息
 		map.put("phone", this.phone);// 停车场电话
 		map.put("isAmap", "AMapCloudPark"); // 标记是云图的停车
+		map.put("managerId", this.managerId); // 标记是云图的停车
 
 		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
 		// 将选中的停车场封装到Intent中
@@ -507,7 +509,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒 <<<<<<< HEAD
+	 * 在首界面显示点击的marker信息
 	 *
 	 * @param name
 	 *            停车场地址
@@ -516,15 +518,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * @param orderPrice
 	 *            停车场预定价格条目
 	 * @param parkPrice
-	 *            停车场停车收费条目 =======
-	 * @param name
-	 *            停车场地址
-	 * @param phone
-	 *            停车场电话
-	 * @param orderPrice
-	 *            停车场预定价格条目
-	 * @param parkPrice
-	 *            停车场停车收费条目 >>>>>>> 2a2adaccec4b537cbd97467cb31405f7b163ac6f
+	 *            停车场停车收费条目
 	 */
 	private String showParkInfo(String name, String phone, String orderPrice,
 			String parkPrice) {
@@ -549,12 +543,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 在文字区域显示停车场大概信息 <<<<<<< HEAD
+	 * 在文字区域显示停车场大概信息
 	 *
 	 * @param marker
-	 *            点击的地图上的点 =======
-	 * @param marker
-	 *            点击的地图上的点 >>>>>>> 2a2adaccec4b537cbd97467cb31405f7b163ac6f
+	 *            点击的地图上的点
 	 */
 	private void TextshowMarkerInfo(Marker marker) {
 		this.name = marker.getTitle();
@@ -595,6 +587,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 							bookMoney[4] = (String) value;
 						} else if ("payMorePay".equals(key)) {
 							bookMoney[5] = (String) value;
+						} else if ("managerId".equals(key)) {
+							managerId = (String) value;
 						}
 					}
 				}
