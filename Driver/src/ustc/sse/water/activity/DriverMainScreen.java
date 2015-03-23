@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,7 +62,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
 /**
- *
+ * 
  * 首界面类 <br>
  * 该类用来显示高德地图，并完成基本操作如：定位、导航、搜索、路线规划和停车场列表等
  * <p>
@@ -69,7 +70,7 @@ import com.iflytek.cloud.SpeechUtility;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 4.1.0
@@ -119,7 +120,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private LatLonPoint targetPoint;/* 路径规划的目的地的点 ——黄志恒注 */
 	private UiSettings uiSettings;/* 地图的基本设置 */
 	private ImageView voiceInput;/* 语音输入 */
-	private String managerId;
+	private String managerId;/* 停车场管理员ID */
+	private String parkingAddress;/* 停车场地址（坐标） */
+	private String parkType;/* 停车场类型：是APP创建或者是WEB创建 */
 
 	/**
 	 * 激活定位
@@ -452,7 +455,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 */
 	/*
 	 * private void planRoute() {
-	 *
+	 * 
 	 * if (targetPoint != null) { if (!hasRouted && nRoute == null) { nRoute =
 	 * new NaviRouteMethod(aMap, lp, this, targetPoint); } else {
 	 * nRoute.mRouteOverLay.removeFromMap(); nRoute = new NaviRouteMethod(aMap,
@@ -476,6 +479,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		map.put("phone", this.phone);// 停车场电话
 		map.put("isAmap", "AMapCloudPark"); // 标记是云图的停车
 		map.put("managerId", this.managerId); // 标记是云图的停车
+		map.put("parkingAddress", this.parkingAddress); // 停车场坐标
+		map.put("parkType", this.parkType); // 停车场的类型：app或者web
+		
 
 		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
 		// 将选中的停车场封装到Intent中
@@ -510,7 +516,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 在首界面显示点击的marker信息
-	 *
+	 * 
 	 * @param name
 	 *            停车场地址
 	 * @param phone
@@ -544,7 +550,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 在文字区域显示停车场大概信息
-	 *
+	 * 
 	 * @param marker
 	 *            点击的地图上的点
 	 */
@@ -553,6 +559,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		this.phone = null;
 		this.orderPrice = null;
 		this.parkPrice = null;
+		StringBuilder pka= new StringBuilder();
+		pka.append(marker.getPosition().longitude);
+		pka.append(",");
+		pka.append(marker.getPosition().latitude);
+		parkingAddress=pka.toString();
 		String title = marker.getTitle();
 		if (mCloud != null) {
 			for (CloudItem mItem : MyCloudSearch.mCloudItems) {
@@ -590,6 +601,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 						} else if ("managerId".equals(key)) {
 							managerId = (String) value;
 						}
+						else if ("parkType".equals(key)) {
+							this.parkType = (String) value;
+						}
+						
 					}
 				}
 			}
@@ -599,7 +614,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			this.itemAddress = null;
 			this.itemDistance = 0;
 			return;
+
 		}
+
+		Log.v("-->>address", parkingAddress);
+		Log.v("-->>manageId", managerId);
 
 		String markerData = showParkInfo(this.name, this.phone,
 				this.orderPrice, this.parkPrice);

@@ -1,5 +1,6 @@
 package ustc.sse.water.adapter.zjx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ustc.sse.water.activity.R;
@@ -136,6 +137,9 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 										AdminOrderShow order = list.get(index);
 										order.setOrderStatus(2);
 										list.remove(index); // 在正在进行中删除
+										if(ConstantKeep.aosDown == null) {
+											ConstantKeep.aosDown = new ArrayList<AdminOrderShow>();
+										}
 										ConstantKeep.aosDown.add(order); // 加入已完成中
 										OrderStateProcessAdapter.this
 												.notifyDataSetChanged();

@@ -6,15 +6,17 @@ import java.util.List;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import ustc.sse.water.activity.R;
+import ustc.sse.water.adapter.zjx.OrderStateProcessAdapter;
 import ustc.sse.water.data.model.OrderShowList;
+import ustc.sse.water.manager.zf.AActivity;
 import ustc.sse.water.utils.zjx.ConstantKeep;
 import ustc.sse.water.utils.zjx.HttpUtils;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.widget.RemoteViews;
@@ -36,6 +38,7 @@ public class UpdateOrderService extends Service {
 	private NotificationManager notificationManager; //通知管理器
 	private NotificationCompat.Builder mBuilder;
 	private boolean isStop = false; // 轮询线程的循环标记
+	private int managerId; // 登录的管理员id
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -46,6 +49,7 @@ public class UpdateOrderService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		managerId = getSharedPreferences("userdata", MODE_PRIVATE).getInt("adminLoginId", 0);
 		notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);  //得到通知管理器
 		createThread(); // Service启动时，开启轮询线程
 	}
@@ -61,7 +65,7 @@ public class UpdateOrderService extends Service {
 				String basicpath = "http://";
 				StringBuffer path = new StringBuffer(basicpath);
 				path.append(HttpUtils.MY_IP).append(
-						"/AppServerr/SendClientServlet?adminId=1");
+						"/AppServerr/SendClientServlet?adminId=").append(managerId);
 				while (!isStop) {
 					String jsonString = HttpUtils.getJsonContent(path
 							.toString());
@@ -78,6 +82,7 @@ public class UpdateOrderService extends Service {
 							// 取出每个订单的Id，用来将这些订单的状态改为“1”
 							for(int i=0; i<notifyNumber; i++) {
 								ids.add(String.valueOf(orderShow.getAdminShow().get(i).getOrderId()));
+								ConstantKeep.aosIng.add(orderShow.getAdminShow().get(i));
 							}
 							// 再次请求服务器修改订单状态
 							String requestPath = basicpath + HttpUtils.MY_IP
@@ -85,6 +90,10 @@ public class UpdateOrderService extends Service {
 									+ objectMapper.writeValueAsString(ids);
 							
 							HttpUtils.getJsonContent(requestPath);
+							AActivity.myAdapter=new OrderStateProcessAdapter(AActivity.context, ConstantKeep.aosIng);
+							Message ms=new Message();
+							ms.arg1=44;
+							AActivity.h1.sendMessage(ms);
 							
 							sendNotification("主人！又有"+notifyNumber+"个新订单来了！");
 						} catch (Exception e) {
@@ -103,28 +112,34 @@ public class UpdateOrderService extends Service {
 	}
 
 	// 发更新通知
-	private void sendNotification(String content) {
-		
-		Intent intent = new Intent(this, ustc.sse.water.manager.zf.ManagerMainTabActivity.class);
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+	private void sendNotification(String content) {	
+		//Intent intent = new Intent(this, null);
+		/*PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+				null, 0);*/
 		RemoteViews view_custom = new RemoteViews(getPackageName(),
 				R.layout.view_notificatinon);
 		view_custom.setImageViewResource(R.id.custom_icon,         // 设置图标
-				R.drawable.ic_launcher);                           
+				R.drawable.lbs_logo);                           
 		view_custom.setTextViewText(R.id.tv_custom_title, "Driver"); // 设置标题
 		view_custom.setTextViewText(R.id.tv_custom_content,        // 设置内容
 				content );
-		view_custom.setOnClickPendingIntent(R.id.view_notification,   // 点击通知后回到订单界面
-				contentIntent);
+		/*view_custom.setOnClickPendingIntent(R.id.view_notification,   // 点击通知后回到订单界面
+				contentIntent);*/
 		/* 构建通知 */
 		mBuilder = new Builder(this);
-		mBuilder.setContent(view_custom).setContentIntent(contentIntent)
-				.setWhen(System.currentTimeMillis()).setTicker("有新品菜")
-				.setSmallIcon(R.drawable.ic_launcher);
-		Notification notify = mBuilder.build();         
-		notify.contentView = view_custom;                   // 为该通知配置视图
-		notificationManager.notify(1, notify);      //发出通知
+		mBuilder.setContent(view_custom).setWhen(System.currentTimeMillis()).setTicker("有新订单")
+				.setSmallIcon(R.drawable.lbs_logo);
+		Notification notify = mBuilder.build();  
+		
+		//notify.contentView = view_custom;                   // 为该通知配置视图
+		notificationManager.notify(1, notify); //发出通知
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		notificationManager.cancel(1);
 	}
 	
 	@Override

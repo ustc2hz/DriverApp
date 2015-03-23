@@ -9,6 +9,7 @@ import ustc.sse.water.fragment.ParkingInfoFragment;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 /**
@@ -55,8 +56,12 @@ public class ParkingDetail extends Activity {
 		// 添加监听器
 		parkingInfo.setTabListener(new PDTabListener(new ParkingInfoFragment(
 				ParkingDetail.this, selectParking)));
+		int managerId = Integer.parseInt((String)selectParking.get("managerId"));
+		int driverId = getSharedPreferences("userdata",
+				Context.MODE_PRIVATE).getInt("driverLoginId", 0);
+		String parkType = (String)selectParking.get("parkType");
 		parkingBook.setTabListener(new PDTabListener(new ParkingBookFragment(
-				ParkingDetail.this)));
+				ParkingDetail.this, managerId, driverId, parkType)));
 		// 添加到ActionBar中
 		actionBar.addTab(parkingInfo);
 		actionBar.addTab(parkingBook);

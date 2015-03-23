@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -205,6 +206,18 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			mDialog.dissmissProgressDialog();
 			switch (msg.what) {
 			case REGISTER_SUCCESS:
+				SharedPreferences.Editor editor = getSharedPreferences("manager_message", MODE_PRIVATE).edit();
+				editor.putString("num", "空");
+				editor.putString("price_ten", "空");
+				editor.putString("price_twenty", "空");
+				editor.putString("price_thirty", "空");
+				editor.putString("pprice_ten", "空");
+				editor.putString("pprice_twenty", "空");
+				editor.putString("pprice_thirty", "空");
+				editor.putString("name", "空");
+				editor.putString("location", "空");
+				editor.putString("phone", "空");
+				editor.commit();
 				showDialog("跳转到登录界面，登录系统！");
 				break;
 			case REGISTER_FAIL:

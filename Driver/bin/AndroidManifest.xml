@@ -29,7 +29,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/lbs_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
@@ -37,7 +37,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
 
-            android:value="4a7353785f59da34aa9e4d37934bed29" />
+            android:value="fef9803d166042f9b82ec1db72b312d5" />
 
 
         <!-- 地图界面 -->

@@ -24,7 +24,7 @@ public class Order {
 	private String orderDate; // 订单日期
 	private String orderInfo; // 订单信息
 	private String orderPrice; // 订单价格
-	private String Money;
+	//private String Money;
 	private Integer orderStatus; // 订单状态
 	private Admin admin; // 管理员
 	private Driver driver; // 驾驶员
@@ -101,13 +101,13 @@ public class Order {
 		this.orderStatus = orderStatus;
 	}
 
-	public String getMoney() {
+	/*public String getMoney() {
 		return Money;
 	}
 
 	public void setMoney(String money) {
 		Money = money;
-	}
+	}*/
 
 	public Admin getAdmin() {
 		return admin;

@@ -6,7 +6,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import ustc.sse.water.activity.MapForAddress;
 import ustc.sse.water.activity.R;
-import ustc.sse.water.data.model.DataToYutunServer;
 import ustc.sse.water.data.model.DetailDataToServer;
 import ustc.sse.water.data.model.ParkDetailObject;
 import ustc.sse.water.utils.zjx.ToastUtil;
@@ -79,7 +78,6 @@ public class BActivity extends Activity implements OnClickListener {
 	// 停车场电话全局变量——黄志恒
 	private String phone;
 
-	private DataToYutunServer post;
 	// 将停车场详细数据发送到服务器的对象——黄志恒
 	DetailDataToServer postData;
 
@@ -235,6 +233,7 @@ public class BActivity extends Activity implements OnClickListener {
 
 		userDataPreFer = getSharedPreferences("userdata", MODE_PRIVATE);
 		managerName = userDataPreFer.getString("adminLoginName", "NULL");
+		Log.v("---???", managerName);
 
 		name = preferences.getString("name", name);
 		phone = preferences.getString("phone", phone);
@@ -245,16 +244,16 @@ public class BActivity extends Activity implements OnClickListener {
 	 * 初始化输入框中显示的信息——黄志恒
 	 */
 	public void initText() {
-		park_number.setText(preferences.getString("num", "空"));
-		l_price.setText(preferences.getString("price_ten", "空"));
-		m_price.setText(preferences.getString("price_twenty", "空"));
-		h_price.setText(preferences.getString("price_thirty", "空"));
-		pl_price.setText(preferences.getString("pprice_ten", "空"));
-		pm_price.setText(preferences.getString("pprice_twenty", "空"));
-		ph_price.setText(preferences.getString("pprice_thirty", "空"));
-		parkName.setText(preferences.getString("name", "空"));
-		parkLocation.setText(preferences.getString("location", "空"));
-		parkPhone.setText(preferences.getString("phone", "空"));
+		park_number.setHint(preferences.getString("num", "空"));
+		l_price.setHint(preferences.getString("price_ten", "空"));
+		m_price.setHint(preferences.getString("price_twenty", "空"));
+		h_price.setHint(preferences.getString("price_thirty", "空"));
+		pl_price.setHint(preferences.getString("pprice_ten", "空"));
+		pm_price.setHint(preferences.getString("pprice_twenty", "空"));
+		ph_price.setHint(preferences.getString("pprice_thirty", "空"));
+		parkName.setHint(preferences.getString("name", "空"));
+		parkLocation.setHint(preferences.getString("location", "空"));
+		parkPhone.setHint(preferences.getString("phone", "空"));
 
 	}
 
@@ -498,6 +497,7 @@ public class BActivity extends Activity implements OnClickListener {
 	public void showTemp() {
 		Log.v("name", preferences.getString("name", "fail"));
 		Log.v("location", preferences.getString("location", "fail"));
+		Log.v("managerName", managerName);
 		Log.v("phone", preferences.getString("phone", "fail"));
 		Log.v("sum", preferences.getString("num", "fail"));
 		Log.v("orderTen", preferences.getString("price_ten", "fail"));

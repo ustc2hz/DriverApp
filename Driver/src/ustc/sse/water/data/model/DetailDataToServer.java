@@ -33,8 +33,8 @@ public class DetailDataToServer {
 	// "http://192.168.8.199:8080/AppServerr/ServerToYuntu";
 	// public static final String path =
 	// "http://192.168.10.42:8080/Test3_Yuntu//ServerToYuntu";
-	public static final String path = "http://192.168.8.199:8080/Test3_Yuntu/ServerToYuntu";
-	public static final String updatePath = "http://192.168.8.199:8080/Test3_Yuntu/ServerUpdateYuntu";
+	public static final String path = "http://192.168.9.241:8080/AppServerr/ServerToYuntu";
+	public static final String updatePath = "http://192.168.9.241:8080/AppServerr/ServerUpdateYuntu";
 	// 接收传递回来的数据
 	public String responseMsg = "";
 
