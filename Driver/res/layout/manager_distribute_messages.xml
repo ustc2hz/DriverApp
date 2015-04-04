@@ -12,25 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="停车场名称："
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/manager_park_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <requestFocus />
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
             <Button
                 android:id="@+id/mode_button"
                 android:layout_width="wrap_content"
@@ -41,7 +22,29 @@
             <EditText
                 android:id="@+id/manager_park_location"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="123dp"
+                android:layout_height="wrap_content"
+                android:text="停车场名称："
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/manager_park_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_edit"
+                android:ems="10" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -51,12 +54,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.18"
                 android:text="停车场电话："
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/manager_park_phone"
-                android:layout_width="fill_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:ems="11"
                 android:inputType="phone" />
@@ -69,16 +73,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="预定车位总数(个):"
+                android:layout_weight="0.97"
+                android:text="车位总数(个):"
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/parknumber"
-                android:layout_width="wrap_content"
+                android:layout_width="188dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.38"
                 android:ems="10"
                 android:inputType="number" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -99,6 +105,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.81"
                 android:text="10分钟"
                 android:textSize="14sp" />
 
@@ -106,7 +113,6 @@
                 android:id="@+id/price1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number" >
 
@@ -121,6 +127,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.08"
                 android:text="20分钟"
                 android:textSize="14sp" />
 
@@ -128,7 +135,6 @@
                 android:id="@+id/price2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number" />
         </LinearLayout>
@@ -140,6 +146,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.08"
                 android:text="30分钟"
                 android:textSize="14sp" />
 
@@ -147,9 +154,9 @@
                 android:id="@+id/price3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number" />
+
         </LinearLayout>
 
         <TextView
@@ -165,6 +172,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.97"
                 android:text="半个小时内:"
                 android:textSize="14sp" />
 
@@ -172,9 +180,9 @@
                 android:id="@+id/pprice1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.73"
                 android:ems="10"
                 android:inputType="number" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -184,15 +192,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.97"
                 android:text="一个小时内:" />
 
             <EditText
                 android:id="@+id/pprice2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.73"
                 android:ems="10"
                 android:inputType="number" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -202,15 +211,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.76"
                 android:text="一个小时以上" />
 
             <EditText
                 android:id="@+id/pprice3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -224,9 +234,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/manager_commit_selector"
+                android:background="@drawable/manager_commit_selector" 
                 android:text="@string/manager_commit"
-                android:textSize="20sp" />
+                android:textSize="20sp" 
+                android:shadowColor="#8470FF"/>
 
             <Button
                 android:id="@+id/manager_update"

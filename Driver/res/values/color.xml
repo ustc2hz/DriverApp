@@ -148,4 +148,5 @@
 <color name="black">#000000</color><!--黑色 -->
 <color name="bookColor">#EE0000</color>
 <color name="rootColor">#CD00CD</color>
+<color name = "butColor">#836FFF</color>
 </resources>

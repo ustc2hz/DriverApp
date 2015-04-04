@@ -57,6 +57,7 @@ public final class R {
         /** 亮青色 
          */
         public static final int burlywood=0x7f050034;
+        public static final int butColor=0x7f050094;
         /** 菊兰色 
          */
         public static final int cadetblue=0x7f050071;
@@ -490,7 +491,7 @@ public final class R {
     public static final class drawable {
         public static final int back_top=0x7f020000;
         public static final int baise=0x7f020001;
-        public static final int black=0x7f020053;
+        public static final int black=0x7f020054;
         public static final int btn_check=0x7f020002;
         public static final int btn_check_off=0x7f020003;
         public static final int btn_check_off_pressed=0x7f020004;
@@ -536,13 +537,13 @@ public final class R {
         public static final int icon_5_n=0x7f02002c;
         public static final int input_over=0x7f02002d;
         public static final int lbs_logo=0x7f02002e;
-        public static final int list_background=0x7f020057;
+        public static final int list_background=0x7f020058;
         public static final int location_marker=0x7f02002f;
         public static final int login_back=0x7f020030;
         public static final int login_head=0x7f020031;
         public static final int login_input=0x7f020032;
-        public static final int ltgray=0x7f020051;
-        public static final int ltyellow=0x7f020052;
+        public static final int ltgray=0x7f020052;
+        public static final int ltyellow=0x7f020053;
         public static final int maikefeng=0x7f020033;
         public static final int maikefeng1=0x7f020034;
         public static final int maikefeng2=0x7f020035;
@@ -553,31 +554,32 @@ public final class R {
         public static final int my_location_fb=0x7f02003a;
         public static final int my_location_fb1=0x7f02003b;
         public static final int my_location_fb2=0x7f02003c;
-        public static final int namcard_picker_bkg_hover=0x7f020059;
-        public static final int namcard_picker_bkg_normal=0x7f020058;
+        public static final int namcard_picker_bkg_hover=0x7f02005a;
+        public static final int namcard_picker_bkg_normal=0x7f020059;
         public static final int point=0x7f02003d;
-        public static final int sousuo1=0x7f02003e;
-        public static final int sousuo2=0x7f02003f;
-        public static final int start=0x7f020040;
-        public static final int text_search=0x7f020041;
-        public static final int text_search_default=0x7f020042;
-        public static final int text_search_pressed=0x7f020043;
-        public static final int text_search_selected=0x7f020044;
-        public static final int textview_border=0x7f020045;
-        public static final int transparent=0x7f020054;
-        public static final int transparent_background=0x7f020056;
-        public static final int tubiao1=0x7f020046;
-        public static final int tubiao4=0x7f020047;
-        public static final int tubiao5=0x7f020048;
-        public static final int users_fb=0x7f020049;
-        public static final int users_fb1=0x7f02004a;
-        public static final int users_fb2=0x7f02004b;
-        public static final int voice_search_fb=0x7f02004c;
-        public static final int voice_search_fb1=0x7f02004d;
-        public static final int way=0x7f02004e;
-        public static final int widget_edit_block_bg_normal=0x7f020055;
-        public static final int xlistview_arrow=0x7f02004f;
-        public static final int yellow_marker=0x7f020050;
+        public static final int round_edit=0x7f02003e;
+        public static final int sousuo1=0x7f02003f;
+        public static final int sousuo2=0x7f020040;
+        public static final int start=0x7f020041;
+        public static final int text_search=0x7f020042;
+        public static final int text_search_default=0x7f020043;
+        public static final int text_search_pressed=0x7f020044;
+        public static final int text_search_selected=0x7f020045;
+        public static final int textview_border=0x7f020046;
+        public static final int transparent=0x7f020055;
+        public static final int transparent_background=0x7f020057;
+        public static final int tubiao1=0x7f020047;
+        public static final int tubiao4=0x7f020048;
+        public static final int tubiao5=0x7f020049;
+        public static final int users_fb=0x7f02004a;
+        public static final int users_fb1=0x7f02004b;
+        public static final int users_fb2=0x7f02004c;
+        public static final int voice_search_fb=0x7f02004d;
+        public static final int voice_search_fb1=0x7f02004e;
+        public static final int way=0x7f02004f;
+        public static final int widget_edit_block_bg_normal=0x7f020056;
+        public static final int xlistview_arrow=0x7f020050;
+        public static final int yellow_marker=0x7f020051;
     }
     public static final class id {
         public static final int action_settings=0x7f0700a2;
