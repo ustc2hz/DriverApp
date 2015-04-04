@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -77,6 +78,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		ab = getActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setDisplayShowHomeEnabled(false);
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.user_button_register_normal));
 		if (userType == USER_DRIVER) {
 			ab.setTitle(R.string.title_register_driver);
 		} else if (userType == USER_PARKING_MANAGER) {
@@ -206,6 +208,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			mDialog.dissmissProgressDialog();
 			switch (msg.what) {
 			case REGISTER_SUCCESS:
+				
 				SharedPreferences.Editor editor = getSharedPreferences("manager_message", MODE_PRIVATE).edit();
 				editor.putString("num", "空");
 				editor.putString("price_ten", "空");
@@ -229,6 +232,17 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			Intent intent = new Intent(RegisterActivity.this,LoginActivity.class); // 返回登录界面
+			startActivity(intent);
+			finish();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 	
 	// 注册线程类
 	class RegisterThread implements Runnable {

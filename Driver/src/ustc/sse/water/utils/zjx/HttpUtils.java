@@ -53,11 +53,13 @@ public class HttpUtils {
 			if (code == 200) { // 200为连接成功
 				// 调用方法将返回的流解析为String，并且返回
 				return changeInputStream(httpURLConnection.getInputStream());
+			}else {
+				return "error";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "error";
 		}
-		return "";
 	}
 
 	/**

@@ -28,6 +28,10 @@ import android.os.Bundle;
 public class ParkingDetail extends Activity {
 	private ActionBar actionBar; // 此Activity的ActionBar
 	Map<String, Object> selectParking = null; // 用来接收列表中选中的停车场
+	
+	private int managerId = 0;
+	private int driverId = 0;
+	private String parkType = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +60,15 @@ public class ParkingDetail extends Activity {
 		// 添加监听器
 		parkingInfo.setTabListener(new PDTabListener(new ParkingInfoFragment(
 				ParkingDetail.this, selectParking)));
-		int managerId = Integer.parseInt((String)selectParking.get("managerId"));
-		int driverId = getSharedPreferences("userdata",
+		managerId = Integer.parseInt((String)selectParking.get("managerId"));
+		driverId = getSharedPreferences("userdata",
 				Context.MODE_PRIVATE).getInt("driverLoginId", 0);
-		String parkType = (String)selectParking.get("parkType");
+		parkType = (String)selectParking.get("parkType");
 		parkingBook.setTabListener(new PDTabListener(new ParkingBookFragment(
 				ParkingDetail.this, managerId, driverId, parkType)));
 		// 添加到ActionBar中
 		actionBar.addTab(parkingInfo);
 		actionBar.addTab(parkingBook);
 	}
-
+	
 }

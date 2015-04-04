@@ -14,8 +14,6 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.overlay.PoiOverlay;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.core.SuggestionCity;
-import com.amap.api.services.poisearch.Dining;
 import com.amap.api.services.poisearch.PoiItemDetail;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -33,7 +31,7 @@ import com.amap.api.services.poisearch.PoiSearch.SearchBound;
  * <p>
  * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
- * @version 2.0.0
+ * @version 2.1.0
  */
 public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	/* 显示Marker的详情 */
@@ -58,12 +56,8 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	private String deepType = "";
 	/* 对话框类 */
 	ProgressDialogUtil dialog;
-	/* 选择的点 */
-	private Marker locationMarker;
 	/* 搜索中心 */
 	private LatLonPoint lp;
-	/* 路径规划的目的地的点 ——黄志恒注 */
-	private LatLonPoint targetPoint;
 
 	public PoiAroundSearchMethod() {
 		// 无参构造函数
@@ -115,28 +109,6 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	}
 
 	/**
-	 * POI深度信息获取 先保留，以后再修改
-	 */
-	private StringBuffer getDeepInfo(PoiItemDetail result,
-			StringBuffer sbuBuffer) {
-		switch (result.getDeepType()) {
-		// 深度信息
-		case DINING:
-			if (result.getDining() != null) {
-				Dining dining = result.getDining();
-				sbuBuffer
-						.append("\n菜系：" + dining.getTag() + "\n特色："
-								+ dining.getRecommend() + "\n来源："
-								+ dining.getDeepsrc());
-			}
-			break;
-		default:
-			break;
-		}
-		return sbuBuffer;
-	}
-
-	/**
 	 * POI详情回调
 	 */
 	@Override
@@ -148,12 +120,9 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 					StringBuffer sb = new StringBuffer(result.getSnippet());
 					// 判断poi搜索是否有深度信息
 					if (result.getDeepType() != null) {
-						sb = getDeepInfo(result, sb);
 						detailMarker.setSnippet(sb.toString());
-					} else {
 					}
 				}
-			} else {
 			}
 		} else if (rCode == 27) {
 			ToastUtil.show(context, R.string.error_network);
@@ -176,8 +145,6 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 				if (result.getQuery().equals(query)) {// 是否是同一条
 					poiResult = result;
 					poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从数字0开始
-					List<SuggestionCity> suggestionCities = poiResult
-							.getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
 					if (poiItems != null && poiItems.size() > 0) {
 						// 自定义PoiOverlay图层
 						poiOverlay = new PoiOverlay(aMap, poiItems) {
@@ -192,7 +159,6 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 						};
 						poiOverlay.removeFromMap();
 						poiOverlay.addToMap();
-						// poiOverlay.zoomToSpan();
 					}
 				}
 			}

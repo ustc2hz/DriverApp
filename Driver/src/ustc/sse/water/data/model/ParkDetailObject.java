@@ -18,20 +18,13 @@ public class ParkDetailObject {
 	private String _location;// 坐标经纬度
 	private String _name; // 停车场名
 	private String orderTen;
-
 	private String orderTri;
-
 	private String orderTwe;
 	private String parkSum;
 	private String payHalPay;// 停车半个小时
 	private String payMorePay;// 停车多于一个小时
 	private String payOneHour;
-
 	private String phone; // 电话
-
-	/*
-	 * public String get_address() { return _address; }
-	 */
 
 	public String get_location() {
 		return _location;
@@ -72,10 +65,6 @@ public class ParkDetailObject {
 	public String getPhone() {
 		return phone;
 	}
-
-	/*
-	 * public void set_address(String _address) { this._address = _address; }
-	 */
 
 	public void set_location(String _location) {
 		this._location = _location;

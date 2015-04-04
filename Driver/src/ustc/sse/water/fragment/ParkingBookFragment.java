@@ -20,6 +20,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +33,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 /**
  * 
@@ -44,22 +45,23 @@ import android.widget.Toast;
  * <p>
  * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class ParkingBookFragment extends Fragment implements OnClickListener,
 		OnItemSelectedListener {
-
+	public static int leftNumber; // 剩余车位数
 	public static ObjectMapper objectMapper = new ObjectMapper();
 	private String[] parkingInfo = new String[2]; // 预定的停车场基本信息
-	private String[] parkingMoney = new String[3]; // 预定的停车场收费
-	private String selectBook = "";
-	private static String orderUUID = "";
+	private String[] parkingMoney = new String[6]; // 预定的停车场收费
+	private String[] time = new String[3]; // 预定信息
+	private String selectBook = ""; // 选择的预定方案
+	private static String orderUUID = ""; // 订单的UUID号
 	private int selectIndex = 0; // 驾驶员选择的价格序号
 	private Context context; // 上下文
 	private Spinner spinner; // 预定时间下拉框
 	private Button submitOrder;// 提交订单按钮
-	private EditText driverNumber; // 预定车位个数
-	private String[] time = new String[3];
+	private EditText driverNumber; // 预定车位个数输入框
+	private String valDriverNumber = null; // 输入的车位数值
 	private int managerId; // 停车场管理员的id
 	private int driverId; // 驾驶员id
 	private String parkType; // 标记是web的停车场还是app的停车场
@@ -69,18 +71,14 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 			String type) {
 		this.context = con;
 		this.managerId = managerId;
-		// 从SharedPreference中获取家霍思燕id
 		this.driverId = driverId;
 		this.parkType = type;
 	}
 
-	/**
-	 * 处理发送订单的线程的返回结果
-	 */
 	Handler h = new Handler() {
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			// progressDialog.dissmissProgressDialog();
+			
 			String result = "error";
 			switch (msg.arg1) {
 			case 1: // 发送订单到服务器
@@ -90,9 +88,10 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 					ToastUtil.show(context, "发送成功");
 					// 查看刚刚发送的订单是否被管理员接收到
 					CheckOrderReceiveThread crt = new CheckOrderReceiveThread(
-							h, orderUUID);
+							h, orderUUID, managerId, valDriverNumber);
 					crt.start();
 				} else { // 如果订单发送失败则预定失败
+					progressDialog.dissmissProgressDialog();
 					ToastUtil.show(context, "发送失败");
 				}
 				break;
@@ -103,6 +102,7 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 				if ("success".equals(result)) {
 					// 只有管理员接收到订单后，预定才算成功
 					ToastUtil.show(context, "管理员接收成功");
+					getActivity().finish();
 				} else { // 如果订单接收失败，则预定失败
 					ToastUtil.show(context, "管理员接收失败");
 				}
@@ -115,11 +115,13 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.button_submit_order:// 点击提交订单
-			if (driverNumber == null
-					|| "".equals(driverNumber.getText().toString())) {
-				ToastUtil.show(context, "请填写预定车位数！");
-			} else if (driverId == 0) {
-				// 驾驶员为登录
+			valDriverNumber = driverNumber.getText().toString();
+			if (driverNumber == null || "".equals(valDriverNumber)) {
+				driverNumber.setError("请填写预定的车位数！");
+			}else if(Integer.valueOf(valDriverNumber) > leftNumber) {
+				// 预定的车位数大于剩余的车位数
+				driverNumber.setError("没有足够的车位！");
+			} else if (driverId == 0) {// 驾驶员没有登录
 				new AlertDialog.Builder(context)
 						.setTitle("提示")
 						.setMessage("预定之前请先登录！")
@@ -144,65 +146,61 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 					e.printStackTrace();
 				}
 				final String orderInfo = jacksonString;
-				/*
-				 * new AlertDialog.Builder(context) .setTitle("提示")
-				 * .setMessage("确认提交订单？") .setPositiveButton("确定", new
-				 * DialogInterface.OnClickListener() {
-				 * 
-				 * @Override public void onClick(DialogInterface dialog, int
-				 * which) { // 发送订单到服务器 SendOrderThread st = new
-				 * SendOrderThread( h, orderInfo); st.start(); dialog.dismiss();
-				 * } }) .setNegativeButton("取消", new
-				 * DialogInterface.OnClickListener() {
-				 * 
-				 * @Override public void onClick(DialogInterface dialog, int
-				 * which) { dialog.dismiss(); } }).create().show();
-				 */
 				// 发送订单到服务器
 				SendOrderThread st = new SendOrderThread(h, orderInfo);
 				st.start();
 
-				/*
-				 * // 查看刚刚发送的订单是否被管理员接收到 CheckOrderReceiveThread crt = new
-				 * CheckOrderReceiveThread(h, orderUUID); crt.start();
-				 */
-
 				progressDialog = new ProgressDialogUtil(context, "正在提交，请稍后...");
 				progressDialog.showProgressDialog();
-
 			}
 			break;
 		}
 	}
 
-	/**
-	 * 初始化数据
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		time = ParkingInfoFragment.tranMoney;
 		parkingInfo = ParkingInfoFragment.orderMessages;
 		parkingMoney = ParkingInfoFragment.bookMoneys;
-
 	}
 
-	/**
-	 * 初始化视图
-	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// 视图填充
 		View view = inflater.inflate(R.layout.parking_book, container, false);
 		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
 				android.R.layout.simple_spinner_dropdown_item, time);
 		driverNumber = (EditText) view.findViewById(R.id.edit_licenses_number);
+		submitOrder = (Button) view.findViewById(R.id.button_submit_order);
+		submitOrder.setClickable(false);
+		submitOrder.setEnabled(false);
+		driverNumber.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// 只有输入内容时才将按钮设为可点击
+				if(s.length() > 0) {
+					submitOrder.setClickable(true);
+					submitOrder.setEnabled(true);
+				}else {
+					submitOrder.setClickable(false);
+					submitOrder.setEnabled(false);
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+			}
+		});
 		spinner = (Spinner) view.findViewById(R.id.spinner_time_chose);
 		spinner.setAdapter(spinnerAdapter);
 		spinner.setOnItemSelectedListener(this);
-		submitOrder = (Button) view.findViewById(R.id.button_submit_order);
 		submitOrder.setOnClickListener(this);
 		return view;
 	}
@@ -212,21 +210,20 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 			long id) {
 		selectBook = parent.getItemAtPosition(position).toString();
 		selectIndex = position;
-		Toast.makeText(context, selectBook, 1).show();
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
 	}
 
-	// 模拟一个订单
+	// 生成一个订单
 	private Order createOrder() {
 		Order order = new Order();
 		orderUUID = order.getUuid();
 		order.setParkName(parkingInfo[0]);
 		order.setParkAddress(parkingInfo[1]);
 		// 获取填写的数量
-		int selectNum = Integer.parseInt(driverNumber.getText().toString());
+		int selectNum = Integer.parseInt(valDriverNumber);
 		order.setDriverNum(selectNum);
 		// 生存订单日期
 		String orderDate = (DateFormat.format("yyyy-MM-dd", new Date()))
@@ -237,14 +234,13 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 		String selectPrice = parkingMoney[selectIndex];
 		int sumPrice = selectNum * (Integer.parseInt(selectPrice));
 		order.setOrderPrice(String.valueOf(sumPrice));
-		
 		// 如果是Web的停车场则直接将状态设置为1
 		if("web".equals(parkType)) {
 			order.setOrderStatus(1);
 		} else {
 			order.setOrderStatus(0);
 		}
-		
+		// 设置外键
 		Admin admin = new Admin();
 		admin.setAdminId(managerId);
 		Driver driver = new Driver();

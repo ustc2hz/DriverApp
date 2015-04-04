@@ -1,153 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loginRoot"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/linear1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/default_bg"
-        android:orientation="vertical" >
-
-        <RelativeLayout
-            android:id="@+id/relativelayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="262dp"
-            android:layout_marginLeft="15.0px"
-            android:layout_marginRight="15.0px"
-            android:layout_marginTop="62.0px"
-            android:background="@drawable/login_back"
-            android:paddingBottom="10.0px"
-            android:paddingTop="21.0px" >
-
-            <ImageView
-                android:id="@+id/faceImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/login_head" />
-
-            <EditText
-                android:id="@+id/login_edit_account"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="5.0dip"
-                android:layout_marginLeft="5.0dip"
-                android:layout_marginRight="5.0dip"
-                android:layout_marginTop="5.0dip"
-                android:layout_toRightOf="@+id/faceImg"
-                android:background="@drawable/edit_login"
-                android:hint="@string/username_hint"
-                android:paddingLeft="45.0sp"
-                android:saveEnabled="true"
-                android:singleLine="true"
-                android:textColor="#ff3f3f3f" />
-
-            <TextView
-                android:id="@+id/textview01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/login_edit_account"
-                android:layout_alignLeft="@+id/login_edit_account"
-                android:layout_alignTop="@+id/login_edit_account"
-                android:layout_marginRight="15.0sp"
-                android:gravity="center_vertical"
-                android:paddingLeft="7.0sp"
-                android:text="@string/username_input"
-                android:textColor="#ff3f3f3f"
-                android:textSize="16.0dip" />
-
-            <ImageButton
-                android:id="@+id/usernamespinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/login_edit_account"
-                android:layout_alignRight="@+id/login_edit_account"
-                android:layout_alignTop="@+id/login_edit_account"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/more_select" />
-
-            <EditText
-                android:id="@+id/login_edit_pwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/login_edit_account"
-                android:layout_alignRight="@+id/login_edit_account"
-                android:layout_below="@+id/login_edit_account"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/edit_login"
-                android:hint="@string/password_hint"
-                android:paddingLeft="45.0sp"
-                android:password="true"
-                android:saveEnabled="true"
-                android:singleLine="true" />
-
-            <TextView
-                android:id="@+id/textview02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/login_edit_pwd"
-                android:layout_alignRight="@+id/textview01"
-                android:layout_alignTop="@+id/login_edit_pwd"
-                android:gravity="center_vertical"
-                android:paddingLeft="7.0sp"
-                android:text="@string/password_input"
-                android:textColor="#ff3f3f3f"
-                android:textSize="16.0dip" />
-
-            <CheckBox
-                android:id="@+id/login_cb_savepwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/faceImg"
-                android:layout_below="@+id/login_btn_login"
-                android:button="@drawable/btn_check"
-                android:paddingLeft="39.0px"
-                android:text="@string/opt_remember"
-                android:textColor="#ff222222"
-                android:textSize="16.0sp" />
-
-            <Button
-                android:id="@+id/login_btn_register"
-                android:layout_width="90.0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/login_btn_login"
-                android:layout_alignBottom="@+id/login_btn_login"
-                android:layout_alignRight="@+id/login_edit_account"
-                android:text="@string/zhuce" />
-
-            <Button
-                android:id="@+id/login_btn_login"
-                android:layout_width="90.0dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/login_edit_pwd"
-                android:layout_marginTop="40dp"
-                android:layout_toLeftOf="@+id/login_btn_register"
-                android:text="@string/login" />
-
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/login_edit_pwd"
-                android:layout_below="@id/login_edit_pwd"
-                android:orientation="horizontal" >
-
-                <RadioButton
-                    android:id="@+id/check_manager"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/login_radiobutton_manager" />
-
-                <RadioButton
-                    android:id="@+id/check_driver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/login_radiobutton_driver" />
-            </RadioGroup>
-        </RelativeLayout>
-    </LinearLayout>
-
+    <!-- 顶部标题 -->
+	<RelativeLayout android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#00C5CD" >
+	    
+	    <!-- 返回箭头 -->
+	    <ImageButton
+	        android:id="@+id/image_login_backToMap"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:background="#00C5CD"
+	        android:layout_marginLeft="6dp"
+	        android:src="@drawable/back_to_map" />
+	    
+	    <!-- 中间标题“我的” -->
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/main_mine"
+	        android:textSize="30sp"
+			android:layout_centerInParent="true"
+	        android:textColor="#ffffff" />
+	    
+	    <!-- 最右边的注册按钮 -->
+	    <Button android:id="@+id/button_loginUser_register"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:textSize="20sp"
+	        android:layout_marginRight="10dp"
+	        android:background="@drawable/user_button_register_selector"
+	        android:text="@string/zhuce"/>
+	    
+	</RelativeLayout>
+	
+	<!-- RadioButton让用户选择是停车场还是驾驶员 -->
+	<RadioGroup android:id="@+id/user_login_radioGroup"
+	    android:layout_width="match_parent"
+	    android:orientation="horizontal"
+	    android:layout_marginTop="10dp"
+	    android:layout_marginLeft="50dp"
+	    android:layout_marginRight="50dp"
+	    android:gravity="center"
+	    android:layout_height="wrap_content">
+	    
+	    <!-- 默认选择驾驶员 -->
+	    <RadioButton android:id="@+id/radioBtn_user_driver"
+	        android:checked="true"
+	        style="@style/user_login_radioButton_style"
+	        android:text="@string/login_radiobutton_driver" />
+	    
+	    <!-- 停车场 -->
+	    <RadioButton android:id="@+id/radioBtn_user_manager"
+	        style="@style/user_login_radioButton_style"
+	        android:text="@string/login_radiobutton_manager" />
+	    
+	</RadioGroup>
+    
+	<RelativeLayout android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="20dp">
+	    
+	    <!-- 账号文字 -->
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/label_username_left"
+	        android:layout_centerVertical="true"
+	        android:textSize="20sp"
+	        android:layout_marginLeft="12dp"
+	        android:text="@string/username_input"/>
+	    
+	    <!-- 账号输入框 -->
+	    <EditText android:id="@+id/edit_login_username"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/edit_login"
+	        android:hint="@string/username_driver_hint"
+	        android:singleLine="true"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="12dp"
+	        android:layout_toRightOf="@id/label_username_left" />
+	    
+	</RelativeLayout>
+	
+	<RelativeLayout android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp">
+	    
+	    <!-- 密码文字 -->
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/label_password_left"
+	        android:layout_centerVertical="true"
+	        android:textSize="20sp"
+	        android:layout_marginLeft="12dp"
+	        android:text="@string/password_input"/>
+	    
+	    <!-- 密码输入框 -->
+	    <EditText android:id="@+id/edit_login_password"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/edit_login"
+	        android:hint="@string/password_hint"
+	        android:inputType="textPassword"
+	        android:singleLine="true"
+	        android:layout_marginRight="12dp"
+	        android:layout_marginLeft="5dp"
+	        android:layout_toRightOf="@id/label_password_left" />
+	    
+	</RelativeLayout>
+	
+	<!-- 登录按钮 -->
+	<Button android:id="@+id/button_loginUser_manager"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/login"
+	    android:layout_marginTop="20dp"
+	    android:layout_marginLeft="16dp"
+	    android:layout_marginRight="16dp"
+	    android:textColor="#ffffff"
+	    android:textSize="20sp"
+	    android:textStyle="bold"
+	    android:background="@drawable/driver_button_selector" />
+	    
 </LinearLayout>

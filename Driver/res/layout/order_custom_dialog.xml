@@ -2,71 +2,111 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/driver_order_detail_info"
+    android:background="@drawable/driver_layout_stroke"
     android:orientation="vertical" >
-    
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-		
-		<!-- 预定车位数 -->        
-    	<TextView
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_marginLeft="5dp"
-        	android:textSize="20sp"
-        	android:textStyle="bold"
-        	android:text="@string/parking_order_chose_number" />
-    	
-    	<!-- 数值 -->
-    	<TextView android:id="@+id/text_order_detail_number"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:textSize="20sp"/>
-    
-    </LinearLayout>
-    
-    <!-- 订单详情 -->
-    <TextView android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="@string/parking_detail_book_money"/>
-    
-    <TextView android:id="@+id/text_order_detail_info"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_marginLeft="16dp"/>
-    
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
-        <!-- 管理员电话 -->
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-        	android:textSize="20sp"
-        	android:textStyle="bold"
-            android:text="@string/driver_order_admin_phone"/>
-        
-        <TextView android:id="@+id/text_order_detail_phone"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <!-- 预定车位数 -->
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"/>
-        
+            android:layout_marginLeft="5dp"
+            android:text="@string/parking_order_chose_number"
+            android:textColor="#8B4789"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- 数值 -->
+
+        <TextView
+            android:id="@+id/text_order_detail_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp" />
     </LinearLayout>
-    
-    <!-- 定位按钮 -->
-    <Button android:id="@+id/button_order_detail_gps"
+
+    <!-- 订单详情 -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/parking_detail_book_money_label"
+        android:textColor="#8B4789"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/text_order_detail_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/driver_order_check_address"/>
+        android:layout_marginTop="5dp"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <!-- 管理员电话 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/driver_order_admin_phone"
+            android:textColor="#8B4789"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_order_detail_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <!-- 定位按钮 -->
+
+        <Button
+            android:id="@+id/button_order_detail_gps"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/gps_order"
+            android:text="@string/driver_order_check_address"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_order_call_phone"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/call_phone"
+            android:text="@string/driver_order_call_manager"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

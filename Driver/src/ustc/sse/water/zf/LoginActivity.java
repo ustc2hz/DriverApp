@@ -17,6 +17,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import ustc.sse.water.activity.R;
 import ustc.sse.water.activity.zjx.DriverInfo;
 import ustc.sse.water.manager.zf.ManagerMainTabActivity;
+import ustc.sse.water.utils.zjx.ConstantKeep;
 import ustc.sse.water.utils.zjx.HttpUtils;
 import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
@@ -27,14 +28,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.ImageButton;
+import android.widget.RadioGroup;
 
 /**
  *
@@ -47,7 +48,7 @@ import android.widget.RadioButton;
  * <p>
  *
  * @author张芳 sa614296@mail.ustc.edu.cn 周晶鑫 修改
- * @version 4.2.0
+ * @version 5.2.0
  */
 public class LoginActivity extends Activity implements OnClickListener {
 	public static int radioStatus = 0; // 默认是驾驶员
@@ -63,11 +64,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private EditText inputPassword; // 密码输入框
 	private EditText inputUsername; // 用户名输入框
 	private Button loginBtn; // 登录按钮
-	private RadioButton manager_check, driver_check; // 驾驶员和管理员的单选按钮
+	private RadioGroup radioGroup; // 单选按钮组
+	private ImageButton backToMap; //返回按钮
 	private ProgressDialogUtil mDialog;
 	private Button registerBtn; // 注册按钮
 	private String responseMsg; // 访问服务器返回的结果
-	private CheckBox saveInfoItem; // 保存密码
 	private SharedPreferences sp;
 	private SharedPreferences.Editor spEditor;
 
@@ -78,70 +79,46 @@ public class LoginActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.login);
 
 		// 初始化视图组件
-		loginBtn = (Button) findViewById(R.id.login_btn_login);
-		registerBtn = (Button) findViewById(R.id.login_btn_register);
-		inputUsername = (EditText) findViewById(R.id.login_edit_account);
-		inputPassword = (EditText) findViewById(R.id.login_edit_pwd);
-		saveInfoItem = (CheckBox) findViewById(R.id.login_cb_savepwd);
-		manager_check = (RadioButton) findViewById(R.id.check_manager);
-		driver_check = (RadioButton) findViewById(R.id.check_driver);
-		driver_check.setChecked(true);
+		loginBtn = (Button) findViewById(R.id.button_loginUser_manager);
+		loginBtn.setClickable(false);
+		loginBtn.setEnabled(false);
+		registerBtn = (Button) findViewById(R.id.button_loginUser_register);
+		backToMap = (ImageButton) findViewById(R.id.image_login_backToMap);
+		inputUsername = (EditText) findViewById(R.id.edit_login_username);
+		inputPassword = (EditText) findViewById(R.id.edit_login_password);
+		radioGroup = (RadioGroup) findViewById(R.id.user_login_radioGroup);
+		radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch(checkedId) {
+				case R.id.radioBtn_user_driver: // 选择的是驾驶员
+					radioStatus = USER_DRIVER;
+					inputUsername.setHint(R.string.username_driver_hint);
+					break;
+				case R.id.radioBtn_user_manager: // 选择的是停车场
+					radioStatus = USER_MANAGER;
+					inputUsername.setHint(R.string.username_manager_hint);
+					break;
+				}
+			}
+		});
 
 		sp = getSharedPreferences("userdata", MODE_PRIVATE);
 		spEditor = sp.edit();
 
-		// 初始化数据
-		loadUserdata();
-		// 监听记住密码选项
-		saveInfoItem.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				if (isChecked) { // 如果勾选了，则赋值为true
-					spEditor.putBoolean("checkstatus", true);
-				} else { // 如果没有勾选，则赋值为false
-					spEditor.putBoolean("checkstatus", false);
-				}
-				spEditor.commit();
-			}
-		});
-
 		loginBtn.setOnClickListener(this);
+		inputUsername.addTextChangedListener(new TextWatchListener());
 		registerBtn.setOnClickListener(this);
-	}
-
-	/**
-	 * 通过“记住密码”初始化输入框
-	 */
-	private void loadUserdata() {
-		boolean checkstatus = sp.getBoolean("checkstatus", false);
-		if (checkstatus) {
-			saveInfoItem.setChecked(true);
-			// 获取已经存在的用户名和密码
-			String realUsername = sp.getString("username", "");
-			String realPassword = sp.getString("password", "");
-
-			if ((!realUsername.equals("")) && (!realPassword.equals(""))) {
-				inputUsername.setText(realUsername);
-				inputPassword.setText(realPassword);
-			}
-		} else {
-			saveInfoItem.setChecked(false);
-		}
+		inputPassword.addTextChangedListener(new TextWatchListener());
+		backToMap.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
-		// 先判断是管理员还是驾驶员
-		if (driver_check.isChecked()) {
-			radioStatus = USER_DRIVER;
-		} else if (manager_check.isChecked()) {
-			radioStatus = USER_MANAGER;
-		}
-
 		// 按钮事件处理
 		switch (v.getId()) {
-		case R.id.login_btn_login: // 登录
+		case R.id.button_loginUser_manager: // 登录
 			boolean loginOk = true; // 默认输入正确
 			// 获取输入的内容
 			valUserName = inputUsername.getText().toString();
@@ -174,23 +151,55 @@ public class LoginActivity extends Activity implements OnClickListener {
 				loginThread.start();
 			}
 			break;
-		case R.id.login_btn_register:
+		case R.id.button_loginUser_register:
 			// 注册按钮，跳转到注册界面
 			Intent intent = new Intent();
 			intent.setClass(LoginActivity.this, RegisterActivity.class);
 			startActivity(intent);
 			finish();
 			break;
+		case R.id.image_login_backToMap: // 返回地图按钮
+			finish();
+			break;
 		}
 
 	}
 
+	class TextWatchListener implements TextWatcher {
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			// 只有输入内容时才将按钮设为可点击
+			if (s.length() > 0) {
+				loginBtn.setClickable(true);
+				loginBtn.setEnabled(true);
+			} else {
+				loginBtn.setClickable(false);
+				loginBtn.setEnabled(false);
+			}
+			
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+		}
+		
+	}
+	
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			mDialog.dissmissProgressDialog();
 			switch (msg.what) {
 			case LOGIN_SUCCESS:
+				ConstantKeep.aosIng = null;
+				ConstantKeep.aosDown = null;
 				ToastUtil.show(LoginActivity.this, "登录成功！");
 				Intent intent = new Intent();
 				if (radioStatus == USER_DRIVER) { // 驾驶员登录成功
@@ -243,6 +252,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 		}
 	};
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		radioStatus = USER_DRIVER;
+	};
+	
 	// 登录访问的线程（收尾时再分出去）
 	class LoginThread implements Runnable {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -284,11 +299,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		/**
 		 * 登录和注册
-		 * 
-		 * @param username
-		 *            用户名
-		 * @param password
-		 *            密码
+		 * @param username 用户名
+		 * @param password 密码
 		 * @return boolean
 		 */
 		private boolean loginServer(String username, String password) {

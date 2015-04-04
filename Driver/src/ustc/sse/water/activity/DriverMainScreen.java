@@ -24,7 +24,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -617,9 +616,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 		}
 
-		Log.v("-->>address", parkingAddress);
-		Log.v("-->>manageId", managerId);
-
 		String markerData = showParkInfo(this.name, this.phone,
 				this.orderPrice, this.parkPrice);
 		this.showInfo.setText(markerData);
@@ -629,7 +625,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-
+		// 连续两次按回退键则退出程序
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if ((System.currentTimeMillis() - exitTime) > 2000) {
 				ToastUtil.show(this, "再按一次退出程序");

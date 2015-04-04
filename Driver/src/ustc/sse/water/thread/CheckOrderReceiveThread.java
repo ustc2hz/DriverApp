@@ -20,10 +20,14 @@ import android.os.Message;
 public class CheckOrderReceiveThread extends Thread {
 	Handler h; // Handler处理线程访问服务器处理的结果
 	private String orderUUID;
+	private int managerId;
+	private String valNumber;
 
-	public CheckOrderReceiveThread(Handler h,String uuid) {
+	public CheckOrderReceiveThread(Handler h, String uuid, int id, String num) {
 		this.h = h;
 		this.orderUUID = uuid;
+		this.managerId = id;
+		this.valNumber = num;
 	}
 
 	@Override
@@ -32,9 +36,11 @@ public class CheckOrderReceiveThread extends Thread {
 		try {
 			String basicpath = "http://";
 			StringBuffer path = new StringBuffer(basicpath);
-			path.append(HttpUtils.MY_IP).append(
-					"/AppServerr/CheckSendServlet?uuid=").append(orderUUID);
-			sleep(3000); // 休眠3s
+			path.append(HttpUtils.MY_IP)
+					.append("/AppServerr/CheckSendServlet?uuid=")
+					.append(orderUUID).append("&managerId=").append(managerId)
+					.append("&bookNum=").append(valNumber);
+			sleep(5000); // 休眠3s
 			// 调用Http
 			String jsonString = HttpUtils.getJsonContent(path.toString());
 			Message msg = h.obtainMessage();

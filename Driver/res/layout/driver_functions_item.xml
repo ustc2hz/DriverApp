@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+     >
 
     <!-- 导航图片 -->
 
@@ -10,6 +10,7 @@
         android:id="@+id/imageView_driver_function_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:layout_gravity="center" />
 
     <!-- 导航文字 -->
@@ -18,7 +19,14 @@
         android:id="@+id/textView_driver_function_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textStyle="bold" />
+        android:textSize="20sp"
+		android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/imageView_driver_function_order"
+        android:layout_marginLeft="5dp" />
+    
+	<ImageView android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/function_right"
+	    android:layout_alignParentRight="true"/>    
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,66 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:background="@drawable/driver_order_stroke"
+    android:stretchColumns="1" >
 
-    <!-- 条目第一排 -->
-
-    <LinearLayout
-        android:id="@+id/listview_first_content"
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" >
 
         <!-- 停车场名 -->
 
         <TextView
             android:id="@+id/text_driver_order_parking_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <!-- 订单预付金额 -->
 
         <TextView
             android:id="@+id/text_driver_order_pay"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:textColor="#CD3700"
+            android:textSize="20sp"
             android:textStyle="bold" />
-    </LinearLayout>
+    </TableRow>
 
-    <!-- 条目第二排 -->
-
-    <LinearLayout
-        android:id="@+id/listview_second_content"
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" >
 
         <!-- 订单日期 -->
 
         <TextView
             android:id="@+id/text_driver_order_date"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <!-- 订单状态 -->
 
         <TextView
             android:id="@+id/text_driver_order_status"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:textColor="#FF3030"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
-    </LinearLayout>
+    </TableRow>
 
-</LinearLayout>
+</TableLayout>

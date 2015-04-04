@@ -7,7 +7,9 @@
     <!-- 用户名 -->
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         style="?android:listSeparatorTextViewStyle"
         android:text="@string/label_username"/>
     
@@ -17,12 +19,16 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="16dp"
 	    android:layout_marginRight="16dp"
+	    android:layout_marginTop="5dp"
+	    android:background="@drawable/edit_login"
 	    android:singleLine="true" />
 	
 	<!-- 密码 -->
 	<TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         style="?android:listSeparatorTextViewStyle"
         android:text="@string/label_password"/>
 	
@@ -32,8 +38,10 @@
 	    android:layout_height="wrap_content"
 	    android:inputType="textPassword"
 	    android:singleLine="true"
+	    android:layout_marginTop="5dp"
 	    android:layout_marginLeft="16dp"
 	    android:layout_marginRight="16dp"
+	    android:background="@drawable/edit_login"
 	    android:hint="@string/register_hint_password"
 	    />
 	
@@ -41,6 +49,8 @@
 	<TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         style="?android:listSeparatorTextViewStyle"
         android:text="@string/label_repassword"/>
 	
@@ -50,6 +60,8 @@
 	    android:layout_height="wrap_content"
 		android:inputType="textPassword"
 	    android:hint="@string/register_hint_repassword"
+	    android:background="@drawable/edit_login"
+	    android:layout_marginTop="5dp"
 	    android:layout_marginLeft="16dp"
 	    android:layout_marginRight="16dp"/>
 	
@@ -57,7 +69,11 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal"
-	    android:layout_marginTop="15dp" >
+	    android:layout_marginLeft="16dp"
+	    android:layout_marginRight="16dp"
+	    android:background="@drawable/button_bar_stroke"
+	    style="?android:attr/buttonBarStyle"
+	    android:layout_marginTop="20dp" >
 	    
 	    <!-- 重置按钮 -->
 	    <Button 
@@ -65,6 +81,10 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
+	        android:textSize="20sp"
+	        android:textColor="#00CED1"
+	        android:textStyle="bold"
+	        style="?android:attr/buttonBarButtonStyle"
 	        android:text="@string/register_button_reset"/>
 	    
 	    <!-- 注册按钮 -->
@@ -73,6 +93,10 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
+	        android:textSize="20sp"
+	        android:textColor="#00CED1"
+	        android:textStyle="bold"
+	        style="?android:attr/buttonBarButtonStyle"
 	        android:text="@string/register_button_submit" />
 	    
 	</LinearLayout>

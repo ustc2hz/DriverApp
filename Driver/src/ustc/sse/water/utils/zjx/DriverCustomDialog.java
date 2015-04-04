@@ -3,6 +3,8 @@ package ustc.sse.water.utils.zjx;
 import ustc.sse.water.activity.R;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,23 +28,26 @@ public class DriverCustomDialog {
 	private TextView orderContent; // 订单内容
 	private TextView parkPhone; // 管理员电话
 	private Button gpsPark; // 定位按钮
+	private Button callPhone; // 拨号按钮
 
 	public DriverCustomDialog(Context con, String parkNum, String orderInfo, String phone) {
 		this.context = con;
 		AlertDialog.Builder adb = new AlertDialog.Builder(context);
-		View ll = LayoutInflater.from(con).inflate(
+		View view = LayoutInflater.from(con).inflate(
 				R.layout.order_custom_dialog, null);
-		adb.setView(ll);
+		adb.setView(view);
 		
-		parkNumber = (TextView) ll.findViewById(R.id.text_order_detail_number);
-		orderContent = (TextView) ll.findViewById(R.id.text_order_detail_info);
-		parkPhone = (TextView) ll.findViewById(R.id.text_order_detail_phone);
+		parkNumber = (TextView) view.findViewById(R.id.text_order_detail_number);
+		orderContent = (TextView) view.findViewById(R.id.text_order_detail_info);
+		parkPhone = (TextView) view.findViewById(R.id.text_order_detail_phone);
 		parkNumber.setText(parkNum);
 		orderContent.setText(orderInfo);
 		parkPhone.setText(phone);
 		
-		gpsPark = (Button) ll.findViewById(R.id.button_order_detail_gps);
+		gpsPark = (Button) view.findViewById(R.id.button_order_detail_gps);
+		callPhone= (Button) view.findViewById(R.id.button_order_call_phone);
 		gpsPark.setOnClickListener(new GPSClickListener());
+		callPhone.setOnClickListener(new CallPhoneListener(phone));
 		
 		ad = adb.create();
 		ad.show();
@@ -56,6 +61,27 @@ public class DriverCustomDialog {
 			
 		}
 		
+	}
+	
+	class CallPhoneListener implements View.OnClickListener {
+
+		String phoneNumber = null; // 手机号码
+			
+		public CallPhoneListener(String phone) {
+			this.phoneNumber = phone;
+		}
+		
+		@Override
+		public void onClick(View v) {
+			// 拨号
+			if(v.getId() == R.id.button_order_call_phone) {
+				Uri uri = Uri.parse("tel:" + phoneNumber);
+				Intent intent = new Intent();
+				intent.setAction(Intent.ACTION_DIAL);
+				intent.setData(uri);
+				context.startActivity(intent);
+			}
+		}
 	}
 
 }
