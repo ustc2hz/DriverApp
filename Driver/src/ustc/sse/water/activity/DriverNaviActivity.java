@@ -19,7 +19,7 @@ import com.amap.api.navi.AMapNaviViewListener;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 黄志恒 sa14226399@mail.ustc.edu.cn
  * @version 1.0.0
  */
@@ -76,7 +76,7 @@ public class DriverNaviActivity extends Activity implements
 	}
 
 	/**
-	 * 
+	 *
 	 * 返回键监听事件
 	 * */
 	@Override
@@ -84,18 +84,11 @@ public class DriverNaviActivity extends Activity implements
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (mCode == NaviUtils.SIMPLEROUTENAVI) {
-				/*
-				 * Intent intent = new Intent(DriverNaviActivity.this,
-				 * DriverMainScreen.class);
-				 * intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-				 * 
-				 * startActivity(intent); finish();
-				 */
 				Intent intent = new Intent(DriverNaviActivity.this,
 						DriverMainScreen.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				setResult(4, intent);
-				mAmapAMapNaviView.onDestroy();
+				// mAmapAMapNaviView.onDestroy();
 				finish();
 
 			} else if (mCode == NaviUtils.SIMPLEGPSNAVI) {
@@ -121,7 +114,7 @@ public class DriverNaviActivity extends Activity implements
 				DriverMainScreen.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		setResult(4, intent);
-		mAmapAMapNaviView.onDestroy();
+		// mAmapAMapNaviView.onDestroy();
 		finish();
 	}
 
@@ -155,7 +148,6 @@ public class DriverNaviActivity extends Activity implements
 
 	}
 
-	// ------------------------------生命周期方法---------------------------
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);

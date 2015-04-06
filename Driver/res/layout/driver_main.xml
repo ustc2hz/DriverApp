@@ -36,7 +36,9 @@
             android:maxLength="20"
             android:singleLine="true"
             android:textColor="#000000"
-            android:textSize="22.0sp" />
+            android:textSize="22.0sp" 
+            android:shadowColor="#FFFFFF"
+            />
 
         <!-- 语音搜索按钮 -->
 
@@ -135,14 +137,14 @@
                         android:id="@+id/radio_navi"
                         style="@style/main_tab_bottom"
                         android:layout_marginTop="2.0dip"
-                        android:drawableTop="@drawable/icon_2_n"
+                        android:drawableTop="@drawable/icon_3_n"
                         android:text="@string/main_navi" />
 
                     <RadioButton
                         android:id="@+id/radio_order"
                         style="@style/main_tab_bottom"
                         android:layout_marginTop="2.0dip"
-                        android:drawableTop="@drawable/icon_3_n"
+                        android:drawableTop="@drawable/icon_2_n"
                         android:text="@string/main_order" />
 
                     <RadioButton
@@ -152,12 +154,7 @@
                         android:drawableTop="@drawable/icon_4_n"
                         android:text="@string/main_mine" />
 
-                    <RadioButton
-                        android:id="@+id/radio_more"
-                        style="@style/main_tab_bottom"
-                        android:layout_marginTop="2.0dip"
-                        android:drawableTop="@drawable/icon_5_n"
-                        android:text="@string/main_more" />
+                    
                 </RadioGroup>
             </LinearLayout>
         </TabHost>

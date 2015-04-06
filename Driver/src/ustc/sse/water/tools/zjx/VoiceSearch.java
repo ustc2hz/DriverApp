@@ -15,7 +15,7 @@ import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 
 /**
- * 
+ *
  * 语音搜索类. <br>
  * 调用讯飞语音进行语音识别，并利用识别结果来进行Poi搜索.
  * <p>
@@ -23,7 +23,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  **/
@@ -69,7 +69,7 @@ public class VoiceSearch {
 					.getResultString());
 			ToastUtil.show(context, "语音识别：" + voiceResult);
 			if (!"".equals(voiceResult)) {
-				new PoiSearchMethod(aMap, context, voiceResult);
+				new PoiSearchMethod(aMap, context, voiceResult).doSearchQuery();
 			} else {
 				ToastUtil.show(context, "无法识别，请重说！");
 			}
@@ -81,8 +81,11 @@ public class VoiceSearch {
 
 	/**
 	 * 有参构造函数
-	 * @param map 高德地图
-	 * @param con 上下文
+	 * 
+	 * @param map
+	 *            高德地图
+	 * @param con
+	 *            上下文
 	 */
 	public VoiceSearch(AMap map, Context con) {
 		this.aMap = map;

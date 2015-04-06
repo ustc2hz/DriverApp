@@ -1,7 +1,7 @@
 package ustc.sse.water.data.model;
 
 /**
- * 
+ *
  * 停车场详细信息对象. <br>
  * 方便数据处理.
  * <p>
@@ -9,7 +9,7 @@ package ustc.sse.water.data.model;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 黄志恒
  * @version 1.0.0
  */
@@ -28,10 +28,6 @@ public class ParkDetailObject {
 	private String payOneHour;
 
 	private String phone; // 电话
-
-	/*
-	 * public String get_address() { return _address; }
-	 */
 
 	public String get_location() {
 		return _location;
