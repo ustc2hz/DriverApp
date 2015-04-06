@@ -35,4 +35,46 @@
         <item name="android:layout_weight">1.0</item>
     </style>
     
+    <!-- 登录界面中RadioGroup样式 -->
+    <style name="user_login_radioButton_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">8dip</item>
+        <item name="android:paddingBottom">8dip</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/user_radio_button_selector</item>
+    </style>
+    
+    <!-- 驾驶员端UI组件距离样式 -->
+    <style name="driver_distance_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+    
+    <!-- 驾驶员端的按钮样式 -->
+    <style name="driver_button_style" parent="driver_distance_style">
+        <item name="android:background">@drawable/driver_button_selector</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <!-- 驾驶员端的输入框样式 -->
+    <style name="driver_edittext_style" parent="driver_distance_style">
+        <item name="android:background">@drawable/edit_login</item>
+    </style>
+    
+    <!-- 驾驶员端部分文字样式 -->
+    <style name="driver_textview_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
 </resources>

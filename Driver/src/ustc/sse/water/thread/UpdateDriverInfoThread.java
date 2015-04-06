@@ -43,7 +43,7 @@ public class UpdateDriverInfoThread extends Thread {
 			// 调用Http
 			String jsonString = HttpUtils.getJsonContent(path.toString());
 			Message msg = h.obtainMessage();
-			msg.arg1 = 4; // 将msg的常量值赋值为10
+			msg.arg1 = 4; // 将msg的常量值赋值为4
 			Bundle bundle = new Bundle();
 			bundle.putString("update_result", jsonString); // 存入服务器返回的结果
 			msg.setData(bundle);

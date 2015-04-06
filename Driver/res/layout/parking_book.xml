@@ -2,74 +2,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical" >
-    
+    android:background="#ffffff" >
+
+    <!-- 标题 -->
+
     <TextView
         android:id="@+id/text_book_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#66ffcc"
+        android:background="#00C5CD"
         android:gravity="center_horizontal|top"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:text="@string/parking_order_make"
-        android:textColor="#ff0033"
+        android:textColor="#ffffff"
         android:textSize="30sp" />
 
-    <View android:id="@+id/book_view1"
+    <TextView
+        android:id="@+id/text_license_show"
+        style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/text_book_title"
-        android:background="#000000" />
-    
-    <TextView android:id="@+id/text_license_show"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:layout_marginTop="10dp"
         android:text="@string/parking_order_chose_number"
-        android:layout_below="@id/book_view1"/>
-    
-        <!-- 预定车位数输入框 -->
-        <EditText android:id="@+id/edit_licenses_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_license_show"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:inputType="number" />
-    
-    <View android:id="@+id/book_view2"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- 预定车位数输入框 -->
+
+    <EditText
+        android:id="@+id/edit_licenses_number"
+        android:layout_below="@id/text_license_show"
+        android:layout_marginTop="5dp"
+        style="@style/driver_edittext_style"
+        android:hint="@string/label_edittext_hint_cars"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/text_book_time_chose"
+        style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/edit_licenses_number"
-        android:background="#000000" />
-    
-    <TextView android:id="@+id/text_book_time_chose"
-        android:layout_below="@id/book_view2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:text="@string/parking_order_chose_time"/> 
-    
-    <Spinner android:id="@+id/spinner_time_chose"
-       	android:layout_below="@id/text_book_time_chose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/spinner_chose_tip"/>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"      
-        android:orientation="vertical" >
+        android:layout_marginTop="10dp"
+        android:text="@string/parking_order_chose_time"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button_submit_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"           
-            android:text="@string/parking_order_submit" />
+    <Spinner
+        android:id="@+id/spinner_time_chose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_book_time_chose"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_login"
+        android:prompt="@string/spinner_chose_tip" />
 
-    </LinearLayout>
+    <Button android:layout_below="@id/spinner_time_chose"
+        android:id="@+id/button_submit_order"
+        android:layout_marginTop="20dp"
+        style="@style/driver_button_style"
+        android:text="@string/parking_order_submit" />
 
 </RelativeLayout>

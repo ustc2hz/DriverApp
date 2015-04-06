@@ -7,6 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import ustc.sse.water.activity.R;
 import ustc.sse.water.adapter.zjx.OrderStateProcessAdapter;
+import ustc.sse.water.data.model.AdminOrderShow;
 import ustc.sse.water.data.model.OrderShowList;
 import ustc.sse.water.manager.zf.AActivity;
 import ustc.sse.water.utils.zjx.ConstantKeep;
@@ -32,7 +33,7 @@ import android.widget.RemoteViews;
  * <p>
  * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
- * @version 1.0.0
+ * @version 2.0.0
  */
 public class UpdateOrderService extends Service {
 	private NotificationManager notificationManager; //通知管理器
@@ -82,14 +83,18 @@ public class UpdateOrderService extends Service {
 							// 取出每个订单的Id，用来将这些订单的状态改为“1”
 							for(int i=0; i<notifyNumber; i++) {
 								ids.add(String.valueOf(orderShow.getAdminShow().get(i).getOrderId()));
+								if(ConstantKeep.aosIng == null) {
+										ConstantKeep.aosIng = new ArrayList<AdminOrderShow>();
+								}
 								ConstantKeep.aosIng.add(orderShow.getAdminShow().get(i));
 							}
-							// 再次请求服务器修改订单状态
-							String requestPath = basicpath + HttpUtils.MY_IP
-									+ "/AppServerr/ChangeOrderStatus?changeIds="
-									+ objectMapper.writeValueAsString(ids);
 							
-							HttpUtils.getJsonContent(requestPath);
+							// 再次请求服务器修改订单状态
+							StringBuffer requestPath = new StringBuffer(basicpath);
+							requestPath.append(HttpUtils.MY_IP).append("/AppServerr/ChangeOrderStatus?changeIds=") 
+									.append(objectMapper.writeValueAsString(ids));
+							
+							HttpUtils.getJsonContent(requestPath.toString());
 							AActivity.myAdapter=new OrderStateProcessAdapter(AActivity.context, ConstantKeep.aosIng);
 							Message ms=new Message();
 							ms.arg1=44;
@@ -113,9 +118,6 @@ public class UpdateOrderService extends Service {
 
 	// 发更新通知
 	private void sendNotification(String content) {	
-		//Intent intent = new Intent(this, null);
-		/*PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-				null, 0);*/
 		RemoteViews view_custom = new RemoteViews(getPackageName(),
 				R.layout.view_notificatinon);
 		view_custom.setImageViewResource(R.id.custom_icon,         // 设置图标
@@ -123,20 +125,16 @@ public class UpdateOrderService extends Service {
 		view_custom.setTextViewText(R.id.tv_custom_title, "Driver"); // 设置标题
 		view_custom.setTextViewText(R.id.tv_custom_content,        // 设置内容
 				content );
-		/*view_custom.setOnClickPendingIntent(R.id.view_notification,   // 点击通知后回到订单界面
-				contentIntent);*/
 		/* 构建通知 */
 		mBuilder = new Builder(this);
 		mBuilder.setContent(view_custom).setWhen(System.currentTimeMillis()).setTicker("有新订单")
 				.setSmallIcon(R.drawable.lbs_logo);
 		Notification notify = mBuilder.build();  
 		
-		//notify.contentView = view_custom;                   // 为该通知配置视图
 		notificationManager.notify(1, notify); //发出通知
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		notificationManager.cancel(1);

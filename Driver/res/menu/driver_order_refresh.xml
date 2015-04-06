@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <!-- 驾驶员订单显示界面的刷新菜单 -->
+    <item android:id="@+id/driver_order_list_refresh"
+        android:title="@string/menu_title_refresh"
+        android:icon="@drawable/menu_refresh"
+        android:showAsAction="always"/>
+
+</menu>

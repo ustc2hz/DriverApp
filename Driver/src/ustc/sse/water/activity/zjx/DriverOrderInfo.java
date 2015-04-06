@@ -5,15 +5,20 @@ import java.util.List;
 import ustc.sse.water.activity.R;
 import ustc.sse.water.adapter.zjx.DriverOrderAdapter;
 import ustc.sse.water.data.model.DriverOrderShow;
+import ustc.sse.water.thread.RefreshDriverOrdersThread;
 import ustc.sse.water.thread.ShowDriverOrderThread;
 import ustc.sse.water.utils.zjx.ConstantKeep;
 import ustc.sse.water.utils.zjx.DriverCustomDialog;
+import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +47,7 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 	private List<DriverOrderShow> driverOrders; // 驾驶员的订单信息
 	private SharedPreferences sp;
 	private int driverId; // 操作驾驶员的id
+	private ProgressDialogUtil progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,7 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setTitle(R.string.driver_order_information);
+		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.user_button_register_normal));
 
 		driverOrders = ConstantKeep.dos; // 获取本地保存的驾驶员订单信息
 		sp = getSharedPreferences("userdata", MODE_PRIVATE);
@@ -90,6 +97,12 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 		@Override
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.arg1) {
+			case 11: // 获取全部订单数据成功
+				progressDialog.dissmissProgressDialog();
+				// 重新获取本地保存的驾驶员订单信息
+				driverOrders = ConstantKeep.dos;
+				adapter.notifyDataSetChanged();
+				break;
 			case 22: // 获取全部订单数据成功
 				// 重新获取本地保存的驾驶员订单信息
 				driverOrders = ConstantKeep.dos;
@@ -118,10 +131,26 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater(); 
+		inflater.inflate(R.menu.driver_order_refresh, menu); 
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home: // ActionBar中向左箭头点击
 			finish(); // 返回主菜单
+			break;
+		case R.id.driver_order_list_refresh:
+			progressDialog = new ProgressDialogUtil(this, "正在刷新...");
+			Log.i("--->>refreshid", String.valueOf(driverId));
+			// 开启线程刷新订单数据
+			RefreshDriverOrdersThread refresh = new RefreshDriverOrdersThread(h, "1",
+					String.valueOf(driverId));
+			refresh.start();
+			progressDialog.showProgressDialog();
 			break;
 		}
 		return true;

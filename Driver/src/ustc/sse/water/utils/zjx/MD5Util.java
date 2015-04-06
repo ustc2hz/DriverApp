@@ -17,7 +17,6 @@ public class MD5Util {
 	
 	/**
 	 * MD5单向加密，32位，用于加密密码，因为明文密码在信道中传输不安全，明文保存在本地也不安全
-	 * 
 	 * @param str 要加密的字符串
 	 * @return String 加密后的字符串
 	 */

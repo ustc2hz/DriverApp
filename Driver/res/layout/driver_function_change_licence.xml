@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/driver_layout_stroke"
+    android:layout_height="match_parent" >
+
+	<TextView android:id="@+id/relative_textview1" 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        style="?android:listSeparatorTextViewStyle"
+	    android:text="@string/driver_update_licence"/>
+	
+	<EditText android:id="@+id/edit_driver_new_licence"
+	    android:layout_below="@id/relative_textview1"
+	    android:layout_marginTop="10dp"
+	    style="@style/driver_edittext_style"
+	    android:hint="@string/register_hint_licence"/>
+	
+	<Button android:layout_below="@id/edit_driver_new_licence" 
+	    android:id="@+id/button_driver_change_licence"
+	    android:layout_marginTop="40dp"
+	    style="@style/driver_button_style"
+	    android:text="@string/label_button_change_licence"/>
+    
+</RelativeLayout>

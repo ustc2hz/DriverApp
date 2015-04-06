@@ -25,7 +25,8 @@ import org.apache.http.params.HttpConnectionParams;
  */
 public class HttpUtils {
 	/* 服务器的IP地址和端口号 */
-	public final static String MY_IP = "192.168.9.241:8080";
+	//public final static String MY_IP = "192.168.9.241:8080";
+	public final static String MY_IP = "192.168.9.205:8080";
 	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
 	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
 
@@ -53,11 +54,13 @@ public class HttpUtils {
 			if (code == 200) { // 200为连接成功
 				// 调用方法将返回的流解析为String，并且返回
 				return changeInputStream(httpURLConnection.getInputStream());
+			}else {
+				return "error";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "error";
 		}
-		return "";
 	}
 
 	/**

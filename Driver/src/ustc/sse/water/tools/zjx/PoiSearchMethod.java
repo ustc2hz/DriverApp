@@ -107,17 +107,13 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 		this.aMap = map;
 		this.context = con;
 		this.keySearch = keyword;
+
 		dialog = new ProgressDialogUtil(context, "正在搜索...");
 	}
 
-	/**
-	 * 输入信息改变之后
-	 */
 	@Override
 	public void afterTextChanged(Editable s) {
-		/*
-		 * keySearch = s.toString(); doSearchQuery(); // 开始搜索
-		 */}
+	}
 
 	@Override
 	public void beforeTextChanged(CharSequence s, int start, int count,
@@ -156,8 +152,6 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	@Override
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		// TODO Auto-generated method stub
-
 		switch (actionId) {
 		case EditorInfo.IME_ACTION_DONE:
 			keySearch = keyEdit.getText().toString().trim();
@@ -176,9 +170,6 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 		return true;
 	}
 
-	/**
-	 * 初始化一些必要的组件和监听器
-	 */
 	@Override
 	public void onPoiItemDetailSearched(PoiItemDetail arg0, int arg1) {
 	}
@@ -213,7 +204,6 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 							new MyCloudSearch(this.context, lp.getLatitude(),
 									lp.getLongitude(), this.aMap);
 						}
-
 					} else if (suggestionCities != null
 							&& suggestionCities.size() > 0) {
 
