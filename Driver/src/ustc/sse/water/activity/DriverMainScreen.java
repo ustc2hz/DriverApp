@@ -279,6 +279,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 					Context.MODE_PRIVATE);
 
 			int loginState = shared.getInt("userLoginStatus", 2); // 取不到，则默认为2
+			loginState = 1;
 			switch (loginState) {
 			case LOGIN_STATUS_DRIVER: // 有驾驶员登录过，而且还没有退出
 				intentUser.setClass(DriverMainScreen.this, DriverInfo.class);
