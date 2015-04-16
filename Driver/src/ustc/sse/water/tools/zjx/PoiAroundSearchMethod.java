@@ -92,45 +92,9 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 		} catch (AMapException e) {
 			// TODO Auto-generated catch block
 			dialog.dissmissProgressDialog();
-			// ToastUtil.show(context, "抱歉，搜索服务失败");
 		} // 开始搜索
 
-		// DisDialog dis = new DisDialog();
-		// dis.start();
-
 	}
-
-	// Handler handle = new Handler() {
-	//
-	// @Override
-	// public void handleMessage(Message msg) {
-	// // TODO Auto-generated method stub
-	// super.handleMessage(msg);
-	// if (msg.what == 1) {
-	// dialog.dissmissProgressDialog();
-	// }
-	// }
-	//
-	// };
-
-	// class DisDialog extends Thread {
-	//
-	// @Override
-	// public void run() {
-	// // TODO Auto-generated method stub
-	// super.run();
-	// try {
-	// Thread.sleep(50000);
-	// Message ms = new Message();
-	// ms.what = 1;
-	// handle.sendMessage(ms);
-	// } catch (InterruptedException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-	//
-	// }
 
 	/**
 	 * 查单个poi详情

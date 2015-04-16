@@ -56,7 +56,7 @@
         <activity
             android:name=".DriverLife"
             android:label="@string/happy_driver_life"
-            android:theme="@android:style/Theme.Dialog" />
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         
         <!-- 处理导航功能的中间层，空界面 -->
         <activity
@@ -87,7 +87,7 @@
 
         <!-- 发布消息界面 -->
         <activity
-            android:name="ustc.sse.water.manager.zf.BActivity"
+            android:name="ustc.sse.water.manager.zf.ParkingCreatement"
             android:label="@string/app_name" />
 
         <!-- 个人设置界面 -->

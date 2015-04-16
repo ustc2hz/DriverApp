@@ -9,21 +9,16 @@ import ustc.sse.water.activity.R;
 import ustc.sse.water.data.model.DetailDataToServer;
 import ustc.sse.water.data.model.ParkDetailObject;
 import ustc.sse.water.utils.zjx.ToastUtil;
-import ustc.sse.water.zf.LoginActivity;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
@@ -40,7 +35,7 @@ import android.widget.Toast;
  * @version 3.0.0
  */
 
-public class BActivity extends Activity implements OnClickListener {
+public class ParkingCreatement extends Activity implements OnClickListener {
 
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
 	public static ObjectMapper objectMapper = new ObjectMapper();
@@ -54,17 +49,37 @@ public class BActivity extends Activity implements OnClickListener {
 	// 地图选点按钮
 	private Button modeButton;
 
-	// 切换手工输入和地图选点的Spinner——黄志恒
-	private Spinner modeSpinner;
 	// 停车场名称全局变量——黄志恒
 	private String name;
-	// 用于获取edittext的值
-	private String num, price_ten, price_twenty, price_thirty, pprice_ten,
-			pprice_twenty, pprice_thirty;
+	// 用于获取停车场停车位总数的值
+	private String parking_num;
+	// 用于获取停车场预定10分钟订金的值
+	private String parking_price_ten;
+	// 用于获取停车场预定20分钟订金的值
+	private String parking_price_twenty;
+	// 用于获取停车场预定30分钟订金的值
+	private String parking_price_thirty;
+	// 用于获取停车场停车半个小时收费金额的值
+	private String parking_half_hour_price;
+	// 用于获取停车场停车1个小时收费金额的值
+	private String parking_one_hour_price;
+	// 用于获取停车场停车超过1个小时收费金额的值
+	private String parking_onemore_hour_price;
 
-	// edittext的申明
-	private EditText park_number, l_price, m_price, h_price, pl_price,
-			pm_price, ph_price;
+	// 停车场停车位数量输入框
+	private EditText park_number;
+	// 停车场10分钟预定订金输入框
+	private EditText order_ten_price;
+	// 停车场20分钟预定订金输入框
+	private EditText order_twenty_price;
+	// 停车场30分钟预定订金输入框
+	private EditText order_thirty_price;
+	// 停车场停车半个小时收费金额输入框
+	private EditText park_half_hour_price;
+	// 停车场停车一个小时收费金额输入框
+	private EditText park_one_hour_price;
+	// 停车场停车场超过1个小时收费金额输入框
+	private EditText park_more_hour_price;
 
 	// 停车场地理坐标——黄志恒
 	private EditText parkLocation;
@@ -97,9 +112,9 @@ public class BActivity extends Activity implements OnClickListener {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
-				ToastUtil.show(BActivity.this, "Submit Success!");
+				ToastUtil.show(ParkingCreatement.this, "Submit Success!");
 			} else {
-				ToastUtil.show(BActivity.this, "Submit Failed!");
+				ToastUtil.show(ParkingCreatement.this, "Submit Failed!");
 			}
 		}
 	};
@@ -112,6 +127,7 @@ public class BActivity extends Activity implements OnClickListener {
 
 		saveChange.append("{\"_id\":\"" + preferences.getString("id", "空")
 				+ "\"");
+		// 停车场名称不为空时进入if语句，并保存数据
 		if (!parkName.getText().toString().trim()
 				.equals(preferences.getString("name", "空"))) {
 			saveChange.append(",\"_name\":\""
@@ -120,6 +136,7 @@ public class BActivity extends Activity implements OnClickListener {
 			editor.commit();
 
 		}
+		// 停车场位置不为空时进入if语句，并保存数据
 		if (!parkLocation.getText().toString().trim()
 				.equals(preferences.getString("location", "空"))) {
 			saveChange.append(",\"_location\":\""
@@ -129,6 +146,7 @@ public class BActivity extends Activity implements OnClickListener {
 			editor.commit();
 		}
 
+		// 停车场电话不为空时进入if语句，并保存数据
 		if (!parkPhone.getText().toString().trim()
 				.equals(preferences.getString("phone", "空"))) {
 			saveChange.append(",\"phone\":\""
@@ -137,6 +155,7 @@ public class BActivity extends Activity implements OnClickListener {
 			editor.commit();
 		}
 
+		// 停车场停车位总数不为空时进入if语句，并保存数据
 		if (!park_number.getText().toString().trim()
 				.equals(preferences.getString("num", "空"))) {
 			saveChange.append(",\"parkSum\":\""
@@ -146,55 +165,63 @@ public class BActivity extends Activity implements OnClickListener {
 
 		}
 
-		if (!l_price.getText().toString().trim()
+		// 停车场预定10分钟订金不为空时进入if语句，并保存数据
+		if (!order_ten_price.getText().toString().trim()
 				.equals(preferences.getString("price_ten", "空"))) {
 			saveChange.append(",\"orderTen\":\""
-					+ l_price.getText().toString().trim() + "\"");
-			editor.putString("price_ten", l_price.getText().toString().trim());
+					+ order_ten_price.getText().toString().trim() + "\"");
+			editor.putString("price_ten", order_ten_price.getText().toString()
+					.trim());
 			editor.commit();
 		}
 
-		if (!m_price.getText().toString().trim()
+		// 停车场预定20分钟订金不为空时进入if语句，并保存数据
+		if (!order_twenty_price.getText().toString().trim()
 				.equals(preferences.getString("price_twenty", "空"))) {
 			saveChange.append(",\"orderTwe\":\""
-					+ m_price.getText().toString().trim() + "\"");
-			editor.putString("price_twenty", m_price.getText().toString()
-					.trim());
+					+ order_twenty_price.getText().toString().trim() + "\"");
+			editor.putString("price_twenty", order_twenty_price.getText()
+					.toString().trim());
 			editor.commit();
 		}
 
-		if (!h_price.getText().toString().trim()
+		// 停车场预定30分钟订金不为空时进入if语句，并保存数据
+		if (!order_thirty_price.getText().toString().trim()
 				.equals(preferences.getString("price_thirty", "空"))) {
 			saveChange.append(",\"orderTri\":\""
-					+ h_price.getText().toString().trim() + "\"");
-			editor.putString("price_thirty", h_price.getText().toString()
-					.trim());
+					+ order_thirty_price.getText().toString().trim() + "\"");
+			editor.putString("price_thirty", order_thirty_price.getText()
+					.toString().trim());
 			editor.commit();
 		}
 
-		if (!pl_price.getText().toString().trim()
+		// 停车场停车半个小时金额不为空时进入if语句，并保存数据
+		if (!park_half_hour_price.getText().toString().trim()
 				.equals(preferences.getString("pprice_ten", "空"))) {
 			saveChange.append(",\"payHalPay\":\""
-					+ pl_price.getText().toString().trim() + "\"");
-			editor.putString("pprice_ten", pl_price.getText().toString().trim());
+					+ park_half_hour_price.getText().toString().trim() + "\"");
+			editor.putString("pprice_ten", park_half_hour_price.getText()
+					.toString().trim());
 			editor.commit();
 		}
 
-		if (!pm_price.getText().toString().trim()
+		// 停车场停车1个小时金额不为空时进入if语句，并保存数据
+		if (!park_one_hour_price.getText().toString().trim()
 				.equals(preferences.getString("pprice_twenty", "空"))) {
 			saveChange.append(",\"payOneHour\":\""
-					+ pm_price.getText().toString().trim() + "\"");
-			editor.putString("pprice_twenty", pm_price.getText().toString()
-					.trim());
+					+ park_one_hour_price.getText().toString().trim() + "\"");
+			editor.putString("pprice_twenty", park_one_hour_price.getText()
+					.toString().trim());
 			editor.commit();
 		}
 
-		if (!ph_price.getText().toString().trim()
+		// 停车场停车多于1个小时金额不为空时进入if语句，并保存数据
+		if (!park_more_hour_price.getText().toString().trim()
 				.equals(preferences.getString("pprice_thirty", "空"))) {
 			saveChange.append(",\"payMorePay\":\""
-					+ ph_price.getText().toString().trim() + "\"");
-			editor.putString("pprice_thirty", ph_price.getText().toString()
-					.trim());
+					+ park_more_hour_price.getText().toString().trim() + "\"");
+			editor.putString("pprice_thirty", park_more_hour_price.getText()
+					.toString().trim());
 			editor.commit();
 		}
 
@@ -206,20 +233,28 @@ public class BActivity extends Activity implements OnClickListener {
 	 * 初始化停车场详细信息对象——黄志恒
 	 * */
 	public void initObject() {
+		// 初始化pdo对象
 		pdo = new ParkDetailObject();
+		// 赋值停车场名称
 		pdo.set_name(name.toString());
-
-		Log.v("name tostring", name.toString());
+		// 赋值停车场坐标
 		pdo.set_location(location);
-		// pdo.set_address(" ");
+		// 赋值停车场电话
 		pdo.setPhone(phone);
-		pdo.setParkSum(num);
-		pdo.setOrderTen(price_ten);
-		pdo.setOrderTwe(price_twenty);
-		pdo.setOrderTri(price_thirty);
-		pdo.setPayOneHour(pprice_ten);
-		pdo.setPayHalPay(pprice_twenty);
-		pdo.setPayMorePay(pprice_twenty);
+		// 赋值停车场停车位数量
+		pdo.setParkSum(parking_num);
+		// 赋值停车场10分钟预定订金
+		pdo.setOrderTen(parking_price_ten);
+		// 赋值停车场20分钟预定订金
+		pdo.setOrderTwe(parking_price_twenty);
+		// 赋值停车场30分钟预定订金
+		pdo.setOrderTri(parking_price_thirty);
+		// 赋值停车场停车半个小时的收费金额
+		pdo.setPayOneHour(parking_one_hour_price);
+		// 赋值停车场停车1个小时的收费金额
+		pdo.setPayHalPay(parking_half_hour_price);
+		// 赋值停车场停车超过1个小时的收费金额
+		pdo.setPayMorePay(parking_onemore_hour_price);
 
 	}
 
@@ -233,10 +268,12 @@ public class BActivity extends Activity implements OnClickListener {
 
 		userDataPreFer = getSharedPreferences("userdata", MODE_PRIVATE);
 		managerName = userDataPreFer.getString("adminLoginName", "NULL");
-		Log.v("---???", managerName);
 
+		// 为停车场名称赋初值
 		name = preferences.getString("name", name);
+		// 为停车场电话赋初值
 		phone = preferences.getString("phone", phone);
+		// 为停车场坐标赋初值
 		location = preferences.getString("location", "0,0");
 	}
 
@@ -245,12 +282,14 @@ public class BActivity extends Activity implements OnClickListener {
 	 */
 	public void initText() {
 		park_number.setHint(preferences.getString("num", "空"));
-		l_price.setHint(preferences.getString("price_ten", "空"));
-		m_price.setHint(preferences.getString("price_twenty", "空"));
-		h_price.setHint(preferences.getString("price_thirty", "空"));
-		pl_price.setHint(preferences.getString("pprice_ten", "空"));
-		pm_price.setHint(preferences.getString("pprice_twenty", "空"));
-		ph_price.setHint(preferences.getString("pprice_thirty", "空"));
+		order_ten_price.setHint(preferences.getString("price_ten", "空"));
+		order_twenty_price.setHint(preferences.getString("price_twenty", "空"));
+		order_thirty_price.setHint(preferences.getString("price_thirty", "空"));
+		park_half_hour_price.setHint(preferences.getString("pprice_ten", "空"));
+		park_one_hour_price
+				.setHint(preferences.getString("pprice_twenty", "空"));
+		park_more_hour_price.setHint(preferences
+				.getString("pprice_thirty", "空"));
 		parkName.setHint(preferences.getString("name", "空"));
 		parkLocation.setHint(preferences.getString("location", "空"));
 		parkPhone.setHint(preferences.getString("phone", "空"));
@@ -270,12 +309,12 @@ public class BActivity extends Activity implements OnClickListener {
 
 		// 通过findViewById找到对应的
 		park_number = (EditText) findViewById(R.id.parknumber);
-		l_price = (EditText) findViewById(R.id.price1);
-		m_price = (EditText) findViewById(R.id.price2);
-		h_price = (EditText) findViewById(R.id.price3);
-		pl_price = (EditText) findViewById(R.id.pprice1);
-		pm_price = (EditText) findViewById(R.id.pprice2);
-		ph_price = (EditText) findViewById(R.id.pprice3);
+		order_ten_price = (EditText) findViewById(R.id.price1);
+		order_twenty_price = (EditText) findViewById(R.id.price2);
+		order_thirty_price = (EditText) findViewById(R.id.price3);
+		park_half_hour_price = (EditText) findViewById(R.id.pprice1);
+		park_one_hour_price = (EditText) findViewById(R.id.pprice2);
+		park_more_hour_price = (EditText) findViewById(R.id.pprice3);
 		parkName = (EditText) findViewById(R.id.manager_park_name);
 		parkLocation = (EditText) findViewById(R.id.manager_park_location);
 		// 因为坐标是地图上选点自动生成的，所以这里禁止输入
@@ -307,12 +346,12 @@ public class BActivity extends Activity implements OnClickListener {
 			// 点击更新数据
 			checkChangeAndSave();
 			if (12 < updateData.length()) {
-				showTemp();
 				// 使用子线程向服务器提交数据，并对返回的数据做处理——黄志恒
 				new Thread() {
 					@Override
 					public void run() {
 						try {
+							// 想服务器更新数据
 							postUpdateData();
 							if (postData.responseMsg.equals("1")) {
 								Message msg = new Message();
@@ -327,7 +366,6 @@ public class BActivity extends Activity implements OnClickListener {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						// 线程逻辑
 					}
 				}.start();
 			} else {
@@ -344,15 +382,17 @@ public class BActivity extends Activity implements OnClickListener {
 				Toast.makeText(this, "已创建，更新数据请点击更新按钮", Toast.LENGTH_SHORT)
 						.show();
 			} else {
-				SaveData1();
-				showTemp();
+				// 首先存储输入框中的数据
+				SaveEditTextData();
 				// 使用子线程向服务器提交数据，并对返回的数据做处理——黄志恒
 				new Thread() {
 					@Override
 					public void run() {
 						try {
+							// 向服务器提交创建停车场的数据
 							postData();
 							if (!"0".endsWith(postData.responseMsg)) {
+								//将获取来的停车场id保存下来
 								editor.putString("id", postData.responseMsg);
 								editor.commit();
 								Message msg = new Message();
@@ -367,7 +407,6 @@ public class BActivity extends Activity implements OnClickListener {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						// 线程逻辑
 					}
 				}.start();
 			}
@@ -376,7 +415,7 @@ public class BActivity extends Activity implements OnClickListener {
 		// 点击“地图选点”按钮进行地图选点
 		case R.id.mode_button:
 			Intent toAddMap = new Intent();
-			toAddMap.setClass(BActivity.this, MapForAddress.class);
+			toAddMap.setClass(ParkingCreatement.this, MapForAddress.class);
 			int resultCode = 2;
 			startActivityForResult(toAddMap, resultCode);
 		}
@@ -403,11 +442,11 @@ public class BActivity extends Activity implements OnClickListener {
 	 */
 	public void postData() throws JsonGenerationException,
 			JsonMappingException, Exception {
+		// 初始化要传送的数据
 		initObject();
 
 		// 将ParkingData转换为Json字符串
 		String data = objectMapper.writeValueAsString(this.pdo);
-		Log.v("123", data);
 		postData = new DetailDataToServer();
 		postData.postDataToServer(data, managerName);
 	}
@@ -418,7 +457,6 @@ public class BActivity extends Activity implements OnClickListener {
 	 * @throws Exception
 	 */
 	public void postUpdateData() throws Exception {
-		Log.v("123", updateData);
 		postData = new DetailDataToServer();
 		postData.postUpdateDataToServer(updateData);
 	}
@@ -426,86 +464,39 @@ public class BActivity extends Activity implements OnClickListener {
 	/**
 	 * 保存输入框的数据——黄志恒
 	 */
-	public void SaveData1() {
+	public void SaveEditTextData() {
 		name = parkName.getText().toString().trim();
 		phone = parkPhone.getText().toString().trim();
 
-		num = park_number.getText().toString().trim();
-		price_ten = l_price.getText().toString().trim();
-		price_twenty = m_price.getText().toString().trim();
-		price_thirty = h_price.getText().toString().trim();
-		pprice_ten = pl_price.getText().toString().trim();
-		pprice_twenty = pm_price.getText().toString().trim();
-		pprice_thirty = ph_price.getText().toString().trim();
+		// 停车场停车位数量
+		parking_num = park_number.getText().toString().trim();
+		// 停车场预定10分钟的订金
+		parking_price_ten = order_ten_price.getText().toString().trim();
+		// 停车场预定20分钟的订金
+		parking_price_twenty = order_twenty_price.getText().toString().trim();
+		// 停车场预定30分钟的订金
+		parking_price_thirty = order_thirty_price.getText().toString().trim();
+		// 停车场停车半个小时收费的金额
+		parking_half_hour_price = park_half_hour_price.getText().toString()
+				.trim();
+		// 停车场停车1个小时收费的金额
+		parking_one_hour_price = park_one_hour_price.getText().toString()
+				.trim();
+		// 停车场停车多于1个小时收费的金额
+		parking_onemore_hour_price = park_more_hour_price.getText().toString()
+				.trim();
 
-		editor.putString("num", num);
-		editor.putString("price_ten", price_ten);
-		editor.putString("price_twenty", price_twenty);
-		editor.putString("price_thirty", price_thirty);
-		editor.putString("pprice_ten", pprice_ten);
-		editor.putString("pprice_twenty", pprice_twenty);
-		editor.putString("pprice_thirty", pprice_thirty);
+		editor.putString("num", parking_num);
+		editor.putString("price_ten", parking_price_ten);
+		editor.putString("price_twenty", parking_price_twenty);
+		editor.putString("price_thirty", parking_price_thirty);
+		editor.putString("pprice_ten", parking_half_hour_price);
+		editor.putString("pprice_twenty", parking_one_hour_price);
+		editor.putString("pprice_thirty", parking_onemore_hour_price);
 		editor.putString("name", name);
 		editor.putString("location", location);
 		editor.putString("phone", phone);
 		editor.commit();
 
-	}
-
-	public AlertDialog.Builder setNegativeButton(AlertDialog.Builder builder) {
-
-		// 调用setPositiveButton方法添加取消按钮
-		return builder.setNegativeButton("取消",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						// TODO Auto-generated method stub
-						// 弹出对话框后消失
-						arg0.dismiss();
-						// 设置intent跳转
-						// Intent it = new
-						// Intent(distribute.this,distribute.class);
-						// it.putExtra("etr","0");
-						// startActivity(it);
-					}
-				});
-	}
-
-	public AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder) {
-
-		return builder.setPositiveButton("提交",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						// TODO Auto-generated method stub
-						// 弹出对话框后消失
-						arg0.dismiss();
-						// 设置跳转
-						Intent it = new Intent(BActivity.this,
-								LoginActivity.class);
-						it.putExtra("etr", "1");
-						startActivity(it);
-					}
-				});
-	}
-
-	/**
-	 * 在logCat中打印sharedPreference信息，用于测试——黄志恒
-	 */
-	public void showTemp() {
-		Log.v("name", preferences.getString("name", "fail"));
-		Log.v("location", preferences.getString("location", "fail"));
-		Log.v("managerName", managerName);
-		Log.v("phone", preferences.getString("phone", "fail"));
-		Log.v("sum", preferences.getString("num", "fail"));
-		Log.v("orderTen", preferences.getString("price_ten", "fail"));
-		Log.v("orderTw", preferences.getString("price_twenty", "fail"));
-		Log.v("orderThr", preferences.getString("price_thirty", "fail"));
-		Log.v("payHalf", preferences.getString("pprice_ten", "fail"));
-		Log.v("payOne", preferences.getString("pprice_twenty", "fail"));
-		Log.v("payMore", preferences.getString("pprice_thirty", "fail"));
-		Log.v("id", preferences.getString("id", "fail"));
 	}
 }

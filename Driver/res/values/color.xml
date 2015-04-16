@@ -148,6 +148,7 @@
 <color name="black">#000000</color><!--黑色 -->
 <color name="bookColor">#EE0000</color>
 <color name="rootColor">#CD00CD</color>
+<color name="anotherBlue">#00C5CD</color><!-- 周晶鑫找的一种蓝色 -->
 
 <color name="color_driver_welcome">#9ACD32</color> <!-- 水蓝 -->
 <color name="color_driver_changeLicence1">#8800CED1</color>

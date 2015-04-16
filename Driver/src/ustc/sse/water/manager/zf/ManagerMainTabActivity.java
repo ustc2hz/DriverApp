@@ -38,7 +38,7 @@ public class ManagerMainTabActivity extends TabActivity implements OnCheckedChan
         setContentView(R.layout.login__success);
         
         this.mAIntent = new Intent(this,AActivity.class);
-        this.mBIntent = new Intent(this,BActivity.class);
+        this.mBIntent = new Intent(this,ParkingCreatement.class);
         this.mCIntent = new Intent(this,CActivity.class);
         this.mDIntent = new Intent(this,DActivity.class);
 		((RadioButton) findViewById(R.id.radio_button0))

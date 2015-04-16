@@ -12,6 +12,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import ustc.sse.water.utils.zjx.HttpUtils;
 import android.util.Log;
 
 /**
@@ -29,12 +30,10 @@ import android.util.Log;
 public class DetailDataToServer {
 
 	// 发送的本地服务器的地址
-	// public static final String path =
-	// "http://192.168.8.199:8080/AppServerr/ServerToYuntu";
-	// public static final String path =
-	// "http://192.168.10.42:8080/Test3_Yuntu//ServerToYuntu";
-	public static final String path = "http://192.168.9.241:8080/AppServerr/ServerToYuntu";
-	public static final String updatePath = "http://192.168.9.241:8080/AppServerr/ServerUpdateYuntu";
+	public static final String path = "http://" + HttpUtils.MY_IP
+			+ "/AppServerr/ServerToYuntu";
+	public static final String updatePath = "http://" + HttpUtils.MY_IP
+			+ "/AppServerr/ServerUpdateYuntu";
 	// 接收传递回来的数据
 	public String responseMsg = "";
 
@@ -51,7 +50,6 @@ public class DetailDataToServer {
 	public void postDataToServer(String data, String name) throws Exception {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(path);
-		// post.addHeader("Content-Type", "application/x-www-form-urluncoded");
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("data", data));
 		params.add(new BasicNameValuePair("name", name));
