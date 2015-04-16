@@ -34,17 +34,7 @@
     <string name="title_activity_navi_start">NaviStartActivity</string>
     <string name="title_activity_manager_main">Manager_main</string>
     <string name="welcome">欢迎</string>
-    <string name="xlistview_header_hint_normal">下拉刷新</string>
-    <string name="xlistview_header_hint_ready">松开刷新数据</string>
     <string name="xlistview_header_hint_loading">正在加载...</string>
-    <string name="xlistview_header_last_time">上次更新时间：</string>
-    <string name="xlistview_footer_hint_normal">查看更多</string>
-    <string name="xlistview_footer_hint_ready">松开载入更多</string>
-    <string name="xlistview_unit_mi">米</string>
-    <string name="xlistview_unit_ge">个</string>
-    <string name="xlistview_button_route">路线</string>
-    <string name="xlistview_button_book">可预定</string>
-    <string name="xlistview_button_no_book">不可预定</string>
     <string name="spinner_chose_tip">请选择：</string>
     <string name="driver_info_welcome">亲，停哪儿？</string>
     <string name="driver_phone">联系电话：</string>

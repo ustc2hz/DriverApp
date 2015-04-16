@@ -12,6 +12,7 @@ import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.overlay.PoiOverlay;
+import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiItemDetail;
@@ -21,7 +22,7 @@ import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
 import com.amap.api.services.poisearch.PoiSearch.SearchBound;
 
 /**
- * 
+ *
  * 周边搜索类. <br>
  * 包含周边搜索功能的各种方法，以完成当前位置的周边搜索，目的地位置的周边搜索，和“周边搜索”导航.
  * <p>
@@ -29,7 +30,7 @@ import com.amap.api.services.poisearch.PoiSearch.SearchBound;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.1.0
  */
@@ -58,6 +59,10 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	ProgressDialogUtil dialog;
 	/* 搜索中心 */
 	private LatLonPoint lp;
+	/* 路径规划的目的地的点 ——黄志恒注 */
+	private LatLonPoint targetPoint;
+	/* 记录屏幕上的marker的个数 */
+	public static List<Marker> list;
 
 	public PoiAroundSearchMethod() {
 		// 无参构造函数
@@ -68,7 +73,7 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	 * @param map 传递的地图
 	 * @param con 地图的Activity上下文
 	 * @param type 搜索类型
-	 * @param lp  搜索中心点
+	 * @param lp 搜索中心点
 	 */
 	public PoiAroundSearchMethod(AMap map, Context con, String type,
 			LatLonPoint lp) {
@@ -76,24 +81,30 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 		this.context = con;
 		this.deepType = type;
 		this.lp = lp;
-		dialog = new ProgressDialogUtil(context,"正在搜索...");
-		doSearchQuery(); // 开始搜索
+		dialog = new ProgressDialogUtil(context, "正在搜索...");
+		try {
+			doSearchQuery();
+		} catch (AMapException e) {
+			dialog.dissmissProgressDialog();
+		} 
+
 	}
 
 	/**
 	 * 查单个poi详情
 	 * @param poiId poi的id
 	 */
-	public void doSearchPoiDetail(String poiId) {
+	public void doSearchPoiDetail(String poiId) throws AMapException {
 		if (poiSearch != null && poiId != null) {
 			poiSearch.searchPOIDetailAsyn(poiId);
+
 		}
 	}
 
 	/**
 	 * 开始Poi搜索
 	 */
-	public void doSearchQuery() {
+	public void doSearchQuery() throws AMapException {
 		dialog.showProgressDialog();// 显示对话框
 		currentPage = 0;
 		query = new PoiSearch.Query("", deepType, "苏州");// Poi搜索
@@ -157,8 +168,12 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 								return bd;
 							}
 						};
+
 						poiOverlay.removeFromMap();
 						poiOverlay.addToMap();
+					} else {
+						ToastUtil.show(context, R.string.no_result);
+
 					}
 				}
 			}

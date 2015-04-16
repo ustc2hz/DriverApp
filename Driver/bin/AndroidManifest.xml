@@ -38,6 +38,7 @@
         <!-- AMap的key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
+
             android:value="fef9803d166042f9b82ec1db72b312d5" />
 
         <!-- 地图界面 -->
@@ -59,9 +60,8 @@
         
         <!-- 处理导航功能的中间层，空界面 -->
         <activity
-            android:name=".NaviStartActivity"
-            android:label="@string/title_activity_navi_start" />
-        
+            android:name=".NaviStartActivity">
+        </activity>
         <!-- 导航界面 -->
         <activity android:name=".DriverNaviActivity" />
         

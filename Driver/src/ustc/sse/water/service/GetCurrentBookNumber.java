@@ -27,9 +27,8 @@ public class GetCurrentBookNumber extends IntentService {
 		String managerId = intent.getStringExtra("parking_managerId");
 		if(Integer.parseInt(managerId) != 0) {
 			// 访问服务器
-			StringBuffer path = new StringBuffer("http://")
-					.append(HttpUtils.MY_IP)
-					.append("/AppServerr/GetParkingCurrentNumber?managerId=")
+			StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH)
+					.append("/GetParkingCurrentNumber?managerId=")
 					.append(managerId);
 			String result = HttpUtils.getJsonContent(path.toString());
 			Intent i = new Intent();

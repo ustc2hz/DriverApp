@@ -19,13 +19,12 @@ import android.content.Context;
 public class UpdateAdminOrderThread extends Thread {
 	private Context context;
 	private int orderId; // 修改的订单id
-	private StringBuffer path = new StringBuffer("http://"); // URL
+	private StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH); // URL
 	
 	public UpdateAdminOrderThread(int id) {
 		this.orderId = id;
 		// 完整的URL访问地址
-		path.append(HttpUtils.MY_IP)
-				.append("/AppServerr/OrderStatusToTwoServlet?orderId=")
+		path.append("/OrderStatusToTwoServlet?orderId=")
 				.append(orderId);
 	}
 	

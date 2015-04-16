@@ -35,10 +35,8 @@ public class UpdateDriverInfoThread extends Thread {
 	@Override
 	public void run() {
 		try {
-			String basicpath = "http://";
-			StringBuffer path = new StringBuffer(basicpath);
-			path.append(HttpUtils.MY_IP)
-					.append("/AppServerr/DriverUpdateServlet?messages=")
+			StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
+			path.append("/DriverUpdateServlet?messages=")
 					.append(URLEncoder.encode(objectMapper.writeValueAsString(messages), "utf-8"));
 			// 调用Http
 			String jsonString = HttpUtils.getJsonContent(path.toString());

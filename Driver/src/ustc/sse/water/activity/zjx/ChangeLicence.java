@@ -51,7 +51,7 @@ public class ChangeLicence extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.driver_function_change_licence);
-
+		// 修改ActionBar的样式
 		ab = getActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setDisplayShowHomeEnabled(false);

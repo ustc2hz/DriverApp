@@ -1,6 +1,15 @@
 package ustc.sse.water.data.model;
 /**
- * 驾驶员订单
+ * 
+ * Model类. <br>
+ * 驾驶员订单.
+ * <p>
+ * Copyright: Copyright (c) 2015-3-18 下午9:55:00
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * @author 周晶鑫
+ * @version 1.0.0
  */
 public class DriverOrderShow {
 	private String parkName; // 停车场名

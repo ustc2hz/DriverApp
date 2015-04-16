@@ -305,14 +305,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 		 */
 		private boolean loginServer(String username, String password) {
 			boolean loginValidate = false;
-			StringBuffer urlStr = new StringBuffer("http://");
+			StringBuffer urlStr = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
 			if (radioStatus == USER_MANAGER) {
 				// 使用apache HTTP客户端实现
-				urlStr.append(HttpUtils.MY_IP).append(
-						"/AppServerr/AdminLoginServlet");
+				urlStr.append("/AdminLoginServlet");
 			} else if (radioStatus == USER_DRIVER) {
-				urlStr.append(HttpUtils.MY_IP).append(
-						"/AppServerr/DriverLoginServlet");
+				urlStr.append("/DriverLoginServlet");
 			}
 			HttpPost request = new HttpPost(urlStr.toString());
 			// 如果传递参数多的话，可以丢传递的参数进行封装

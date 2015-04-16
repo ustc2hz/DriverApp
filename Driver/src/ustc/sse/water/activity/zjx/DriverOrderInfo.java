@@ -16,7 +16,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,7 +26,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 /**
- * 
+ *
  * 驾驶员的订单信息类. <br>
  * 展示驾驶员的正在进行的订单和历史订单.
  * <p>
@@ -35,7 +34,7 @@ import android.widget.ProgressBar;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
@@ -79,7 +78,7 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 			adapter = new DriverOrderAdapter(this, driverOrders);
 			listView.setAdapter(adapter);
 			listView.setVisibility(View.VISIBLE);
-		} else if(driverId != 0) {
+		} else if (driverId != 0) {
 			// 如果显示环形进度条等待刷新
 			progressBar.setVisibility(View.VISIBLE);
 			// 开启线程访问服务器获取订单数据
@@ -126,7 +125,8 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 		// 获取选择的订单
 		DriverOrderShow order = driverOrders.get(position);
 		new DriverCustomDialog(this, String.valueOf(order.getParkNumber()),
-				order.getOrderDetail(), order.getAdminPhone());
+				order.getOrderDetail(), order.getAdminPhone(),
+				order.getParkAddress());
 	}
 
 	@Override
@@ -144,7 +144,6 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 			break;
 		case R.id.driver_order_list_refresh:
 			progressDialog = new ProgressDialogUtil(this, "正在刷新...");
-			Log.i("--->>refreshid", String.valueOf(driverId));
 			// 开启线程刷新订单数据
 			RefreshDriverOrdersThread refresh = new RefreshDriverOrdersThread(h, "1",
 					String.valueOf(driverId));

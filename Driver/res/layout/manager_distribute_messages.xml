@@ -20,11 +20,10 @@
 
             <EditText
                 android:id="@+id/manager_park_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <requestFocus />
-            </EditText>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_login"
+                android:ems="10" />
         </LinearLayout>
 
         <LinearLayout
@@ -36,12 +35,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mode_button"
+                android:background="#836FFF"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/manager_park_location"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_login" />
         </LinearLayout>
 
         <LinearLayout
@@ -56,10 +57,13 @@
 
             <EditText
                 android:id="@+id/manager_park_phone"
-                android:layout_width="fill_parent"
+                android:layout_width="164dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.12"
+                android:background="@drawable/edit_login"
                 android:ems="11"
                 android:inputType="phone" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -67,18 +71,18 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="162dp"
                 android:layout_height="wrap_content"
                 android:text="预定车位总数(个):"
                 android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/parknumber"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:background="@drawable/edit_login" />
         </LinearLayout>
 
         <LinearLayout
@@ -108,7 +112,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="number" >
+                android:inputType="number"
+                android:background="@drawable/edit_login" >
 
                 <requestFocus />
             </EditText>
@@ -130,7 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:background="@drawable/edit_login" />
         </LinearLayout>
 
         <LinearLayout
@@ -149,7 +155,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:background="@drawable/edit_login" />
         </LinearLayout>
 
         <TextView
@@ -174,7 +181,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.73"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:background="@drawable/edit_login" />
         </LinearLayout>
 
         <LinearLayout
@@ -192,7 +200,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.73"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:background="@drawable/edit_login" />
         </LinearLayout>
 
         <LinearLayout
@@ -202,7 +211,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="一个小时以上" />
+                android:text="一个小时以上:" />
 
             <EditText
                 android:id="@+id/pprice3"
@@ -210,7 +219,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number" 
+                android:background="@drawable/edit_login"/>
         </LinearLayout>
 
         <LinearLayout

@@ -26,7 +26,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 
 /**
- * 
+ *
  * 导航中间层类 <br>
  * 该类用来对导航类的初始化，提供导航类的上下文
  * <p>
@@ -34,14 +34,14 @@ import com.iflytek.cloud.SynthesizerListener;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 2.0.0
  */
 public class NaviStartActivity extends Activity implements OnClickListener,
 		AMapNaviListener, AMapNaviViewListener {
 	/* 对话框类对象 */
-	private ProgressDialogUtil dialog = new ProgressDialogUtil(this,"正在搜索...");
+	private ProgressDialogUtil dialog = new ProgressDialogUtil(this, "正在搜索...");
 	/* 终点列表 */
 	private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
 	/* 终点 */
@@ -52,7 +52,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	private ProgressDialog mRouteCalculatorProgressDialog;
 	/* 起点列表 */
 	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
-	
+
 	/**
 	 * 导航语音监听
 	 */
@@ -129,7 +129,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		if (resultCode == 4) {
+		if (requestCode == 2 && resultCode == 4) {
 			if (mTts != null) {
 				mTts.destroy();
 			}
@@ -137,6 +137,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 			Intent intent = new Intent(NaviStartActivity.this,
 					DriverMainScreen.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			AMapNavi.getInstance(this).removeAMapNaviListener(this);
 			startActivity(intent);
 			finish();
 		}
@@ -230,8 +231,11 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	/**
 	 * 返回键处理事件
-	 * @param keyCode 传递的事件代码
-	 * @param event 传递的事件
+	 *
+	 * @param keyCode
+	 *            传递的事件代码
+	 * @param event
+	 *            传递的事件
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

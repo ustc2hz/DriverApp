@@ -33,7 +33,7 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
 
 /**
- * 
+ *
  * 关键字搜索类 <br>
  * Poi搜索
  * <p>
@@ -41,7 +41,7 @@ import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.0.0
  */
@@ -76,8 +76,8 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 有参构造函数
-	 * @param map  操作的地图
-	 * @param context  上下文
+	 * @param map 操作的地图
+	 * @param context 上下文
 	 * @param edit 自动填充文本框
 	 */
 	public PoiSearchMethod(AMap map, Context context, AutoCompleteTextView edit) {
@@ -86,19 +86,21 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 		this.keyEdit = edit;
 		keyEdit.addTextChangedListener(this);// 自动填充文本框监听事件
 		keyEdit.setOnEditorActionListener(this);
+		keySearch = keyEdit.getText().toString().trim();
 	}
 
 	/**
 	 * 有参构造函数
 	 * @param map 高德地图
-	 * @param con  上下文
-	 * @param keyword  Poi关键字
+	 * @param con 上下文
+	 * @param keyword Poi关键字
 	 */
 	public PoiSearchMethod(AMap map, Context con, String keyword) {
 		this.aMap = map;
 		this.context = con;
 		this.keySearch = keyword;
-		dialog = new ProgressDialogUtil(context,"正在搜索...");
+
+		dialog = new ProgressDialogUtil(context, "正在搜索...");
 	}
 
 	@Override
@@ -125,7 +127,6 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 	 */
 	public void doSearchQuery() {
 		currentPage = 0;
-		keySearch = keyEdit.getText().toString().trim();
 		query = new PoiSearch.Query(keySearch, "", "苏州");// 开始在苏州按关键字搜索
 		query.setPageSize(1);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
@@ -143,7 +144,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		switch (actionId) {
 		case EditorInfo.IME_ACTION_DONE:
-
+			keySearch = keyEdit.getText().toString().trim();
 			doSearchQuery();
 			// 隐藏输入法
 			InputMethodManager imm = (InputMethodManager) context

@@ -26,7 +26,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="@string/driver_update_password" />
+        android:text="@string/driver_update_password"
+        android:background="@drawable/button" />
 
     <Button
         android:id="@+id/button_admin_logoff"
@@ -35,6 +36,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="10dp"
-        android:text="@string/driver_logout" />
+        android:text="@string/driver_logout"
+        android:background="@drawable/button" />
 
 </LinearLayout>

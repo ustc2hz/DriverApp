@@ -63,10 +63,8 @@ public class UpdateOrderService extends Service {
 		new Thread() {
 			@Override
 			public void run() {
-				String basicpath = "http://";
-				StringBuffer path = new StringBuffer(basicpath);
-				path.append(HttpUtils.MY_IP).append(
-						"/AppServerr/SendClientServlet?adminId=").append(managerId);
+				StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
+				path.append("/SendClientServlet?adminId=").append(managerId);
 				while (!isStop) {
 					String jsonString = HttpUtils.getJsonContent(path
 							.toString());
@@ -90,9 +88,10 @@ public class UpdateOrderService extends Service {
 							}
 							
 							// 再次请求服务器修改订单状态
-							StringBuffer requestPath = new StringBuffer(basicpath);
-							requestPath.append(HttpUtils.MY_IP).append("/AppServerr/ChangeOrderStatus?changeIds=") 
-									.append(objectMapper.writeValueAsString(ids));
+							StringBuffer requestPath = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
+							requestPath.append("/ChangeOrderStatus?changeIds=")
+									.append(objectMapper
+											.writeValueAsString(ids));
 							
 							HttpUtils.getJsonContent(requestPath.toString());
 							AActivity.myAdapter=new OrderStateProcessAdapter(AActivity.context, ConstantKeep.aosIng);

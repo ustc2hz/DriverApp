@@ -275,12 +275,12 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		 */
 		private boolean registerServer(String username, String password) {
 			boolean regiseterResult = false;
-			StringBuffer urlStr = new StringBuffer("http://");
+			StringBuffer urlStr = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
 			// 使用apache HTTP客户端实现
 			if (userType == USER_DRIVER) { // 驾驶员注册
-				urlStr.append(HttpUtils.MY_IP).append("/AppServerr/DriverRegisterServlet");
+				urlStr.append("/DriverRegisterServlet");
 			} else if (userType == USER_PARKING_MANAGER) {// 管理员注册
-				urlStr.append(HttpUtils.MY_IP).append("/AppServerr/AdminRegisterServlet");
+				urlStr.append("/AdminRegisterServlet");
 			}
 
 			HttpPost request = new HttpPost(urlStr.toString());
