@@ -65,7 +65,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private EditText inputUsername; // 用户名输入框
 	private Button loginBtn; // 登录按钮
 	private RadioGroup radioGroup; // 单选按钮组
-	private ImageButton backToMap; //返回按钮
+	private ImageButton backToMap; // 返回按钮
 	private ProgressDialogUtil mDialog;
 	private Button registerBtn; // 注册按钮
 	private String responseMsg; // 访问服务器返回的结果
@@ -87,22 +87,25 @@ public class LoginActivity extends Activity implements OnClickListener {
 		inputUsername = (EditText) findViewById(R.id.edit_login_username);
 		inputPassword = (EditText) findViewById(R.id.edit_login_password);
 		radioGroup = (RadioGroup) findViewById(R.id.user_login_radioGroup);
-		radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+		radioGroup
+				.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
-			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				switch(checkedId) {
-				case R.id.radioBtn_user_driver: // 选择的是驾驶员
-					radioStatus = USER_DRIVER;
-					inputUsername.setHint(R.string.username_driver_hint);
-					break;
-				case R.id.radioBtn_user_manager: // 选择的是停车场
-					radioStatus = USER_MANAGER;
-					inputUsername.setHint(R.string.username_manager_hint);
-					break;
-				}
-			}
-		});
+					@Override
+					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						switch (checkedId) {
+						case R.id.radioBtn_user_driver: // 选择的是驾驶员
+							radioStatus = USER_DRIVER;
+							inputUsername
+									.setHint(R.string.username_driver_hint);
+							break;
+						case R.id.radioBtn_user_manager: // 选择的是停车场
+							radioStatus = USER_MANAGER;
+							inputUsername
+									.setHint(R.string.username_manager_hint);
+							break;
+						}
+					}
+				});
 
 		sp = getSharedPreferences("userdata", MODE_PRIVATE);
 		spEditor = sp.edit();
@@ -183,15 +186,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 				loginBtn.setClickable(false);
 				loginBtn.setEnabled(false);
 			}
-			
+
 		}
 
 		@Override
 		public void afterTextChanged(Editable s) {
 		}
-		
+
 	}
-	
+
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -257,7 +260,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		super.onResume();
 		radioStatus = USER_DRIVER;
 	};
-	
+
 	// 登录访问的线程（收尾时再分出去）
 	class LoginThread implements Runnable {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -299,8 +302,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		/**
 		 * 登录和注册
-		 * @param username 用户名
-		 * @param password 密码
+		 *
+		 * @param username
+		 *            用户名
+		 * @param password
+		 *            密码
 		 * @return boolean
 		 */
 		private boolean loginServer(String username, String password) {

@@ -3,8 +3,8 @@ package ustc.sse.water.data.model;
 import com.amap.api.maps.model.Marker;
 
 /**
- * 标题、简要说明. <br>
- * 类详细说明.
+ * 标记点的距离类. <br>
+ * 标记点的距离.
  * <p>
  * Copyright: Copyright (c) 2015年4月6日 下午9:27:40
  * <p>

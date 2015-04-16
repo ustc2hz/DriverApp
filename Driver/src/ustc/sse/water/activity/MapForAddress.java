@@ -155,13 +155,16 @@ public class MapForAddress extends Activity implements LocationSource,
 			// 开启语音
 			new VoiceSearch(aMap, this).voicePoiSearch();
 			break;
+		// 点击后确认输入坐标点
 		case R.id.button_map_yes:
+			// 存储数据
 			saveLL();
 			Intent intent = new Intent();
 			intent.putExtra("location", location);
 			setResult(resultCode, intent);
 			finish();
 			break;
+		// 点击后返回之前的页面
 		case R.id.button_map_back:
 			finish();
 			break;
@@ -175,8 +178,8 @@ public class MapForAddress extends Activity implements LocationSource,
 		setContentView(R.layout.activity_map_for_address);
 		mapView = (MapView) findViewById(R.id.map2);
 		mapView.onCreate(savedInstanceState);// 必须重写
-		initMap();
-		initViews();
+		initMap();// 初始化地图
+		initViews();// 初始化界面
 
 		sharedPreferences = getSharedPreferences("manager_message",
 				Context.MODE_PRIVATE);
@@ -186,7 +189,6 @@ public class MapForAddress extends Activity implements LocationSource,
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.map_for_address, menu);
 		return true;
 	}
@@ -288,8 +290,6 @@ public class MapForAddress extends Activity implements LocationSource,
 	public void saveLL() {
 		if (latitude != 0 && longitude != 0) {
 			location = longitude + "," + latitude;
-			// editor.putString("location", location);
-			// editor.commit();
 		} else {
 			Toast.makeText(this, "no infomation", Toast.LENGTH_SHORT).show();
 		}
@@ -297,7 +297,9 @@ public class MapForAddress extends Activity implements LocationSource,
 
 	/**
 	 * 在一个文本区域显示点击点的坐标
-	 * @param thePoint 点击的坐标点的对象
+	 *
+	 * @param thePoint
+	 *            点击的坐标点的对象
 	 */
 	public void showLLOnDirectory(LatLng thePoint) {
 
@@ -312,6 +314,7 @@ public class MapForAddress extends Activity implements LocationSource,
 		sb.append("纬度： ");
 		sb.append(thePoint.latitude);
 		sb.append(" ");
+		// 显示标记点的坐标
 		infoShow.setVisibility(View.VISIBLE);
 		infoShow.setText(sb.toString());
 

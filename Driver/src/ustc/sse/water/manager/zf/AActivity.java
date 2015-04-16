@@ -22,7 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * 
+ *
  * 订单界面、默认显示当前正在进行的订单. <br>
  * 订单界面类.
  * <p>
@@ -30,11 +30,11 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author张芳 sa614296@mail.ustc.edu.cn
  * @version 3.0.0
  */
-public class AActivity extends Activity implements OnItemClickListener{
+public class AActivity extends Activity implements OnItemClickListener {
 	public static ListView listView;
 	private static TextView textView;
 	public static OrderStateProcessAdapter myAdapter;
@@ -48,8 +48,8 @@ public class AActivity extends Activity implements OnItemClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.finished_order_list);
 
-		context=this;
-		
+		context = this;
+
 		// 绑定Layout里面的ListView
 		listView = (ListView) findViewById(R.id.orderlist);
 		listView.setOnItemClickListener(this);
@@ -59,69 +59,58 @@ public class AActivity extends Activity implements OnItemClickListener{
 		adminId = sp.getInt("adminLoginId", 0);
 		String adminName = sp.getString("adminLoginName", "----aa");
 		Log.v("--->>>", adminName);
-		
+
 		if (aosIng != null) {
 			textView.setVisibility(View.GONE);
 			myAdapter = new OrderStateProcessAdapter(AActivity.this, aosIng);
 			listView.setAdapter(myAdapter);
 		} else if (adminId != 0) {
 			// 开启线程访问服务器获取订单数据
-			ShowAdminOrderThread showOrderIng = new ShowAdminOrderThread(h, "1",
-					String.valueOf(adminId));
+			ShowAdminOrderThread showOrderIng = new ShowAdminOrderThread(h,
+					"1", String.valueOf(adminId));
 			showOrderIng.start();
 			// 开启线程访问服务器获取订单数据
-			ShowAdminOrderThread showOrderDown = new ShowAdminOrderThread(h, "2",
-					String.valueOf(adminId));
+			ShowAdminOrderThread showOrderDown = new ShowAdminOrderThread(h,
+					"2", String.valueOf(adminId));
 			showOrderDown.start();
 		} else {
 			ToastUtil.show(this, "无效管理员");
 		}
 
 	}
-	
-	
-	
-	/*@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		if (aosIng != null) {
-			textView.setVisibility(View.GONE);
-			myAdapter = new OrderStateProcessAdapter(AActivity.this, aosIng);
-			listView.setAdapter(myAdapter);
-		} else if (adminId != 0) {
-			// 开启线程访问服务器获取订单数据
-			ShowAdminOrderThread showOrderIng = new ShowAdminOrderThread(h, "1",
-					String.valueOf(adminId));
-			showOrderIng.start();
-			// 开启线程访问服务器获取订单数据
-			ShowAdminOrderThread showOrderDown = new ShowAdminOrderThread(h, "2",
-					String.valueOf(adminId));
-			showOrderDown.start();
-		} else {
-			ToastUtil.show(this, "无效管理员");
-		}
-	}*/
 
-	
+	/*
+	 * @Override protected void onResume() { // TODO Auto-generated method stub
+	 * super.onResume(); if (aosIng != null) {
+	 * textView.setVisibility(View.GONE); myAdapter = new
+	 * OrderStateProcessAdapter(AActivity.this, aosIng);
+	 * listView.setAdapter(myAdapter); } else if (adminId != 0) { //
+	 * 开启线程访问服务器获取订单数据 ShowAdminOrderThread showOrderIng = new
+	 * ShowAdminOrderThread(h, "1", String.valueOf(adminId));
+	 * showOrderIng.start(); // 开启线程访问服务器获取订单数据 ShowAdminOrderThread
+	 * showOrderDown = new ShowAdminOrderThread(h, "2",
+	 * String.valueOf(adminId)); showOrderDown.start(); } else {
+	 * ToastUtil.show(this, "无效管理员"); } }
+	 */
+
 	@Override
 	protected void onPause() {
 		super.onPause();
 		Log.v("----pause", "pause");
 	};
 
-
 	Handler h = new Handler() {
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			switch(msg.arg1) {
+			switch (msg.arg1) {
 			case 44:// 获取成功
 				// 重新获取数据加载
 				aosIng = ConstantKeep.aosIng;
-				if(aosIng != null) {
+				if (aosIng != null) {
 					textView.setVisibility(View.GONE);
 				}
-				//myAdapter = new OrderStateProcessAdapter(AActivity.this, aosIng);
+				// myAdapter = new OrderStateProcessAdapter(AActivity.this,
+				// aosIng);
 				listView.setAdapter(myAdapter);
 				break;
 			case 55:// 获取失败
@@ -133,18 +122,19 @@ public class AActivity extends Activity implements OnItemClickListener{
 			}
 		};
 	};
-	
+
 	public static Handler h1 = new Handler() {
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			switch(msg.arg1) {
+			switch (msg.arg1) {
 			case 44:// 获取成功
 				// 重新获取数据加载
-				//aosIng = ConstantKeep.aosIng;
-				if(ConstantKeep.aosIng != null) {
+				// aosIng = ConstantKeep.aosIng;
+				if (ConstantKeep.aosIng != null) {
 					textView.setVisibility(View.GONE);
 				}
-				//myAdapter = new OrderStateProcessAdapter(AActivity.this, aosIng);
+				// myAdapter = new OrderStateProcessAdapter(AActivity.this,
+				// aosIng);
 				listView.setAdapter(myAdapter);
 				break;
 			case 55:// 获取失败
@@ -161,5 +151,7 @@ public class AActivity extends Activity implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		AdminOrderShow order = aosIng.get(position);
-		new AdminCustomDialog(AActivity.this, order.getOrderDetail(), order.getDriverPhone());
-	}}
+		new AdminCustomDialog(AActivity.this, order.getOrderDetail(),
+				order.getDriverPhone());
+	}
+}

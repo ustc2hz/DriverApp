@@ -33,7 +33,7 @@ import com.amap.api.maps.model.MarkerOptions;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 1.0.0
  */
@@ -61,10 +61,15 @@ public class MyCloudSearch implements OnCloudSearchListener {
 
 	/**
 	 * 有参构造函数
-	 * @param con 传递来的上下文
-	 * @param x 当前位置的纬度
-	 * @param y 当前位置的经度
-	 * @param mAMap 传递进来的地图对象
+	 *
+	 * @param con
+	 *            传递来的上下文
+	 * @param x
+	 *            当前位置的纬度
+	 * @param y
+	 *            当前位置的经度
+	 * @param mAMap
+	 *            传递进来的地图对象
 	 */
 	public MyCloudSearch(Context con, double x, double y, AMap mAMap) {
 		this.con = con;

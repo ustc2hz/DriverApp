@@ -26,7 +26,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -95,10 +94,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	public static AMap aMap; /* 高德地图AMap */
 	private String[] bookMoney; /* 记录停车场收费信息的数组——黄志恒 */
 	private RadioButton Carservice;/* 汽车生活按钮——黄志恒 */
-	private Editor editor; // 获取编辑器
-	private final String GREETING_WORDS = "很抱歉，附近暂无可用停车场"; /* 静态常量，当没有停车场信息时使用 */
-	private boolean hasRouted = false; /* 是否有路径的状态判断 */
-	private String itemAddress; /* 选中的点的地址——黄志恒 */
 	private int itemDistance; /* 选中的点距离目的位置或自身位置的距离——黄志恒 */
 	private AutoCompleteTextView keyEdit; /* 输入框 */
 	public static LatLonPoint lp; /* 当前位置的点——黄志恒注 */
@@ -118,7 +113,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private PoiSearchMethod poisearch; /* 搜索对象——黄志恒注 */
 	private String poiType; /* 搜索类型——黄志恒注 */
 	private RadioButton RMine; /* '我的'按钮——黄志恒 */
-	// private RadioButton RMore; /* '更多'按钮——黄志恒 */
 	private RadioButton RNavi; /* 导航按钮——黄志恒 */
 	private RadioButton ROrder; /* 预定按钮——黄志恒 */
 	SharedPreferences sharedPreferences; /* 定义sharedpreference获取用户登录注册信息 */
@@ -187,7 +181,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			aMap.moveCamera(CameraUpdateFactory.zoomTo(16));// 更改缩放程度
 		}
 
-		// RMore.setOnClickListener(this);
 		RMine.setOnClickListener(this);
 		ROrder.setOnClickListener(this);
 		RNavi.setOnClickListener(this);
@@ -197,6 +190,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		poisearch = new PoiSearchMethod(aMap, this, keyEdit);
 
 		voiceInput.setOnClickListener(this);
+		// 讯飞语音输入的key
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54818227");
 		aMap.setOnMarkerClickListener(this);
 		aMap.setOnMapClickListener(this);
@@ -204,6 +198,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		aMap.setOnMapTouchListener(this);
 		aMap.moveCamera(CameraUpdateFactory.zoomTo(16));
 
+		// 判断是不是第一次打开APP，如果是的话，执行子线程。
 		if (isFirst) {
 			th = new Thread(new showFirstM());
 			th.start();
@@ -219,7 +214,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		RNavi = (RadioButton) findViewById(R.id.radio_navi);
 		ROrder = (RadioButton) findViewById(R.id.radio_order);
 		RMine = (RadioButton) findViewById(R.id.radio_mine);
-		// RMore = (RadioButton) findViewById(R.id.radio_more);
 		showInfo = (TextView) findViewById(R.id.show_directory);
 		myLocation = (ImageButton) findViewById(R.id.button_my_location);
 		keyEdit = (AutoCompleteTextView) findViewById(R.id.actv_key_search);
@@ -227,11 +221,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 接收返回参数
+	 * 接收从DriverLife传递过来的返回参数
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 1 && resultCode == 1) { // 从DriverLife传递过来的
+		if (requestCode == 1 && resultCode == 1) {
 			poiType = data.getStringExtra("result_type");
 			aMap.clear();
 			this.showInfo.setVisibility(View.INVISIBLE);
@@ -250,7 +244,8 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// 点击的是自定义定位按钮
 		case R.id.button_my_location:
 			deactivate();
-			new MyLocationSet(aMap).setMapLocation(); // 开始定位
+			// 开始定位
+			new MyLocationSet(aMap).setMapLocation();
 			showInfo.setVisibility(View.INVISIBLE);
 			break;
 		// 点击的是语音输入按钮
@@ -261,17 +256,14 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		// 点击的是汽车生活按钮
 		case R.id.radio_Carservice:
 			Intent intent = new Intent(this, DriverLife.class);
-			startActivityForResult(intent, 1);// 带返回值的start
+			// 带返回值的start
+			startActivityForResult(intent, 1);
 			break;
 		// 点击的是开始导航按钮
 		case R.id.radio_navi: {
 			planNavi();
 			break;
 		}
-		// 点击的是列表按钮
-		// case R.id.radio_more:
-		// planRoute();
-		// break;
 		// 点击用户模式
 		case R.id.radio_mine:
 			Intent intentUser = new Intent();
@@ -279,7 +271,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 					Context.MODE_PRIVATE);
 
 			int loginState = shared.getInt("userLoginStatus", 2); // 取不到，则默认为2
-			loginState = 1;
 			switch (loginState) {
 			case LOGIN_STATUS_DRIVER: // 有驾驶员登录过，而且还没有退出
 				intentUser.setClass(DriverMainScreen.this, DriverInfo.class);
@@ -361,7 +352,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		pas = new PoiAroundSearchMethod(aMap, this, "停车场", targetPoint);
 		// 显示云图数据
 		mCloud = new MyCloudSearch(this, arg0.latitude, arg0.longitude, aMap);
-
+		// 改变地图显示的缩放程度
 		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(arg0, 15);
 		aMap.moveCamera(update);
 		showInfo.setVisibility(View.INVISIBLE);
@@ -377,14 +368,20 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		}
 	}
 
+	/**
+	 * 点击地图上标记点后执行的操作
+	 */
 	@Override
 	public boolean onMarkerClick(Marker marker) {
+		// 将标记点的内容置为空
 		marker.setSnippet("");
+		// 在文本区域中显示这个标记点的相关信息
 		TextshowMarkerInfo(marker);
-
+		// 让这个标记点在前段显示
 		marker.setToTop();
+		// 显示这个标记点的信息框
 		marker.showInfoWindow();
-
+		// 给目的地点到对象初始化
 		targetPoint = new LatLonPoint(marker.getPosition().latitude,
 				marker.getPosition().longitude);
 		this.showInfo.setVisibility(View.VISIBLE);
@@ -434,7 +431,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		super.onStart();
 		initMap();
 		sharedPreferences = getSharedPreferences("zf", Context.MODE_PRIVATE);
-		editor = sharedPreferences.edit();
 
 	}
 
@@ -523,6 +519,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			// 空转方法，有条件的阻止线程运行
 			while (aMap.getMapScreenMarkers() == null) {
 			}
 			Message ms = mShowFirst.obtainMessage();
@@ -540,7 +537,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.arg1 == 1) {
-				// mapMarkerList = aMap.getMapScreenMarkers();
 
 				List<MarkerDistance> list = new ArrayList<MarkerDistance>();
 
@@ -555,9 +551,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 				}
 
 				if (list.size() > 0) {
+					// 用list中的对象的距离属性对list中的对象排序，使距离最短的对象排在list中的第一个位置
 					Collections.sort(list, new MyComparetor());
 					Marker mMarker = list.get(0).marker;
 					mMarker.showInfoWindow();
+					// 在文本区域中显示这个标记点的信息
 					TextshowMarkerInfo(mMarker);
 					targetPoint = new LatLonPoint(
 							mMarker.getPosition().latitude,
@@ -593,6 +591,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		if (phone == null) {
 			return null;
 		}
+		// 新建字符容器，来存储字符
 		StringBuffer sb = new StringBuffer();
 		if (name.length() > 17) {
 			name = name.substring(0, 15) + "...";
@@ -626,6 +625,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		pka.append(marker.getPosition().latitude);
 		parkingAddress = pka.toString();
 		String title = marker.getTitle();
+		// 当从服务器中搜索到数据，就进入if语句中执行
 		if (mCloud != null) {
 			for (CloudItem mItem : MyCloudSearch.mCloudItems) {
 				if (title.equals(mItem.getTitle())) {
@@ -641,26 +641,36 @@ public class DriverMainScreen extends Activity implements LocationSource,
 						Map.Entry entry = (Map.Entry) iter.next();
 						Object key = entry.getKey();
 						Object value = entry.getValue();
+						// 停车场电话号码
 						if ("phone".equals(key)) {
 							this.phone = (String) value;
+							// 停车场停车位总数
 						} else if ("parkSum".equals(key)) {
 							this.parkSum = (String) value;
+							// 预定10分钟的订金
 						} else if ("orderTen".equals(key)) {
 							this.orderPrice = (String) value;
 							bookMoney[0] = (String) value;
+							// 预定20分钟的订金
 						} else if ("orderTwe".equals(key)) {
 							bookMoney[1] = (String) value;
+							// 预定30分钟的订金
 						} else if ("orderTri".equals(key)) {
 							bookMoney[2] = (String) value;
+							// 停车30分钟的收费标准
 						} else if ("payHalPay".equals(key)) {
 							bookMoney[3] = (String) value;
+							// 停车1小时的收费标准
 						} else if ("payOneHour".equals(key)) {
 							this.parkPrice = (String) value;
 							bookMoney[4] = (String) value;
+							// 停车多于1个小时的收费标准
 						} else if ("payMorePay".equals(key)) {
 							bookMoney[5] = (String) value;
+							// 停车场的id
 						} else if ("managerId".equals(key)) {
 							managerId = (String) value;
+							// 停车场的类型：私人停车场或者高德停车场
 						} else if ("parkType".equals(key)) {
 							this.parkType = (String) value;
 						}
@@ -671,12 +681,11 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		}
 		if (this.phone == null) {
 			this.showInfo.setText("  无此停车场详细信息                 ");
-			this.itemAddress = null;
 			this.itemDistance = 0;
 			return;
 
 		}
-
+		// 提取出来4条信息：停车场名称，停车场电话，预定10分钟的订金，停车费用规则放入文本区域输出
 		String markerData = showParkInfo(this.name, this.phone,
 				this.orderPrice, this.parkPrice);
 		this.showInfo.setText(markerData);
@@ -707,6 +716,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 		if (orderLocation != null) {
 			aMap.clear();
+			// 在地图上显示离自己距离最近标记点
 			aMap.addMarker(new MarkerOptions().position(orderLocation).icon(
 					BitmapDescriptorFactory
 							.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));

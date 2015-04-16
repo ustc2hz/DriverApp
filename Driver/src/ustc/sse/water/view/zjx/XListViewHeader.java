@@ -75,8 +75,9 @@ public class XListViewHeader extends LinearLayout {
 	}
 
 	public void setState(int state) {
-		if (state == mState)
+		if (state == mState) {
 			return;
+		}
 
 		if (state == STATE_REFRESHING) { // 显示进度
 			mArrowImageView.clearAnimation();
@@ -114,8 +115,9 @@ public class XListViewHeader extends LinearLayout {
 	}
 
 	public void setVisiableHeight(int height) {
-		if (height < 0)
+		if (height < 0) {
 			height = 0;
+		}
 		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mContainer
 				.getLayoutParams();
 		lp.height = height;

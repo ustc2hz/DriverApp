@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * 
+ *
  * 自定义ListView的适配器. <br>
  * ListView中的元素.
  * <p>
@@ -26,7 +26,7 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
@@ -42,8 +42,8 @@ public class XListViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public int getCount(){
-		if (list != null){
+	public int getCount() {
+		if (list != null) {
 			// 列表的元素个数
 			return list.size();
 		} else {
@@ -95,13 +95,13 @@ public class XListViewAdapter extends BaseAdapter {
 			vh.distance.setText(parking.get("parkingDistance").toString()); // 显示停车场的距离
 		}
 		// 如果是高德的停车场，则不可以预定
-		if("AMapPark".equals(parking.get("isAmap"))) {
+		if ("AMapPark".equals(parking.get("isAmap"))) {
 			vh.btnBook.setText("无预定信息");
 			vh.btnBook.setClickable(false);
 			vh.btnBook.setTextColor(color.black);
-		} else if("AMapCloudPark".equals(parking.get("isAmap"))) {
+		} else if ("AMapCloudPark".equals(parking.get("isAmap"))) {
 			vh.btnBook.setClickable(true);
-			
+
 		}
 
 		return convertView;

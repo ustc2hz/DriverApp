@@ -13,7 +13,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 /**
- * 
+ *
  * 停车场详细信息类. <br>
  * 使用ActionBar的Tab效果来分别展示停车场的详细信息界面和预定界面.
  * <p>
@@ -21,14 +21,14 @@ import android.os.Bundle;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class ParkingDetail extends Activity {
 	private ActionBar actionBar; // 此Activity的ActionBar
 	Map<String, Object> selectParking = null; // 用来接收列表中选中的停车场
-	
+
 	private int managerId = 0;
 	private int driverId = 0;
 	private String parkType = null;
@@ -60,15 +60,15 @@ public class ParkingDetail extends Activity {
 		// 添加监听器
 		parkingInfo.setTabListener(new PDTabListener(new ParkingInfoFragment(
 				ParkingDetail.this, selectParking)));
-		managerId = Integer.parseInt((String)selectParking.get("managerId"));
-		driverId = getSharedPreferences("userdata",
-				Context.MODE_PRIVATE).getInt("driverLoginId", 0);
-		parkType = (String)selectParking.get("parkType");
+		managerId = Integer.parseInt((String) selectParking.get("managerId"));
+		driverId = getSharedPreferences("userdata", Context.MODE_PRIVATE)
+				.getInt("driverLoginId", 0);
+		parkType = (String) selectParking.get("parkType");
 		parkingBook.setTabListener(new PDTabListener(new ParkingBookFragment(
 				ParkingDetail.this, managerId, driverId, parkType)));
 		// 添加到ActionBar中
 		actionBar.addTab(parkingInfo);
 		actionBar.addTab(parkingBook);
 	}
-	
+
 }

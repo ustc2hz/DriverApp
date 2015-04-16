@@ -57,7 +57,8 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setTitle(R.string.driver_order_information);
-		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.user_button_register_normal));
+		ab.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.user_button_register_normal));
 
 		driverOrders = ConstantKeep.dos; // 获取本地保存的驾驶员订单信息
 		sp = getSharedPreferences("userdata", MODE_PRIVATE);
@@ -132,11 +133,11 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater(); 
-		inflater.inflate(R.menu.driver_order_refresh, menu); 
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.driver_order_refresh, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -147,8 +148,8 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 			progressDialog = new ProgressDialogUtil(this, "正在刷新...");
 			Log.i("--->>refreshid", String.valueOf(driverId));
 			// 开启线程刷新订单数据
-			RefreshDriverOrdersThread refresh = new RefreshDriverOrdersThread(h, "1",
-					String.valueOf(driverId));
+			RefreshDriverOrdersThread refresh = new RefreshDriverOrdersThread(
+					h, "1", String.valueOf(driverId));
 			refresh.start();
 			progressDialog.showProgressDialog();
 			break;

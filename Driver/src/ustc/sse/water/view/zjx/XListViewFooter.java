@@ -51,8 +51,9 @@ public class XListViewFooter extends LinearLayout {
 	}
 
 	public void setBottomMargin(int height) {
-		if (height < 0)
+		if (height < 0) {
 			return;
+		}
 		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mContentView
 				.getLayoutParams();
 		lp.bottomMargin = height;
@@ -107,7 +108,8 @@ public class XListViewFooter extends LinearLayout {
 				.inflate(R.layout.xlistview_footer, null);
 		addView(moreView);
 		moreView.setLayoutParams(new LinearLayout.LayoutParams(
-				android.view.ViewGroup.LayoutParams.FILL_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
+				android.view.ViewGroup.LayoutParams.FILL_PARENT,
+				android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 
 		mContentView = moreView.findViewById(R.id.xlistview_footer_content);
 		mProgressBar = moreView.findViewById(R.id.xlistview_footer_progressbar);

@@ -34,7 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * 
+ *
  * 用户注册界面Activity. <br>
  * 提供驾驶员的注册、停车场管理员的注册.
  * <p>
@@ -42,7 +42,7 @@ import android.widget.EditText;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 张芳，周晶鑫 修改
  * @version 2.0.0
  */
@@ -59,7 +59,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	private String inputPassword = null; // 输入的密码
 	private String inputRepassword = null; // 输入的确认密码
 	private String responseMsg = null; // 注册返回信息
-	
+
 	private ProgressDialogUtil mDialog;
 	private EditText userName; // 用户名输入框
 	private EditText userPassword; // 密码输入框
@@ -78,7 +78,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		ab = getActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setDisplayShowHomeEnabled(false);
-		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.user_button_register_normal));
+		ab.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.user_button_register_normal));
 		if (userType == USER_DRIVER) {
 			ab.setTitle(R.string.title_register_driver);
 		} else if (userType == USER_PARKING_MANAGER) {
@@ -114,20 +115,20 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			inputUsername = userName.getText().toString();
 			inputPassword = userPassword.getText().toString();
 			inputRepassword = rePassword.getText().toString();
-			
+
 			// 验证输入的数据是否符合规则
 			if (userType == USER_DRIVER) {
 				// 驾驶员用户名的验证
-				if(!ValidatorUtils.licenceValidator(inputUsername)) {
+				if (!ValidatorUtils.licenceValidator(inputUsername)) {
 					userName.setText("");
 					userName.setError("车牌号不符合规则！");
 					inputValidation = false;
 				} else {
 					inputValidation = true;
 				}
-			} else if(userType == USER_PARKING_MANAGER){ 
+			} else if (userType == USER_PARKING_MANAGER) {
 				// 管理员用户名的验证
-				if(!ValidatorUtils.nameValidator(inputUsername)) {
+				if (!ValidatorUtils.nameValidator(inputUsername)) {
 					userName.setText("");
 					userName.setError("用户名只能由6到16位的字母和数字组成！");
 					inputValidation = false;
@@ -136,12 +137,12 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				}
 			}
 			// 密码的验证
-			if(!inputPassword.equals(inputRepassword)) {
+			if (!inputPassword.equals(inputRepassword)) {
 				// 密码和确认密码不一致
 				inputValidation = false;
 				rePassword.setText("");
 				rePassword.setError("两次密码不一致！");
-			} else if(!ValidatorUtils.passwordValidator(inputPassword)){
+			} else if (!ValidatorUtils.passwordValidator(inputPassword)) {
 				// 密码不符合规则
 				inputValidation = false;
 				userPassword.setText("");
@@ -150,10 +151,11 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			} else {
 				inputValidation = true;
 			}
-			
+
 			// 验证输入符合规则后，再注册
 			if (inputValidation) {
-				mDialog = new ProgressDialogUtil(RegisterActivity.this, "正在注册，请稍后...");
+				mDialog = new ProgressDialogUtil(RegisterActivity.this,
+						"正在注册，请稍后...");
 				mDialog.showProgressDialog();
 				Thread loginThread = new Thread(new RegisterThread());
 				loginThread.start();
@@ -167,22 +169,25 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home: // ActionBar中向左箭头点击
-			Intent intent = new Intent(RegisterActivity.this,LoginActivity.class); // 返回登录界面
+			Intent intent = new Intent(RegisterActivity.this,
+					LoginActivity.class); // 返回登录界面
 			startActivity(intent);
 			finish();
 			break;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 注册成功对话框，点击“确定”后跳转到登录界面
-	 * @param str 提示信息
+	 *
+	 * @param str
+	 *            提示信息
 	 */
 	private void showDialog(String str) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -193,7 +198,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+				Intent intent = new Intent(RegisterActivity.this,
+						LoginActivity.class);
 				startActivity(intent);
 				finish();
 			}
@@ -201,15 +207,16 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
-	
+
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			mDialog.dissmissProgressDialog();
 			switch (msg.what) {
 			case REGISTER_SUCCESS:
-				
-				SharedPreferences.Editor editor = getSharedPreferences("manager_message", MODE_PRIVATE).edit();
+
+				SharedPreferences.Editor editor = getSharedPreferences(
+						"manager_message", MODE_PRIVATE).edit();
 				editor.putString("num", "空");
 				editor.putString("price_ten", "空");
 				editor.putString("price_twenty", "空");
@@ -232,24 +239,26 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Intent intent = new Intent(RegisterActivity.this,LoginActivity.class); // 返回登录界面
+			Intent intent = new Intent(RegisterActivity.this,
+					LoginActivity.class); // 返回登录界面
 			startActivity(intent);
 			finish();
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	// 注册线程类
 	class RegisterThread implements Runnable {
 
 		@Override
 		public void run() {
-			boolean registerValidate = registerServer(inputUsername, inputPassword);
+			boolean registerValidate = registerServer(inputUsername,
+					inputPassword);
 			Message msg = handler.obtainMessage();
 			if (registerValidate) {
 				if ("success".equals(responseMsg)) {
@@ -263,14 +272,17 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				// 服务器出错
 				msg.what = REGISTER_ERROR;
 			}
-			
+
 			handler.sendMessage(msg);
 		}
 
 		/**
 		 * 访问服务器，注册该用户的信息
-		 * @param username 用户名 
-		 * @param password 密码
+		 *
+		 * @param username
+		 *            用户名
+		 * @param password
+		 *            密码
 		 * @return boolean
 		 */
 		private boolean registerServer(String username, String password) {
@@ -278,9 +290,11 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			StringBuffer urlStr = new StringBuffer("http://");
 			// 使用apache HTTP客户端实现
 			if (userType == USER_DRIVER) { // 驾驶员注册
-				urlStr.append(HttpUtils.MY_IP).append("/AppServerr/DriverRegisterServlet");
+				urlStr.append(HttpUtils.MY_IP).append(
+						"/AppServerr/DriverRegisterServlet");
 			} else if (userType == USER_PARKING_MANAGER) {// 管理员注册
-				urlStr.append(HttpUtils.MY_IP).append("/AppServerr/AdminRegisterServlet");
+				urlStr.append(HttpUtils.MY_IP).append(
+						"/AppServerr/AdminRegisterServlet");
 			}
 
 			HttpPost request = new HttpPost(urlStr.toString());

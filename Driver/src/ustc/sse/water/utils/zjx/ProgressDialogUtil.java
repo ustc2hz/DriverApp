@@ -25,9 +25,11 @@ public class ProgressDialogUtil {
 
 	/**
 	 * 有参构造函数
-	 * @param context 上下文
+	 * 
+	 * @param context
+	 *            上下文
 	 */
-	public ProgressDialogUtil(Context context,String msg) {
+	public ProgressDialogUtil(Context context, String msg) {
 		this.context = context;
 		message = msg;
 	}

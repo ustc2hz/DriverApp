@@ -20,8 +20,11 @@ public class ToastUtil {
 
 	/**
 	 * Toast显示
-	 * @param context Toast上下文
-	 * @param info Toast信息
+	 * 
+	 * @param context
+	 *            Toast上下文
+	 * @param info
+	 *            Toast信息
 	 */
 	public static void show(Context context, int info) {
 		Toast.makeText(context, info, Toast.LENGTH_SHORT).show();
@@ -29,8 +32,11 @@ public class ToastUtil {
 
 	/**
 	 * Toast显示
-	 * @param context 上下文
-	 * @param info Toast的信息
+	 * 
+	 * @param context
+	 *            上下文
+	 * @param info
+	 *            Toast的信息
 	 */
 	public static void show(Context context, String info) {
 		Toast.makeText(context, info, Toast.LENGTH_SHORT).show();

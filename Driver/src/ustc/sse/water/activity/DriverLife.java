@@ -23,12 +23,12 @@ import android.widget.GridView;
  * @version 1.2.0
  */
 public class DriverLife extends Activity implements OnItemClickListener {
-	
+
 	private static final int GAS_STATION = 0; // 加油站
 	private static final int CAR_REPAIR = 1; // 汽车维修
 	private static final int CAR_WASH = 2; // 洗车
 	private static final int CAR_RENT = 3; // 租车
-	
+
 	/* GridView */
 	private GridView gridView;
 
@@ -36,7 +36,7 @@ public class DriverLife extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.driver_life);
-		
+
 		gridView = (GridView) findViewById(R.id.gridview_driver_life);
 		gridView.setOnItemClickListener(this);// GridView单元点击事件监听
 		gridView.setAdapter(new DriverLifeAdapter(this));// GridView添加适配器
@@ -48,9 +48,9 @@ public class DriverLife extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		
+
 		Intent intent = new Intent(this, DriverMainScreen.class);
-		
+
 		switch (position) {
 		case GAS_STATION: // 点击加油站
 			intent.putExtra("result_type", "加油站"); // 返回Poi搜索类型：加油站
@@ -65,7 +65,7 @@ public class DriverLife extends Activity implements OnItemClickListener {
 			intent.putExtra("result_type", "010900"); // 返回Poi搜索类型：租车
 			break;
 		}
-		
+
 		setResult(1, intent);
 		finish();
 	}

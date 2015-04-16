@@ -3,6 +3,7 @@ package ustc.sse.water.service;
 import ustc.sse.water.utils.zjx.HttpUtils;
 import android.app.IntentService;
 import android.content.Intent;
+
 /**
  * 
  * Service. <br>
@@ -12,6 +13,7 @@ import android.content.Intent;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
@@ -25,7 +27,7 @@ public class GetCurrentBookNumber extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		// 获取该停车场的剩余可预订车位数量
 		String managerId = intent.getStringExtra("parking_managerId");
-		if(Integer.parseInt(managerId) != 0) {
+		if (Integer.parseInt(managerId) != 0) {
 			// 访问服务器
 			StringBuffer path = new StringBuffer("http://")
 					.append(HttpUtils.MY_IP)
@@ -37,7 +39,7 @@ public class GetCurrentBookNumber extends IntentService {
 			i.putExtra("current_parking_number", result);
 			sendBroadcast(i);
 		}
-		
+
 	}
 
 }

@@ -101,18 +101,22 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		mTts.setParameter(SpeechConstant.VOLUME, "80");// 设置音量，范围 0~100
 		mTts.startSpeaking("", mSynListener);
 
+		// 获取传递到此页面的数据
 		Bundle bundle = getIntent().getExtras();
 
+		// 存在起始坐标，进入if方法
 		if (bundle.containsKey("start_latitude")
 				&& bundle.containsKey("start_longitude")) {
 			mNaviStart = new NaviLatLng(bundle.getDouble("start_latitude"),
 					bundle.getDouble("start_longitude"));
 		}
+		// 存在终点坐标，进入if方法
 		if (bundle.containsKey("end_latitude")
 				&& bundle.containsKey("end_longitude")) {
 			mNaviEnd = new NaviLatLng(bundle.getDouble("end_latitude"),
 					bundle.getDouble("end_longitude"));
 		}
+		// 当起始和终止坐标都不为空时，将它们加入路经计算队列
 		if (mNaviStart != null && mNaviEnd != null) {
 			mStartPoints.add(mNaviStart);
 			mEndPoints.add(mNaviEnd);
@@ -133,6 +137,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 			if (mTts != null) {
 				mTts.destroy();
 			}
+			// 返回首界面
 			AMapNavi.getInstance(this).removeAMapNaviListener(this);
 			Intent intent = new Intent(NaviStartActivity.this,
 					DriverMainScreen.class);
@@ -173,6 +178,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		bundle.putInt(NaviUtils.ACTIVITYINDEX, NaviUtils.SIMPLEGPSNAVI);
 		bundle.putBoolean(NaviUtils.ISEMULATOR, false);
 		intent.putExtras(bundle);
+		// 跳转到导航界面
 		startActivityForResult(intent, 2);
 
 	}
@@ -189,7 +195,9 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navi_start);
+		// 初始化坐标数据
 		initNaviLatLng();
+		// 做路径规划
 		planRoute();
 	}
 

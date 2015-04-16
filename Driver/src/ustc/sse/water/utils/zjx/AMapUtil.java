@@ -2,6 +2,7 @@ package ustc.sse.water.utils.zjx;
 
 import com.amap.api.cloud.model.LatLonPoint;
 import com.amap.api.maps.model.LatLng;
+
 /**
  * 
  * 高德地图工具类. <br>
@@ -11,6 +12,7 @@ import com.amap.api.maps.model.LatLng;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ * 
  * @author 黄志恒
  * @version 1.0.0
  */
@@ -18,6 +20,7 @@ public class AMapUtil {
 
 	/**
 	 * 将LatLonPoint转化为LatLng
+	 * 
 	 * @param latLonPoint
 	 * @return Latlng
 	 */
@@ -27,6 +30,7 @@ public class AMapUtil {
 
 	/**
 	 * 将LatLng转化为LatLonPoint
+	 * 
 	 * @param latlon
 	 * @return
 	 */
@@ -36,6 +40,7 @@ public class AMapUtil {
 
 	/**
 	 * 判断是否为空字符串
+	 * 
 	 * @param s
 	 * @return
 	 */

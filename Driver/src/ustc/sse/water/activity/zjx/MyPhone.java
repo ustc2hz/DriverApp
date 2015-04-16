@@ -21,8 +21,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
 /**
- * 
+ *
  * Activity类. <br>
  * 让驾驶员可以添加和修改联系电话.
  * <p>
@@ -30,78 +31,81 @@ import android.widget.EditText;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ *
  * @author 周晶鑫
  * @version 1.0.0
  */
 public class MyPhone extends Activity implements OnClickListener {
 	private final static int ADD_UPDATE_PHONE = 1; // 修改和添加电话
 	private final static int UPDATE_RESULT = 4; // 修改后的返回的数
-	private ActionBar ab; 
+	private ActionBar ab;
 	private EditText inputPhone; // 电话号码的输入框
 	private Button addUpdate; // 添加或者修改按钮
 	private String valPhone = null; // 输入的电话
 	private int driverId = 0; // 驾驶员id
 	private List<String> list = null; // 存储要提交的信息
 	private boolean flag = false; // 标记是否已经有驾驶员的电话
-	private SharedPreferences sp; 
+	private SharedPreferences sp;
 	private SharedPreferences.Editor spEditor;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.driver_function_add_phone);
-		
+
 		ab = getActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
-		ab.setBackgroundDrawable(getResources().getDrawable(R.drawable.user_button_register_normal));
+		ab.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.user_button_register_normal));
 		ab.setDisplayShowHomeEnabled(false);
 		ab.setTitle("我的电话");
-		
+
 		sp = getSharedPreferences("userdata", MODE_PRIVATE);
 		String temp = sp.getString("driverLoginPhone", "empty");
-		if(!"empty".equals(temp) && !"暂无电话".equals(temp)) {
+		if (!"empty".equals(temp) && !"暂无电话".equals(temp)) {
 			flag = true; // 说明已经有电话
 		}
 		spEditor = sp.edit();
-		
+
 		initViews();
 	}
 
 	private void initViews() {
 		inputPhone = (EditText) findViewById(R.id.edit_driver_phone_add_update);
 		addUpdate = (Button) findViewById(R.id.button_driver_add_update_phone);
-		if(flag) { // 已有电话，则按钮为修改按钮
+		if (flag) { // 已有电话，则按钮为修改按钮
 			addUpdate.setText(R.string.driver_sure_update_info);
 		}
 		addUpdate.setEnabled(false);
 		addUpdate.setClickable(false);
 		inputPhone.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 				// 只有输入内容时才将按钮设为可点击
-				if(s.length() > 0) {
+				if (s.length() > 0) {
 					addUpdate.setClickable(true);
 					addUpdate.setEnabled(true);
-				}else {
+				} else {
 					addUpdate.setClickable(false);
 					addUpdate.setEnabled(false);
 				}
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 			}
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
 			}
 		});
-		
+
 		addUpdate.setOnClickListener(this);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		list = new ArrayList<String>();
@@ -123,7 +127,8 @@ public class MyPhone extends Activity implements OnClickListener {
 									public void onClick(DialogInterface dialog,
 											int which) {
 										// 只有当各自模式中输入都符合规则才能修改
-										UpdateDriverInfoThread udit = new UpdateDriverInfoThread(h, list);
+										UpdateDriverInfoThread udit = new UpdateDriverInfoThread(
+												h, list);
 										udit.start();
 										dialog.dismiss();
 									}
@@ -144,27 +149,27 @@ public class MyPhone extends Activity implements OnClickListener {
 
 			break;
 		}
-		
+
 	}
-	
+
 	Handler h = new Handler() {
 		@Override
 		public void handleMessage(android.os.Message msg) {
 			String result = "error";
-			switch(msg.arg1) {
+			switch (msg.arg1) {
 			case UPDATE_RESULT: // 修改完成后的处理
 				result = msg.getData().getString("update_result");
-				if("success".equals(result)) {
+				if ("success".equals(result)) {
 					// 修改sp
 					spEditor.putString("driverLoginPhone", valPhone);
 					spEditor.commit();
-					if(flag) {
+					if (flag) {
 						ToastUtil.show(MyPhone.this, "修改电话成功");
 					} else {
 						ToastUtil.show(MyPhone.this, "添加电话成功");
 					}
-				}else {
-					if(flag) {
+				} else {
+					if (flag) {
 						ToastUtil.show(MyPhone.this, "修改电话失败");
 					} else {
 						ToastUtil.show(MyPhone.this, "添加电话失败");
@@ -174,7 +179,7 @@ public class MyPhone extends Activity implements OnClickListener {
 			}
 		};
 	};
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

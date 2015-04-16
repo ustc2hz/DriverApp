@@ -26,8 +26,11 @@ public class ParkingDetailVPAdapter extends PagerAdapter {
 
 	/**
 	 * 有参构造函数
-	 * @param viewList 页视图列表
-	 * @param titleList 页标题列表
+	 * 
+	 * @param viewList
+	 *            页视图列表
+	 * @param titleList
+	 *            页标题列表
 	 */
 	public ParkingDetailVPAdapter(List<View> viewList, List<String> titleList) {
 		this.viewList = viewList;

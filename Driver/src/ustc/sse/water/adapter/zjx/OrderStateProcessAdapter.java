@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * 
+ *
  * 订单适配器，用于显示正在进行的订单和已完成订单. <br>
  * 类详细说明.
  * <p>
@@ -28,7 +28,7 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 张芳,周晶鑫修改
  * @version 4.0.0
  */
@@ -38,8 +38,7 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 	private Context context;// 上下文
 	private LayoutInflater inflater; // 填充器
 
-	public OrderStateProcessAdapter(Context context,
-			List<AdminOrderShow> list) {
+	public OrderStateProcessAdapter(Context context, List<AdminOrderShow> list) {
 		this.context = context;
 		this.list = list;
 		this.inflater = LayoutInflater.from(context);
@@ -85,8 +84,8 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 			vh.money = (TextView) convertView.findViewById(R.id.money);
 			vh.complete_order = (Button) convertView
 					.findViewById(R.id.complete_order);
-			vh.complete_order
-					.setOnClickListener(new BookOnClickListener(order,position));
+			vh.complete_order.setOnClickListener(new BookOnClickListener(order,
+					position));
 			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder) convertView.getTag();
@@ -97,7 +96,7 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 			vh.order_number.setText(String.valueOf(order.getParkNumber())); // 显示预定的数量
 			vh.order_time.setText(order.getOrderDate()); // 显示预定时间
 			vh.money.setText(order.getOrderPrice());// 显示预定金额
-			if(order.getOrderStatus() == 2) {
+			if (order.getOrderStatus() == 2) {
 				vh.complete_order.setVisibility(View.GONE);
 			}
 		}
@@ -115,8 +114,8 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 	/* 订单处理 */
 	class BookOnClickListener implements OnClickListener {
 		int index;
-		
-		public BookOnClickListener(AdminOrderShow current,int position) {
+
+		public BookOnClickListener(AdminOrderShow current, int position) {
 			index = position;
 		}
 
@@ -137,7 +136,7 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 										AdminOrderShow order = list.get(index);
 										order.setOrderStatus(2);
 										list.remove(index); // 在正在进行中删除
-										if(ConstantKeep.aosDown == null) {
+										if (ConstantKeep.aosDown == null) {
 											ConstantKeep.aosDown = new ArrayList<AdminOrderShow>();
 										}
 										ConstantKeep.aosDown.add(order); // 加入已完成中
@@ -166,5 +165,5 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 		}
 
 	}
-	
+
 }

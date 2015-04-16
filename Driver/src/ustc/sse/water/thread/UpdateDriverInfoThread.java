@@ -19,6 +19,7 @@ import android.os.Message;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
@@ -26,12 +27,12 @@ public class UpdateDriverInfoThread extends Thread {
 	Handler h;
 	private List<String> messages; // 传递的信息放入集合中
 	ObjectMapper objectMapper = new ObjectMapper();
-	
+
 	public UpdateDriverInfoThread(Handler h, List<String> mes) {
 		this.h = h;
 		this.messages = mes;
 	}
-	
+
 	@Override
 	public void run() {
 		try {
@@ -39,7 +40,8 @@ public class UpdateDriverInfoThread extends Thread {
 			StringBuffer path = new StringBuffer(basicpath);
 			path.append(HttpUtils.MY_IP)
 					.append("/AppServerr/DriverUpdateServlet?messages=")
-					.append(URLEncoder.encode(objectMapper.writeValueAsString(messages), "utf-8"));
+					.append(URLEncoder.encode(
+							objectMapper.writeValueAsString(messages), "utf-8"));
 			// 调用Http
 			String jsonString = HttpUtils.getJsonContent(path.toString());
 			Message msg = h.obtainMessage();
@@ -52,5 +54,5 @@ public class UpdateDriverInfoThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

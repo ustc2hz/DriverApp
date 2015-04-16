@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 /**
- * 
+ *
  * 停车场类别类. <br>
  * 列出附件的停车场，可上拉和下拉刷新.取自开源社区.
  * <p>
@@ -23,7 +23,7 @@ import android.os.Handler;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
@@ -44,10 +44,10 @@ public class ParkingList extends Activity implements IXListViewListener {
 		getActionBar().hide();
 		setContentView(R.layout.parking_list);
 		start = 0;
-		refreshCnt =   0;
+		refreshCnt = 0;
 		parkingDate = new ParkingDataUtil();
 		if (!geneItems()) { // 取到停车场的列表信息
-			currentItems(); 
+			currentItems();
 			adapter = new XListViewAdapter(this, items);
 			mListView = (XListView) findViewById(R.id.xListView);
 			mListView.setPullLoadEnable(true);
@@ -60,6 +60,7 @@ public class ParkingList extends Activity implements IXListViewListener {
 
 	/**
 	 * 列表页面更新，每次都去ParkingDataUtil类中取
+	 *
 	 * @return boolean true为取到数据，false为无数据
 	 */
 	private boolean geneItems() {

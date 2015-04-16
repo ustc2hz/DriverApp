@@ -23,7 +23,7 @@ import com.amap.api.maps.model.MarkerOptions;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 1.0.0
  */
@@ -41,8 +41,11 @@ public class PoiOverlay {
 
 	/**
 	 * 有参构造函数
-	 * @param amap  传递进来的地图对象
-	 * @param pois 存数着服务器中节点的List
+	 *
+	 * @param amap
+	 *            传递进来的地图对象
+	 * @param pois
+	 *            存数着服务器中节点的List
 	 */
 	public PoiOverlay(AMap amap, List<CloudItem> pois) {
 		mAMap = amap;
@@ -81,7 +84,7 @@ public class PoiOverlay {
 
 	/**
 	 * 获取merker的设置信息
-	 * 
+	 *
 	 * @param index
 	 *            在List中的位置
 	 */
@@ -98,7 +101,9 @@ public class PoiOverlay {
 
 	/**
 	 * 获取所选marker在List中的位置
-	 * @param marker 所选的marker节点
+	 *
+	 * @param marker
+	 *            所选的marker节点
 	 */
 	public int getPoiIndex(Marker marker) {
 		for (int i = 0; i < mPoiMarks.size(); i++) {
@@ -111,7 +116,9 @@ public class PoiOverlay {
 
 	/**
 	 * 获取对应的CloudItem对象
-	 * @param index 在List中的位置
+	 *
+	 * @param index
+	 *            在List中的位置
 	 */
 	public CloudItem getPoiItem(int index) {
 		if (index < 0 || index >= mPois.size()) {
@@ -122,7 +129,9 @@ public class PoiOverlay {
 
 	/**
 	 * 获取对应的Snippet信息
-	 * @param index  在List中的位置
+	 *
+	 * @param index
+	 *            在List中的位置
 	 */
 	protected String getSnippet(int index) {
 		return mPois.get(index).getSnippet();
@@ -130,7 +139,9 @@ public class PoiOverlay {
 
 	/**
 	 * 获取对应的Title信息
-	 * @param index 在List中的位置
+	 *
+	 * @param index
+	 *            在List中的位置
 	 */
 	protected String getTitle(int index) {
 		return mPois.get(index).getTitle();

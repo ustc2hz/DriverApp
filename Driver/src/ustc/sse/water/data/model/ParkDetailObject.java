@@ -14,7 +14,6 @@ package ustc.sse.water.data.model;
  * @version 1.0.0
  */
 public class ParkDetailObject {
-	// private String _address;// 停车场地址
 	private String _location;// 坐标经纬度
 	private String _name; // 停车场名
 	private String orderTen;

@@ -21,7 +21,9 @@ public class VoiceJsonParser {
 
 	/**
 	 * Json解析方法，解析语音识别结果字符串（此方法由讯飞官方提供）
-	 * @param json 语音识别后的结果字符串（json封装的）
+	 * 
+	 * @param json
+	 *            语音识别后的结果字符串（json封装的）
 	 * @return 完整的汉字字符串（正在的语音输入内容）
 	 */
 	public static String parseIatResult(String json) {

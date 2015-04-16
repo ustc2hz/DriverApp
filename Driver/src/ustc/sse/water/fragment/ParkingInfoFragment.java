@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * 
+ *
  * 停车场信息Fragment. <br>
  * 显示停车场的详细信息.
  * <p>
@@ -26,7 +26,7 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.0.0
  */
@@ -64,12 +64,13 @@ public class ParkingInfoFragment extends Fragment {
 
 	/**
 	 * 读取停车场的预定信息数据，放入List中
+	 *
 	 * @return List<String>
 	 */
 	public List<String> getData() {
 		List<String> list = new ArrayList<String>();
 		for (int i = 0; i < bookInfos.length && i < bookMoneys.length; i++) {
-			String str = bookInfos[i] + bookMoneys[i] + "元"; 
+			String str = bookInfos[i] + bookMoneys[i] + "元";
 			list.add(str);
 		}
 		return list;
@@ -97,8 +98,9 @@ public class ParkingInfoFragment extends Fragment {
 		list = getData();
 		initBR(); // 开启广播
 		// 开启服务
-		Intent numService = new Intent(context,GetCurrentBookNumber.class);
-		numService.putExtra("parking_managerId", (String) parking.get("managerId"));
+		Intent numService = new Intent(context, GetCurrentBookNumber.class);
+		numService.putExtra("parking_managerId",
+				(String) parking.get("managerId"));
 		context.startService(numService);
 	}
 
@@ -120,8 +122,9 @@ public class ParkingInfoFragment extends Fragment {
 		parKingNum = (TextView) view.findViewById(R.id.text_book_number);
 		parkingName.setText((String) parking.get("parkingName"));
 		parKingPhone.setText((String) parking.get("phone"));
-		parkingDistance.setText(parking.get("parkingDistance").toString()+" 米");
-		parKingNum.setText((String) parking.get("parkingSum")+" 个");
+		parkingDistance.setText(parking.get("parkingDistance").toString()
+				+ " 米");
+		parKingNum.setText((String) parking.get("parkingSum") + " 个");
 
 		// 各种收费信息
 		parkOrder20 = (TextView) view.findViewById(R.id.text_parking_order_20);
@@ -129,24 +132,25 @@ public class ParkingInfoFragment extends Fragment {
 		parkOrder60 = (TextView) view.findViewById(R.id.text_parking_order_60);
 		parkStop30 = (TextView) view.findViewById(R.id.text_parking_stop_30);
 		parkStop60 = (TextView) view.findViewById(R.id.text_parking_stop_60);
-		parkStopMore = (TextView) view.findViewById(R.id.text_parking_stop_more);
+		parkStopMore = (TextView) view
+				.findViewById(R.id.text_parking_stop_more);
 		parkOrder20.setText(list.get(0));
 		parkOrder40.setText(list.get(1));
 		parkOrder60.setText(list.get(2));
 		parkStop30.setText(list.get(3));
 		parkStop60.setText(list.get(4));
 		parkStopMore.setText(list.get(5));
-		
+
 		return view;
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		context.stopService(new Intent(context, GetCurrentBookNumber.class));
 		context.unregisterReceiver(cnl);
 	}
-	
+
 	// 初始化广播接收器
 	public void initBR() {
 		cnl = new CurrentNumListener();
@@ -154,21 +158,21 @@ public class ParkingInfoFragment extends Fragment {
 		filter.addAction("com.action.br.current_number");
 		context.registerReceiver(cnl, filter);
 	}
-	
+
 	class CurrentNumListener extends BroadcastReceiver {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String current = intent.getStringExtra("current_parking_number");
-			if(!"error".equals(current)) {
+			if (!"error".equals(current)) {
 				ParkingBookFragment.leftNumber = Integer.parseInt(current);
 				currentNum.setText(current + " 个");
 			} else {
 				currentNum.setText("暂无数据");
 			}
-			
+
 		}
-		
+
 	}
 
 }

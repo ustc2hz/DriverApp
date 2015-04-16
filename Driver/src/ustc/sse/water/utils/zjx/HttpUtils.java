@@ -25,7 +25,7 @@ import org.apache.http.params.HttpConnectionParams;
  */
 public class HttpUtils {
 	/* 服务器的IP地址和端口号 */
-	//public final static String MY_IP = "192.168.9.241:8080";
+	// public final static String MY_IP = "192.168.9.241:8080";
 	public final static String MY_IP = "192.168.9.205:8080";
 	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
 	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
@@ -36,7 +36,9 @@ public class HttpUtils {
 
 	/**
 	 * 通过URL访问服务器，Get方式
-	 * @param path url
+	 * 
+	 * @param path
+	 *            url
 	 * @return String 服务器返回的结果
 	 */
 	public static String getJsonContent(String path) {
@@ -54,7 +56,7 @@ public class HttpUtils {
 			if (code == 200) { // 200为连接成功
 				// 调用方法将返回的流解析为String，并且返回
 				return changeInputStream(httpURLConnection.getInputStream());
-			}else {
+			} else {
 				return "error";
 			}
 		} catch (Exception e) {
@@ -65,7 +67,9 @@ public class HttpUtils {
 
 	/**
 	 * 将服务器返回的流转化为String
-	 * @param inputStream 输入流
+	 * 
+	 * @param inputStream
+	 *            输入流
 	 * @return String 转化结果
 	 */
 	public static String changeInputStream(InputStream inputStream) {
@@ -84,14 +88,13 @@ public class HttpUtils {
 		}
 		return jsonString;
 	}
-    
-	//初始化HttpClient，并设置超时
-    public static HttpClient getHttpClient()
-    {
-    	BasicHttpParams httpParams = new BasicHttpParams();
-    	HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
-    	HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
-    	HttpClient client = new DefaultHttpClient(httpParams);
-    	return client;
-    }
+
+	// 初始化HttpClient，并设置超时
+	public static HttpClient getHttpClient() {
+		BasicHttpParams httpParams = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
+		HttpClient client = new DefaultHttpClient(httpParams);
+		return client;
+	}
 }

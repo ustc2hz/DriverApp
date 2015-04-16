@@ -1,6 +1,5 @@
 package ustc.sse.water.activity;
 
-//import ustc.sse.water.tools.hzh.TTSController;
 import ustc.sse.water.utils.zjx.NaviUtils;
 import android.app.Activity;
 import android.content.Intent;
@@ -61,6 +60,7 @@ public class DriverNaviActivity extends Activity implements
 		setContentView(R.layout.activity_driver_navi);
 		Bundle bundle = getIntent().getExtras();
 		processBundle(bundle);
+		// 初始化数据
 		init(savedInstanceState);
 
 	}
@@ -78,6 +78,8 @@ public class DriverNaviActivity extends Activity implements
 	/**
 	 *
 	 * 返回键监听事件
+	 *
+	 * @keyCode 返回键 @ event 事件
 	 * */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -88,7 +90,6 @@ public class DriverNaviActivity extends Activity implements
 						DriverMainScreen.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 				setResult(4, intent);
-				// mAmapAMapNaviView.onDestroy();
 				finish();
 
 			} else if (mCode == NaviUtils.SIMPLEGPSNAVI) {
@@ -114,7 +115,6 @@ public class DriverNaviActivity extends Activity implements
 				DriverMainScreen.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		setResult(4, intent);
-		// mAmapAMapNaviView.onDestroy();
 		finish();
 	}
 
@@ -158,6 +158,11 @@ public class DriverNaviActivity extends Activity implements
 	public void onScanViewButtonClick() {
 	}
 
+	/*
+	 * 处理传入进来的数据
+	 * 
+	 * @ bundle 存储数据的对象
+	 */
 	private void processBundle(Bundle bundle) {
 		if (bundle != null) {
 			mIsEmulatorNavi = bundle.getBoolean(NaviUtils.ISEMULATOR, true);

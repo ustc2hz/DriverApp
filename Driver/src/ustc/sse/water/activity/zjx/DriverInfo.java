@@ -21,7 +21,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 /**
- * 
+ *
  * 驾驶员的信息展示. <br>
  * 展示驾驶员的个人信息，驾驶员可以使用相关功能按钮；驾驶员可以选择返回地图或者退出登录.
  * <p>
@@ -29,24 +29,25 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 3.0.0
  */
-public class DriverInfo extends Activity implements OnItemClickListener ,OnClickListener {
-	
+public class DriverInfo extends Activity implements OnItemClickListener,
+		OnClickListener {
+
 	private final static int LV_MY_ORDERS = 0; // ListViewView中“我的订单”的position
 	private final static int LV_CHANGE_LICENCE = 1; // “更换车牌”的position
 	private final static int LV_ADD_PHONE = 2; // “添加联系电话”的position
 	private final static int LV_UPDATE_PASSWORD = 3; // “修改密码”的position
-	
+
 	// 导航图片
 	private final int[] funImages = { R.drawable.function_order3,
 			R.drawable.function_licence, R.drawable.function_phone,
 			R.drawable.function_password };
 	// 导航文字
-	private final String[] funTexts = {"我的订单","更换车牌","我的电话","修改密码"};
-	
+	private final String[] funTexts = { "我的订单", "更换车牌", "我的电话", "修改密码" };
+
 	private ListView listView; // 导航
 	private Button logout;// 退出登录按钮
 	private Button backMap; // 返回到地图
@@ -70,17 +71,17 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 	 */
 	public void initView() {
 		// 初始化TextView
-		textLicence = (TextView)findViewById(R.id.text_driver_licence);
-		textPhone = (TextView)findViewById(R.id.text_driver_phone);
+		textLicence = (TextView) findViewById(R.id.text_driver_licence);
+		textPhone = (TextView) findViewById(R.id.text_driver_phone);
 		// 取出SP中的数据
 		String spDriverLicence = sp.getString("driverLoginLicence", "没有驾驶员登录");
 		String spDriverPhone = sp.getString("driverLoginPhone", "暂无联系电话");
 		// 赋值
 		textLicence.setText(spDriverLicence);
 		textPhone.setText(spDriverPhone);
-		
+
 		// GridView初始化
-		listView = (ListView)findViewById(R.id.listView_driver_functions);
+		listView = (ListView) findViewById(R.id.listView_driver_functions);
 		// 初始化数据源
 		ArrayList<HashMap<String, Object>> items = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < funImages.length; i++) {
@@ -97,7 +98,7 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 						R.id.textView_driver_function_order });
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
-		
+
 		// 按钮初始化
 		backMap = (Button) findViewById(R.id.button_backToMap);
 		backMap.setOnClickListener(this);
@@ -117,26 +118,33 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 		case R.id.button_logout: // 点击退出登录
 			// 退出登录需要改变登录者状态
 			spEditor = sp.edit();
-			new AlertDialog.Builder(this).setTitle("提示").setMessage("是否退出登录？")
-			.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			new AlertDialog.Builder(this)
+					.setTitle("提示")
+					.setMessage("是否退出登录？")
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					spEditor.putInt("userLoginStatus", 2);
-					spEditor.putInt("driverLoginId", 0);
-					spEditor.commit();
-					ConstantKeep.dos = null;
-					dialog.dismiss();
-					finish();
-				}
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									spEditor.putInt("userLoginStatus", 2);
+									spEditor.putInt("driverLoginId", 0);
+									spEditor.commit();
+									ConstantKeep.dos = null;
+									dialog.dismiss();
+									finish();
+								}
 
-			}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+							})
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			}).create().show();
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							}).create().show();
 			break;
 		}
 	}
@@ -148,7 +156,7 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Intent intent = new Intent();
-		switch(position) {
+		switch (position) {
 		case LV_MY_ORDERS: // 我的订单
 			intent.setClass(DriverInfo.this, DriverOrderInfo.class);
 			break;
@@ -164,7 +172,7 @@ public class DriverInfo extends Activity implements OnItemClickListener ,OnClick
 		}
 		startActivity(intent);
 	}
-	
+
 	@Override
 	protected void onResume() {
 		// 从“修改信息”界面返回时，刷新联系电话

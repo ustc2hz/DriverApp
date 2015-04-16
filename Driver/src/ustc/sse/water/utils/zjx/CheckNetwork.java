@@ -17,12 +17,13 @@ import android.provider.Settings;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ * 
  * @author 张芳
  * @version 1.0.0
  */
 public class CheckNetwork {
 	private Context context; // 上下文
-	
+
 	public CheckNetwork(Context con) {
 		this.context = con;
 	}
@@ -31,7 +32,8 @@ public class CheckNetwork {
 	 * 检查网络连接状态，看是否有网络连接
 	 */
 	public void checkNetworkState() {
-		ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager manager = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		State mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
 				.getState();
 		State wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
@@ -59,7 +61,8 @@ public class CheckNetwork {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// 如果没有网络连接，则进入网络设置界面
-				context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+				context.startActivity(new Intent(
+						Settings.ACTION_WIRELESS_SETTINGS));
 			}
 		});
 		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -72,5 +75,5 @@ public class CheckNetwork {
 		builder.create();
 		builder.show();
 	}
-	
+
 }

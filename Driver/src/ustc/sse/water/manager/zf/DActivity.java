@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * 
+ *
  * 已完成订单类. <br>
  * 已完成订单列表的详细信息.
  * <p>
@@ -28,9 +28,9 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 张芳 sa614296@mail.ustc.edu.cn
- * 
+ *
  * @version 3.0.0
  */
 public class DActivity extends Activity implements OnItemClickListener {
@@ -76,10 +76,11 @@ public class DActivity extends Activity implements OnItemClickListener {
 			case 44:// 获取成功
 				// 重新获取数据加载
 				aosDown = ConstantKeep.aosDown;
-				if(aosDown != null) {
+				if (aosDown != null) {
 					textView.setVisibility(View.GONE);
 				}
-				myAdapter = new OrderStateProcessAdapter(DActivity.this, aosDown);
+				myAdapter = new OrderStateProcessAdapter(DActivity.this,
+						aosDown);
 				listView.setAdapter(myAdapter);
 				break;
 			case 55:// 获取失败
@@ -96,7 +97,8 @@ public class DActivity extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		AdminOrderShow order = aosDown.get(position);
-		new AdminCustomDialog(DActivity.this, order.getOrderDetail(), order.getDriverPhone());
+		new AdminCustomDialog(DActivity.this, order.getOrderDetail(),
+				order.getDriverPhone());
 
 	}
 }

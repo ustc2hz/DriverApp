@@ -10,8 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 /**
- * 
+ *
  * Adapter类. <br>
  * 驾驶员订单ListView的适配器.
  * <p>
@@ -19,6 +20,7 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ *
  * @author 周晶鑫
  * @version 1.0.0
  */
@@ -27,7 +29,7 @@ public class DriverOrderAdapter extends BaseAdapter {
 	private LayoutInflater inflater; // 填充器
 	private List<DriverOrderShow> list; // 订单列表
 
-	public DriverOrderAdapter(Context con,List<DriverOrderShow> list) {
+	public DriverOrderAdapter(Context con, List<DriverOrderShow> list) {
 		this.context = con;
 		this.inflater = LayoutInflater.from(con);
 		this.list = list;
@@ -74,12 +76,12 @@ public class DriverOrderAdapter extends BaseAdapter {
 			DriverOrderShow driverOrder = list.get(position);
 			// 赋值
 			vh.parkName.setText(driverOrder.getParkName());
-			String sumPrice = "预付："+driverOrder.getOrderPrice()+"元";
+			String sumPrice = "预付：" + driverOrder.getOrderPrice() + "元";
 			vh.orderPrice.setText(sumPrice);
-			String date = "日期："+driverOrder.getOrderDate();
+			String date = "日期：" + driverOrder.getOrderDate();
 			vh.orderDate.setText(date);
 			String status = "正在进行中";
-			if(driverOrder.getOrderStatus() == 2) {
+			if (driverOrder.getOrderStatus() == 2) {
 				status = "已完成";
 			}
 			vh.orderStatus.setText(status);

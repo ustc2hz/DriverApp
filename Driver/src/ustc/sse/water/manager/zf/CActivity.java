@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * 
+ *
  * 管理员个人信息界面类. <br>
  * 主要是显示管理员的用户名信息，提供修改密码和退出登录的功能.
  * <p>
@@ -23,7 +23,7 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 张芳 sa614296@ustc.edu.cn 周晶鑫 修改15-03-17
  * @version 2.0.0
  */
@@ -46,7 +46,7 @@ public class CActivity extends Activity implements OnClickListener {
 		// 取出原有的preferences
 		sp = getSharedPreferences("userdata", MODE_PRIVATE);
 		spAdminName = sp.getString("adminLoginName", "出错了");
-		
+
 		initViews();
 
 	}
@@ -71,26 +71,34 @@ public class CActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.button_admin_logoff: // 退出登录
 			spEditor = sp.edit();
-			new AlertDialog.Builder(this).setTitle("提示").setMessage("是否退出登录？")
-			.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			new AlertDialog.Builder(this)
+					.setTitle("提示")
+					.setMessage("是否退出登录？")
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					spEditor.putInt("userLoginStatus", 2);
-					spEditor.commit();
-					dialog.dismiss();
-					// 退出登录时关闭service
-					stopService(new Intent(CActivity.this, UpdateOrderService.class));
-					finish();
-				}
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									spEditor.putInt("userLoginStatus", 2);
+									spEditor.commit();
+									dialog.dismiss();
+									// 退出登录时关闭service
+									stopService(new Intent(CActivity.this,
+											UpdateOrderService.class));
+									finish();
+								}
 
-			}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+							})
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			}).create().show();
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							}).create().show();
 			break;
 		}
 	}

@@ -1,4 +1,5 @@
 package ustc.sse.water.data.model;
+
 /**
  * 
  * Model类. <br>
@@ -8,6 +9,7 @@ package ustc.sse.water.data.model;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ * 
  * @author 韩琼
  * @version 1.0.0
  */

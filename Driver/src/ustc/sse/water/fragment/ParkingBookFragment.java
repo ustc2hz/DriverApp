@@ -35,7 +35,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 /**
- * 
+ *
  * 车位预定ParkingBookFragment. <br>
  * 展示订单表单，让用户填写.
  * <p>
@@ -43,7 +43,7 @@ import android.widget.Spinner;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 3.0.0
  */
@@ -78,7 +78,7 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 	Handler h = new Handler() {
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			
+
 			String result = "error";
 			switch (msg.arg1) {
 			case 1: // 发送订单到服务器
@@ -118,7 +118,7 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 			valDriverNumber = driverNumber.getText().toString();
 			if (driverNumber == null || "".equals(valDriverNumber)) {
 				driverNumber.setError("请填写预定的车位数！");
-			}else if(Integer.valueOf(valDriverNumber) > leftNumber) {
+			} else if (Integer.valueOf(valDriverNumber) > leftNumber) {
 				// 预定的车位数大于剩余的车位数
 				driverNumber.setError("没有足够的车位！");
 			} else if (driverId == 0) {// 驾驶员没有登录
@@ -176,24 +176,25 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 		submitOrder.setClickable(false);
 		submitOrder.setEnabled(false);
 		driverNumber.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 				// 只有输入内容时才将按钮设为可点击
-				if(s.length() > 0) {
+				if (s.length() > 0) {
 					submitOrder.setClickable(true);
 					submitOrder.setEnabled(true);
-				}else {
+				} else {
 					submitOrder.setClickable(false);
 					submitOrder.setEnabled(false);
 				}
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 			}
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
 			}
@@ -235,7 +236,7 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 		int sumPrice = selectNum * (Integer.parseInt(selectPrice));
 		order.setOrderPrice(String.valueOf(sumPrice));
 		// 如果是Web的停车场则直接将状态设置为1
-		if("web".equals(parkType)) {
+		if ("web".equals(parkType)) {
 			order.setOrderStatus(1);
 		} else {
 			order.setOrderStatus(0);
