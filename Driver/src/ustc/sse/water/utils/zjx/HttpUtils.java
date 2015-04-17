@@ -25,8 +25,7 @@ import org.apache.http.params.HttpConnectionParams;
  */
 public class HttpUtils {
 	/* 服务器的IP地址和端口号 */
-	// public final static String MY_IP = "192.168.9.241:8080";
-	public final static String MY_IP = "192.168.9.205:8080";
+	public final static String LBS_SERVER_PATH = "http://192.168.9.205:8080/AppServer";
 	private static final int REQUEST_TIMEOUT = 5 * 1000;// 设置请求超时10秒钟
 	private static final int SO_TIMEOUT = 10 * 1000; // 设置等待数据超时时间10秒钟
 

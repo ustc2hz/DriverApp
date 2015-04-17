@@ -49,9 +49,7 @@ public class ParkingDataUtil {
 
 	/**
 	 * 将周边搜索和云图搜索中的停车场中的名字、地点和距离提取出来，存放在list中
-	 * 
-	 * @param currentPage
-	 *            周边搜索的第几页
+	 * @param currentPage 周边搜索的第几页
 	 * @return List<Map<String, Object>> 整理后的list
 	 */
 	public List<Map<String, Object>> getParkingData(int currentPage) {
@@ -96,11 +94,6 @@ public class ParkingDataUtil {
 			}
 			if (poiResult.getPageCount() - 1 > currentPage) {
 				// 处理周边搜索的停车场
-				/*
-				 * if (currentPage != 0) { poiQuery.setPageNum(currentPage);//
-				 * 设置查后一页 poiSearch.searchPOIAsyn(); poiResult =
-				 * PoiAroundSearchMethod.poiResult; // 获取周边搜索的搜索结果 }
-				 */
 				if (currentPage == 0) {
 					poiItems = poiResult.getPois(); // 直接取出数据
 					for (int i = 0; i < poiItems.size(); i++) {

@@ -30,10 +30,10 @@ import android.util.Log;
 public class DetailDataToServer {
 
 	// 发送的本地服务器的地址
-	public static final String path = "http://" + HttpUtils.MY_IP
-			+ "/AppServerr/ServerToYuntu";
-	public static final String updatePath = "http://" + HttpUtils.MY_IP
-			+ "/AppServerr/ServerUpdateYuntu";
+	public static final String path = HttpUtils.LBS_SERVER_PATH
+			+ "/ServerToYuntu";
+	public static final String updatePath = HttpUtils.LBS_SERVER_PATH
+			+ "/ServerUpdateYuntu";
 	// 接收传递回来的数据
 	public String responseMsg = "";
 

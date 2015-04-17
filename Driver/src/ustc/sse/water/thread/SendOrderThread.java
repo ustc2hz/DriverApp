@@ -34,10 +34,8 @@ public class SendOrderThread extends Thread {
 		// 使用http的url访问服务器
 		try {
 			// Get方式的url地址
-			String basicpath = "http://";
-			StringBuffer path = new StringBuffer(basicpath);
-			path.append(HttpUtils.MY_IP)
-					.append("/AppServerr/SolveOrderServlet?order=")
+			StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
+			path.append("/SolveOrderServlet?order=")
 					.append(URLEncoder.encode(sendMessage, "utf-8"));
 			// 调用Http方法
 			String jsonString = HttpUtils.getJsonContent(path.toString());

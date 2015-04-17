@@ -512,11 +512,9 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			// 空转方法，有条件的阻止线程运行
@@ -576,14 +574,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	/**
 	 * 在首界面显示点击的marker信息
 	 *
-	 * @param name
-	 *            停车场地址
-	 * @param phone
-	 *            停车场电话
-	 * @param orderPrice
-	 *            停车场预定价格条目
-	 * @param parkPrice
-	 *            停车场停车收费条目
+	 * @param name 停车场地址
+	 * @param phone 停车场电话
+	 * @param orderPrice 停车场预定价格条目
+	 * @param parkPrice 停车场停车收费条目
 	 */
 	private String showParkInfo(String name, String phone, String orderPrice,
 			String parkPrice) {
@@ -610,9 +604,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 在文字区域显示停车场大概信息
-	 *
-	 * @param marker
-	 *            点击的地图上的点
+	 * @param marker 点击的地图上的点
 	 */
 	private void TextshowMarkerInfo(Marker marker) {
 		this.name = marker.getTitle();
@@ -724,3 +716,4 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		orderLocation = null;
 	}
 }
+

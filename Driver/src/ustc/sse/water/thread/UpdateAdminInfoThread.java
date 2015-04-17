@@ -24,10 +24,9 @@ public class UpdateAdminInfoThread extends Thread {
 	private int adminId = 0; // 默认admin的id为0，表示错误管理员
 	private String oldPwd = null; // 旧密码
 	private String newPwd = null; // 新密码
-	private StringBuffer path = new StringBuffer("http://"); // URL
-
-	public UpdateAdminInfoThread(Handler h, int adminId, String oldPwd,
-			String newPwd) {
+	private StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH); // URL
+	
+	public UpdateAdminInfoThread(Handler h, int adminId, String oldPwd, String newPwd) {
 		this.h = h;
 		this.adminId = adminId;
 		this.oldPwd = oldPwd;
@@ -38,8 +37,7 @@ public class UpdateAdminInfoThread extends Thread {
 	public void run() {
 		if (adminId != 0) {
 			// 完整的URL访问地址
-			path.append(HttpUtils.MY_IP)
-					.append("/AppServerr/AdminUpdateServlet?adminId=")
+			path.append("/AdminUpdateServlet?adminId=")
 					.append(adminId).append("&oldPwd=").append(oldPwd)
 					.append("&newPwd=").append(newPwd);
 			try {

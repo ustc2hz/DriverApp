@@ -20,9 +20,9 @@ import android.os.Message;
  */
 public class CheckOrderReceiveThread extends Thread {
 	Handler h; // Handler处理线程访问服务器处理的结果
-	private String orderUUID;
-	private int managerId;
-	private String valNumber;
+	private String orderUUID; // 订单的uuid
+	private int managerId; // 预定的停车场管理员id
+	private String valNumber; // 预定数
 
 	public CheckOrderReceiveThread(Handler h, String uuid, int id, String num) {
 		this.h = h;
@@ -35,13 +35,11 @@ public class CheckOrderReceiveThread extends Thread {
 	public void run() {
 		// 访问服务器，查看管理员是否接收到了订单信息
 		try {
-			String basicpath = "http://";
-			StringBuffer path = new StringBuffer(basicpath);
-			path.append(HttpUtils.MY_IP)
-					.append("/AppServerr/CheckSendServlet?uuid=")
-					.append(orderUUID).append("&managerId=").append(managerId)
+			StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
+			path.append("/CheckSendServlet?uuid=").append(orderUUID)
+					.append("&managerId=").append(managerId)
 					.append("&bookNum=").append(valNumber);
-			sleep(5000); // 休眠3s
+			sleep(5000); // 休眠5s
 			// 调用Http
 			String jsonString = HttpUtils.getJsonContent(path.toString());
 			Message msg = h.obtainMessage();

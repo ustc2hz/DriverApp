@@ -25,6 +25,7 @@ import android.widget.TextView;
  * @version 1.0.0
  */
 public class DriverOrderAdapter extends BaseAdapter {
+	private static final int ORDER_FINISHED = 2; // 订单完成
 	private Context context; // 上下文
 	private LayoutInflater inflater; // 填充器
 	private List<DriverOrderShow> list; // 订单列表
@@ -81,7 +82,7 @@ public class DriverOrderAdapter extends BaseAdapter {
 			String date = "日期：" + driverOrder.getOrderDate();
 			vh.orderDate.setText(date);
 			String status = "正在进行中";
-			if (driverOrder.getOrderStatus() == 2) {
+			if(driverOrder.getOrderStatus() == ORDER_FINISHED) {
 				status = "已完成";
 			}
 			vh.orderStatus.setText(status);

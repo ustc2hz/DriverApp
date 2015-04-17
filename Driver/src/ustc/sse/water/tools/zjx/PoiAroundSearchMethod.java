@@ -1,3 +1,4 @@
+
 package ustc.sse.water.tools.zjx;
 
 import java.util.List;
@@ -70,15 +71,10 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 
 	/**
 	 * 有参构造函数
-	 *
-	 * @param map
-	 *            传递的地图
-	 * @param con
-	 *            地图的Activity上下文
-	 * @param type
-	 *            搜索类型
-	 * @param lp
-	 *            搜索中心点
+	 * @param map 传递的地图
+	 * @param con 地图的Activity上下文
+	 * @param type 搜索类型
+	 * @param lp 搜索中心点
 	 */
 	public PoiAroundSearchMethod(AMap map, Context con, String type,
 			LatLonPoint lp) {
@@ -90,17 +86,14 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 		try {
 			doSearchQuery();
 		} catch (AMapException e) {
-			// TODO Auto-generated catch block
 			dialog.dissmissProgressDialog();
-		} // 开始搜索
+		} 
 
 	}
 
 	/**
 	 * 查单个poi详情
-	 *
-	 * @param poiId
-	 *            poi的id
+	 * @param poiId poi的id
 	 */
 	public void doSearchPoiDetail(String poiId) throws AMapException {
 		if (poiSearch != null && poiId != null) {

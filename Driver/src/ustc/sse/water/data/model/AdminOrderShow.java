@@ -1,16 +1,15 @@
-package ustc.sse.water.data.model;
 
+package ustc.sse.water.data.model;
 /**
- *
+ * 
  * Model类. <br>
- * 停车场信息数据结构.
+ * 管理员端需要的订单信息.
  * <p>
- * Copyright: Copyright (c) 2015-3-18 下午8:55:00
+ * Copyright: Copyright (c) 2015-3-18 下午9:55:00
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
- * @author 黄志恒
+ * @author 周晶鑫
  * @version 1.0.0
  */
 public class AdminOrderShow {
@@ -22,67 +21,52 @@ public class AdminOrderShow {
 	private String orderDetail; // 订单详细
 	private String orderPrice; // 订单总价
 	private int orderStatus; // 订单状态
-
+	
 	public int getOrderId() {
 		return orderId;
 	}
-
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
-
 	public String getDriverLicence() {
 		return driverLicence;
 	}
-
 	public void setDriverLicence(String driverLicence) {
 		this.driverLicence = driverLicence;
 	}
-
 	public String getDriverPhone() {
 		return driverPhone;
 	}
-
 	public void setDriverPhone(String driverPhone) {
 		this.driverPhone = driverPhone;
 	}
-
 	public int getParkNumber() {
 		return parkNumber;
 	}
-
 	public void setParkNumber(int parkNumber) {
 		this.parkNumber = parkNumber;
 	}
-
 	public String getOrderDate() {
 		return orderDate;
 	}
-
 	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
-
 	public String getOrderDetail() {
 		return orderDetail;
 	}
-
 	public void setOrderDetail(String orderDetail) {
 		this.orderDetail = orderDetail;
 	}
-
 	public String getOrderPrice() {
 		return orderPrice;
 	}
-
 	public void setOrderPrice(String orderPrice) {
 		this.orderPrice = orderPrice;
 	}
-
 	public int getOrderStatus() {
 		return orderStatus;
 	}
-
 	public void setOrderStatus(int orderStatus) {
 		this.orderStatus = orderStatus;
 	}

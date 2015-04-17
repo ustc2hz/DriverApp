@@ -16,13 +16,13 @@ package ustc.sse.water.data.model;
 public class ParkDetailObject {
 	private String _location;// 坐标经纬度
 	private String _name; // 停车场名
-	private String orderTen;
-	private String orderTri;
-	private String orderTwe;
-	private String parkSum;
-	private String payHalPay;// 停车半个小时
-	private String payMorePay;// 停车多于一个小时
-	private String payOneHour;
+	private String orderTen;//预定10分钟的订金
+	private String orderTri;//预定30分钟的订金
+	private String orderTwe;//预定20分钟的订金
+	private String parkSum;//停车场停车位总数
+	private String payHalPay;// 停车半个小时的费用
+	private String payMorePay;// 停车多于一个小时的费用
+	private String payOneHour;//停车一个小时的费用
 	private String phone; // 电话
 
 	public String get_location() {
