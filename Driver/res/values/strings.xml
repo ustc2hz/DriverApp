@@ -116,5 +116,22 @@
     <string name="label_edittext_hint_cars">请输入预定的车位数</string>
     <string name="label_title_parking_baic">基本信息</string>
     <string name="menu_title_refresh">刷新</string>
+    
+    <string name="label_text_licence">车牌</string>
+    <string name="label_text_time">时间</string>
+    <string name="label_text_number">数量</string>
+    <string name="label_text_money">金额</string>
+    <string name="label_button_finish">完成</string>
+    <string name="label_manager_parkingName">停车场名称：</string>
+    <string name="label_manager_parkingPhone">停车场电话：</string>
+    <string name="label_manager_parkingAll">预定车位总数(个):</string>
+    <string name="label_manager_parkingPrice">预定车位价格(元)：</string>
+    <string name="label_manager_priceTen">20分钟</string>
+    <string name="label_manager_priceTwn">40分钟</string>
+    <string name="label_manager_priceThy">60分钟</string>
+    <string name="label_manager_priceMoney">停车价格(元):</string>
+    <string name="label_manager_priceHalf">半个小时内:</string>
+    <string name="label_manager_priceHour">一个小时内:</string>
+    <string name="label_manager_priceMore">一个小时以上:</string>
 
 </resources>

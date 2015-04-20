@@ -21,29 +21,28 @@ import android.widget.TabHost;
  * Company: 中国科学技术大学软件学院
  * <p>
  *
- * @author 张芳
+ * @author 张芳，周晶鑫修改
  * @version 1.0.0
  */
 public class ManagerMainTabActivity extends TabActivity implements
 		OnCheckedChangeListener {
 
 	private TabHost mTabHost; // TabHost
-	private Intent mAIntent;
-	private Intent mBIntent;
-	private Intent mCIntent;
-	private Intent mDIntent;
+	private Intent mAIntent; // 跳转正在进行订单界面
+	private Intent mBIntent; // 跳转停车场信息发布界面
+	private Intent mCIntent; // 跳转个人信息界面
+	private Intent mDIntent; // 跳转完成订单界面
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login__success);
 
-		this.mAIntent = new Intent(this, AActivity.class);
+		this.mAIntent = new Intent(this, ManagerOrderIng.class);
 		this.mBIntent = new Intent(this, ParkingCreatement.class);
-		this.mCIntent = new Intent(this, CActivity.class);
-		this.mDIntent = new Intent(this, DActivity.class);
+		this.mCIntent = new Intent(this, ManagerInfo.class);
+		this.mDIntent = new Intent(this, ManagerOrderDown.class);
 		((RadioButton) findViewById(R.id.radio_button0))
 				.setOnCheckedChangeListener(this);
 		((RadioButton) findViewById(R.id.radio_button1))
@@ -78,6 +77,9 @@ public class ManagerMainTabActivity extends TabActivity implements
 		}
 	}
 
+	/**
+	 * 初始化导航栏
+	 */
 	private void setupIntent() {
 		this.mTabHost = getTabHost();
 		TabHost localTabHost = this.mTabHost;

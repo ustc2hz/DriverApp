@@ -158,10 +158,9 @@ public class DriverNaviActivity extends Activity implements
 	public void onScanViewButtonClick() {
 	}
 
-	/*
+	/**
 	 * 处理传入进来的数据
-	 * 
-	 * @ bundle 存储数据的对象
+	 * @param bundle 存储数据的对象
 	 */
 	private void processBundle(Bundle bundle) {
 		if (bundle != null) {

@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     >
+    android:layout_height="match_parent">
     
     <ListView android:id="@+id/orderlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:dividerHeight="4dp">
+        android:dividerHeight="6dp">
 	</ListView>
 	
     <!-- 暂无订单的提示 -->
-
     <TextView
         android:id="@+id/text_admin_no_order_tip"
         android:layout_width="match_parent"

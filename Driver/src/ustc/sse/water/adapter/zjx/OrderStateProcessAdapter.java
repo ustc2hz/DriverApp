@@ -93,9 +93,9 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 
 		if (order != null) {
 			vh.car_number.setText(order.getDriverLicence()); // 显示车牌号
-			vh.order_number.setText(String.valueOf(order.getParkNumber())); // 显示预定的数量
+			vh.order_number.setText(String.valueOf(order.getParkNumber())+"个"); // 显示预定的数量
 			vh.order_time.setText(order.getOrderDate()); // 显示预定时间
-			vh.money.setText(order.getOrderPrice());// 显示预定金额
+			vh.money.setText(order.getOrderPrice()+"元");// 显示预定金额
 			if (order.getOrderStatus() == 2) {
 				vh.complete_order.setVisibility(View.GONE);
 			}

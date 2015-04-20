@@ -13,7 +13,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import ustc.sse.water.utils.zjx.HttpUtils;
-import android.util.Log;
 
 /**
  * DetailDataToServer 将停车场收费规则数据发送至服务器. <br>
@@ -59,7 +58,6 @@ public class DetailDataToServer {
 		HttpResponse resp = client.execute(post);
 
 		if (resp.getStatusLine().getStatusCode() == 200) {// 这只是链接成功了，或者说是发送成功了。
-			Log.v("status", "success");
 			responseMsg = EntityUtils.toString(resp.getEntity());
 
 		}
@@ -83,7 +81,6 @@ public class DetailDataToServer {
 		HttpResponse resp = client.execute(post);
 
 		if (resp.getStatusLine().getStatusCode() == 200) {// 这只是链接成功了，或者说是发送成功了。
-			Log.v("status", "success");
 			responseMsg = EntityUtils.toString(resp.getEntity());
 
 		}

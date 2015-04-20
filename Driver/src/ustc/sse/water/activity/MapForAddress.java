@@ -38,10 +38,20 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.services.core.LatLonPoint;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-
+/**
+ * 
+ * Activity类. <br>
+ * 地图选点.
+ * <p>
+ * Copyright: Copyright (c) 2015-4-19 上午10:17:13
+ * <p>
+ * Company: 中国科学技术大学软件学院
+ * <p>
+ * @author 黄志恒 sa14226399@mail.ustc.edu.cn
+ * @version 1.0.0
+ */
 public class MapForAddress extends Activity implements LocationSource,
 		AMapLocationListener, OnClickListener, InfoWindowAdapter,
 		OnMarkerClickListener, OnMapClickListener {
@@ -51,7 +61,6 @@ public class MapForAddress extends Activity implements LocationSource,
 	private Button buttonYes;// “确定”按钮
 	Editor editor;// 获取编辑器
 	private TextView infoShow;// 显示点击处的坐标
-	private String itemAddress;/* 选中的点的地址——黄志恒 */
 	private AutoCompleteTextView keyEdit;/* 输入框 */
 	private double latitude;// 点击点的纬度
 	public String location;// 选中点的坐标
@@ -59,7 +68,6 @@ public class MapForAddress extends Activity implements LocationSource,
 	private LocationManagerProxy mAMapLocationManager;
 	private MapView mapView;/* 用来显示地图的MapView */
 	private OnLocationChangedListener mListener;/* 定位监听 */
-	private LatLonPoint molp;/* 移动点击的点 */
 	private ImageButton myLocation;/* 自定义定位按钮 */
 	private final int resultCode = 4;/* 返回传输的识别码 */
 	SharedPreferences sharedPreferences;/* 定义sharedpreference获取用户登录注册信息 */

@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -15,7 +15,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="停车场名称："
+                android:text="@string/label_manager_parkingName"
                 android:textSize="18sp" />
 
             <EditText
@@ -52,7 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="停车场电话："
+                android:text="@string/label_manager_parkingPhone"
                 android:textSize="18sp" />
 
             <EditText
@@ -73,7 +73,7 @@
             <TextView
                 android:layout_width="162dp"
                 android:layout_height="wrap_content"
-                android:text="预定车位总数(个):"
+                android:text="@string/label_manager_parkingAll"
                 android:textSize="18sp" />
 
             <EditText
@@ -92,7 +92,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="预定车位价格(元)："
+                android:text="@string/label_manager_parkingPrice"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10分钟"
+                android:text="@string/label_manager_priceTen"
                 android:textSize="14sp" />
 
             <EditText
@@ -126,7 +126,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20分钟"
+                android:text="@string/label_manager_priceTwn"
                 android:textSize="14sp" />
 
             <EditText
@@ -146,7 +146,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30分钟"
+                android:text="@string/label_manager_priceThy"
                 android:textSize="14sp" />
 
             <EditText
@@ -162,7 +162,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="停车价格(元):"
+            android:text="@string/label_manager_priceMoney"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -172,7 +172,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="半个小时内:"
+                android:text="@string/label_manager_priceHalf"
                 android:textSize="14sp" />
 
             <EditText
@@ -192,7 +192,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="一个小时内:" />
+                android:text="@string/label_manager_priceHour" />
 
             <EditText
                 android:id="@+id/pprice2"
@@ -211,7 +211,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="一个小时以上:" />
+                android:text="@string/label_manager_priceMore" />
 
             <EditText
                 android:id="@+id/pprice3"
@@ -234,6 +234,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textStyle="bold"
                 android:background="@drawable/manager_commit_selector"
                 android:text="@string/manager_commit"
                 android:textSize="20sp" />
@@ -243,6 +244,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textStyle="bold"
                 android:background="@drawable/manager_update_selector"
                 android:text="@string/manager_update"
                 android:textSize="20sp" />

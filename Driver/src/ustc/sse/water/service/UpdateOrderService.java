@@ -9,7 +9,7 @@ import ustc.sse.water.activity.R;
 import ustc.sse.water.adapter.zjx.OrderStateProcessAdapter;
 import ustc.sse.water.data.model.AdminOrderShow;
 import ustc.sse.water.data.model.OrderShowList;
-import ustc.sse.water.manager.zf.AActivity;
+import ustc.sse.water.manager.zf.ManagerOrderIng;
 import ustc.sse.water.utils.zjx.ConstantKeep;
 import ustc.sse.water.utils.zjx.HttpUtils;
 import android.app.Notification;
@@ -98,11 +98,11 @@ public class UpdateOrderService extends Service {
 											.writeValueAsString(ids));
 							
 							HttpUtils.getJsonContent(requestPath.toString());
-							AActivity.myAdapter = new OrderStateProcessAdapter(
-									AActivity.context, ConstantKeep.aosIng);
+							ManagerOrderIng.myAdapter = new OrderStateProcessAdapter(
+									ManagerOrderIng.context, ConstantKeep.aosIng);
 							Message ms = new Message();
 							ms.arg1 = 44;
-							AActivity.h1.sendMessage(ms);
+							ManagerOrderIng.h1.sendMessage(ms);
 
 							sendNotification("主人！又有" + notifyNumber + "个新订单来了！");
 						} catch (Exception e) {

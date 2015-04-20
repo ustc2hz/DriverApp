@@ -466,7 +466,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	/**
 	 * 点击“路径规划按钮，调用此方法” 以后可能有用，误删——黄志恒
 	 */
-
 	public void planRoute() {
 
 		if (targetPoint != null) {

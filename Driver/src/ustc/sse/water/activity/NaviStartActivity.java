@@ -1,6 +1,5 @@
 package ustc.sse.water.activity;
 
-//import ustc.sse.water.tools.hzh.TTSController;
 import java.util.ArrayList;
 
 import ustc.sse.water.utils.zjx.NaviUtils;
@@ -52,6 +51,8 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	private ProgressDialog mRouteCalculatorProgressDialog;
 	/* 起点列表 */
 	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
+	/* 创建 SpeechSynthesizer 对象, 第二个参数：本地合成时传 InitListener */
+	public SpeechSynthesizer mTts;
 
 	/**
 	 * 导航语音监听
@@ -86,9 +87,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		public void onSpeakResumed() {
 		}
 	};
-
-	/* 创建 SpeechSynthesizer 对象, 第二个参数：本地合成时传 InitListener */
-	public SpeechSynthesizer mTts;
 
 	/**
 	 * 初始化起点终点列表
@@ -129,10 +127,8 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	}
 
 	// ---------------------导航回调--------------------
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		if (requestCode == 2 && resultCode == 4) {
 			if (mTts != null) {
 				mTts.destroy();
@@ -161,13 +157,11 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	public void onCalculateRouteFailure(int arg0) {
 		mTts.startSpeaking("路径计算失败，请检查网络或输入参数", mSynListener);
 		mRouteCalculatorProgressDialog.dismiss();
-
 	}
 
 	/**
 	 * 路径规划成功后的回调函数
 	 */
-
 	@Override
 	public void onCalculateRouteSuccess() {
 		dialog.dissmissProgressDialog();
@@ -180,7 +174,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 		intent.putExtras(bundle);
 		// 跳转到导航界面
 		startActivityForResult(intent, 2);
-
 	}
 
 	// --------------------------------点击事件------------------
@@ -216,13 +209,11 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	@Override
 	public void onEndEmulatorNavi() {
 		mTts.startSpeaking("导航结束", mSynListener);
-
 	}
 
 	@Override
 	public void onGetNavigationText(int arg0, String arg1) {
 		mTts.startSpeaking(arg1, mSynListener);
-
 	}
 
 	@Override
@@ -258,7 +249,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 			finish();
 		}
 		return super.onKeyDown(keyCode, event);
-
 	}
 
 	@Override
@@ -266,7 +256,6 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	}
 
 	// ---------------------导航View事件回调-----------------------------
-
 	@Override
 	public void onNaviCancel() {
 		if (mTts != null) {
@@ -297,13 +286,11 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	@Override
 	public void onReCalculateRouteForTrafficJam() {
 		mTts.startSpeaking("前方道路拥挤，路线重新规划", mSynListener);
-
 	}
 
 	@Override
 	public void onReCalculateRouteForYaw() {
 		mTts.startSpeaking("您已偏离规划路线", mSynListener);
-
 	}
 
 	@Override

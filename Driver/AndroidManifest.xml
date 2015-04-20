@@ -82,7 +82,7 @@
 
         <!-- 默认订单界面 -->
         <activity
-            android:name="ustc.sse.water.manager.zf.AActivity"
+            android:name="ustc.sse.water.manager.zf.ManagerOrderIng"
             android:label="@string/app_name" />
 
         <!-- 发布消息界面 -->
@@ -92,11 +92,11 @@
 
         <!-- 个人设置界面 -->
         <activity
-            android:name="ustc.sse.water.manager.zf.CActivity"
+            android:name="ustc.sse.water.manager.zf.ManagerInfo"
             android:label="@string/app_name" />
 
         <activity
-            android:name="ustc.sse.water.manager.zf.DActivity"
+            android:name="ustc.sse.water.manager.zf.ManagerOrderDown"
             android:label="@string/app_name" />
 
         <!-- 停车场修改密码 -->

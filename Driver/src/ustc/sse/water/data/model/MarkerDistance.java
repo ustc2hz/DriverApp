@@ -16,8 +16,8 @@ import com.amap.api.maps.model.Marker;
  */
 public class MarkerDistance {
 
-	public Marker marker;
-	public float distance;
+	public Marker marker; // Marker
+	public float distance; // 距离
 
 	public MarkerDistance(Marker marker, float distance) {
 		this.marker = marker;

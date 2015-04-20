@@ -74,6 +74,7 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 		listView = (ListView) findViewById(R.id.listview_order_info);
 		listView.setOnItemClickListener(this);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar_waiting);
+		progressDialog = new ProgressDialogUtil(this, "正在刷新...");
 
 		if (driverOrders != null) {
 			adapter = new DriverOrderAdapter(this, driverOrders);
@@ -113,6 +114,7 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 				progressBar.setVisibility(View.GONE);
 				break;
 			case 33: // 获取失败
+				progressDialog.dissmissProgressDialog();
 				ToastUtil.show(DriverOrderInfo.this, "没有订单数据");
 				progressBar.setVisibility(View.GONE);
 				break;
@@ -144,7 +146,6 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 			finish(); // 返回主菜单
 			break;
 		case R.id.driver_order_list_refresh:
-			progressDialog = new ProgressDialogUtil(this, "正在刷新...");
 			// 开启线程刷新订单数据
 			RefreshDriverOrdersThread refresh = new RefreshDriverOrdersThread(
 					h, "1", String.valueOf(driverId));

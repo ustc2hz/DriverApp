@@ -28,8 +28,10 @@ import com.amap.api.maps.model.MarkerOptions;
  * @version 1.0.0
  */
 public class PoiOverlay {
-	private AMap mAMap;
+	private AMap mAMap; // 地图
+	// Marker列表
 	private ArrayList<Marker> mPoiMarks = new ArrayList<Marker>();
+	// 云图停车场
 	private List<CloudItem> mPois;
 
 	/**
@@ -96,7 +98,6 @@ public class PoiOverlay {
 								.getLatLonPoint().getLongitude()))
 				.title(getTitle(index)).snippet(getSnippet(index))
 				.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon1));
-		// BitmapDescriptorFactory.fromResource(R.drawable.point)
 	}
 
 	/**

@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="@string/label_username" />
 
     <TextView
@@ -17,15 +19,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         android:textSize="20sp" />
 
     <Button
         android:id="@+id/button_update_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:textColor="#FF6347"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="@string/driver_update_password"
         android:background="@drawable/button" />
 
@@ -36,6 +42,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="10dp"
+        android:textColor="#FF6347"
+        android:textSize="20sp"
+        android:textStyle="bold"
         android:text="@string/driver_logout"
         android:background="@drawable/button" />
 

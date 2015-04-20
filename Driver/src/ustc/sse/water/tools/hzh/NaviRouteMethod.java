@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import ustc.sse.water.utils.zjx.ProgressDialogUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
-import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.amap.api.maps.AMap;
@@ -16,8 +15,6 @@ import com.amap.api.navi.model.AMapNaviPath;
 import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
 import com.amap.api.services.core.LatLonPoint;
-import com.amap.api.services.route.DriveRouteResult;
-import com.amap.api.services.route.RouteSearch;
 
 /**
  * 路径规划类 <br>
@@ -36,10 +33,6 @@ public class NaviRouteMethod implements AMapNaviListener {
 	private AMap aMap;
 	/* 传递过来的上下文 */
 	private Context context;
-	/* 驾车模式查询结果 */
-	private DriveRouteResult driveRouteResult;
-	/* 驾车默认模式 */
-	private int drivingMode = RouteSearch.DrivingDefault;
 	private ProgressDialogUtil du;
 	/* 计算路径时的起始位置 */
 	private LatLonPoint endPoint = null;
@@ -50,10 +43,6 @@ public class NaviRouteMethod implements AMapNaviListener {
 	// 规划线路
 	public RouteOverLay mRouteOverLay;
 	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
-	/* 搜索时进度条 */
-	private ProgressDialog progDialog = null;
-	/* 路径搜索类的对象 */
-	private RouteSearch routeSearch;
 	/* 计算路径时的结束位置 */
 	private LatLonPoint startPoint = null;
 
@@ -81,7 +70,6 @@ public class NaviRouteMethod implements AMapNaviListener {
 		this.endPoint = tp;
 		du = new ProgressDialogUtil(this.context, "正在搜索...");
 		if (initValue()) {
-			// routeSearch = new RouteSearch(con);
 			du.showProgressDialog();
 			calculateDriveRoute();
 		} else {
@@ -137,7 +125,6 @@ public class NaviRouteMethod implements AMapNaviListener {
 	@Override
 	public void onCalculateRouteFailure(int arg0) {
 		ToastUtil.show(this.context, "路径规划出错" + arg0);
-		// mIsCalculateRouteSuccess = false;
 		return;
 	}
 
@@ -148,13 +135,10 @@ public class NaviRouteMethod implements AMapNaviListener {
 		if (naviPath == null) {
 			return;
 		}
-		// du.dissmissProgressDialog();
 		// 获取路径规划线路，显示到地图上
 		mRouteOverLay.setRouteInfo(naviPath);
 		mRouteOverLay.addToMap();
-		// mIsCalculateRouteSuccess = true;
 		AMapNavi.getInstance(this.context).removeAMapNaviListener(this);
-		// mAMapNavi = null;
 	}
 
 	@Override

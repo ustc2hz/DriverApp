@@ -44,11 +44,9 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	// 构造sharedPreference的编辑对象——黄志恒
 	SharedPreferences.Editor editor;
 	// 停车场地址的经纬度——黄志恒
-	// private String address;
 	private String location;
 	// 地图选点按钮
 	private Button modeButton;
-
 	// 停车场名称全局变量——黄志恒
 	private String name;
 	// 用于获取停车场停车位总数的值
@@ -65,7 +63,6 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	private String parking_one_hour_price;
 	// 用于获取停车场停车超过1个小时收费金额的值
 	private String parking_onemore_hour_price;
-
 	// 停车场停车位数量输入框
 	private EditText park_number;
 	// 停车场10分钟预定订金输入框
@@ -80,10 +77,8 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	private EditText park_one_hour_price;
 	// 停车场停车场超过1个小时收费金额输入框
 	private EditText park_more_hour_price;
-
 	// 停车场地理坐标——黄志恒
 	private EditText parkLocation;
-
 	// 停车场名称——黄志恒
 	private EditText parkName;
 	// 停车场电话——黄志恒
@@ -92,10 +87,8 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	private ParkDetailObject pdo;
 	// 停车场电话全局变量——黄志恒
 	private String phone;
-
 	// 将停车场详细数据发送到服务器的对象——黄志恒
 	DetailDataToServer postData;
-
 	// SharedPreference获取当前的发布信息
 	SharedPreferences preferences;
 	// 获取管理员名字

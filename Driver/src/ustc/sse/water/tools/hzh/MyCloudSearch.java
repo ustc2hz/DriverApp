@@ -1,15 +1,12 @@
 package ustc.sse.water.tools.hzh;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import ustc.sse.water.activity.R;
 import ustc.sse.water.utils.zjx.AMapUtil;
 import ustc.sse.water.utils.zjx.ToastUtil;
 import android.content.Context;
-import android.util.Log;
 
 import com.amap.api.cloud.model.AMapCloudException;
 import com.amap.api.cloud.model.CloudItem;
@@ -38,7 +35,6 @@ import com.amap.api.maps.model.MarkerOptions;
  * @version 1.0.0
  */
 public class MyCloudSearch implements OnCloudSearchListener {
-	// history：改为static，方便调用--zjx
 	public static ArrayList<CloudItem> items = new ArrayList<CloudItem>();// 存储从服务器中获取的节点
 	public static List<CloudItem> mCloudItems;// 存储从服务器中获取的点
 	public static CloudSearch mCloudSearch;// 云搜索对象
@@ -50,7 +46,6 @@ public class MyCloudSearch implements OnCloudSearchListener {
 	private Marker mCloudIDMarer;// 显示从服务器中获取的点的标记
 	private String mKeyWord = "";// 搜索的关键字，可以缺省
 	private CloudSearch.Query mQuery;// 云搜索的query对象
-	private String TAG = "DriverYunTu";// 标签，不在前端显示
 
 	/**
 	 * 空构造函数
@@ -92,20 +87,13 @@ public class MyCloudSearch implements OnCloudSearchListener {
 	 */
 	@Override
 	public void onCloudItemDetailSearched(CloudItemDetail item, int rCode) {
-		// TODO Auto-generated method stub
 
 		if (rCode == 0 && item != null) {
 			if (mCloudIDMarer != null) {
 				mCloudIDMarer.destroy();
 			}
-			// mAMap.clear();
 			// 将坐标点转换为LatLng格式
 			LatLng position = AMapUtil.convertToLatLng(item.getLatLonPoint());
-
-			/*
-			 * mAMap.animateCamera(CameraUpdateFactory .newCameraPosition(new
-			 * CameraPosition(position, 18, 0, 30)));
-			 */
 
 			// 向地图添加服务器的节点
 			mCloudIDMarer = mAMap
@@ -114,22 +102,7 @@ public class MyCloudSearch implements OnCloudSearchListener {
 							.title(item.getTitle())
 							.icon(BitmapDescriptorFactory
 									.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-			// BitmapDescriptorFactory.fromResource(R.drawable.point)
 			items.add(item);
-			Log.d(TAG, "_id" + item.getID());
-			Log.d(TAG, "_location" + item.getLatLonPoint().toString());
-			Log.d(TAG, "_name" + item.getTitle());
-			Log.d(TAG, "_address" + item.getSnippet());
-			Log.d(TAG, "_caretetime" + item.getCreatetime());
-			Log.d(TAG, "_updatetime" + item.getUpdatetime());
-			Log.d(TAG, "_distance" + item.getDistance());
-			Iterator iter = item.getCustomfield().entrySet().iterator();
-			while (iter.hasNext()) {
-				Map.Entry entry = (Map.Entry) iter.next();
-				Object key = entry.getKey();
-				Object val = entry.getValue();
-				Log.d(TAG, key + "   " + val);
-			}
 		}
 
 	}
@@ -152,43 +125,11 @@ public class MyCloudSearch implements OnCloudSearchListener {
 								mCloudItems);
 						mPoiCloudOverlay.removeFromMap();
 						mPoiCloudOverlay.addToMap();
-						// mPoiCloudOverlay.zoomToSpan();
 						for (CloudItem item : mCloudItems) {
 							items.add(item);
-							Log.d(TAG, "_id " + item.getID());
-							Log.d(TAG, "_location "
-									+ item.getLatLonPoint().toString());
-							Log.d(TAG, "_name " + item.getTitle());
-							Log.d(TAG, "_address " + item.getSnippet());
-							Log.d(TAG, "_caretetime " + item.getCreatetime());
-							Log.d(TAG, "_updatetime " + item.getUpdatetime());
-							Log.d(TAG, "_distance " + item.getDistance());
-							Iterator iter = item.getCustomfield().entrySet()
-									.iterator();
-							while (iter.hasNext()) {
-								Map.Entry entry = (Map.Entry) iter.next();
-								Object key = entry.getKey();
-								Object val = entry.getValue();
-								Log.d(TAG, key + "   " + val);
-							}
 						}
 						if (mQuery.getBound().getShape()
 								.equals(SearchBound.BOUND_SHAPE)) {// 圆形
-							/*
-							 * mAMap.addCircle(new CircleOptions() .center(new
-							 * LatLng(mCenterPoint .getLatitude(), mCenterPoint
-							 * .getLongitude())).radius(5000) .strokeColor( //
-							 * Color.argb(50, 1, 1, 1) Color.RED)
-							 * .fillColor(Color.argb(50, 1, 1, 1))
-							 * .strokeWidth(25));
-							 */
-
-							/*
-							 * mAMap.moveCamera(CameraUpdateFactory.newLatLngZoom
-							 * ( new LatLng(mCenterPoint.getLatitude(),
-							 * mCenterPoint.getLongitude()), 12));
-							 */
-
 						} else if (mQuery.getBound().getShape()
 								.equals(SearchBound.POLYGON_SHAPE)) {
 
@@ -196,13 +137,8 @@ public class MyCloudSearch implements OnCloudSearchListener {
 								.equals(SearchBound.LOCAL_SHAPE))) {
 							mPoiCloudOverlay.zoomToSpan();
 						}
-
-					} else {
-						// ToastUtil.show(con, R.string.no_yun_result);
 					}
 				}
-			} else {
-				// ToastUtil.show(con, R.string.no_yun_result);
 			}
 		} else {
 			ToastUtil.show(con, R.string.error_network);
@@ -211,7 +147,6 @@ public class MyCloudSearch implements OnCloudSearchListener {
 
 	// 进行服务器搜索点的函数
 	public void searchByBound() {
-		// showProgressDialog("searchByBound");
 		items.clear();
 		SearchBound bound = new SearchBound(new LatLonPoint(
 				mCenterPoint.getLatitude(), mCenterPoint.getLongitude()), 4000);
@@ -225,7 +160,6 @@ public class MyCloudSearch implements OnCloudSearchListener {
 		} catch (AMapCloudException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }

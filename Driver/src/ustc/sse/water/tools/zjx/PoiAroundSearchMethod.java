@@ -60,8 +60,6 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 	ProgressDialogUtil dialog;
 	/* 搜索中心 */
 	private LatLonPoint lp;
-	/* 路径规划的目的地的点 ——黄志恒注 */
-	private LatLonPoint targetPoint;
 	/* 记录屏幕上的marker的个数 */
 	public static List<Marker> list;
 
