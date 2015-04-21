@@ -37,17 +37,17 @@ import android.widget.Toast;
 
 public class ParkingCreatement extends Activity implements OnClickListener {
 
-	// jackson的ObjectMapper,用于在json字符串和Java对象间转换——黄志恒
+	// jackson的ObjectMapper,用于在json字符串和Java对象间转换
 	public static ObjectMapper objectMapper = new ObjectMapper();
 	// button的申明
 	private Button changeMess, commit;
-	// 构造sharedPreference的编辑对象——黄志恒
+	// 构造sharedPreference的编辑对象
 	SharedPreferences.Editor editor;
-	// 停车场地址的经纬度——黄志恒
+	// 停车场地址的经纬度
 	private String location;
 	// 地图选点按钮
 	private Button modeButton;
-	// 停车场名称全局变量——黄志恒
+	// 停车场名称全局变量
 	private String name;
 	// 用于获取停车场停车位总数的值
 	private String parking_num;
@@ -99,7 +99,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	private String managerName;
 
 	/**
-	 * 返回通知数据提交服务器是否成功——黄志恒
+	 * 返回通知数据提交服务器是否成功
 	 */
 	Handler handler = new Handler() {
 		@Override
@@ -223,7 +223,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 初始化停车场详细信息对象——黄志恒
+	 * 初始化停车场详细信息对象
 	 * */
 	public void initObject() {
 		// 初始化pdo对象
@@ -252,7 +252,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 初始化存储——黄志恒
+	 * 初始化存储
 	 */
 	public void initSharedPreference() {
 		// 取出preferenced的對象
@@ -271,7 +271,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 初始化输入框中显示的信息——黄志恒
+	 * 初始化输入框中显示的信息
 	 */
 	public void initText() {
 		park_number.setHint(preferences.getString("num", "空"));
@@ -290,7 +290,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 初始化界面控件——黄志恒
+	 * 初始化界面控件
 	 */
 	public void initViews() {
 
@@ -427,7 +427,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 发送创建新停车场的数据——黄志恒
+	 * 发送创建新停车场的数据
 	 *
 	 * @throws Exception
 	 * @throws JsonMappingException
@@ -445,7 +445,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 发送创建新停车场的数据——黄志恒
+	 * 发送创建新停车场的数据
 	 *
 	 * @throws Exception
 	 */
@@ -455,7 +455,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 保存输入框的数据——黄志恒
+	 * 保存输入框的数据
 	 */
 	public void SaveEditTextData() {
 		name = parkName.getText().toString().trim();
