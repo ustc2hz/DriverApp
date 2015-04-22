@@ -6,12 +6,12 @@ import java.util.List;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import ustc.sse.water.activity.R;
-import ustc.sse.water.adapter.zjx.OrderStateProcessAdapter;
-import ustc.sse.water.data.model.AdminOrderShow;
-import ustc.sse.water.data.model.OrderShowList;
-import ustc.sse.water.manager.zf.ManagerOrderIng;
-import ustc.sse.water.utils.zjx.ConstantKeep;
-import ustc.sse.water.utils.zjx.HttpUtils;
+import ustc.sse.water.adapter.OrderStateProcessAdapter;
+import ustc.sse.water.data.AdminOrderShow;
+import ustc.sse.water.data.OrderShowList;
+import ustc.sse.water.manager.ManagerOrderIng;
+import ustc.sse.water.utils.ConstantKeep;
+import ustc.sse.water.utils.HttpUtils;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;

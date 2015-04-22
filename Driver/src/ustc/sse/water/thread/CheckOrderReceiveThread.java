@@ -1,6 +1,6 @@
 package ustc.sse.water.thread;
 
-import ustc.sse.water.utils.zjx.HttpUtils;
+import ustc.sse.water.utils.HttpUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;

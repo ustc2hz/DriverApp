@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import ustc.sse.water.utils.zjx.HttpUtils;
+import ustc.sse.water.utils.HttpUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;

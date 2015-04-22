@@ -1,7 +1,7 @@
 package ustc.sse.water.thread;
 
-import ustc.sse.water.utils.zjx.HttpUtils;
-import ustc.sse.water.utils.zjx.ToastUtil;
+import ustc.sse.water.utils.HttpUtils;
+import ustc.sse.water.utils.ToastUtil;
 import android.content.Context;
 
 /**

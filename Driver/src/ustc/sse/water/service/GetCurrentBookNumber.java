@@ -1,6 +1,6 @@
 package ustc.sse.water.service;
 
-import ustc.sse.water.utils.zjx.HttpUtils;
+import ustc.sse.water.utils.HttpUtils;
 import android.app.IntentService;
 import android.content.Intent;
 

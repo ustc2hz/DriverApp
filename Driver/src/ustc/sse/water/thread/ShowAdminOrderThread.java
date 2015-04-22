@@ -2,9 +2,9 @@ package ustc.sse.water.thread;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import ustc.sse.water.data.model.OrderShowList;
-import ustc.sse.water.utils.zjx.ConstantKeep;
-import ustc.sse.water.utils.zjx.HttpUtils;
+import ustc.sse.water.data.OrderShowList;
+import ustc.sse.water.utils.ConstantKeep;
+import ustc.sse.water.utils.HttpUtils;
 import android.os.Handler;
 import android.os.Message;
 
