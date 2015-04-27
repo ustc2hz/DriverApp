@@ -28,7 +28,8 @@ import com.iflytek.cloud.SynthesizerListener;
 /**
  *
  * 导航中间层类 <br>
- * 该类用来对导航类的初始化，提供导航类的上下文
+ * 该类用来对导航类的初始化，提供导航类的上下文 该类中部分功能使用高德地图API，此APP遵守高德地图API的使用条款
+ * 该类中部分功能使用讯飞语音API，此APP遵守讯飞语音API的使用条款
  * <p>
  * Copyright: Copyright (c) 2014-12-08 下午17:12:02
  * <p>
@@ -44,19 +45,21 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	private ProgressDialogUtil dialog = new ProgressDialogUtil(this, "正在搜索...");
 	/* 终点列表 */
 	private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
-	/* 终点 */
+	/* 终点——此类由高德地图API提供 */
 	private NaviLatLng mNaviEnd;
-	/* 起点 */
+	/* 起点——此类由高德地图API提供 */
 	private NaviLatLng mNaviStart;
 	/* 路径规划过程显示状态 */
 	private ProgressDialog mRouteCalculatorProgressDialog;
 	/* 起点列表 */
 	private ArrayList<NaviLatLng> mStartPoints = new ArrayList<NaviLatLng>();
-	/* 创建 SpeechSynthesizer 对象, 第二个参数：本地合成时传 InitListener */
+	/*
+	 * 创建 SpeechSynthesizer 对象, 第二个参数：本地合成时传 InitListener 此类由讯飞语音API提供
+	 */
 	public SpeechSynthesizer mTts;
 
 	/**
-	 * 导航语音监听
+	 * 导航语音监听 此方法由高德地图API提供
 	 */
 	private SynthesizerListener mSynListener = new SynthesizerListener() {
 
@@ -161,7 +164,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 	}
 
 	/**
-	 * 路径规划成功后的回调函数
+	 * 路径规划成功后的回调函数 此方法由高德地图API提供
 	 */
 	@Override
 	public void onCalculateRouteSuccess() {

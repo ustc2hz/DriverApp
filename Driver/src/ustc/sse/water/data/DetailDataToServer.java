@@ -16,7 +16,7 @@ import ustc.sse.water.utils.HttpUtils;
 
 /**
  * DetailDataToServer 将停车场收费规则数据发送至服务器. <br>
- * 类详细说明.
+ * 将停车场收费规则数据发送至服务器
  * <p>
  * Copyright: Copyright (c) 2015年1月29日 下午2:01:33
  * <p>

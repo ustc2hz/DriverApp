@@ -13,7 +13,7 @@ import com.amap.api.navi.AMapNaviViewListener;
 
 /**
  * 导航类，导航界面 <br>
- * 提供导航功能
+ * 提供导航功能 该类中部分功能使用高德地图API，此APP遵守高德地图API的使用条款
  * <p>
  * Copyright: Copyright (c) 2014年11月29日 下午3:51:53
  * <p>
@@ -25,7 +25,7 @@ import com.amap.api.navi.AMapNaviViewListener;
  */
 public class DriverNaviActivity extends Activity implements
 		AMapNaviViewListener {
-	// 导航View
+	// 导航View——此类由高德地图API提供
 	private AMapNaviView mAmapAMapNaviView;
 	// 记录有哪个页面跳转而来，处理返回键
 	private int mCode = -1;
@@ -108,7 +108,7 @@ public class DriverNaviActivity extends Activity implements
 
 	// -----------------------------导航界面回调事件------------------------
 	/**
-	 * 导航界面返回按钮监听
+	 * 导航界面返回按钮监听 此方法由高德地图API提供
 	 * */
 	@Override
 	public void onNaviCancel() {
@@ -161,7 +161,9 @@ public class DriverNaviActivity extends Activity implements
 
 	/**
 	 * 处理传入进来的数据
-	 * @param bundle 存储数据的对象
+	 * 
+	 * @param bundle
+	 *            存储数据的对象
 	 */
 	private void processBundle(Bundle bundle) {
 		if (bundle != null) {

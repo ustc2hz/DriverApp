@@ -43,15 +43,14 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
 /**
- *
  * Activity类. <br>
- * 地图选点.
+ * 地图选点. 该类中部分功能使用高德地图API，此APP遵守高德地图API的使用条款
  * <p>
  * Copyright: Copyright (c) 2015-4-19 上午10:17:13
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- * 
+ *
  * @author 黄志恒 sa14226399@mail.ustc.edu.cn
  * @version 1.0.0
  */
@@ -59,7 +58,7 @@ public class MapForAddress extends Activity implements LocationSource,
 		AMapLocationListener, OnClickListener, InfoWindowAdapter,
 		OnMarkerClickListener, OnMapClickListener {
 
-	private AMap aMap; /* 高德地图AMap */
+	private AMap aMap; /* 高德地图AMap——此类由高德地图API提供 */
 	private Button buttonBack;// “返回”按钮
 	private Button buttonYes;// “确定”按钮
 	Editor editor;// 获取编辑器
@@ -68,17 +67,17 @@ public class MapForAddress extends Activity implements LocationSource,
 	private double latitude;// 点击点的纬度
 	public String location;// 选中点的坐标
 	private double longitude;// 点击点的经度
-	private LocationManagerProxy mAMapLocationManager;
+	private LocationManagerProxy mAMapLocationManager;// 监听地图定位信息——此类由高德地图API提供
 	private MapView mapView;/* 用来显示地图的MapView */
-	private OnLocationChangedListener mListener;/* 定位监听 */
+	private OnLocationChangedListener mListener;/* 定位监听——此类由高德地图API提供 */
 	private ImageButton myLocation;/* 自定义定位按钮 */
 	private final int resultCode = 4;/* 返回传输的识别码 */
 	SharedPreferences sharedPreferences;/* 定义sharedpreference获取用户登录注册信息 */
-	private UiSettings uiSettings;/* 地图的基本设置 */
+	private UiSettings uiSettings;/* 地图的基本设置——此类由高德地图API提供 */
 	private ImageView voiceInput;/* 语音输入 */
 
 	/**
-	 * 激活定位
+	 * 激活定位 此方法由高德地图API提供
 	 */
 	@Override
 	public void activate(OnLocationChangedListener listener) {
@@ -91,7 +90,7 @@ public class MapForAddress extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 停止定位
+	 * 停止定位 此方法由高德地图API提供
 	 */
 	@Override
 	public void deactivate() {
@@ -245,9 +244,6 @@ public class MapForAddress extends Activity implements LocationSource,
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;

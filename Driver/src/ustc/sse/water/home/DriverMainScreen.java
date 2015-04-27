@@ -71,7 +71,7 @@ import com.iflytek.cloud.SpeechUtility;
 /**
  *
  * 首界面类 <br>
- * 该类用来显示高德地图，并完成基本操作如：定位、导航、搜索、路线规划和停车场列表等
+ * 该类用来显示高德地图，并完成基本操作如：定位、导航、搜索、路线规划和停车场列表等 该类中部分功能使用高德地图API，此APP遵守高德地图API的使用条款
  * <p>
  * Copyright: Copyright (c) 2015-01-31 下午15:35:02
  * <p>
@@ -92,26 +92,26 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private static final int LOGIN_STATUS_NO = 2;// 没有人登录过，或者登录者已经退出
 	private long exitTime = 0; // 记录退出按键时间
 
-	public static AMap aMap; /* 高德地图AMap */
+	public static AMap aMap; /* 高德地图AMap——此类由高德地图API提供 */
 	private String[] bookMoney; /* 记录停车场收费信息的数组——黄志恒 */
 	private RadioButton Carservice;/* 汽车生活按钮——黄志恒 */
 	private int itemDistance; /* 选中的点距离目的位置或自身位置的距离——黄志恒 */
 	private AutoCompleteTextView keyEdit; /* 输入框 */
-	public static LatLonPoint lp; /* 当前位置的点——黄志恒注 */
-	private LocationManagerProxy mAMapLocationManager;
+	public static LatLonPoint lp; /* 当前位置的点——此类由高德地图API提供 */
+	private LocationManagerProxy mAMapLocationManager/* 坐标监听——此类由高德地图API提供 */;
 
-	private MapView mapView; /* 用来显示地图的MapView */
-	MyCloudSearch mCloud; /* 搜索云图的对象——黄志恒 */
-	private OnLocationChangedListener mListener;/* 定位监听 */
+	private MapView mapView; /* 用来显示地图的MapView——此类由高德地图API提供 */
+	MyCloudSearch mCloud; /* 搜索云图的对象——此类由高德地图API提供 */
+	private OnLocationChangedListener mListener;/* 定位监听——此类由高德地图API提供 */
 	private ImageButton myLocation; /* 自定义定位按钮 */
 	private String name; /* 获取当前停车场的名称——黄志恒 */
 	private String orderPrice; /* 获取当前停车场的订金信息——黄志恒 */
 	private String parkPrice; /* 获取当前停车场的停车收费信息——黄志恒 */
 	private String parkSum; /* 停车位数量——黄志恒 */
-	PoiAroundSearchMethod pas; /* 周边搜索的类 ——黄志恒注 */
+	PoiAroundSearchMethod pas; /* 周边搜索的类 ——此类由高德地图API提供 */
 	private String phone; /* 获取当前停车场的电话号码——黄志恒 */
 
-	private PoiSearchMethod poisearch; /* 搜索对象——黄志恒注 */
+	private PoiSearchMethod poisearch; /* 搜索对象——此类由高德地图API提供 */
 	private String poiType; /* 搜索类型——黄志恒注 */
 	private RadioButton RMine; /* '我的'按钮——黄志恒 */
 	private RadioButton RNavi; /* 导航按钮——黄志恒 */
@@ -119,19 +119,19 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	SharedPreferences sharedPreferences; /* 定义sharedpreference获取用户登录注册信息 */
 	private TextView showInfo;/* 设置一个文本显示区域，用来显示当前停车场的概要信息——黄志恒 */
 	private boolean showText = true;/* 判断是否显示文字区域 */
-	public static LatLonPoint targetPoint;/* 路径规划的目的地的点 ——黄志恒注 */
-	private UiSettings uiSettings;/* 地图的基本设置 */
+	public static LatLonPoint targetPoint;/* 路径规划的目的地的点 ——此类由高德地图API提供 */
+	private UiSettings uiSettings;/* 地图的基本设置——此类由高德地图API提供 */
 	private ImageView voiceInput;/* 语音输入 */
 	private String managerId;/* 停车场管理员ID */
 	private String parkingAddress;/* 停车场地址（坐标） */
 	private String parkType;/* 停车场类型：是APP创建或者是WEB创建 */
 	private Thread th;/* 实现启动APP默认显示离用户最近的停车场 */
 
-	public static LatLng orderLocation = null;/* 用于显示订单位置 */
+	public static LatLng orderLocation = null;/* 用于显示订单位置——此类由高德地图API提供 */
 	private boolean isFirst = true;/* 用来判断是否是第一次启动APP */
 
 	/**
-	 * 激活定位
+	 * 激活定位 此方法由高德地图API提供
 	 */
 	@Override
 	public void activate(OnLocationChangedListener listener) {
@@ -144,7 +144,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 停止定位
+	 * 停止定位 此方法由高德地图API提供
 	 */
 	@Override
 	public void deactivate() {
@@ -222,7 +222,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 接收从DriverLife传递过来的返回参数
+	 * 接收从DriverLife传递过来的返回参数 此方法由高德地图API提供
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -321,7 +321,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 定位完成后回调该方法
+	 * 定位完成后回调该方法 此方法由高德地图API提供
 	 */
 	@Override
 	public void onLocationChanged(AMapLocation aLocation) {
@@ -342,6 +342,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	public void onLocationChanged(Location location) {
 	}
 
+	/**
+	 * 响应地图点击事件
+	 *
+	 * @param arg0
+	 *            点击的点生成的对象 此方法由高德地图API提供
+	 */
 	@Override
 	public void onMapClick(LatLng arg0) {
 		aMap.clear();
@@ -360,6 +366,12 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	}
 
+	/**
+	 * 响应地图长时间点击点击事件
+	 *
+	 * @param arg0
+	 *            点击的点生成的对象 此方法由高德地图API提供
+	 */
 	@Override
 	public void onMapLongClick(LatLng arg0) {
 		if (showText == false) {
@@ -370,7 +382,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 点击地图上标记点后执行的操作
+	 * 点击地图上标记点后执行的操作 * @param marker 点击的点生成的标记对象 此方法由高德地图API提供
 	 */
 	@Override
 	public boolean onMarkerClick(Marker marker) {
