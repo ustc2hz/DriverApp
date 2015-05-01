@@ -8,458 +8,455 @@
 package ustc.sse.water.activity;
 
 public final class R {
-    public static final class array {
-        public static final int functions=0x7f040000;
-    }
     public static final class attr {
     }
     public static final class color {
         /** 蜜色 
          */
-        public static final int aliceblue=0x7f05002c;
+        public static final int aliceblue=0x7f04002c;
         /** 亚麻色 
          */
-        public static final int antiquewhite=0x7f050022;
+        public static final int antiquewhite=0x7f040022;
         /** 中灰兰色 
          */
-        public static final int aqua=0x7f050082;
+        public static final int aqua=0x7f040082;
         /** 粟色 
          */
-        public static final int aquamarine=0x7f050063;
+        public static final int aquamarine=0x7f040063;
         /** 沙褐色
          */
-        public static final int azure=0x7f05002a;
-        public static final int background=0x7f050095;
+        public static final int azure=0x7f04002a;
+        public static final int background=0x7f040095;
         /** 烟白色 
          */
-        public static final int beige=0x7f050027;
+        public static final int beige=0x7f040027;
         /** 浅玫瑰色 
          */
-        public static final int bisque=0x7f05000d;
+        public static final int bisque=0x7f04000d;
         /** 海军色 
          */
-        public static final int black=0x7f050091;
+        public static final int black=0x7f040091;
         /** 番木色 
          */
-        public static final int blanchedalmond=0x7f05000b;
+        public static final int blanchedalmond=0x7f04000b;
         /** 暗绿色 
          */
-        public static final int blue=0x7f05008d;
+        public static final int blue=0x7f04008d;
         /** 暗红色 
          */
-        public static final int blueviolet=0x7f05005b;
+        public static final int blueviolet=0x7f04005b;
         /** 黑色 
          */
-        public static final int bookColor=0x7f050092;
+        public static final int bookColor=0x7f040092;
         /** 暗灰色 
          */
-        public static final int brown=0x7f050050;
+        public static final int brown=0x7f040050;
         /** 亮青色 
          */
-        public static final int burlywood=0x7f050034;
+        public static final int burlywood=0x7f040034;
         /** 菊兰色 
          */
-        public static final int cadetblue=0x7f050071;
+        public static final int cadetblue=0x7f040071;
         /** 碧绿色
          */
-        public static final int chartreuse=0x7f050064;
+        public static final int chartreuse=0x7f040064;
         /** 茶色 
          */
-        public static final int chocolate=0x7f05003f;
+        public static final int chocolate=0x7f04003f;
         /**  水蓝 
          */
-        public static final int color_driver_changeLicence1=0x7f050097;
-        public static final int color_driver_welcome=0x7f050096;
+        public static final int color_driver_changeLicence1=0x7f040097;
+        public static final int color_driver_welcome=0x7f040096;
         /** 暗桔黄色 
          */
-        public static final int coral=0x7f050017;
+        public static final int coral=0x7f040017;
         /** 中绿色 
          */
-        public static final int cornflowerblue=0x7f050070;
+        public static final int cornflowerblue=0x7f040070;
         /** 柠檬绸色 
          */
-        public static final int cornsilk=0x7f050007;
+        public static final int cornsilk=0x7f040007;
         /** 淡灰色 
          */
-        public static final int crimson=0x7f050037;
+        public static final int crimson=0x7f040037;
         /** 浅绿色 
          */
-        public static final int cyan=0x7f050083;
+        public static final int cyan=0x7f040083;
         /** 中兰色 
          */
-        public static final int darkblue=0x7f05008f;
+        public static final int darkblue=0x7f04008f;
         /** 深天蓝色 
          */
-        public static final int darkcyan=0x7f050089;
+        public static final int darkcyan=0x7f040089;
         /** 中粉紫色 
          */
-        public static final int darkgoldenrod=0x7f050047;
+        public static final int darkgoldenrod=0x7f040047;
         /** 亮蓝色 
          */
-        public static final int darkgray=0x7f05004e;
+        public static final int darkgray=0x7f04004e;
         /** 绿色 
          */
-        public static final int darkgreen=0x7f05008c;
+        public static final int darkgreen=0x7f04008c;
         /** 暗灰色 
          */
-        public static final int darkgrey=0x7f05004f;
+        public static final int darkgrey=0x7f04004f;
         /** 银色 
          */
-        public static final int darkkhaki=0x7f050044;
+        public static final int darkkhaki=0x7f040044;
         /** 重褐色 
          */
-        public static final int darkmagenta=0x7f050059;
+        public static final int darkmagenta=0x7f040059;
         /** 军兰色 
          */
-        public static final int darkolivegreen=0x7f050072;
+        public static final int darkolivegreen=0x7f040072;
         /** 亮肉色 
          */
-        public static final int darkorange=0x7f050016;
+        public static final int darkorange=0x7f040016;
         /** 赭色 
          */
-        public static final int darkorchid=0x7f050052;
+        public static final int darkorchid=0x7f040052;
         /** 暗洋红 
          */
-        public static final int darkred=0x7f05005a;
+        public static final int darkred=0x7f04005a;
         /** 紫罗兰色 
          */
-        public static final int darksalmon=0x7f050031;
+        public static final int darksalmon=0x7f040031;
         /** 亮绿色 
          */
-        public static final int darkseagreen=0x7f050057;
+        public static final int darkseagreen=0x7f040057;
         /** 中绿宝石 
          */
-        public static final int darkslateblue=0x7f050075;
+        public static final int darkslateblue=0x7f040075;
         /** 橙绿色 
          */
-        public static final int darkslategray=0x7f05007b;
+        public static final int darkslategray=0x7f04007b;
         /** 暗瓦灰色 
          */
-        public static final int darkslategrey=0x7f05007c;
+        public static final int darkslategrey=0x7f04007c;
         /** 中春绿色 
          */
-        public static final int darkturquoise=0x7f050087;
+        public static final int darkturquoise=0x7f040087;
         /** 苍绿色 
          */
-        public static final int darkviolet=0x7f050054;
+        public static final int darkviolet=0x7f040054;
         /** 红橙色 
          */
-        public static final int deeppink=0x7f05001b;
+        public static final int deeppink=0x7f04001b;
         /** 暗宝石绿 
          */
-        public static final int deepskyblue=0x7f050088;
+        public static final int deepskyblue=0x7f040088;
         /** 石蓝色 
          */
-        public static final int dimgray=0x7f05006d;
+        public static final int dimgray=0x7f04006d;
         /** 暗灰色 
          */
-        public static final int dimgrey=0x7f05006e;
+        public static final int dimgrey=0x7f04006e;
         /** 亮海蓝色 
          */
-        public static final int dodgerblue=0x7f050080;
+        public static final int dodgerblue=0x7f040080;
         /** 暗金黄色 
          */
-        public static final int firebrick=0x7f050048;
+        public static final int firebrick=0x7f040048;
         /** 雪白色 
          */
-        public static final int floralwhite=0x7f050005;
+        public static final int floralwhite=0x7f040005;
         /** 海绿色 
          */
-        public static final int forestgreen=0x7f05007e;
+        public static final int forestgreen=0x7f04007e;
         /** 深粉红色 
          */
-        public static final int fuchsia=0x7f05001c;
+        public static final int fuchsia=0x7f04001c;
         /** 洋李色 
          */
-        public static final int gainsboro=0x7f050036;
+        public static final int gainsboro=0x7f040036;
         /** 鲜肉色 
          */
-        public static final int ghostwhite=0x7f050024;
+        public static final int ghostwhite=0x7f040024;
         /** 桃色 
          */
-        public static final int gold=0x7f050011;
+        public static final int gold=0x7f040011;
         /** 苍紫罗兰色 
          */
-        public static final int goldenrod=0x7f050039;
+        public static final int goldenrod=0x7f040039;
         /** 天蓝色 
          */
-        public static final int gray=0x7f05005e;
+        public static final int gray=0x7f04005e;
         /** 水鸭色 
          */
-        public static final int green=0x7f05008b;
+        public static final int green=0x7f04008b;
         /** 苍宝石绿 
          */
-        public static final int greenyellow=0x7f05004c;
+        public static final int greenyellow=0x7f04004c;
         /** 灰色 
          */
-        public static final int grey=0x7f05005f;
+        public static final int grey=0x7f04005f;
         /** 天蓝色 
          */
-        public static final int honeydew=0x7f05002b;
+        public static final int honeydew=0x7f04002b;
         /** 珊瑚色 
          */
-        public static final int hotpink=0x7f050018;
+        public static final int hotpink=0x7f040018;
         /** 秘鲁色 
          */
-        public static final int indianred=0x7f050041;
+        public static final int indianred=0x7f040041;
         /** 暗橄榄绿  
          */
-        public static final int indigo=0x7f050073;
+        public static final int indigo=0x7f040073;
         /** 白色 
          */
-        public static final int ivory=0x7f050001;
+        public static final int ivory=0x7f040001;
         /** 艾利斯兰 
          */
-        public static final int khaki=0x7f05002d;
+        public static final int khaki=0x7f04002d;
         /** 暗肉色 
          */
-        public static final int lavender=0x7f050032;
+        public static final int lavender=0x7f040032;
         /** 海贝色 
          */
-        public static final int lavenderblush=0x7f050009;
+        public static final int lavenderblush=0x7f040009;
         /** 黄绿色 
          */
-        public static final int lawngreen=0x7f050065;
+        public static final int lawngreen=0x7f040065;
         /** 花白色 
          */
-        public static final int lemonchiffon=0x7f050006;
+        public static final int lemonchiffon=0x7f040006;
         /** 黄绿色 
          */
-        public static final int lightblue=0x7f05004d;
+        public static final int lightblue=0x7f04004d;
         /** 黄褐色 
          */
-        public static final int lightcoral=0x7f05002e;
+        public static final int lightcoral=0x7f04002e;
         /** 淡紫色 
          */
-        public static final int lightcyan=0x7f050033;
+        public static final int lightcyan=0x7f040033;
         /** 老花色 
          */
-        public static final int lightgoldenrodyellow=0x7f050020;
+        public static final int lightgoldenrodyellow=0x7f040020;
         /** 蓟色 
          */
-        public static final int lightgray=0x7f05003c;
+        public static final int lightgray=0x7f04003c;
         /** 中紫色 
          */
-        public static final int lightgreen=0x7f050056;
+        public static final int lightgreen=0x7f040056;
         /** 亮灰色 
          */
-        public static final int lightgrey=0x7f05003d;
+        public static final int lightgrey=0x7f04003d;
         /** 粉红色 
          */
-        public static final int lightpink=0x7f050013;
+        public static final int lightpink=0x7f040013;
         /** 橙色 
          */
-        public static final int lightsalmon=0x7f050015;
+        public static final int lightsalmon=0x7f040015;
         /** 森林绿 
          */
-        public static final int lightseagreen=0x7f05007f;
+        public static final int lightseagreen=0x7f04007f;
         /** 紫罗兰蓝色 
          */
-        public static final int lightskyblue=0x7f05005c;
+        public static final int lightskyblue=0x7f04005c;
         /** 中暗蓝色 
          */
-        public static final int lightslategray=0x7f050067;
+        public static final int lightslategray=0x7f040067;
         /** 亮蓝灰 
          */
-        public static final int lightslategrey=0x7f050068;
+        public static final int lightslategrey=0x7f040068;
         /** 粉蓝色 
          */
-        public static final int lightsteelblue=0x7f05004a;
+        public static final int lightsteelblue=0x7f04004a;
         /** 象牙色 
          */
-        public static final int lightyellow=0x7f050002;
+        public static final int lightyellow=0x7f040002;
         /** 春绿色
          */
-        public static final int lime=0x7f050085;
+        public static final int lime=0x7f040085;
         /** 中海蓝 
          */
-        public static final int limegreen=0x7f05007a;
+        public static final int limegreen=0x7f04007a;
         /** 亮金黄色 
          */
-        public static final int linen=0x7f050021;
+        public static final int linen=0x7f040021;
         /** 紫红色 
          */
-        public static final int magenta=0x7f05001d;
+        public static final int magenta=0x7f04001d;
         /** 紫色 
          */
-        public static final int maroon=0x7f050062;
+        public static final int maroon=0x7f040062;
         /** 暗灰色 
          */
-        public static final int mediumaquamarine=0x7f05006f;
+        public static final int mediumaquamarine=0x7f04006f;
         /** 蓝色 
          */
-        public static final int mediumblue=0x7f05008e;
+        public static final int mediumblue=0x7f04008e;
         /** 褐玫瑰红 
          */
-        public static final int mediumorchid=0x7f050046;
+        public static final int mediumorchid=0x7f040046;
         /** 暗紫罗兰色 
          */
-        public static final int mediumpurple=0x7f050055;
+        public static final int mediumpurple=0x7f040055;
         /** 青绿色 
          */
-        public static final int mediumseagreen=0x7f050079;
+        public static final int mediumseagreen=0x7f040079;
         /** 草绿色 
          */
-        public static final int mediumslateblue=0x7f050066;
+        public static final int mediumslateblue=0x7f040066;
         /** 酸橙色 
          */
-        public static final int mediumspringgreen=0x7f050086;
+        public static final int mediumspringgreen=0x7f040086;
         /** 靛青色 
          */
-        public static final int mediumturquoise=0x7f050074;
+        public static final int mediumturquoise=0x7f040074;
         /** 印第安红 
          */
-        public static final int mediumvioletred=0x7f050042;
+        public static final int mediumvioletred=0x7f040042;
         /** 闪兰色 
          */
-        public static final int midnightblue=0x7f050081;
+        public static final int midnightblue=0x7f040081;
         /** 幽灵白 
          */
-        public static final int mintcream=0x7f050025;
+        public static final int mintcream=0x7f040025;
         /** 白杏色 
          */
-        public static final int mistyrose=0x7f05000c;
+        public static final int mistyrose=0x7f04000c;
         /** 桔黄色 
          */
-        public static final int moccasin=0x7f05000e;
+        public static final int moccasin=0x7f04000e;
         /** 鹿皮色 
          */
-        public static final int navajowhite=0x7f05000f;
+        public static final int navajowhite=0x7f04000f;
         /** 暗蓝色 
          */
-        public static final int navy=0x7f050090;
-        public static final int newMess=0x7f050094;
+        public static final int navy=0x7f040090;
+        public static final int newMess=0x7f040094;
         /** 红色 
          */
-        public static final int oldlace=0x7f05001f;
+        public static final int oldlace=0x7f04001f;
         /** 灰色 
          */
-        public static final int olive=0x7f050060;
+        public static final int olive=0x7f040060;
         /** 灰石色 
          */
-        public static final int olivedrab=0x7f05006b;
+        public static final int olivedrab=0x7f04006b;
         /** 亮粉红色
          */
-        public static final int orange=0x7f050014;
+        public static final int orange=0x7f040014;
         /** 西红柿色 
          */
-        public static final int orangered=0x7f05001a;
+        public static final int orangered=0x7f04001a;
         /** 金麒麟色 
          */
-        public static final int orchid=0x7f05003a;
+        public static final int orchid=0x7f04003a;
         /** 亮珊瑚色 
          */
-        public static final int palegoldenrod=0x7f05002f;
+        public static final int palegoldenrod=0x7f04002f;
         /** 暗紫色
          */
-        public static final int palegreen=0x7f050053;
+        public static final int palegreen=0x7f040053;
         /** 亮钢兰色 
          */
-        public static final int paleturquoise=0x7f05004b;
+        public static final int paleturquoise=0x7f04004b;
         /** 暗深红色 
          */
-        public static final int palevioletred=0x7f050038;
+        public static final int palevioletred=0x7f040038;
         /** 淡紫红 
          */
-        public static final int papayawhip=0x7f05000a;
+        public static final int papayawhip=0x7f04000a;
         /** 纳瓦白 
          */
-        public static final int peachpuff=0x7f050010;
+        public static final int peachpuff=0x7f040010;
         /** 巧可力色 
          */
-        public static final int peru=0x7f050040;
+        public static final int peru=0x7f040040;
         /** 金色 
          */
-        public static final int pink=0x7f050012;
+        public static final int pink=0x7f040012;
         /** 实木色 
          */
-        public static final int plum=0x7f050035;
+        public static final int plum=0x7f040035;
         /** 火砖色 
          */
-        public static final int powderblue=0x7f050049;
+        public static final int powderblue=0x7f040049;
         /** 橄榄色 
          */
-        public static final int purple=0x7f050061;
+        public static final int purple=0x7f040061;
         /** 红紫色 
          */
-        public static final int red=0x7f05001e;
-        public static final int rootColor=0x7f050093;
+        public static final int red=0x7f04001e;
+        public static final int rootColor=0x7f040093;
         /** 暗黄褐色 
          */
-        public static final int rosybrown=0x7f050045;
+        public static final int rosybrown=0x7f040045;
         /** 钢兰色 
          */
-        public static final int royalblue=0x7f050077;
+        public static final int royalblue=0x7f040077;
         /** 暗海兰色 
          */
-        public static final int saddlebrown=0x7f050058;
+        public static final int saddlebrown=0x7f040058;
         /** 古董白 
          */
-        public static final int salmon=0x7f050023;
+        public static final int salmon=0x7f040023;
         /** 浅黄色 
          */
-        public static final int sandybrown=0x7f050029;
+        public static final int sandybrown=0x7f040029;
         /** 暗瓦灰色 
          */
-        public static final int seagreen=0x7f05007d;
+        public static final int seagreen=0x7f04007d;
         /** 米绸色 
          */
-        public static final int seashell=0x7f050008;
+        public static final int seashell=0x7f040008;
         /** 褐色 
          */
-        public static final int sienna=0x7f050051;
+        public static final int sienna=0x7f040051;
         /** 中紫罗兰色 
          */
-        public static final int silver=0x7f050043;
+        public static final int silver=0x7f040043;
         /** 亮天蓝色 
          */
-        public static final int skyblue=0x7f05005d;
+        public static final int skyblue=0x7f04005d;
         /** 深绿褐色 
          */
-        public static final int slateblue=0x7f05006c;
+        public static final int slateblue=0x7f04006c;
         /** 亮蓝灰 
          */
-        public static final int slategray=0x7f050069;
+        public static final int slategray=0x7f040069;
         /** 灰石色 
          */
-        public static final int slategrey=0x7f05006a;
+        public static final int slategrey=0x7f04006a;
         /** 黄色 
          */
-        public static final int snow=0x7f050004;
+        public static final int snow=0x7f040004;
         /** 青色 
          */
-        public static final int springgreen=0x7f050084;
+        public static final int springgreen=0x7f040084;
         /** 暗灰蓝色 
          */
-        public static final int steelblue=0x7f050076;
+        public static final int steelblue=0x7f040076;
         /** 亮灰色 
          */
-        public static final int tan=0x7f05003e;
+        public static final int tan=0x7f04003e;
         /** 暗青色 
          */
-        public static final int teal=0x7f05008a;
+        public static final int teal=0x7f04008a;
         /** 淡紫色 
          */
-        public static final int thistle=0x7f05003b;
+        public static final int thistle=0x7f04003b;
         /** 热粉红色 
          */
-        public static final int tomato=0x7f050019;
+        public static final int tomato=0x7f040019;
         /** 皇家蓝 
          */
-        public static final int turquoise=0x7f050078;
+        public static final int turquoise=0x7f040078;
         /** 苍麒麟色 
          */
-        public static final int violet=0x7f050030;
+        public static final int violet=0x7f040030;
         /** 米色 
          */
-        public static final int wheat=0x7f050028;
-        public static final int white=0x7f050000;
+        public static final int wheat=0x7f040028;
+        public static final int white=0x7f040000;
         /** 薄荷色 
          */
-        public static final int whitesmoke=0x7f050026;
+        public static final int whitesmoke=0x7f040026;
         /** 亮黄色
          */
-        public static final int yellow=0x7f050003;
+        public static final int yellow=0x7f040003;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -469,28 +466,28 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f060000;
-        public static final int activity_vertical_margin=0x7f060001;
-        public static final int bottom_tab_font_size=0x7f060002;
-        public static final int bottom_tab_padding_drawable=0x7f060004;
-        public static final int bottom_tab_padding_up=0x7f060003;
-        public static final int emotion_item_view_height=0x7f060010;
-        public static final int large_padding_length=0x7f060008;
-        public static final int new_blog_size=0x7f06000f;
-        public static final int no_result_padding_length=0x7f060015;
-        public static final int normal_padding_length=0x7f060014;
-        public static final int splash_test_center_margin_right=0x7f060012;
-        public static final int splash_test_top_margin_top=0x7f060011;
-        public static final int sta_height=0x7f060007;
-        public static final int switch_logo_bottom_padding=0x7f060005;
-        public static final int title_height=0x7f06000e;
-        public static final int title_text_size=0x7f060013;
-        public static final int widget_content_margin_left=0x7f06000c;
-        public static final int widget_content_margin_top=0x7f06000b;
-        public static final int widget_height=0x7f060006;
-        public static final int widget_logo_size=0x7f06000d;
-        public static final int widget_write_margin_left=0x7f06000a;
-        public static final int widget_write_margin_top=0x7f060009;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
+        public static final int bottom_tab_font_size=0x7f050002;
+        public static final int bottom_tab_padding_drawable=0x7f050004;
+        public static final int bottom_tab_padding_up=0x7f050003;
+        public static final int emotion_item_view_height=0x7f050010;
+        public static final int large_padding_length=0x7f050008;
+        public static final int new_blog_size=0x7f05000f;
+        public static final int no_result_padding_length=0x7f050015;
+        public static final int normal_padding_length=0x7f050014;
+        public static final int splash_test_center_margin_right=0x7f050012;
+        public static final int splash_test_top_margin_top=0x7f050011;
+        public static final int sta_height=0x7f050007;
+        public static final int switch_logo_bottom_padding=0x7f050005;
+        public static final int title_height=0x7f05000e;
+        public static final int title_text_size=0x7f050013;
+        public static final int widget_content_margin_left=0x7f05000c;
+        public static final int widget_content_margin_top=0x7f05000b;
+        public static final int widget_height=0x7f050006;
+        public static final int widget_logo_size=0x7f05000d;
+        public static final int widget_write_margin_left=0x7f05000a;
+        public static final int widget_write_margin_top=0x7f050009;
     }
     public static final class drawable {
         public static final int back_to_map=0x7f020000;
@@ -579,145 +576,137 @@ public final class R {
         public static final int yellow_marker=0x7f02004a;
     }
     public static final class id {
-        public static final int action_settings=0x7f070089;
-        public static final int actv_key_search=0x7f070021;
-        public static final int actv_key_search_map=0x7f070007;
-        public static final int button=0x7f070084;
-        public static final int button_admin_logoff=0x7f070059;
-        public static final int button_backToMap=0x7f07001c;
-        public static final int button_driver_add_update_phone=0x7f070012;
-        public static final int button_driver_change_licence=0x7f070015;
-        public static final int button_loginUser_manager=0x7f070044;
-        public static final int button_loginUser_register=0x7f07003c;
-        public static final int button_logout=0x7f07001d;
-        public static final int button_map_back=0x7f07000c;
-        public static final int button_map_yes=0x7f07000d;
-        public static final int button_my_location=0x7f070025;
-        public static final int button_my_location_map=0x7f07000b;
-        public static final int button_order_call_phone=0x7f070060;
-        public static final int button_order_detail_gps=0x7f07005f;
-        public static final int button_register_reset=0x7f07007d;
-        public static final int button_register_submit=0x7f07007e;
-        public static final int button_submit_order=0x7f070066;
-        public static final int button_update_admin_pwd=0x7f070049;
-        public static final int button_update_info=0x7f070079;
-        public static final int button_update_password=0x7f070058;
-        public static final int button_voice_search=0x7f070022;
-        public static final int button_voice_search_map=0x7f070008;
-        public static final int car_id=0x7f070082;
-        public static final int car_number=0x7f070030;
-        public static final int complete_order=0x7f070036;
-        public static final int custom_icon=0x7f070086;
-        public static final int driver_order_list_refresh=0x7f07008a;
-        public static final int edit_admin_newPassword=0x7f070047;
-        public static final int edit_admin_oldPassword=0x7f070046;
-        public static final int edit_admin_repassword=0x7f070048;
-        public static final int edit_driver_new_licence=0x7f070014;
-        public static final int edit_driver_phone_add_update=0x7f070011;
-        public static final int edit_input_new_pwd=0x7f070077;
-        public static final int edit_input_old_pwd=0x7f070076;
-        public static final int edit_input_re_pwd=0x7f070078;
-        public static final int edit_licenses_number=0x7f070063;
-        public static final int edit_login_password=0x7f070043;
-        public static final int edit_login_username=0x7f070041;
-        public static final int edit_register_password=0x7f07007b;
-        public static final int edit_register_repassword=0x7f07007c;
-        public static final int edit_register_username=0x7f07007a;
-        public static final int gridview_driver_life=0x7f07001e;
-        public static final int imageView_driver_function_order=0x7f070016;
-        public static final int image_driver_life_cell=0x7f07001f;
-        public static final int image_function=0x7f070080;
-        public static final int image_login_backToMap=0x7f07003b;
-        public static final int image_text=0x7f070081;
-        public static final int label_password_left=0x7f070042;
-        public static final int label_username_left=0x7f070040;
-        public static final int linear1=0x7f07002e;
-        public static final int linear2=0x7f07002f;
-        public static final int linear3=0x7f070032;
-        public static final int linear4=0x7f070033;
-        public static final int linear_cell=0x7f07007f;
-        public static final int linear_relative=0x7f070018;
-        public static final int listView1=0x7f070045;
-        public static final int listView_driver_functions=0x7f07001b;
-        public static final int listview_order_info=0x7f07002a;
-        public static final int main_radio=0x7f070000;
-        public static final int manager_commit=0x7f070055;
-        public static final int manager_park_location=0x7f07004c;
-        public static final int manager_park_name=0x7f07004a;
-        public static final int manager_park_phone=0x7f07004d;
-        public static final int manager_update=0x7f070056;
-        public static final int map=0x7f070023;
-        public static final int map2=0x7f070009;
-        public static final int map_container=0x7f070005;
-        public static final int mode_button=0x7f07004b;
-        public static final int money=0x7f070035;
-        public static final int online_user_list_item_textview=0x7f070075;
-        public static final int order_number=0x7f070034;
-        public static final int order_time =0x7f070083;
-        public static final int orderlist=0x7f07002c;
-        public static final int orderring_time=0x7f070031;
-        public static final int parking_detail_fram=0x7f070067;
-        public static final int parking_info_distance_show=0x7f07006b;
-        public static final int parking_info_phone=0x7f07006a;
-        public static final int parknumber=0x7f07004e;
-        public static final int pprice1=0x7f070052;
-        public static final int pprice2=0x7f070053;
-        public static final int pprice3=0x7f070054;
-        public static final int price1=0x7f07004f;
-        public static final int price2=0x7f070050;
-        public static final int price3=0x7f070051;
-        public static final int progressBar_waiting=0x7f07002b;
-        public static final int radioBtn_user_driver=0x7f07003e;
-        public static final int radioBtn_user_manager=0x7f07003f;
-        public static final int radio_Carservice=0x7f070026;
-        public static final int radio_button0=0x7f070001;
-        public static final int radio_button1=0x7f070002;
-        public static final int radio_button2=0x7f070003;
-        public static final int radio_button3=0x7f070004;
-        public static final int radio_mine=0x7f070029;
-        public static final int radio_navi=0x7f070027;
-        public static final int radio_order=0x7f070028;
-        public static final int relative_textview1=0x7f070013;
-        public static final int relative_textview2=0x7f070010;
-        public static final int show_directory=0x7f070024;
-        public static final int show_directory_map=0x7f07000a;
-        public static final int simple_navimap=0x7f070006;
-        public static final int simplenavimap=0x7f07005b;
-        public static final int spinner1=0x7f07005a;
-        public static final int spinner_time_chose=0x7f070065;
-        public static final int tableLayout_relative1=0x7f070069;
-        public static final int textView_driver_function_order=0x7f070017;
-        public static final int text_admin_no_order_tip=0x7f07002d;
-        public static final int text_admin_order_show_detail=0x7f07000f;
-        public static final int text_admin_order_show_phone=0x7f07000e;
-        public static final int text_book_number=0x7f07006c;
-        public static final int text_book_time_chose=0x7f070064;
-        public static final int text_book_title=0x7f070061;
-        public static final int text_current_number=0x7f07006d;
-        public static final int text_driver_licence=0x7f070019;
-        public static final int text_driver_life_cell=0x7f070020;
-        public static final int text_driver_order_date=0x7f070039;
-        public static final int text_driver_order_parking_name=0x7f070037;
-        public static final int text_driver_order_pay=0x7f070038;
-        public static final int text_driver_order_status=0x7f07003a;
-        public static final int text_driver_phone=0x7f07001a;
-        public static final int text_info_title=0x7f070068;
-        public static final int text_license_show=0x7f070062;
-        public static final int text_manager_name=0x7f070057;
-        public static final int text_order_detail_info=0x7f07005d;
-        public static final int text_order_detail_number=0x7f07005c;
-        public static final int text_order_detail_phone=0x7f07005e;
-        public static final int text_parking_order_20=0x7f07006e;
-        public static final int text_parking_order_40=0x7f07006f;
-        public static final int text_parking_order_60=0x7f070070;
-        public static final int text_parking_stop_30=0x7f070071;
-        public static final int text_parking_stop_60=0x7f070072;
-        public static final int text_parking_stop_more=0x7f070073;
-        public static final int tv_custom_content=0x7f070088;
-        public static final int tv_custom_title=0x7f070087;
-        public static final int user_login_radioGroup=0x7f07003d;
-        public static final int view_notification=0x7f070085;
-        public static final int xListView=0x7f070074;
+        public static final int action_settings=0x7f060082;
+        public static final int actv_key_search=0x7f060021;
+        public static final int actv_key_search_map=0x7f060007;
+        public static final int button_admin_logoff=0x7f060059;
+        public static final int button_backToMap=0x7f06001c;
+        public static final int button_driver_add_update_phone=0x7f060012;
+        public static final int button_driver_change_licence=0x7f060015;
+        public static final int button_loginUser_manager=0x7f060044;
+        public static final int button_loginUser_register=0x7f06003c;
+        public static final int button_logout=0x7f06001d;
+        public static final int button_map_back=0x7f06000c;
+        public static final int button_map_yes=0x7f06000d;
+        public static final int button_my_location=0x7f060025;
+        public static final int button_my_location_map=0x7f06000b;
+        public static final int button_order_call_phone=0x7f06005f;
+        public static final int button_order_detail_gps=0x7f06005e;
+        public static final int button_register_reset=0x7f06007b;
+        public static final int button_register_submit=0x7f06007c;
+        public static final int button_submit_order=0x7f060065;
+        public static final int button_update_admin_pwd=0x7f060049;
+        public static final int button_update_info=0x7f060077;
+        public static final int button_update_password=0x7f060058;
+        public static final int button_voice_search=0x7f060022;
+        public static final int button_voice_search_map=0x7f060008;
+        public static final int car_number=0x7f060030;
+        public static final int complete_order=0x7f060036;
+        public static final int custom_icon=0x7f06007e;
+        public static final int driver_order_list_refresh=0x7f060081;
+        public static final int edit_admin_newPassword=0x7f060047;
+        public static final int edit_admin_oldPassword=0x7f060046;
+        public static final int edit_admin_repassword=0x7f060048;
+        public static final int edit_driver_new_licence=0x7f060014;
+        public static final int edit_driver_phone_add_update=0x7f060011;
+        public static final int edit_input_new_pwd=0x7f060075;
+        public static final int edit_input_old_pwd=0x7f060074;
+        public static final int edit_input_re_pwd=0x7f060076;
+        public static final int edit_licenses_number=0x7f060062;
+        public static final int edit_login_password=0x7f060043;
+        public static final int edit_login_username=0x7f060041;
+        public static final int edit_register_password=0x7f060079;
+        public static final int edit_register_repassword=0x7f06007a;
+        public static final int edit_register_username=0x7f060078;
+        public static final int gridview_driver_life=0x7f06001e;
+        public static final int imageView_driver_function_order=0x7f060016;
+        public static final int image_driver_life_cell=0x7f06001f;
+        public static final int image_login_backToMap=0x7f06003b;
+        public static final int label_password_left=0x7f060042;
+        public static final int label_username_left=0x7f060040;
+        public static final int linear1=0x7f06002e;
+        public static final int linear2=0x7f06002f;
+        public static final int linear3=0x7f060032;
+        public static final int linear4=0x7f060033;
+        public static final int linear_relative=0x7f060018;
+        public static final int listView1=0x7f060045;
+        public static final int listView_driver_functions=0x7f06001b;
+        public static final int listview_order_info=0x7f06002a;
+        public static final int main_radio=0x7f060000;
+        public static final int manager_commit=0x7f060055;
+        public static final int manager_park_location=0x7f06004c;
+        public static final int manager_park_name=0x7f06004a;
+        public static final int manager_park_phone=0x7f06004d;
+        public static final int manager_update=0x7f060056;
+        public static final int map=0x7f060023;
+        public static final int map2=0x7f060009;
+        public static final int map_container=0x7f060005;
+        public static final int mode_button=0x7f06004b;
+        public static final int money=0x7f060035;
+        public static final int online_user_list_item_textview=0x7f060073;
+        public static final int order_number=0x7f060034;
+        public static final int orderlist=0x7f06002c;
+        public static final int orderring_time=0x7f060031;
+        public static final int parking_detail_fram=0x7f060066;
+        public static final int parking_info_distance_show=0x7f06006a;
+        public static final int parking_info_phone=0x7f060069;
+        public static final int parknumber=0x7f06004e;
+        public static final int pprice1=0x7f060052;
+        public static final int pprice2=0x7f060053;
+        public static final int pprice3=0x7f060054;
+        public static final int price1=0x7f06004f;
+        public static final int price2=0x7f060050;
+        public static final int price3=0x7f060051;
+        public static final int progressBar_waiting=0x7f06002b;
+        public static final int radioBtn_user_driver=0x7f06003e;
+        public static final int radioBtn_user_manager=0x7f06003f;
+        public static final int radio_Carservice=0x7f060026;
+        public static final int radio_button0=0x7f060001;
+        public static final int radio_button1=0x7f060002;
+        public static final int radio_button2=0x7f060003;
+        public static final int radio_button3=0x7f060004;
+        public static final int radio_mine=0x7f060029;
+        public static final int radio_navi=0x7f060027;
+        public static final int radio_order=0x7f060028;
+        public static final int relative_textview1=0x7f060013;
+        public static final int relative_textview2=0x7f060010;
+        public static final int show_directory=0x7f060024;
+        public static final int show_directory_map=0x7f06000a;
+        public static final int simple_navimap=0x7f060006;
+        public static final int simplenavimap=0x7f06005a;
+        public static final int spinner_time_chose=0x7f060064;
+        public static final int tableLayout_relative1=0x7f060068;
+        public static final int textView_driver_function_order=0x7f060017;
+        public static final int text_admin_no_order_tip=0x7f06002d;
+        public static final int text_admin_order_show_detail=0x7f06000f;
+        public static final int text_admin_order_show_phone=0x7f06000e;
+        public static final int text_book_number=0x7f06006b;
+        public static final int text_book_time_chose=0x7f060063;
+        public static final int text_book_title=0x7f060060;
+        public static final int text_current_number=0x7f06006c;
+        public static final int text_driver_licence=0x7f060019;
+        public static final int text_driver_life_cell=0x7f060020;
+        public static final int text_driver_order_date=0x7f060039;
+        public static final int text_driver_order_parking_name=0x7f060037;
+        public static final int text_driver_order_pay=0x7f060038;
+        public static final int text_driver_order_status=0x7f06003a;
+        public static final int text_driver_phone=0x7f06001a;
+        public static final int text_info_title=0x7f060067;
+        public static final int text_license_show=0x7f060061;
+        public static final int text_manager_name=0x7f060057;
+        public static final int text_order_detail_info=0x7f06005c;
+        public static final int text_order_detail_number=0x7f06005b;
+        public static final int text_order_detail_phone=0x7f06005d;
+        public static final int text_parking_order_20=0x7f06006d;
+        public static final int text_parking_order_40=0x7f06006e;
+        public static final int text_parking_order_60=0x7f06006f;
+        public static final int text_parking_stop_30=0x7f060070;
+        public static final int text_parking_stop_60=0x7f060071;
+        public static final int text_parking_stop_more=0x7f060072;
+        public static final int tv_custom_content=0x7f060080;
+        public static final int tv_custom_title=0x7f06007f;
+        public static final int user_login_radioGroup=0x7f06003d;
+        public static final int view_notification=0x7f06007d;
     }
     public static final class layout {
         public static final int activity_driver_navi=0x7f030000;
@@ -740,159 +729,150 @@ public final class R {
         public static final int manager_change_password=0x7f030011;
         public static final int manager_distribute_messages=0x7f030012;
         public static final int manager_personal_settings=0x7f030013;
-        public static final int my_spinner=0x7f030014;
-        public static final int navi_map=0x7f030015;
-        public static final int order_custom_dialog=0x7f030016;
-        public static final int parking_book=0x7f030017;
-        public static final int parking_detail_book=0x7f030018;
-        public static final int parking_infomation=0x7f030019;
-        public static final int parking_list=0x7f03001a;
-        public static final int route_inputs=0x7f03001b;
-        public static final int update_driver_information=0x7f03001c;
-        public static final int user_register=0x7f03001d;
-        public static final int util_gridview=0x7f03001e;
-        public static final int util_item=0x7f03001f;
-        public static final int util_mainscreen=0x7f030020;
-        public static final int view_notificatinon=0x7f030021;
+        public static final int navi_map=0x7f030014;
+        public static final int order_custom_dialog=0x7f030015;
+        public static final int parking_book=0x7f030016;
+        public static final int parking_detail_book=0x7f030017;
+        public static final int parking_infomation=0x7f030018;
+        public static final int route_inputs=0x7f030019;
+        public static final int update_driver_information=0x7f03001a;
+        public static final int user_register=0x7f03001b;
+        public static final int view_notificatinon=0x7f03001c;
     }
     public static final class menu {
-        public static final int driver_navi=0x7f0a0000;
-        public static final int driver_order_refresh=0x7f0a0001;
-        public static final int login_success=0x7f0a0002;
-        public static final int map_for_address=0x7f0a0003;
-        public static final int my_spinner=0x7f0a0004;
-        public static final int navi_start=0x7f0a0005;
+        public static final int driver_order_refresh=0x7f090000;
+        public static final int map_for_address=0x7f090001;
     }
     public static final class string {
-        public static final int action_settings=0x7f080017;
-        public static final int admin_order_show_detail=0x7f08003a;
-        public static final int admin_order_show_driverPhone=0x7f080039;
-        public static final int app_id=0x7f080018;
-        public static final int app_name=0x7f080008;
-        public static final int car_rent=0x7f080013;
-        public static final int car_repair=0x7f080014;
-        public static final int car_wash=0x7f080015;
-        public static final int driver_add_another_licence=0x7f080028;
-        public static final int driver_another_licence=0x7f080027;
-        public static final int driver_back_map=0x7f08002f;
-        public static final int driver_check_order=0x7f08002c;
-        public static final int driver_hint_new_pwd=0x7f08002a;
-        public static final int driver_hint_old_pwd=0x7f080029;
-        public static final int driver_info_welcome=0x7f080023;
-        public static final int driver_licence=0x7f080026;
-        public static final int driver_logout=0x7f080030;
-        public static final int driver_order_admin_phone=0x7f080032;
-        public static final int driver_order_call_manager=0x7f08002e;
-        public static final int driver_order_check_address=0x7f08002d;
-        public static final int driver_order_information=0x7f080031;
-        public static final int driver_phone=0x7f080024;
-        public static final int driver_phone_null=0x7f080025;
-        public static final int driver_sure_update_info=0x7f08002b;
-        public static final int driver_update_information=0x7f080033;
-        public static final int driver_update_licence=0x7f080034;
-        public static final int driver_update_password=0x7f080036;
-        public static final int driver_update_password_new=0x7f080038;
-        public static final int driver_update_password_old=0x7f080037;
-        public static final int driver_update_phone=0x7f080035;
-        public static final int error_key=0x7f08000f;
-        public static final int error_network=0x7f08000e;
-        public static final int error_other=0x7f080010;
-        public static final int gas_station=0x7f080012;
-        public static final int happy_driver_life=0x7f080011;
-        public static final int key_search=0x7f080009;
-        public static final int label_button_add_phone=0x7f08006b;
-        public static final int label_button_change_licence=0x7f08006a;
-        public static final int label_button_finish=0x7f080075;
-        public static final int label_edittext_hint_cars=0x7f08006e;
-        public static final int label_edittext_hint_password3=0x7f08006d;
-        public static final int label_edittext_hint_phone=0x7f08006c;
-        public static final int label_manager_parkingAll=0x7f080078;
-        public static final int label_manager_parkingName=0x7f080076;
-        public static final int label_manager_parkingPhone=0x7f080077;
-        public static final int label_manager_parkingPrice=0x7f080079;
-        public static final int label_manager_priceHalf=0x7f08007e;
-        public static final int label_manager_priceHour=0x7f08007f;
-        public static final int label_manager_priceMoney=0x7f08007d;
-        public static final int label_manager_priceMore=0x7f080080;
-        public static final int label_manager_priceTen=0x7f08007a;
-        public static final int label_manager_priceThy=0x7f08007c;
-        public static final int label_manager_priceTwn=0x7f08007b;
-        public static final int label_newPassword=0x7f08005e;
-        public static final int label_oldPassword=0x7f08005f;
-        public static final int label_password=0x7f08005c;
-        public static final int label_repassword=0x7f08005d;
-        public static final int label_text_licence=0x7f080071;
-        public static final int label_text_money=0x7f080074;
-        public static final int label_text_number=0x7f080073;
-        public static final int label_text_time=0x7f080072;
-        public static final int label_title_parking_baic=0x7f08006f;
-        public static final int label_username=0x7f08005b;
-        public static final int login=0x7f080052;
-        public static final int login_radiobutton_driver=0x7f080068;
-        public static final int login_radiobutton_manager=0x7f080069;
-        public static final int main_Carservice=0x7f080004;
-        public static final int main_finished=0x7f080055;
-        public static final int main_home=0x7f080054;
-        public static final int main_manage_date=0x7f080057;
-        public static final int main_mine=0x7f080007;
-        public static final int main_more=0x7f080005;
-        public static final int main_navi=0x7f080003;
-        public static final int main_news=0x7f080056;
-        public static final int main_order=0x7f080006;
-        public static final int manager_commit=0x7f080000;
-        public static final int manager_update=0x7f080001;
-        public static final int menu_title_refresh=0x7f080070;
-        public static final int mode_button=0x7f080002;
-        public static final int no_result=0x7f08000c;
-        public static final int no_yun_result=0x7f08000d;
-        public static final int opt_remember=0x7f080051;
-        public static final int parking_detail_book_back=0x7f080048;
-        public static final int parking_detail_book_money=0x7f080044;
-        public static final int parking_detail_book_money_label=0x7f080045;
-        public static final int parking_detail_book_number=0x7f080042;
-        public static final int parking_detail_book_submit=0x7f080047;
-        public static final int parking_detail_current_number=0x7f080043;
-        public static final int parking_detail_info=0x7f080041;
-        public static final int parking_detail_stop_money=0x7f080046;
-        public static final int parking_info_address=0x7f080049;
-        public static final int parking_info_distance=0x7f08004a;
-        public static final int parking_info_phnoe=0x7f08004b;
-        public static final int parking_order_cancel=0x7f080040;
-        public static final int parking_order_chose_number=0x7f08003d;
-        public static final int parking_order_chose_time=0x7f08003e;
-        public static final int parking_order_make=0x7f08003c;
-        public static final int parking_order_submit=0x7f08003f;
-        public static final int parking_order_title=0x7f08003b;
-        public static final int password_hint=0x7f08004f;
-        public static final int password_input=0x7f080050;
-        public static final int path_planning=0x7f08000a;
-        public static final int preference_default_tts_role=0x7f080019;
-        public static final int preference_key_tts_pitch=0x7f08001c;
-        public static final int preference_key_tts_speed=0x7f08001a;
-        public static final int preference_key_tts_stream=0x7f08001d;
-        public static final int preference_key_tts_volume=0x7f08001b;
-        public static final int register_button_reset=0x7f080060;
-        public static final int register_button_submit=0x7f080061;
-        public static final int register_hint_licence=0x7f080062;
-        public static final int register_hint_password=0x7f080064;
-        public static final int register_hint_repassword=0x7f080065;
-        public static final int register_hint_username=0x7f080063;
-        public static final int spinner_chose_tip=0x7f080022;
-        public static final int start_navigation=0x7f08000b;
-        public static final int tip_no_orders=0x7f08005a;
-        public static final int title_activity_driver_navi=0x7f080016;
-        public static final int title_activity_manager_main=0x7f08001f;
-        public static final int title_activity_map_for_address=0x7f080059;
-        public static final int title_activity_my_spinner=0x7f080058;
-        public static final int title_activity_navi_start=0x7f08001e;
-        public static final int title_register_driver=0x7f080066;
-        public static final int title_register_manager=0x7f080067;
-        public static final int username_driver_hint=0x7f08004d;
-        public static final int username_input=0x7f08004e;
-        public static final int username_manager_hint=0x7f08004c;
-        public static final int welcome=0x7f080020;
-        public static final int xlistview_header_hint_loading=0x7f080021;
-        public static final int zhuce=0x7f080053;
+        public static final int action_settings=0x7f070017;
+        public static final int admin_order_show_detail=0x7f07003a;
+        public static final int admin_order_show_driverPhone=0x7f070039;
+        public static final int app_id=0x7f070018;
+        public static final int app_name=0x7f070008;
+        public static final int car_rent=0x7f070013;
+        public static final int car_repair=0x7f070014;
+        public static final int car_wash=0x7f070015;
+        public static final int driver_add_another_licence=0x7f070028;
+        public static final int driver_another_licence=0x7f070027;
+        public static final int driver_back_map=0x7f07002f;
+        public static final int driver_check_order=0x7f07002c;
+        public static final int driver_hint_new_pwd=0x7f07002a;
+        public static final int driver_hint_old_pwd=0x7f070029;
+        public static final int driver_info_welcome=0x7f070023;
+        public static final int driver_licence=0x7f070026;
+        public static final int driver_logout=0x7f070030;
+        public static final int driver_order_admin_phone=0x7f070032;
+        public static final int driver_order_call_manager=0x7f07002e;
+        public static final int driver_order_check_address=0x7f07002d;
+        public static final int driver_order_information=0x7f070031;
+        public static final int driver_phone=0x7f070024;
+        public static final int driver_phone_null=0x7f070025;
+        public static final int driver_sure_update_info=0x7f07002b;
+        public static final int driver_update_information=0x7f070033;
+        public static final int driver_update_licence=0x7f070034;
+        public static final int driver_update_password=0x7f070036;
+        public static final int driver_update_password_new=0x7f070038;
+        public static final int driver_update_password_old=0x7f070037;
+        public static final int driver_update_phone=0x7f070035;
+        public static final int error_key=0x7f07000f;
+        public static final int error_network=0x7f07000e;
+        public static final int error_other=0x7f070010;
+        public static final int gas_station=0x7f070012;
+        public static final int happy_driver_life=0x7f070011;
+        public static final int key_search=0x7f070009;
+        public static final int label_button_add_phone=0x7f07006b;
+        public static final int label_button_change_licence=0x7f07006a;
+        public static final int label_button_finish=0x7f070075;
+        public static final int label_edittext_hint_cars=0x7f07006e;
+        public static final int label_edittext_hint_password3=0x7f07006d;
+        public static final int label_edittext_hint_phone=0x7f07006c;
+        public static final int label_manager_parkingAll=0x7f070078;
+        public static final int label_manager_parkingName=0x7f070076;
+        public static final int label_manager_parkingPhone=0x7f070077;
+        public static final int label_manager_parkingPrice=0x7f070079;
+        public static final int label_manager_priceHalf=0x7f07007e;
+        public static final int label_manager_priceHour=0x7f07007f;
+        public static final int label_manager_priceMoney=0x7f07007d;
+        public static final int label_manager_priceMore=0x7f070080;
+        public static final int label_manager_priceTen=0x7f07007a;
+        public static final int label_manager_priceThy=0x7f07007c;
+        public static final int label_manager_priceTwn=0x7f07007b;
+        public static final int label_newPassword=0x7f07005e;
+        public static final int label_oldPassword=0x7f07005f;
+        public static final int label_password=0x7f07005c;
+        public static final int label_repassword=0x7f07005d;
+        public static final int label_text_licence=0x7f070071;
+        public static final int label_text_money=0x7f070074;
+        public static final int label_text_number=0x7f070073;
+        public static final int label_text_time=0x7f070072;
+        public static final int label_title_parking_baic=0x7f07006f;
+        public static final int label_username=0x7f07005b;
+        public static final int login=0x7f070052;
+        public static final int login_radiobutton_driver=0x7f070068;
+        public static final int login_radiobutton_manager=0x7f070069;
+        public static final int main_Carservice=0x7f070004;
+        public static final int main_finished=0x7f070055;
+        public static final int main_home=0x7f070054;
+        public static final int main_manage_date=0x7f070057;
+        public static final int main_mine=0x7f070007;
+        public static final int main_more=0x7f070005;
+        public static final int main_navi=0x7f070003;
+        public static final int main_news=0x7f070056;
+        public static final int main_order=0x7f070006;
+        public static final int manager_commit=0x7f070000;
+        public static final int manager_update=0x7f070001;
+        public static final int menu_title_refresh=0x7f070070;
+        public static final int mode_button=0x7f070002;
+        public static final int no_result=0x7f07000c;
+        public static final int no_yun_result=0x7f07000d;
+        public static final int opt_remember=0x7f070051;
+        public static final int parking_detail_book_back=0x7f070048;
+        public static final int parking_detail_book_money=0x7f070044;
+        public static final int parking_detail_book_money_label=0x7f070045;
+        public static final int parking_detail_book_number=0x7f070042;
+        public static final int parking_detail_book_submit=0x7f070047;
+        public static final int parking_detail_current_number=0x7f070043;
+        public static final int parking_detail_info=0x7f070041;
+        public static final int parking_detail_stop_money=0x7f070046;
+        public static final int parking_info_address=0x7f070049;
+        public static final int parking_info_distance=0x7f07004a;
+        public static final int parking_info_phnoe=0x7f07004b;
+        public static final int parking_order_cancel=0x7f070040;
+        public static final int parking_order_chose_number=0x7f07003d;
+        public static final int parking_order_chose_time=0x7f07003e;
+        public static final int parking_order_make=0x7f07003c;
+        public static final int parking_order_submit=0x7f07003f;
+        public static final int parking_order_title=0x7f07003b;
+        public static final int password_hint=0x7f07004f;
+        public static final int password_input=0x7f070050;
+        public static final int path_planning=0x7f07000a;
+        public static final int preference_default_tts_role=0x7f070019;
+        public static final int preference_key_tts_pitch=0x7f07001c;
+        public static final int preference_key_tts_speed=0x7f07001a;
+        public static final int preference_key_tts_stream=0x7f07001d;
+        public static final int preference_key_tts_volume=0x7f07001b;
+        public static final int register_button_reset=0x7f070060;
+        public static final int register_button_submit=0x7f070061;
+        public static final int register_hint_licence=0x7f070062;
+        public static final int register_hint_password=0x7f070064;
+        public static final int register_hint_repassword=0x7f070065;
+        public static final int register_hint_username=0x7f070063;
+        public static final int spinner_chose_tip=0x7f070022;
+        public static final int start_navigation=0x7f07000b;
+        public static final int tip_no_orders=0x7f07005a;
+        public static final int title_activity_driver_navi=0x7f070016;
+        public static final int title_activity_manager_main=0x7f07001f;
+        public static final int title_activity_map_for_address=0x7f070059;
+        public static final int title_activity_my_spinner=0x7f070058;
+        public static final int title_activity_navi_start=0x7f07001e;
+        public static final int title_register_driver=0x7f070066;
+        public static final int title_register_manager=0x7f070067;
+        public static final int username_driver_hint=0x7f07004d;
+        public static final int username_input=0x7f07004e;
+        public static final int username_manager_hint=0x7f07004c;
+        public static final int welcome=0x7f070020;
+        public static final int xlistview_header_hint_loading=0x7f070021;
+        public static final int zhuce=0x7f070053;
     }
     public static final class style {
         /** 
@@ -916,26 +896,26 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f090000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f090001;
+        public static final int AppTheme=0x7f080001;
         /**  驾驶员端的按钮样式 
          */
-        public static final int driver_button_style=0x7f090005;
+        public static final int driver_button_style=0x7f080005;
         /**  驾驶员端UI组件距离样式 
          */
-        public static final int driver_distance_style=0x7f090004;
+        public static final int driver_distance_style=0x7f080004;
         /**  驾驶员端的输入框样式 
          */
-        public static final int driver_edittext_style=0x7f090006;
+        public static final int driver_edittext_style=0x7f080006;
         /**  驾驶员端部分文字样式 
          */
-        public static final int driver_textview_style=0x7f090007;
-        public static final int main_tab_bottom=0x7f090002;
+        public static final int driver_textview_style=0x7f080007;
+        public static final int main_tab_bottom=0x7f080002;
         /**  登录界面中RadioGroup样式 
          */
-        public static final int user_login_radioButton_style=0x7f090003;
+        public static final int user_login_radioButton_style=0x7f080003;
     }
 }

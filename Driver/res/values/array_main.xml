@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="functions">
-        <item>发布消息</item>
-        <item>个人设置</item>
-        <item>订单管理</item>
-    </string-array>
-</resources>
