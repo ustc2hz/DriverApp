@@ -188,7 +188,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		Carservice.setOnClickListener(this);
 		myLocation.setOnClickListener(this);
 		// 调用显示目的地的类（类似于监听效果）
-		poisearch = new PoiSearchMethod(aMap, this, keyEdit);
+		poisearch = new PoiSearchMethod(aMap, this, keyEdit, this.showInfo);
 
 		voiceInput.setOnClickListener(this);
 		// 讯飞语音输入的key

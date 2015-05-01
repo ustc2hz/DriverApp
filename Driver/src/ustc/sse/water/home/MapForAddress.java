@@ -135,7 +135,7 @@ public class MapForAddress extends Activity implements LocationSource,
 		myLocation = (ImageButton) findViewById(R.id.button_my_location_map);
 		myLocation.setOnClickListener(this);
 		keyEdit = (AutoCompleteTextView) findViewById(R.id.actv_key_search_map);
-		new PoiSearchMethod(aMap, this, keyEdit); // 调用显示目的地的类（类似于监听效果）
+		new PoiSearchMethod(aMap, this, keyEdit, this.infoShow); // 调用显示目的地的类（类似于监听效果）
 		voiceInput = (ImageButton) findViewById(R.id.button_voice_search_map);
 		voiceInput.setOnClickListener(this);
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54818227");
