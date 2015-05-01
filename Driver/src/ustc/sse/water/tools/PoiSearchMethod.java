@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ustc.sse.water.activity.R;
-import ustc.sse.water.tools.MyCloudSearch;
 import ustc.sse.water.utils.ProgressDialogUtil;
 import ustc.sse.water.utils.ToastUtil;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -69,6 +69,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 	private PoiSearch poiSearch;
 	/* Poi查询条件类 */
 	private PoiSearch.Query query;
+	private TextView showInfo;
 
 	public PoiSearchMethod() {
 		// 保留无参构造函数
@@ -76,14 +77,20 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 有参构造函数
-	 * @param map 操作的地图
-	 * @param context 上下文
-	 * @param edit 自动填充文本框
+	 *
+	 * @param map
+	 *            操作的地图
+	 * @param context
+	 *            上下文
+	 * @param edit
+	 *            自动填充文本框
 	 */
-	public PoiSearchMethod(AMap map, Context context, AutoCompleteTextView edit) {
+	public PoiSearchMethod(AMap map, Context context,
+			AutoCompleteTextView edit, TextView showInfo) {
 		this.aMap = map;
 		this.context = context;
 		this.keyEdit = edit;
+		this.showInfo = showInfo;
 		keyEdit.addTextChangedListener(this);// 自动填充文本框监听事件
 		keyEdit.setOnEditorActionListener(this);
 		keySearch = keyEdit.getText().toString().trim();
@@ -91,9 +98,13 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 有参构造函数
-	 * @param map 高德地图
-	 * @param con 上下文
-	 * @param keyword Poi关键字
+	 *
+	 * @param map
+	 *            高德地图
+	 * @param con
+	 *            上下文
+	 * @param keyword
+	 *            Poi关键字
 	 */
 	public PoiSearchMethod(AMap map, Context con, String keyword) {
 		this.aMap = map;
@@ -114,7 +125,9 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 查单个poi详情
-	 * @param poiId poi的id
+	 *
+	 * @param poiId
+	 *            poi的id
 	 */
 	public void doSearchPoiDetail(String poiId) {
 		if (poiSearch != null && poiId != null) {
@@ -145,6 +158,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 		switch (actionId) {
 		case EditorInfo.IME_ACTION_DONE:
 			keySearch = keyEdit.getText().toString().trim();
+			this.showInfo.setVisibility(View.INVISIBLE);
 			doSearchQuery();
 			// 隐藏输入法
 			InputMethodManager imm = (InputMethodManager) context
