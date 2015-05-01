@@ -69,7 +69,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
 /**
- *
+ * 
  * 首界面类 <br>
  * 该类用来显示高德地图，并完成基本操作如：定位、导航、搜索、路线规划和停车场列表等 该类中部分功能使用高德地图API，此APP遵守高德地图API的使用条款
  * <p>
@@ -77,7 +77,7 @@ import com.iflytek.cloud.SpeechUtility;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 4.1.0
@@ -344,7 +344,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 响应地图点击事件
-	 *
+	 * 
 	 * @param arg0
 	 *            点击的点生成的对象 此方法由高德地图API提供
 	 */
@@ -368,7 +368,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 响应地图长时间点击点击事件
-	 *
+	 * 
 	 * @param arg0
 	 *            点击的点生成的对象 此方法由高德地图API提供
 	 */
@@ -585,7 +585,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 在首界面显示点击的marker信息
-	 *
+	 * 
 	 * @param name
 	 *            停车场地址
 	 * @param phone
@@ -620,7 +620,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 
 	/**
 	 * 在文字区域显示停车场大概信息
-	 *
+	 * 
 	 * @param marker
 	 *            点击的地图上的点
 	 */
