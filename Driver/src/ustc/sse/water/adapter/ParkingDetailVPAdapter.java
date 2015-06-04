@@ -21,6 +21,7 @@ import android.view.ViewGroup;
  * @version 1.0.0
  */
 public class ParkingDetailVPAdapter extends PagerAdapter {
+
 	private List<View> viewList; // 页列表
 	private List<String> titleList; // 页标题
 

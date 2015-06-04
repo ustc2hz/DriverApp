@@ -17,17 +17,18 @@ import com.amap.api.maps.model.MarkerOptions;
 
 /**
  * 服务器图层 <br>
- * 在地图上显示服务器中自定义的位置
+ * 在地图上显示服务器中自定义的位置----参考自高德地图API
  * <p>
  * Copyright: Copyright (c) 2014年12月19日 下午10:27:13
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class PoiOverlay {
+
 	private AMap mAMap; // 地图
 	// Marker列表
 	private ArrayList<Marker> mPoiMarks = new ArrayList<Marker>();
@@ -43,7 +44,7 @@ public class PoiOverlay {
 
 	/**
 	 * 有参构造函数
-	 *
+	 * 
 	 * @param amap
 	 *            传递进来的地图对象
 	 * @param pois
@@ -86,7 +87,7 @@ public class PoiOverlay {
 
 	/**
 	 * 获取merker的设置信息
-	 *
+	 * 
 	 * @param index
 	 *            在List中的位置
 	 */
@@ -102,7 +103,7 @@ public class PoiOverlay {
 
 	/**
 	 * 获取所选marker在List中的位置
-	 *
+	 * 
 	 * @param marker
 	 *            所选的marker节点
 	 */
@@ -117,7 +118,7 @@ public class PoiOverlay {
 
 	/**
 	 * 获取对应的CloudItem对象
-	 *
+	 * 
 	 * @param index
 	 *            在List中的位置
 	 */
@@ -130,7 +131,7 @@ public class PoiOverlay {
 
 	/**
 	 * 获取对应的Snippet信息
-	 *
+	 * 
 	 * @param index
 	 *            在List中的位置
 	 */
@@ -140,7 +141,7 @@ public class PoiOverlay {
 
 	/**
 	 * 获取对应的Title信息
-	 *
+	 * 
 	 * @param index
 	 *            在List中的位置
 	 */

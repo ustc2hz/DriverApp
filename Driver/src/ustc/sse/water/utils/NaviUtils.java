@@ -13,6 +13,7 @@ package ustc.sse.water.utils;
  * @version 1.0.0
  */
 public class NaviUtils {
+
 	public static final String ACTIVITYINDEX = "activityindex";
 	public static final String CAMERA = "camerabroadcast";
 	public static final boolean CLOSE_MODE = false;

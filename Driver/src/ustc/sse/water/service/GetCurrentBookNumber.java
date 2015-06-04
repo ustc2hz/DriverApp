@@ -30,8 +30,8 @@ public class GetCurrentBookNumber extends IntentService {
 		if (Integer.parseInt(managerId) != 0) {
 			// 访问服务器
 			StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH)
-					.append("/GetParkingCurrentNumber?managerId=")
-					.append(managerId);
+					.append("/GetParkingCurrentNumber?managerId=").append(
+							managerId);
 			String result = HttpUtils.getJsonContent(path.toString());
 			Intent i = new Intent();
 			i.setAction("com.action.br.current_number");

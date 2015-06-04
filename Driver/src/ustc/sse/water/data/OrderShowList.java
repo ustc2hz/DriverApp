@@ -1,7 +1,7 @@
-
 package ustc.sse.water.data;
 
 import java.util.List;
+
 /**
  * 
  * Model类. <br>
@@ -11,13 +11,15 @@ import java.util.List;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
 public class OrderShowList {
+
 	private List<AdminOrderShow> adminShow; // 存储多个管理员订单
 	private List<DriverOrderShow> driverShow; // 存储多个多个驾驶员订单
-	
+
 	public OrderShowList() {
 		adminShow = null;
 		driverShow = null;
@@ -38,5 +40,5 @@ public class OrderShowList {
 	public void setDriverShow(List<DriverOrderShow> driverShow) {
 		this.driverShow = driverShow;
 	}
-	
+
 }

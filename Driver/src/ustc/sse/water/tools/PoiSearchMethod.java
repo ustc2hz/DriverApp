@@ -33,20 +33,21 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
 
 /**
- *
+ * 
  * 关键字搜索类 <br>
- * Poi搜索
+ * Poi搜索-----参考自高德地图API
  * <p>
  * Copyright: Copyright (c) 2014-11-14 上午8:57:14
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.0.0
  */
 public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 		OnEditorActionListener {
+
 	/* 接收传递的AMap */
 	private AMap aMap;
 	/* 上下文 */
@@ -77,7 +78,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 有参构造函数
-	 *
+	 * 
 	 * @param map
 	 *            操作的地图
 	 * @param context
@@ -98,7 +99,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 有参构造函数
-	 *
+	 * 
 	 * @param map
 	 *            高德地图
 	 * @param con
@@ -125,7 +126,7 @@ public class PoiSearchMethod implements TextWatcher, OnPoiSearchListener,
 
 	/**
 	 * 查单个poi详情
-	 *
+	 * 
 	 * @param poiId
 	 *            poi的id
 	 */

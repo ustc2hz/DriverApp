@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- *
+ * 
  * 自定义对话框. <br>
  * 管理员订单详情对话框.
  * <p>
@@ -16,11 +16,12 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
 public class AdminCustomDialog {
+
 	private Context context; // 上下文
 	private AlertDialog ad; // 对话框
 	private TextView orderContent; // 订单内容

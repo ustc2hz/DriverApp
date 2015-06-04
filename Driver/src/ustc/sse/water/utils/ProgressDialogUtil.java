@@ -17,6 +17,7 @@ import android.content.Context;
  * @version 2.0.0
  */
 public class ProgressDialogUtil {
+
 	/* 上下文 */
 	private Context context;
 	/* 进度对话框 */

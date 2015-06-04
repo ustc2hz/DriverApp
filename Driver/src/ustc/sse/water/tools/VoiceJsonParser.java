@@ -7,7 +7,7 @@ import org.json.JSONTokener;
 /**
  * 
  * 语音识别Json解析类. <br>
- * 语音识别成功后得到的是Json封装的数据，需要使用Json解析. 将语音识别后的结果解析成完整的汉字字符串
+ * 语音识别成功后得到的是Json封装的数据，需要使用Json解析. 将语音识别后的结果解析成完整的汉字字符串----参考自讯飞语言API
  * <p>
  * Copyright: Copyright (c) 2014-11-21 下午5:22:39
  * <p>

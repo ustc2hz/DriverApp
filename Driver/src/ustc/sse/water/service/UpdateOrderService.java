@@ -10,6 +10,7 @@ import ustc.sse.water.adapter.OrderStateProcessAdapter;
 import ustc.sse.water.data.AdminOrderShow;
 import ustc.sse.water.data.OrderShowList;
 import ustc.sse.water.manager.ManagerOrderIng;
+import ustc.sse.water.thread.UpdateMOrderOne;
 import ustc.sse.water.utils.ConstantKeep;
 import ustc.sse.water.utils.HttpUtils;
 import android.app.Notification;
@@ -23,7 +24,7 @@ import android.support.v4.app.NotificationCompat.Builder;
 import android.widget.RemoteViews;
 
 /**
- *
+ * 
  * 管理员刷新订单的Service. <br>
  * 此Service采用轮询的方式访问服务器，查看管理员是否有新订单。如果有则从服务器中获取后广播给订单管理的Activity.
  * <p>
@@ -31,7 +32,7 @@ import android.widget.RemoteViews;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.0.0
  */
@@ -57,10 +58,10 @@ public class UpdateOrderService extends Service {
 	}
 
 	/**
-	 * 创建一个轮询线程，每2s访问一次服务器查看是否有新的订单信息
+	 * 创建一个轮询线程，每4s访问一次服务器查看是否有新的订单信息
 	 */
 	public void createThread() {
-		// 启动一个线程来每2s发送一个服务器请求
+		// 启动一个线程来每4s发送一个服务器请求
 		new Thread() {
 			@Override
 			public void run() {
@@ -92,14 +93,17 @@ public class UpdateOrderService extends Service {
 							}
 
 							// 再次请求服务器修改订单状态
-							StringBuffer requestPath = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
+							StringBuffer requestPath = new StringBuffer(
+									HttpUtils.LBS_SERVER_PATH);
 							requestPath.append("/ChangeOrderStatus?changeIds=")
 									.append(objectMapper
 											.writeValueAsString(ids));
 							
-							HttpUtils.getJsonContent(requestPath.toString());
+							new UpdateMOrderOne(requestPath.toString()).start();
+							
 							ManagerOrderIng.myAdapter = new OrderStateProcessAdapter(
-									ManagerOrderIng.context, ConstantKeep.aosIng);
+									ManagerOrderIng.context,
+									ConstantKeep.aosIng);
 							Message ms = new Message();
 							ms.arg1 = 44;
 							ManagerOrderIng.h1.sendMessage(ms);
@@ -110,8 +114,8 @@ public class UpdateOrderService extends Service {
 						}
 
 					}
-					try { // 每2s发一次请求
-						sleep(2000);
+					try { // 每4s发一次请求
+						sleep(4000);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -120,7 +124,10 @@ public class UpdateOrderService extends Service {
 		}.start();
 	}
 
-	// 发更新通知
+	/**
+	 * 发送新订单通知
+	 * @param content 通知内容
+	 */
 	private void sendNotification(String content) {
 		RemoteViews view_custom = new RemoteViews(getPackageName(),
 				R.layout.view_notificatinon);

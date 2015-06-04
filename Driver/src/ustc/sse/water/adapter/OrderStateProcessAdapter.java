@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- *
+ * 
  * 订单适配器，用于显示正在进行的订单和已完成订单. <br>
  * 类详细说明.
  * <p>
@@ -28,7 +28,7 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 张芳,周晶鑫修改
  * @version 4.0.0
  */
@@ -93,9 +93,10 @@ public class OrderStateProcessAdapter extends BaseAdapter {
 
 		if (order != null) {
 			vh.car_number.setText(order.getDriverLicence()); // 显示车牌号
-			vh.order_number.setText(String.valueOf(order.getParkNumber())+"个"); // 显示预定的数量
+			vh.order_number
+					.setText(String.valueOf(order.getParkNumber()) + "个"); // 显示预定的数量
 			vh.order_time.setText(order.getOrderDate()); // 显示预定时间
-			vh.money.setText(order.getOrderPrice()+"元");// 显示预定金额
+			vh.money.setText(order.getOrderPrice() + "元");// 显示预定金额
 			if (order.getOrderStatus() == 2) {
 				vh.complete_order.setVisibility(View.GONE);
 			}

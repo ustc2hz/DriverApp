@@ -35,7 +35,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 /**
- *
+ * 
  * 车位预定ParkingBookFragment. <br>
  * 展示订单表单，让用户填写.
  * <p>
@@ -43,12 +43,13 @@ import android.widget.Spinner;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 3.0.0
  */
 public class ParkingBookFragment extends Fragment implements OnClickListener,
 		OnItemSelectedListener {
+
 	public static int leftNumber; // 剩余车位数
 	public static ObjectMapper objectMapper = new ObjectMapper();
 	private String[] parkingInfo = new String[2]; // 预定的停车场基本信息
@@ -135,6 +136,7 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 												LoginActivity.class);
 										startActivity(intent);
 										dialog.dismiss();
+										getActivity().finish();
 									}
 								}).create().show();
 			} else {
@@ -217,7 +219,11 @@ public class ParkingBookFragment extends Fragment implements OnClickListener,
 	public void onNothingSelected(AdapterView<?> parent) {
 	}
 
-	// 生成一个订单
+	/**
+	 * 生成一个订单
+	 * 
+	 * @return Order 订单
+	 */
 	private Order createOrder() {
 		Order order = new Order();
 		orderUUID = order.getUuid();

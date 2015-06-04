@@ -24,17 +24,18 @@ import com.amap.api.maps.model.MarkerOptions;
 
 /**
  * 显示自定义的停车场位置 <br>
- * 显示服务器中自定义的位置
+ * 显示服务器中自定义的位置---参考自 高德云图开发平台API
  * <p>
  * Copyright: Copyright (c) 2014年12月19日 下午10:27:13
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class MyCloudSearch implements OnCloudSearchListener {
+
 	public static ArrayList<CloudItem> items = new ArrayList<CloudItem>();// 存储从服务器中获取的节点
 	public static List<CloudItem> mCloudItems;// 存储从服务器中获取的点
 	public static CloudSearch mCloudSearch;// 云搜索对象
@@ -56,7 +57,7 @@ public class MyCloudSearch implements OnCloudSearchListener {
 
 	/**
 	 * 有参构造函数
-	 *
+	 * 
 	 * @param con
 	 *            传递来的上下文
 	 * @param x
@@ -120,7 +121,6 @@ public class MyCloudSearch implements OnCloudSearchListener {
 
 					// 向地图添加点
 					if (mCloudItems != null && mCloudItems.size() > 0) {
-						// mAMap.clear();
 						mPoiCloudOverlay = new PoiOverlay(this.mAMap,
 								mCloudItems);
 						mPoiCloudOverlay.removeFromMap();
@@ -145,7 +145,9 @@ public class MyCloudSearch implements OnCloudSearchListener {
 		}
 	}
 
-	// 进行服务器搜索点的函数
+	/**
+	 *  进行服务器搜索点的函数
+	 */
 	public void searchByBound() {
 		items.clear();
 		SearchBound bound = new SearchBound(new LatLonPoint(

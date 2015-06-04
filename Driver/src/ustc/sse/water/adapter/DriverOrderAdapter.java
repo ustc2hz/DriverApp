@@ -12,7 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 /**
- *
+ * 
  * Adapter类. <br>
  * 驾驶员订单ListView的适配器.
  * <p>
@@ -20,11 +20,12 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
 public class DriverOrderAdapter extends BaseAdapter {
+
 	private static final int ORDER_FINISHED = 2; // 订单完成
 	private Context context; // 上下文
 	private LayoutInflater inflater; // 填充器
@@ -82,7 +83,7 @@ public class DriverOrderAdapter extends BaseAdapter {
 			String date = "日期：" + driverOrder.getOrderDate();
 			vh.orderDate.setText(date);
 			String status = "正在进行中";
-			if(driverOrder.getOrderStatus() == ORDER_FINISHED) {
+			if (driverOrder.getOrderStatus() == ORDER_FINISHED) {
 				status = "已完成";
 			}
 			vh.orderStatus.setText(status);

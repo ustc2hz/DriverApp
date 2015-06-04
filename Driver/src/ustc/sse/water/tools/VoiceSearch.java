@@ -14,23 +14,26 @@ import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 
 /**
- *
+ * 
  * 语音搜索类. <br>
- * 调用讯飞语音进行语音识别，并利用识别结果来进行Poi搜索.
+ * 调用讯飞语音进行语音识别，并利用识别结果来进行Poi搜索.-----参考自讯飞语音API
  * <p>
  * Copyright: Copyright (c) 2014-11-21 下午5:02:53
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  **/
 public class VoiceSearch {
+
 	/* 接收传递的地图 */
 	private AMap aMap;
 	/* 上下文 */
 	private Context context;
+	/* 语音识别结果 */
+	private String voiceResult = "";
 
 	/**
 	 * 初始化监听器。
@@ -75,9 +78,6 @@ public class VoiceSearch {
 			}
 		}
 	};
-
-	/* 语音识别结果 */
-	private String voiceResult = "";
 
 	/**
 	 * 有参构造函数

@@ -24,6 +24,7 @@ import android.os.Message;
  * @version 1.0.0
  */
 public class UpdateDriverInfoThread extends Thread {
+
 	Handler h;
 	private List<String> messages; // 传递的信息放入集合中
 	ObjectMapper objectMapper = new ObjectMapper();
@@ -38,7 +39,8 @@ public class UpdateDriverInfoThread extends Thread {
 		try {
 			StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
 			path.append("/DriverUpdateServlet?messages=")
-					.append(URLEncoder.encode(objectMapper.writeValueAsString(messages), "utf-8"));
+					.append(URLEncoder.encode(
+							objectMapper.writeValueAsString(messages), "utf-8"));
 			// 调用Http
 			String jsonString = HttpUtils.getJsonContent(path.toString());
 			Message msg = h.obtainMessage();

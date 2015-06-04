@@ -24,7 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- *
+ * 
  * Activity类. <br>
  * 驾驶员可以此界面中修改密码
  * <p>
@@ -32,11 +32,12 @@ import android.widget.EditText;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.3.0
  */
 public class UpdateDriverPwd extends Activity implements OnClickListener {
+
 	private final static int UPDATE_PASSWORD = 2; // 只修改密码
 	private final static int UPDATE_RESULT = 4; // 修改后的返回的数
 

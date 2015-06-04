@@ -16,7 +16,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import ustc.sse.water.activity.R;
 import ustc.sse.water.driver.DriverInfo;
-import ustc.sse.water.manager.ManagerMainTabActivity;
 import ustc.sse.water.utils.ConstantKeep;
 import ustc.sse.water.utils.HttpUtils;
 import ustc.sse.water.utils.ProgressDialogUtil;
@@ -38,7 +37,7 @@ import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
 /**
- *
+ * 
  * 登录界面类 <br>
  * 该类用来显示驾驶员和管理员的登录和注册等，将登录信息记录到SharedPreference中。
  * <p>
@@ -46,11 +45,12 @@ import android.widget.RadioGroup;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author张芳 sa614296@mail.ustc.edu.cn 周晶鑫 修改
  * @version 5.2.0
  */
 public class LoginActivity extends Activity implements OnClickListener {
+
 	public static int radioStatus = 0; // 默认是驾驶员
 	private static final int USER_DRIVER = 0; // 使用者为驾驶员
 	private static final int USER_MANAGER = 1; // 使用者为驾驶员
@@ -168,6 +168,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	}
 
+	/* 输入框文字监听 */
 	class TextWatchListener implements TextWatcher {
 
 		@Override
@@ -261,7 +262,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		radioStatus = USER_DRIVER;
 	};
 
-	// 登录访问的线程（收尾时再分出去）
+	/* 登录访问的线程 */
 	class LoginThread implements Runnable {
 		ObjectMapper objectMapper = new ObjectMapper();
 
@@ -302,12 +303,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		/**
 		 * 登录和注册
-		 *
+		 * 
 		 * @param username
 		 *            用户名
 		 * @param password
 		 *            密码
-		 * @return boolean
+		 * @return boolean 登录是否成功
 		 */
 		private boolean loginServer(String username, String password) {
 			boolean loginValidate = false;

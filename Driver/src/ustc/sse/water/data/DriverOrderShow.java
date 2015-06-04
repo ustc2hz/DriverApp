@@ -9,10 +9,12 @@ package ustc.sse.water.data;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
 public class DriverOrderShow {
+
 	private String parkName; // 停车场名
 	private String parkAddress; // 停车场地址
 	private int parkNumber; // 预定车位数

@@ -23,7 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- *
+ * 
  * Activity类. <br>
  * 让驾驶员可以添加和修改联系电话.
  * <p>
@@ -31,13 +31,15 @@ import android.widget.EditText;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
 public class MyPhone extends Activity implements OnClickListener {
+	
 	private final static int ADD_UPDATE_PHONE = 1; // 修改和添加电话
 	private final static int UPDATE_RESULT = 4; // 修改后的返回的数
+	
 	private ActionBar ab;
 	private EditText inputPhone; // 电话号码的输入框
 	private Button addUpdate; // 添加或者修改按钮
@@ -70,6 +72,9 @@ public class MyPhone extends Activity implements OnClickListener {
 		initViews();
 	}
 
+	/**
+	 * 初始化视图
+	 */
 	private void initViews() {
 		inputPhone = (EditText) findViewById(R.id.edit_driver_phone_add_update);
 		addUpdate = (Button) findViewById(R.id.button_driver_add_update_phone);

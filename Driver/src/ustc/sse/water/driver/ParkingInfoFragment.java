@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- *
+ * 
  * 停车场信息Fragment. <br>
  * 显示停车场的详细信息.
  * <p>
@@ -26,11 +26,12 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.0.0
  */
 public class ParkingInfoFragment extends Fragment {
+
 	// 方便数据传递，之后更改——黄志恒
 	public static String[] tranMoney = new String[3];
 	/* 模拟数据 */
@@ -64,8 +65,8 @@ public class ParkingInfoFragment extends Fragment {
 
 	/**
 	 * 读取停车场的预定信息数据，放入List中
-	 *
-	 * @return List<String>
+	 * 
+	 * @return List<String> 数据列表
 	 */
 	public List<String> getData() {
 		List<String> list = new ArrayList<String>();
@@ -80,9 +81,9 @@ public class ParkingInfoFragment extends Fragment {
 	 * 初始化收费信息
 	 */
 	private void initTranMoney() {
-		tranMoney[0] = "提前10分钟预定收取：" + bookMoneys[0] + "元";
-		tranMoney[1] = "提前20分钟预定收取：" + bookMoneys[1] + "元";
-		tranMoney[2] = "提前30分钟预定收取：" + bookMoneys[2] + "元";
+		tranMoney[0] = "提前20分钟预定收取：" + bookMoneys[0] + "元";
+		tranMoney[1] = "提前40分钟预定收取：" + bookMoneys[1] + "元";
+		tranMoney[2] = "提前60分钟预定收取：" + bookMoneys[2] + "元";
 	}
 
 	/**

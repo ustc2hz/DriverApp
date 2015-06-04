@@ -10,7 +10,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 /**
- *
+ * 
  * 停车场详细信息类. <br>
  * 使用ActionBar的Tab效果来分别展示停车场的详细信息界面和预定界面.
  * <p>
@@ -18,17 +18,18 @@ import android.os.Bundle;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class ParkingDetail extends Activity {
+
 	private ActionBar actionBar; // 此Activity的ActionBar
 	Map<String, Object> selectParking = null; // 用来接收列表中选中的停车场
 
-	private int managerId = 0;
-	private int driverId = 0;
-	private String parkType = null;
+	private int managerId = 0; // 停车场管理员id
+	private int driverId = 0; // 驾驶员id
+	private String parkType = null; // 停车场类型：Web和APP
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

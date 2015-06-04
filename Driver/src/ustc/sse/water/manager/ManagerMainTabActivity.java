@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TabHost;
 
 /**
- *
+ * 
  * 管理底部导航. <br>
  * 点击不同导航项，跳转到不同Activity.
  * <p>
@@ -20,7 +20,7 @@ import android.widget.TabHost;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 张芳，周晶鑫修改
  * @version 1.0.0
  */

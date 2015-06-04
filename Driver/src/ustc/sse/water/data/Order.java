@@ -16,6 +16,7 @@ import java.util.UUID;
  * @version 1.0.0
  */
 public class Order {
+
 	private int orderId; // 订单Id
 	private String uuid; // 唯一标识
 	private String parkName; // 停车场名

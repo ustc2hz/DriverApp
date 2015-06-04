@@ -18,7 +18,7 @@ import com.amap.api.services.core.LatLonPoint;
 
 /**
  * 路径规划类 <br>
- * 该类用来计算自身位置与目的地的行车路径
+ * 该类用来计算自身位置与目的地的行车路径----参考自 高德地图API
  * <p>
  * Copyright: Copyright (c) 2014年11月28日 下午7:51:54
  * <p>
@@ -29,6 +29,7 @@ import com.amap.api.services.core.LatLonPoint;
  * @version 2.0.0
  */
 public class NaviRouteMethod implements AMapNaviListener {
+
 	/* 高德地图AMap */
 	private AMap aMap;
 	/* 传递过来的上下文 */
@@ -78,7 +79,9 @@ public class NaviRouteMethod implements AMapNaviListener {
 		}
 	}
 
-	// 计算驾车路线
+	/**
+	 * 计算驾车路线
+	 */
 	private void calculateDriveRoute() {
 		boolean isSuccess = mAMapNavi.calculateDriveRoute(mStartPoints,
 				mEndPoints, null, AMapNavi.DrivingDefault);
@@ -88,6 +91,10 @@ public class NaviRouteMethod implements AMapNaviListener {
 
 	}
 
+	/**
+	 * 初始化导航起点和终点
+	 * @return boolean
+	 */
 	public boolean initValue() {
 		mAMapNavi = AMapNavi.getInstance(context);
 		mAMapNavi.setAMapNaviListener(this);

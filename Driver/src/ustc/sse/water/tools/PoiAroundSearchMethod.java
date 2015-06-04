@@ -22,19 +22,20 @@ import com.amap.api.services.poisearch.PoiSearch.OnPoiSearchListener;
 import com.amap.api.services.poisearch.PoiSearch.SearchBound;
 
 /**
- *
+ * 
  * 周边搜索类. <br>
- * 包含周边搜索功能的各种方法，以完成当前位置的周边搜索，目的地位置的周边搜索，和“周边搜索”导航.
+ * 包含周边搜索功能的各种方法，以完成当前位置的周边搜索，目的地位置的周边搜索，和“周边搜索”导航.----参考自高德地图API
  * <p>
  * Copyright: Copyright (c) 2014-11-15 下午2:26:43
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 2.1.0
  */
 public class PoiAroundSearchMethod implements OnPoiSearchListener {
+
 	/* 显示Marker的详情 */
 	public static Marker detailMarker;
 	/* poi数据 */

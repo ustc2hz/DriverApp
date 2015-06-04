@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.amap.api.maps.model.LatLng;
 
 /**
- *
+ * 
  * 自定义对话框. <br>
  * 订单详情对话框.
  * <p>
@@ -22,11 +22,12 @@ import com.amap.api.maps.model.LatLng;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
 public class DriverCustomDialog {
+
 	private Context context; // 上下文
 	private AlertDialog ad; // 对话框
 	private TextView parkNumber; // 预定车位数

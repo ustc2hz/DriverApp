@@ -14,6 +14,7 @@ package ustc.sse.water.data;
  * @version 1.0.0
  */
 public class Driver {
+
 	private int driverId; // 驾驶员id
 	private String driverName; // 驾驶员名字
 	private String driverPassword; // 驾驶员密码

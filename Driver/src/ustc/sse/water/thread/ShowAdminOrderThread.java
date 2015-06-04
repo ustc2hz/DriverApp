@@ -22,11 +22,12 @@ import android.os.Message;
  * @version 1.0.0
  */
 public class ShowAdminOrderThread extends Thread {
+
 	private Handler h; // 消息处理
 	ObjectMapper objectMapper = new ObjectMapper(); // 解析字符串
 	private StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH); // URL
-	
-	public ShowAdminOrderThread(Handler h,String type, String adminId) {
+
+	public ShowAdminOrderThread(Handler h, String type, String adminId) {
 		this.h = h;
 		// 完整的URL访问地址
 		path.append("/AdminOrderServlet?type=").append(type)

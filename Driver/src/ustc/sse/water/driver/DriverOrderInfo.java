@@ -26,7 +26,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 /**
- *
+ * 
  * 驾驶员的订单信息类. <br>
  * 展示驾驶员的正在进行的订单和历史订单.
  * <p>
@@ -34,11 +34,12 @@ import android.widget.ProgressBar;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class DriverOrderInfo extends Activity implements OnItemClickListener {
+
 	private ListView listView; // 列表
 	private ProgressBar progressBar; // 环形进度条
 	private DriverOrderAdapter adapter; // 适配器
@@ -102,15 +103,12 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 				progressDialog.dissmissProgressDialog();
 				// 重新获取本地保存的驾驶员订单信息
 				driverOrders = ConstantKeep.dos;
-				adapter.notifyDataSetChanged();
+				refreshAdapter();
 				break;
 			case 22: // 获取全部订单数据成功
 				// 重新获取本地保存的驾驶员订单信息
 				driverOrders = ConstantKeep.dos;
-				adapter = new DriverOrderAdapter(DriverOrderInfo.this,
-						driverOrders);
-				listView.setAdapter(adapter);
-				listView.setVisibility(View.VISIBLE);
+				refreshAdapter();
 				progressBar.setVisibility(View.GONE);
 				break;
 			case 33: // 获取失败
@@ -121,6 +119,15 @@ public class DriverOrderInfo extends Activity implements OnItemClickListener {
 			}
 		};
 	};
+
+	/**
+	 * 刷新数据
+	 */
+	public void refreshAdapter() {
+		adapter = new DriverOrderAdapter(DriverOrderInfo.this, driverOrders);
+		listView.setAdapter(adapter);
+		listView.setVisibility(View.VISIBLE);
+	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,

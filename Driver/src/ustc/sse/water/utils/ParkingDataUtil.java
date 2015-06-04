@@ -15,7 +15,7 @@ import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 
 /**
- *
+ * 
  * 获取停车场列表数据类. <br>
  * 搜集周边停车场搜索结果和云图上停车场，并将它们的停车场名、地点和距离提取出来；如果是可以预定的停车场则存储预定信息.
  * <p>
@@ -23,11 +23,12 @@ import com.amap.api.services.poisearch.PoiSearch;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class ParkingDataUtil {
+
 	private PoiSearch.Query poiQuery; // Poi查询条件类
 	private PoiResult poiResult; // 周边搜索的结果
 	private PoiSearch poiSearch; // Poi搜索

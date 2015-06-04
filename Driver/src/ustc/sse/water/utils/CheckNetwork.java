@@ -22,6 +22,7 @@ import android.provider.Settings;
  * @version 1.0.0
  */
 public class CheckNetwork {
+
 	private Context context; // 上下文
 
 	public CheckNetwork(Context con) {

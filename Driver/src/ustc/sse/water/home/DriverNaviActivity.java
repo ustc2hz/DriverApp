@@ -19,12 +19,13 @@ import com.amap.api.navi.AMapNaviViewListener;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 黄志恒 sa14226399@mail.ustc.edu.cn
  * @version 1.0.0
  */
 public class DriverNaviActivity extends Activity implements
 		AMapNaviViewListener {
+
 	// 导航View——此类由高德地图API提供
 	private AMapNaviView mAmapAMapNaviView;
 	// 记录有哪个页面跳转而来，处理返回键
@@ -77,10 +78,11 @@ public class DriverNaviActivity extends Activity implements
 	}
 
 	/**
-	 *
+	 * 
 	 * 返回键监听事件
-	 *
-	 * @keyCode 返回键 @ event 事件
+	 * 
+	 * @keyCode 返回键
+	 * @event 事件
 	 * */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -106,7 +108,6 @@ public class DriverNaviActivity extends Activity implements
 		return super.onKeyDown(keyCode, event);
 	}
 
-	// -----------------------------导航界面回调事件------------------------
 	/**
 	 * 导航界面返回按钮监听 此方法由高德地图API提供
 	 * */

@@ -26,7 +26,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 
 /**
- *
+ * 
  * 导航中间层类 <br>
  * 该类用来对导航类的初始化，提供导航类的上下文 该类中部分功能使用高德地图API，此APP遵守高德地图API的使用条款
  * 该类中部分功能使用讯飞语音API，此APP遵守讯飞语音API的使用条款
@@ -35,7 +35,7 @@ import com.iflytek.cloud.SynthesizerListener;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 黄志恒 sa614399@mail.ustc.edu.cn
  * @version 2.0.0
  */
@@ -234,7 +234,7 @@ public class NaviStartActivity extends Activity implements OnClickListener,
 
 	/**
 	 * 返回键处理事件
-	 *
+	 * 
 	 * @param keyCode
 	 *            传递的事件代码
 	 * @param event

@@ -34,7 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- *
+ * 
  * 用户注册界面Activity. <br>
  * 提供驾驶员的注册、停车场管理员的注册.
  * <p>
@@ -42,7 +42,7 @@ import android.widget.EditText;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 张芳，周晶鑫 修改
  * @version 2.0.0
  */
@@ -137,7 +137,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				}
 			}
 			// 密码的验证
-			if (!inputPassword.equals(inputRepassword)) {
+			else if (!inputPassword.equals(inputRepassword)) {
 				// 密码和确认密码不一致
 				inputValidation = false;
 				rePassword.setText("");
@@ -185,7 +185,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 
 	/**
 	 * 注册成功对话框，点击“确定”后跳转到登录界面
-	 *
+	 * 
 	 * @param str
 	 *            提示信息
 	 */
@@ -278,7 +278,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 
 		/**
 		 * 访问服务器，注册该用户的信息
-		 *
+		 * 
 		 * @param username
 		 *            用户名
 		 * @param password

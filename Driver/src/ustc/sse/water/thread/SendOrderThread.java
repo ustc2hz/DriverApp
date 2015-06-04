@@ -21,6 +21,7 @@ import android.os.Message;
  * @version 1.0.0
  */
 public class SendOrderThread extends Thread {
+
 	Handler h; // Handler处理服务器返回的值
 	private String sendMessage; // 需要发送的信息
 
@@ -35,8 +36,8 @@ public class SendOrderThread extends Thread {
 		try {
 			// Get方式的url地址
 			StringBuffer path = new StringBuffer(HttpUtils.LBS_SERVER_PATH);
-			path.append("/SolveOrderServlet?order=")
-					.append(URLEncoder.encode(sendMessage, "utf-8"));
+			path.append("/SolveOrderServlet?order=").append(
+					URLEncoder.encode(sendMessage, "utf-8"));
 			// 调用Http方法
 			String jsonString = HttpUtils.getJsonContent(path.toString());
 			Message msg = h.obtainMessage();

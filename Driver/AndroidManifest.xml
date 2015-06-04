@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ustc.sse.water.activity"
-    android:versionCode="2"
-    android:versionName="2.0" >
+    android:versionCode="3"
+    android:versionName="3.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -38,18 +38,22 @@
         <!-- AMap的key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-
             android:value="fef9803d166042f9b82ec1db72b312d5" />
 
+        <!-- 应用启动欢迎界面 -->
+        <activity android:name="ustc.sse.water.home.WelcomeShow"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
         <!-- 地图界面 -->
         <activity
             android:name="ustc.sse.water.home.DriverMainScreen"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         
         <!-- 车生活界面 -->
@@ -62,6 +66,7 @@
         <activity
             android:name="ustc.sse.water.home.NaviStartActivity">
         </activity>
+        
         <!-- 导航界面 -->
         <activity android:name="ustc.sse.water.home.DriverNaviActivity" />
         
@@ -95,14 +100,14 @@
             android:name="ustc.sse.water.manager.ManagerInfo"
             android:label="@string/app_name" />
 
+        <!-- 管理员已完成订单界面 -->
         <activity
             android:name="ustc.sse.water.manager.ManagerOrderDown"
             android:label="@string/app_name" />
 
         <!-- 停车场修改密码 -->
         <activity
-            android:name="ustc.sse.water.manager.ManagerChangePass"
-            android:label="@string/welcome" />
+            android:name="ustc.sse.water.manager.ManagerChangePass" />
 
         <!-- 修改驾驶员密码 -->
         <activity android:name="ustc.sse.water.driver.UpdateDriverPwd" />
@@ -122,19 +127,12 @@
         <!-- 停车场详情和预定 -->
         <activity android:name="ustc.sse.water.driver.ParkingDetail" />
 
-        <!-- 停车场列表 -->
-        <activity android:name="ustc.sse.water.driver.ParkingList" />
-
         <!-- 更新订单的Service -->
         <service android:name="ustc.sse.water.service.UpdateOrderService" />
 
+		<!-- 地图选点界面 -->
         <activity
-            android:name="ustc.sse.water.home.MySpinner"
-            android:label="@string/title_activity_my_spinner" />
-
-        <activity
-            android:name="ustc.sse.water.home.MapForAddress"
-            android:label="@string/title_activity_map_for_address" />
+            android:name="ustc.sse.water.home.MapForAddress" />
         
         <!-- 更新停车场剩余车位的服务 -->
         <service android:name="ustc.sse.water.service.GetCurrentBookNumber"/>

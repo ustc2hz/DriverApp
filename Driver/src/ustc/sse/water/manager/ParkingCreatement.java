@@ -22,7 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- *
+ * 
  * 订单界面、默认显示当前正在进行的订单. <br>
  * 订单界面类.
  * <p>
@@ -30,11 +30,10 @@ import android.widget.Toast;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author张芳 sa614296@mail.ustc.edu.cn
  * @version 3.0.0
  */
-
 public class ParkingCreatement extends Activity implements OnClickListener {
 
 	// jackson的ObjectMapper,用于在json字符串和Java对象间转换
@@ -104,11 +103,21 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			if (msg.what == 1) {
-				ToastUtil.show(ParkingCreatement.this, "Submit Success!");
-			} else {
-				ToastUtil.show(ParkingCreatement.this, "Submit Failed!");
+			switch (msg.what) {
+			case 1: // 创建成功
+				ToastUtil.show(ParkingCreatement.this, "停车场创建成功!");
+				break;
+			case 0: // 创建失败
+				ToastUtil.show(ParkingCreatement.this, "停车场创建成功!");
+				break;
+			case 2: // 更新成功
+				ToastUtil.show(ParkingCreatement.this, "数据更新成功!");
+				break;
+			case 3: // 更新失败
+				ToastUtil.show(ParkingCreatement.this, "数据更新失败!");
+				break;
 			}
+
 		}
 	};
 
@@ -121,8 +130,9 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 		saveChange.append("{\"_id\":\"" + preferences.getString("id", "空")
 				+ "\"");
 		// 停车场名称不为空时进入if语句，并保存数据
-		if (!parkName.getText().toString().trim()
-				.equals(preferences.getString("name", "空"))) {
+		String updatePName = parkName.getText().toString().trim();
+		if (!updatePName.equals(preferences.getString("name", "空"))
+				&& !updatePName.equals("")) {
 			saveChange.append(",\"_name\":\""
 					+ parkName.getText().toString().trim() + "\"");
 			editor.putString("name", parkName.getText().toString().trim());
@@ -130,8 +140,9 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 
 		}
 		// 停车场位置不为空时进入if语句，并保存数据
-		if (!parkLocation.getText().toString().trim()
-				.equals(preferences.getString("location", "空"))) {
+		String updatePLocation = parkLocation.getText().toString().trim();
+		if (!updatePLocation.equals(preferences.getString("location", "空"))
+				&& !updatePLocation.equals("")) {
 			saveChange.append(",\"_location\":\""
 					+ parkLocation.getText().toString().trim() + "\"");
 			editor.putString("location", parkLocation.getText().toString()
@@ -140,8 +151,9 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 		}
 
 		// 停车场电话不为空时进入if语句，并保存数据
-		if (!parkPhone.getText().toString().trim()
-				.equals(preferences.getString("phone", "空"))) {
+		String updatePPhone = parkPhone.getText().toString().trim();
+		if (!updatePPhone.equals(preferences.getString("phone", "空"))
+				&& !updatePPhone.equals("")) {
 			saveChange.append(",\"phone\":\""
 					+ parkPhone.getText().toString().trim() + "\"");
 			editor.putString("phone", parkPhone.getText().toString().trim());
@@ -149,8 +161,9 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 		}
 
 		// 停车场停车位总数不为空时进入if语句，并保存数据
-		if (!park_number.getText().toString().trim()
-				.equals(preferences.getString("num", "空"))) {
+		String updatePNumber = park_number.getText().toString().trim();
+		if (!updatePNumber.equals(preferences.getString("num", "空"))
+				&& !updatePNumber.equals("")) {
 			saveChange.append(",\"parkSum\":\""
 					+ park_number.getText().toString().trim() + "\"");
 			editor.putString("num", park_number.getText().toString().trim());
@@ -158,9 +171,10 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 
 		}
 
-		// 停车场预定10分钟订金不为空时进入if语句，并保存数据
-		if (!order_ten_price.getText().toString().trim()
-				.equals(preferences.getString("price_ten", "空"))) {
+		// 停车场预定20分钟订金不为空时进入if语句，并保存数据
+		String updateOTenPrice = order_ten_price.getText().toString().trim();
+		if (!updateOTenPrice.equals(preferences.getString("price_ten", "空"))
+				&& !updateOTenPrice.equals("")) {
 			saveChange.append(",\"orderTen\":\""
 					+ order_ten_price.getText().toString().trim() + "\"");
 			editor.putString("price_ten", order_ten_price.getText().toString()
@@ -168,9 +182,11 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 			editor.commit();
 		}
 
-		// 停车场预定20分钟订金不为空时进入if语句，并保存数据
-		if (!order_twenty_price.getText().toString().trim()
-				.equals(preferences.getString("price_twenty", "空"))) {
+		// 停车场预定40分钟订金不为空时进入if语句，并保存数据
+		String updateOTwentyPrice = order_twenty_price.getText().toString()
+				.trim();
+		if (!updateOTwentyPrice.equals(preferences.getString("price_twenty",
+				"空")) && !updateOTwentyPrice.equals("")) {
 			saveChange.append(",\"orderTwe\":\""
 					+ order_twenty_price.getText().toString().trim() + "\"");
 			editor.putString("price_twenty", order_twenty_price.getText()
@@ -178,9 +194,11 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 			editor.commit();
 		}
 
-		// 停车场预定30分钟订金不为空时进入if语句，并保存数据
-		if (!order_thirty_price.getText().toString().trim()
-				.equals(preferences.getString("price_thirty", "空"))) {
+		// 停车场预定60分钟订金不为空时进入if语句，并保存数据
+		String updateOThirtyPrice = order_thirty_price.getText().toString()
+				.trim();
+		if (!updateOThirtyPrice.equals(preferences.getString("price_thirty",
+				"空")) && !updateOThirtyPrice.equals("")) {
 			saveChange.append(",\"orderTri\":\""
 					+ order_thirty_price.getText().toString().trim() + "\"");
 			editor.putString("price_thirty", order_thirty_price.getText()
@@ -189,8 +207,10 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 		}
 
 		// 停车场停车半个小时金额不为空时进入if语句，并保存数据
-		if (!park_half_hour_price.getText().toString().trim()
-				.equals(preferences.getString("pprice_ten", "空"))) {
+		String updateOHourPrice = park_half_hour_price.getText().toString()
+				.trim();
+		if (!updateOHourPrice.equals(preferences.getString("pprice_ten", "空"))
+				&& !updateOHourPrice.equals("")) {
 			saveChange.append(",\"payHalPay\":\""
 					+ park_half_hour_price.getText().toString().trim() + "\"");
 			editor.putString("pprice_ten", park_half_hour_price.getText()
@@ -199,8 +219,10 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 		}
 
 		// 停车场停车1个小时金额不为空时进入if语句，并保存数据
-		if (!park_one_hour_price.getText().toString().trim()
-				.equals(preferences.getString("pprice_twenty", "空"))) {
+		String updateOOHourPrice = park_one_hour_price.getText().toString()
+				.trim();
+		if (!updateOOHourPrice.equals(preferences.getString("pprice_twenty",
+				"空")) && !updateOOHourPrice.equals("")) {
 			saveChange.append(",\"payOneHour\":\""
 					+ park_one_hour_price.getText().toString().trim() + "\"");
 			editor.putString("pprice_twenty", park_one_hour_price.getText()
@@ -209,8 +231,10 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 		}
 
 		// 停车场停车多于1个小时金额不为空时进入if语句，并保存数据
-		if (!park_more_hour_price.getText().toString().trim()
-				.equals(preferences.getString("pprice_thirty", "空"))) {
+		String updateOMHourPrice = park_more_hour_price.getText().toString()
+				.trim();
+		if (!updateOMHourPrice.equals(preferences.getString("pprice_thirty",
+				"空")) && !updateOMHourPrice.equals("")) {
 			saveChange.append(",\"payMorePay\":\""
 					+ park_more_hour_price.getText().toString().trim() + "\"");
 			editor.putString("pprice_thirty", park_more_hour_price.getText()
@@ -298,7 +322,6 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 		changeMess = (Button) findViewById(R.id.manager_update);
 		// 编辑按钮
 		commit = (Button) findViewById(R.id.manager_commit);
-		// 提交按钮
 
 		// 通过findViewById找到对应的
 		park_number = (EditText) findViewById(R.id.parknumber);
@@ -348,11 +371,11 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 							postUpdateData();
 							if (postData.responseMsg.equals("1")) {
 								Message msg = new Message();
-								msg.what = 1;
+								msg.what = 2;
 								handler.sendMessage(msg);
 							} else {
 								Message msg = Message.obtain();
-								msg.what = 0;
+								msg.what = 3;
 								handler.sendMessage(msg);
 							}
 
@@ -374,9 +397,11 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 			if (!"空".equals(preferences.getString("id", "空"))) {
 				Toast.makeText(this, "已创建，更新数据请点击更新按钮", Toast.LENGTH_SHORT)
 						.show();
+			} else if ("".equals(parkLocation.getText().toString().trim())) {
+				Toast.makeText(this, "没有选定停车场地址", Toast.LENGTH_SHORT).show();
 			} else {
 				// 首先存储输入框中的数据
-				SaveEditTextData();
+				saveEditTextData();
 				// 使用子线程向服务器提交数据，并对返回的数据做处理——黄志恒
 				new Thread() {
 					@Override
@@ -411,6 +436,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 			toAddMap.setClass(ParkingCreatement.this, MapForAddress.class);
 			int resultCode = 2;
 			startActivityForResult(toAddMap, resultCode);
+			break;
 		}
 
 	}
@@ -428,7 +454,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 
 	/**
 	 * 发送创建新停车场的数据
-	 *
+	 * 
 	 * @throws Exception
 	 * @throws JsonMappingException
 	 * @throws JsonGenerationException
@@ -446,7 +472,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 
 	/**
 	 * 发送创建新停车场的数据
-	 *
+	 * 
 	 * @throws Exception
 	 */
 	public void postUpdateData() throws Exception {
@@ -457,7 +483,7 @@ public class ParkingCreatement extends Activity implements OnClickListener {
 	/**
 	 * 保存输入框的数据
 	 */
-	public void SaveEditTextData() {
+	public void saveEditTextData() {
 		name = parkName.getText().toString().trim();
 		phone = parkPhone.getText().toString().trim();
 

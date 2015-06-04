@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- *
+ * 
  * 订单界面、默认显示当前正在进行的订单. <br>
  * 订单界面类.
  * <p>
@@ -29,11 +29,12 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author张芳 sa614296@mail.ustc.edu.cn 周晶鑫修改
- * @version 3.0.0 
+ * @version 3.0.0
  */
 public class ManagerOrderIng extends Activity implements OnItemClickListener {
+
 	public static ListView listView;
 	private static TextView textView;
 	public static OrderStateProcessAdapter myAdapter;
@@ -59,7 +60,8 @@ public class ManagerOrderIng extends Activity implements OnItemClickListener {
 
 		if (aosIng != null) {
 			textView.setVisibility(View.GONE);
-			myAdapter = new OrderStateProcessAdapter(ManagerOrderIng.this, aosIng);
+			myAdapter = new OrderStateProcessAdapter(ManagerOrderIng.this,
+					aosIng);
 			listView.setAdapter(myAdapter);
 		} else if (adminId != 0) {
 			// 开启线程访问服务器获取订单数据
@@ -86,14 +88,15 @@ public class ManagerOrderIng extends Activity implements OnItemClickListener {
 				if (aosIng != null) {
 					textView.setVisibility(View.GONE);
 				}
-				myAdapter = new OrderStateProcessAdapter(ManagerOrderIng.this, aosIng);
+				myAdapter = new OrderStateProcessAdapter(ManagerOrderIng.this,
+						aosIng);
 				listView.setAdapter(myAdapter);
 				break;
 			case 55:// 获取失败
-				ToastUtil.show(ManagerOrderIng.this, "获取失败");
+				ToastUtil.show(ManagerOrderIng.this, "获取正在进行的订单失败");
 				break;
 			case 66:// 获取失败
-				ToastUtil.show(ManagerOrderIng.this, "没有订单数据");
+				ToastUtil.show(ManagerOrderIng.this, "没有正在进行的订单");
 				break;
 			}
 		};
@@ -123,7 +126,15 @@ public class ManagerOrderIng extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		AdminOrderShow order = aosIng.get(position);
+		/*if(aosIng == null) {Log.i("--->>", "null aosing");
+		Log.i("--->>p", String.valueOf(position));
+		}
+		else {
+			Log.i("--->>", "aosing");
+			Log.i("--->>p", String.valueOf(position));
+			Log.i("--->>s", String.valueOf(aosIng.size()));
+		}*/
+		AdminOrderShow order = ConstantKeep.aosIng.get(position);
 		new AdminCustomDialog(ManagerOrderIng.this, order.getOrderDetail(),
 				order.getDriverPhone());
 	}

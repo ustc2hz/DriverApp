@@ -14,6 +14,7 @@ package ustc.sse.water.data;
  * @version 1.0.0
  */
 public class Admin {
+
 	private int adminId; // 管理员id
 	private String adminName; // 管理员名字
 	private String adminPassword; // 管理员密码

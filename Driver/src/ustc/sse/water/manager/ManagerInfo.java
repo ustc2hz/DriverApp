@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- *
+ * 
  * 管理员个人信息界面类. <br>
  * 主要是显示管理员的用户名信息，提供修改密码和退出登录的功能.
  * <p>
@@ -22,7 +22,7 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 张芳 sa614296@ustc.edu.cn 周晶鑫 修改15-03-17
  * @version 2.0.0
  */
@@ -61,6 +61,26 @@ public class ManagerInfo extends Activity implements OnClickListener {
 		updatePwd.setOnClickListener(this);
 	}
 
+	/**
+	 * 清空SharedPreference中的注册停车场信息
+	 */
+	public void clearManagerParking() {
+		SharedPreferences.Editor managerEditor = this.getSharedPreferences(
+				"manager_message", MODE_PRIVATE).edit();
+		managerEditor.putString("name", "空");
+		managerEditor.putString("id", "空");
+		managerEditor.putString("location", "空");
+		managerEditor.putString("phone", "空");
+		managerEditor.putString("num", "空");
+		managerEditor.putString("price_ten", "空");
+		managerEditor.putString("price_twenty", "空");
+		managerEditor.putString("price_thirty", "空");
+		managerEditor.putString("pprice_ten", "空");
+		managerEditor.putString("pprice_twenty", "空");
+		managerEditor.putString("pprice_thirty", "空");
+		managerEditor.commit();
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -82,6 +102,7 @@ public class ManagerInfo extends Activity implements OnClickListener {
 										int which) {
 									spEditor.putInt("userLoginStatus", 2);
 									spEditor.commit();
+									clearManagerParking();
 									dialog.dismiss();
 									// 退出登录时关闭service
 									stopService(new Intent(ManagerInfo.this,

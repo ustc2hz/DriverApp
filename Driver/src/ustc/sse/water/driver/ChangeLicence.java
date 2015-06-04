@@ -23,7 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- *
+ * 
  * Activity类. <br>
  * 驾驶员更换车牌号的界面.
  * <p>
@@ -31,12 +31,13 @@ import android.widget.EditText;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫
  * @version 1.0.0
  */
 public class ChangeLicence extends Activity implements OnClickListener {
-	private final static int CHANGE_LICENCE = 3;
+
+	private final static int CHANGE_LICENCE = 3; // 修改车牌号
 	private final static int UPDATE_RESULT = 4; // 修改后的返回的数
 	private ActionBar ab;
 	private EditText inputLicence; // 新车牌号的输入框
@@ -49,6 +50,7 @@ public class ChangeLicence extends Activity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.driver_function_change_licence);
 		// 修改ActionBar的样式
@@ -65,11 +67,15 @@ public class ChangeLicence extends Activity implements OnClickListener {
 		initViews();
 	}
 
+	/**
+	 * 初始化视图
+	 */
 	private void initViews() {
 		inputLicence = (EditText) findViewById(R.id.edit_driver_new_licence);
 		changeLicence = (Button) findViewById(R.id.button_driver_change_licence);
 		changeLicence.setEnabled(false);
 		changeLicence.setClickable(false);
+		// 给输入框添加输入变化事件
 		inputLicence.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -102,7 +108,7 @@ public class ChangeLicence extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		list = new ArrayList<String>();
 		switch (v.getId()) {
-		case R.id.button_driver_change_licence: // 更换
+		case R.id.button_driver_change_licence: // 更换车牌
 			newLicence = inputLicence.getText().toString();
 			list.add(String.valueOf(CHANGE_LICENCE));
 			driverId = sp.getInt("driverLoginId", 0);

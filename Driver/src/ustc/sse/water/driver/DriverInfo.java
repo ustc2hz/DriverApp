@@ -21,7 +21,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 /**
- *
+ * 
  * 驾驶员的信息展示. <br>
  * 展示驾驶员的个人信息，驾驶员可以使用相关功能按钮；驾驶员可以选择返回地图或者退出登录.
  * <p>
@@ -29,7 +29,7 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 3.0.0
  */
@@ -155,6 +155,7 @@ public class DriverInfo extends Activity implements OnItemClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		
 		Intent intent = new Intent();
 		switch (position) {
 		case LV_MY_ORDERS: // 我的订单
@@ -171,6 +172,7 @@ public class DriverInfo extends Activity implements OnItemClickListener,
 			break;
 		}
 		startActivity(intent);
+		
 	}
 
 	@Override

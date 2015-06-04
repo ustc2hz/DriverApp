@@ -90,45 +90,53 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	private static final int LOGIN_STATUS_DRIVER = 0;// 有驾驶员登录过，而且还没有退出
 	private static final int LOGIN_STATUS_MANAGER = 1;// 有管理员登录过，而且还没有退出
 	private static final int LOGIN_STATUS_NO = 2;// 没有人登录过，或者登录者已经退出
+
 	private long exitTime = 0; // 记录退出按键时间
-
-	public static AMap aMap; /* 高德地图AMap——此类由高德地图API提供 */
-	private String[] bookMoney; /* 记录停车场收费信息的数组——黄志恒 */
-	private RadioButton Carservice;/* 汽车生活按钮——黄志恒 */
-	private int itemDistance; /* 选中的点距离目的位置或自身位置的距离——黄志恒 */
-	private AutoCompleteTextView keyEdit; /* 输入框 */
-	public static LatLonPoint lp; /* 当前位置的点——此类由高德地图API提供 */
-	private LocationManagerProxy mAMapLocationManager/* 坐标监听——此类由高德地图API提供 */;
-
-	private MapView mapView; /* 用来显示地图的MapView——此类由高德地图API提供 */
-	MyCloudSearch mCloud; /* 搜索云图的对象——此类由高德地图API提供 */
-	private OnLocationChangedListener mListener;/* 定位监听——此类由高德地图API提供 */
-	private ImageButton myLocation; /* 自定义定位按钮 */
-	private String name; /* 获取当前停车场的名称——黄志恒 */
-	private String orderPrice; /* 获取当前停车场的订金信息——黄志恒 */
-	private String parkPrice; /* 获取当前停车场的停车收费信息——黄志恒 */
-	private String parkSum; /* 停车位数量——黄志恒 */
-	PoiAroundSearchMethod pas; /* 周边搜索的类 ——此类由高德地图API提供 */
-	private String phone; /* 获取当前停车场的电话号码——黄志恒 */
-
-	private PoiSearchMethod poisearch; /* 搜索对象——此类由高德地图API提供 */
-	private String poiType; /* 搜索类型——黄志恒注 */
-	private RadioButton RMine; /* '我的'按钮——黄志恒 */
-	private RadioButton RNavi; /* 导航按钮——黄志恒 */
-	private RadioButton ROrder; /* 预定按钮——黄志恒 */
-	SharedPreferences sharedPreferences; /* 定义sharedpreference获取用户登录注册信息 */
-	private TextView showInfo;/* 设置一个文本显示区域，用来显示当前停车场的概要信息——黄志恒 */
-	private boolean showText = true;/* 判断是否显示文字区域 */
-	public static LatLonPoint targetPoint;/* 路径规划的目的地的点 ——此类由高德地图API提供 */
-	private UiSettings uiSettings;/* 地图的基本设置——此类由高德地图API提供 */
-	private ImageView voiceInput;/* 语音输入 */
-	private String managerId;/* 停车场管理员ID */
-	private String parkingAddress;/* 停车场地址（坐标） */
-	private String parkType;/* 停车场类型：是APP创建或者是WEB创建 */
-	private Thread th;/* 实现启动APP默认显示离用户最近的停车场 */
-
-	public static LatLng orderLocation = null;/* 用于显示订单位置——此类由高德地图API提供 */
-	private boolean isFirst = true;/* 用来判断是否是第一次启动APP */
+	/* 高德地图AMap——此类由高德地图API提供 */
+	public static AMap aMap;
+	private String[] bookMoney; // 记录停车场收费信息的数组
+	private RadioButton Carservice; // 汽车生活按钮
+	private int itemDistance; // 选中的点距离目的位置或自身位置的距离
+	private AutoCompleteTextView keyEdit; // 输入框
+	/* 当前位置的点——此类由高德地图API提供 */
+	public static LatLonPoint lp;
+	/* 坐标监听——此类由高德地图API提供 */
+	private LocationManagerProxy mAMapLocationManager;
+	/* 用来显示地图的MapView——此类由高德地图API提供 */
+	private MapView mapView;
+	/* 搜索云图的对象——此类由高德地图API提供 */
+	MyCloudSearch mCloud;
+	/* 定位监听——此类由高德地图API提供 */
+	private OnLocationChangedListener mListener;
+	private ImageButton myLocation; // 自定义定位按钮
+	private String name; // 获取当前停车场的名称——黄志恒
+	private String orderPrice; // 获取当前停车场的订金信息——黄志恒
+	private String parkPrice; // 获取当前停车场的停车收费信息——黄志恒
+	private String parkSum; // 停车位数量——黄志恒
+	/* 周边搜索的类 ——此类由高德地图API提供 */
+	PoiAroundSearchMethod pas;
+	private String phone; // 获取当前停车场的电话号码——黄志恒
+	/* 搜索对象——此类由高德地图API提供 */
+	private PoiSearchMethod poisearch;
+	private String poiType; // 搜索类型——黄志恒注
+	private RadioButton RMine; // '我的'按钮——黄志恒
+	private RadioButton RNavi; // 导航按钮——黄志恒
+	private RadioButton ROrder; // 预定按钮——黄志恒
+	SharedPreferences sharedPreferences; // 定义sharedpreference获取用户登录注册信息
+	private TextView showInfo;// 设置一个文本显示区域，用来显示当前停车场的概要信息——黄志恒
+	private boolean showText = true;// 判断是否显示文字区域
+	/* 路径规划的目的地的点 ——此类由高德地图API提供 */
+	public static LatLonPoint targetPoint;
+	/* 地图的基本设置——此类由高德地图API提供 */
+	private UiSettings uiSettings;
+	private ImageView voiceInput; // 语音输入
+	private String managerId; // 停车场管理员ID
+	private String parkingAddress; // 停车场地址（坐标）
+	private String parkType; // 停车场类型：是APP创建或者是WEB创建
+	private Thread th; // 实现启动APP默认显示离用户最近的停车场
+	/* 用于显示订单位置——此类由高德地图API提供 */
+	public static LatLng orderLocation = null;
+	private boolean isFirst = true;// 用来判断是否是第一次启动APP
 
 	/**
 	 * 激活定位 此方法由高德地图API提供
@@ -222,7 +230,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 接收从DriverLife传递过来的返回参数 此方法由高德地图API提供
+	 * 接收从DriverLife传递过来的返回参数 
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -270,7 +278,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			Intent intentUser = new Intent();
 			SharedPreferences shared = getSharedPreferences("userdata",
 					Context.MODE_PRIVATE);
-
 			int loginState = shared.getInt("userLoginStatus", 2); // 取不到，则默认为2
 			switch (loginState) {
 			case LOGIN_STATUS_DRIVER: // 有驾驶员登录过，而且还没有退出
@@ -283,7 +290,6 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			case LOGIN_STATUS_NO: // 没有人登录过，或者登录者已经退出
 				intentUser.setClass(DriverMainScreen.this, LoginActivity.class);
 				break;
-
 			}
 			startActivity(intentUser);
 			break;
@@ -343,10 +349,10 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 响应地图点击事件
+	 * 响应地图点击事件，此方法由高德地图API提供
 	 * 
 	 * @param arg0
-	 *            点击的点生成的对象 此方法由高德地图API提供
+	 *            点击的点生成的对象
 	 */
 	@Override
 	public void onMapClick(LatLng arg0) {
@@ -363,14 +369,13 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(arg0, 15);
 		aMap.moveCamera(update);
 		showInfo.setVisibility(View.INVISIBLE);
-
 	}
 
 	/**
-	 * 响应地图长时间点击点击事件
+	 * 响应地图长时间点击点击事件，此方法由高德地图API提供
 	 * 
 	 * @param arg0
-	 *            点击的点生成的对象 此方法由高德地图API提供
+	 *            点击的点生成的对象
 	 */
 	@Override
 	public void onMapLongClick(LatLng arg0) {
@@ -382,14 +387,17 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	}
 
 	/**
-	 * 点击地图上标记点后执行的操作 * @param marker 点击的点生成的标记对象 此方法由高德地图API提供
+	 * 点击地图上标记点后执行的操作 此方法由高德地图API提供
+	 * 
+	 * @param marker
+	 *            点击的点生成的标记对象
 	 */
 	@Override
 	public boolean onMarkerClick(Marker marker) {
 		// 将标记点的内容置为空
 		marker.setSnippet("");
 		// 在文本区域中显示这个标记点的相关信息
-		TextshowMarkerInfo(marker);
+		showMarkerInfo(marker);
 		// 让这个标记点在前段显示
 		marker.setToTop();
 		// 显示这个标记点的信息框
@@ -566,7 +574,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 					Marker mMarker = list.get(0).marker;
 					mMarker.showInfoWindow();
 					// 在文本区域中显示这个标记点的信息
-					TextshowMarkerInfo(mMarker);
+					showMarkerInfo(mMarker);
 					targetPoint = new LatLonPoint(
 							mMarker.getPosition().latitude,
 							mMarker.getPosition().longitude);
@@ -624,7 +632,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 	 * @param marker
 	 *            点击的地图上的点
 	 */
-	private void TextshowMarkerInfo(Marker marker) {
+	private void showMarkerInfo(Marker marker) {
 		this.name = marker.getTitle();
 		this.phone = null;
 		this.orderPrice = null;
@@ -690,7 +698,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 			}
 		}
 		if (this.phone == null) {
-			this.showInfo.setText("  无此停车场详细信息                 ");
+			this.showInfo.setText("	无详细信息	");
 			this.itemDistance = 0;
 			return;
 

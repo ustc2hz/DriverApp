@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- *
+ * 
  * 修改密码的Activity. <br>
  * 填写新旧密码
  * <p>
@@ -27,7 +27,7 @@ import android.widget.EditText;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 张芳 sa614296@ustc.edu.cn 周晶鑫 修改
  * @version 3.0.0
  */

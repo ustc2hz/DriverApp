@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- *
+ * 
  * 自定义Adapter类. <br>
  * 继承BaseAdapter，是车生活的GridView的Adapter类.
  * <p>
@@ -23,11 +23,12 @@ import android.widget.TextView;
  * <p>
  * Company: 中国科学技术大学软件学院
  * <p>
- *
+ * 
  * @author 周晶鑫 sa614412@mail.ustc.edu.cn
  * @version 1.2.0
  */
 public class DriverLifeAdapter extends BaseAdapter {
+	
 	/* 缓存类 */
 	final class ViewHolder {
 		public ImageView image; // 图片
@@ -42,7 +43,7 @@ public class DriverLifeAdapter extends BaseAdapter {
 
 	/**
 	 * 有参构造函数
-	 *
+	 * 
 	 * @param con
 	 *            上下文
 	 */
@@ -59,7 +60,7 @@ public class DriverLifeAdapter extends BaseAdapter {
 
 	/**
 	 * 获取数据资源（图片和文字）
-	 *
+	 * 
 	 * @return Map封装的数据集合
 	 */
 	private List<Map<String, Object>> getDate() {

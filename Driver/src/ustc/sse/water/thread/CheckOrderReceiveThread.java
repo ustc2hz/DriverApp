@@ -19,6 +19,7 @@ import android.os.Message;
  * @version 1.0.0
  */
 public class CheckOrderReceiveThread extends Thread {
+
 	Handler h; // Handler处理线程访问服务器处理的结果
 	private String orderUUID; // 订单的uuid
 	private int managerId; // 预定的停车场管理员id
