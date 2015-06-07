@@ -1,7 +1,9 @@
 package ustc.sse.water.manager;
 
 import ustc.sse.water.activity.R;
+import ustc.sse.water.data.AdminOrderShow;
 import ustc.sse.water.service.UpdateOrderService;
+import ustc.sse.water.utils.ConstantKeep;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -31,6 +33,7 @@ public class ManagerInfo extends Activity implements OnClickListener {
 	private Button updatePwd; // 修改密码
 	private Button adminOff; // 退出登录
 	private TextView adminName; // 用户名提示
+	private TextView moneyStatistic; // 订单预订金统计
 
 	// 用sharedPreference传递数据
 	private SharedPreferences sp = null;
@@ -54,13 +57,28 @@ public class ManagerInfo extends Activity implements OnClickListener {
 	private void initViews() {
 		adminName = (TextView) findViewById(R.id.text_manager_name);
 		adminName.setText(spAdminName);
-
+		moneyStatistic = (TextView) findViewById(R.id.text_manager_orderStatistics);
+		moneyStatistic.setText(statisticOrder()+"元");
 		adminOff = (Button) findViewById(R.id.button_admin_logoff);
 		updatePwd = (Button) findViewById(R.id.button_update_password);
 		adminOff.setOnClickListener(this);
 		updatePwd.setOnClickListener(this);
 	}
 
+	/**
+	 * 统计已完成订单中赚取的预订金总额
+	 */
+	public String statisticOrder() {
+		if(ConstantKeep.aosDown != null) {
+			int sum = 0;
+			for(AdminOrderShow aos : ConstantKeep.aosDown) {
+				 sum += Integer.parseInt(aos.getOrderPrice());
+			}
+			return String.valueOf(sum);
+		}
+		return "0";
+	}
+	
 	/**
 	 * 清空SharedPreference中的注册停车场信息
 	 */

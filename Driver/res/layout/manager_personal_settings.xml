@@ -19,9 +19,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="#1874CD"
         android:layout_marginTop="10dp"
-        android:textSize="20sp" />
+         />
 
+    <!-- 完成订单统计 -->
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="@string/label_manager_orderStatistics" />
+    
+    <TextView
+        android:id="@+id/text_manager_orderStatistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="#FF3030"
+        android:layout_marginTop="10dp"
+         />
+    
     <Button
         android:id="@+id/button_update_password"
         android:layout_width="match_parent"
@@ -29,11 +53,11 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:textColor="#FF6347"
+        android:textColor="#00C5CD"
         android:textSize="20sp"
         android:textStyle="bold"
         android:text="@string/driver_update_password"
-        android:background="@drawable/button" />
+        android:background="@drawable/manager_info_button_selector" />
 
     <Button
         android:id="@+id/button_admin_logoff"
@@ -41,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="120dp"
         android:textColor="#FF6347"
         android:textSize="20sp"
         android:textStyle="bold"

@@ -18,6 +18,7 @@ import ustc.sse.water.activity.R;
 import ustc.sse.water.driver.DriverInfo;
 import ustc.sse.water.utils.ConstantKeep;
 import ustc.sse.water.utils.HttpUtils;
+import ustc.sse.water.utils.MD5Utils;
 import ustc.sse.water.utils.ProgressDialogUtil;
 import ustc.sse.water.utils.ToastUtil;
 import ustc.sse.water.utils.ValidatorUtils;
@@ -29,6 +30,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -320,11 +322,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 				urlStr.append("/DriverLoginServlet");
 			}
 			HttpPost request = new HttpPost(urlStr.toString());
+			String passwordMD5 = MD5Utils.string2MD5(password); // MD5加密
+			Log.i("--->>Lo_MD5", passwordMD5);
 			// 如果传递参数多的话，可以丢传递的参数进行封装
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			// 添加用户名和密码
 			params.add(new BasicNameValuePair("username", username));
-			params.add(new BasicNameValuePair("password", password));
+			params.add(new BasicNameValuePair("password", passwordMD5));
 			try {
 				// 设置请求参数项
 				request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));

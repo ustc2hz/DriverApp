@@ -114,7 +114,7 @@ public class PoiAroundSearchMethod implements OnPoiSearchListener {
 		dialog.showProgressDialog();// 显示对话框
 		currentPage = 0;
 		query = new PoiSearch.Query("", deepType, "");// Poi搜索
-		query.setPageSize(6);// 设置每页最多返回多少条poiitem
+		query.setPageSize(5);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 		if (lp != null) {
 			// 设置搜索区域为以lp点为圆心，其周围2000米范围

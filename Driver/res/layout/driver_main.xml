@@ -34,11 +34,10 @@
             android:hint="@string/key_search"
             android:imeOptions="actionDone"
             android:maxLength="20"
+            android:shadowColor="#FFFFFF"
             android:singleLine="true"
             android:textColor="#000000"
-            android:textSize="22.0sp" 
-            android:shadowColor="#FFFFFF"
-            />
+            android:textSize="22.0sp" />
 
         <!-- 语音搜索按钮 -->
 
@@ -128,33 +127,31 @@
 
                     <RadioButton
                         android:id="@+id/radio_Carservice"
-                        style="@style/main_tab_bottom"
+                        style="@style/home_tab_bottom"
                         android:layout_marginTop="2.0dip"
                         android:drawableTop="@drawable/fuwu"
                         android:text="@string/main_Carservice" />
 
                     <RadioButton
                         android:id="@+id/radio_navi"
-                        style="@style/main_tab_bottom"
+                        style="@style/home_tab_bottom"
                         android:layout_marginTop="2.0dip"
                         android:drawableTop="@drawable/daohang"
                         android:text="@string/main_navi" />
 
                     <RadioButton
                         android:id="@+id/radio_order"
-                        style="@style/main_tab_bottom"
+                        style="@style/home_tab_bottom"
                         android:layout_marginTop="2.0dip"
                         android:drawableTop="@drawable/yuding"
                         android:text="@string/main_order" />
 
                     <RadioButton
                         android:id="@+id/radio_mine"
-                        style="@style/main_tab_bottom"
+                        style="@style/home_tab_bottom"
                         android:layout_marginTop="2.0dip"
                         android:drawableTop="@drawable/wode"
                         android:text="@string/main_mine" />
-
-                    
                 </RadioGroup>
             </LinearLayout>
         </TabHost>

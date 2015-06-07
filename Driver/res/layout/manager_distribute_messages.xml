@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <!-- 停车场发布信息标题 -->
+
+        <TextView
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/label_manager_parkingInfo"
+            android:textColor="#00688B"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -20,34 +35,42 @@
 
             <EditText
                 android:id="@+id/manager_park_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_login"
-                android:ems="10" />
+                android:layout_weight="1"
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="6dp" >
 
             <Button
                 android:id="@+id/mode_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mode_button"
                 android:background="@drawable/manager_commit_selector"
+                android:drawableLeft="@drawable/gps_order"
+                android:text="@string/mode_button"
                 android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/manager_park_location"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_login" />
+                android:background="@drawable/edit_login"
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="6dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,18 +80,18 @@
 
             <EditText
                 android:id="@+id/manager_park_phone"
-                android:layout_width="164dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.12"
-                android:background="@drawable/edit_login"
-                android:ems="11"
+                android:layout_weight="1"
                 android:inputType="phone" />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="6dp" >
 
             <TextView
                 android:layout_width="162dp"
@@ -80,25 +103,25 @@
                 android:id="@+id/parknumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_login"
                 android:ems="10"
-                android:inputType="number"
-                android:background="@drawable/edit_login" />
+                android:inputType="number" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            style="?android:listSeparatorTextViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/label_manager_parkingPrice"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_manager_parkingPrice"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
+        <LinearLayout android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,10 +133,11 @@
                 android:id="@+id/price1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/edit_login"
                 android:ems="10"
-                android:inputType="number"
-                android:background="@drawable/edit_login" >
+                android:inputType="number" >
 
                 <requestFocus />
             </EditText>
@@ -121,7 +145,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,17 +157,20 @@
 
             <EditText
                 android:id="@+id/price2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/edit_login"
                 android:ems="10"
-                android:inputType="number"
-                android:background="@drawable/edit_login" />
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -151,23 +180,28 @@
 
             <EditText
                 android:id="@+id/price3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/edit_login"
                 android:ems="10"
-                android:inputType="number"
-                android:background="@drawable/edit_login" />
+                android:inputType="number" />
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            style="?android:listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/label_manager_priceMoney"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <LinearLayout
+        <LinearLayout android:layout_marginTop="3dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -177,17 +211,20 @@
 
             <EditText
                 android:id="@+id/pprice1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="0.73"
+                android:background="@drawable/edit_login"
                 android:ems="10"
-                android:inputType="number"
-                android:background="@drawable/edit_login" />
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -196,17 +233,20 @@
 
             <EditText
                 android:id="@+id/pprice2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="0.73"
+                android:background="@drawable/edit_login"
                 android:ems="10"
-                android:inputType="number"
-                android:background="@drawable/edit_login" />
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -215,39 +255,44 @@
 
             <EditText
                 android:id="@+id/pprice3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/edit_login"
                 android:ems="10"
-                android:inputType="number" 
-                android:background="@drawable/edit_login"/>
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
+            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="10dp" >
+            android:layout_marginTop="10dp"
+            android:background="@drawable/manager_info_button_normal"
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/manager_commit"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:background="@drawable/manager_commit_selector"
                 android:text="@string/manager_commit"
-                android:textSize="20sp" />
+                android:textColor="#00688B"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/manager_update"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:background="@drawable/manager_update_selector"
                 android:text="@string/manager_update"
-                android:textSize="20sp" />
+                android:textColor="#00688B"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

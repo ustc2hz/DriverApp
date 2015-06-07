@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ustc.sse.water.activity"
     android:versionCode="3"
-    android:versionName="3.0" >
+    android:versionName="3.5" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -126,6 +126,7 @@
 
         <!-- 停车场详情和预定 -->
         <activity android:name="ustc.sse.water.driver.ParkingDetail" />
+		<activity android:name="ustc.sse.water.driver.ParkingDetailNavi"/>        
 
         <!-- 更新订单的Service -->
         <service android:name="ustc.sse.water.service.UpdateOrderService" />

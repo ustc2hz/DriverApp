@@ -37,7 +37,7 @@ public class ManagerMainTabActivity extends TabActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.login__success);
+		setContentView(R.layout.login_success);
 
 		this.mAIntent = new Intent(this, ManagerOrderIng.class);
 		this.mBIntent = new Intent(this, ParkingCreatement.class);

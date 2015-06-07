@@ -2,6 +2,7 @@ package ustc.sse.water.tools;
 
 import ustc.sse.water.utils.ToastUtil;
 import android.content.Context;
+import android.util.Log;
 
 import com.amap.api.maps.AMap;
 import com.iflytek.cloud.ErrorCode;
@@ -71,9 +72,12 @@ public class VoiceSearch {
 			voiceResult = VoiceJsonParser.parseIatResult(result
 					.getResultString());
 			ToastUtil.show(context, "语音识别：" + voiceResult);
+			Log.i("-->>result", "结果"+voiceResult);
 			if (!"".equals(voiceResult)) {
 				new PoiSearchMethod(aMap, context, voiceResult).doSearchQuery();
+				Log.i("--->>>voice", "into gps");
 			} else {
+				Log.i("--->>>voice", "into error");
 				ToastUtil.show(context, "无法识别，请重说！");
 			}
 		}

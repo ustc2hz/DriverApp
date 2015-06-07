@@ -6,12 +6,12 @@ import java.util.Map;
 
 import ustc.sse.water.activity.R;
 import ustc.sse.water.service.GetCurrentBookNumber;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +61,7 @@ public class ParkingInfoFragment extends Fragment {
 	public ParkingInfoFragment(Context con, Map<String, Object> park) {
 		this.context = con;
 		this.parking = park;
+		initBR(); // 开启广播
 	}
 
 	/**
@@ -97,8 +98,8 @@ public class ParkingInfoFragment extends Fragment {
 		orderMessages[0] = (String) parking.get("parkingName");
 		orderMessages[1] = (String) parking.get("parkingAddress");
 		list = getData();
-		initBR(); // 开启广播
-		// 开启服务
+		
+		// 开启服务，为Fragment第一次创建使用
 		Intent numService = new Intent(context, GetCurrentBookNumber.class);
 		numService.putExtra("parking_managerId",
 				(String) parking.get("managerId"));
@@ -171,9 +172,8 @@ public class ParkingInfoFragment extends Fragment {
 			} else {
 				currentNum.setText("暂无数据");
 			}
-
 		}
-
+		
 	}
 
 }

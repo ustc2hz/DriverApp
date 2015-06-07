@@ -60,6 +60,7 @@ public class DriverNaviActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_driver_navi);
+		getActionBar().hide();
 		Bundle bundle = getIntent().getExtras();
 		processBundle(bundle);
 		// 初始化数据

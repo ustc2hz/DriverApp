@@ -12,7 +12,7 @@ import ustc.sse.water.activity.R;
 import ustc.sse.water.data.MarkerDistance;
 import ustc.sse.water.data.MyComparetor;
 import ustc.sse.water.driver.DriverInfo;
-import ustc.sse.water.driver.ParkingDetail;
+import ustc.sse.water.driver.ParkingDetailNavi;
 import ustc.sse.water.manager.LoginActivity;
 import ustc.sse.water.manager.ManagerMainTabActivity;
 import ustc.sse.water.tools.MyCloudSearch;
@@ -518,7 +518,7 @@ public class DriverMainScreen extends Activity implements LocationSource,
 		map.put("parkingAddress", this.parkingAddress); // 停车场坐标
 		map.put("parkType", this.parkType); // 停车场的类型：app或者web
 
-		Intent intent = new Intent(DriverMainScreen.this, ParkingDetail.class);
+		Intent intent = new Intent(DriverMainScreen.this, ParkingDetailNavi.class);
 		// 将选中的停车场封装到Intent中
 		intent.putExtra("select_parking", (Serializable) map);
 		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

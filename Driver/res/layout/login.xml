@@ -42,6 +42,22 @@
 	    
 	</RelativeLayout>
 	
+	<!-- 跑马灯动画文字 -->
+	<TextView android:id="@+id/text_warning_show" 
+	    android:layout_marginTop="10dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+	    android:textSize="18sp"
+	    android:text="@string/text_warning_animation"
+	    android:singleLine="true"
+	    android:ellipsize="marquee"
+	    android:marqueeRepeatLimit="marquee_forever"
+	    android:focusable="true"
+	    android:focusableInTouchMode="true"
+	    android:textColor="#ff0000"/>
+	
 	<!-- RadioButton让用户选择是停车场还是驾驶员 -->
 	<RadioGroup android:id="@+id/user_login_radioGroup"
 	    android:layout_width="match_parent"
